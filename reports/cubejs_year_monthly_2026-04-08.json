@@ -1,0 +1,148 @@
+{
+  "queryType": "regularQuery",
+  "results": [
+    {
+      "query": {
+        "measures": [
+          "Sales.seller_revenue_without_delivery_measure"
+        ],
+        "dimensions": [],
+        "timeDimensions": [
+          {
+            "dimension": "Sales.created_at",
+            "dateRange": [
+              "2025-04-01T00:00:00.000",
+              "2025-04-01T23:59:59.999"
+            ],
+            "compareDateRange": null,
+            "granularity": "month"
+          }
+        ],
+        "limit": 10000,
+        "timezone": "Europe/Moscow",
+        "filters": [
+          {
+            "member": "Sales.shop_id",
+            "operator": "equals",
+            "values": [
+              "98"
+            ]
+          },
+          {
+            "member": "Sales.shop_id",
+            "operator": "equals",
+            "values": [
+              "98"
+            ]
+          }
+        ],
+        "rowLimit": 10000
+      },
+      "lastRefreshTime": "2026-04-08T09:23:55.000Z",
+      "annotation": {
+        "timeDimensions": {
+          "Sales.created_at.month": {
+            "title": "Sales Created at",
+            "shortTitle": "Created at",
+            "type": "time",
+            "granularity": {
+              "name": "month",
+              "title": "month",
+              "interval": "1 month"
+            }
+          },
+          "Sales.created_at": {
+            "title": "Sales Created at",
+            "shortTitle": "Created at",
+            "type": "time"
+          }
+        },
+        "measures": {
+          "Sales.seller_revenue_without_delivery_measure": {
+            "title": "Sales Seller Revenue Without Delivery Measure",
+            "shortTitle": "Seller Revenue Without Delivery Measure",
+            "description": "Выручка продавца без учёта стоимости доставки",
+            "type": "number",
+            "drillMembers": [
+              "Sales.shop_id",
+              "Sales.category_id",
+              "Sales.product_id",
+              "Sales.sku_id",
+              "Sales.has_fbs",
+              "Sales.has_fbo",
+              "CategoryHierarchy.category_l1_id",
+              "CategoryHierarchy.category_l2_id",
+              "CategoryHierarchy.category_l3_id",
+              "CategoryHierarchy.category_l4_id",
+              "CategoryHierarchy.category_l5_id",
+              "CategoryHierarchy.category_l6_id"
+            ],
+            "drillMembersGrouped": {
+              "measures": [],
+              "dimensions": [
+                "Sales.shop_id",
+                "Sales.category_id",
+                "Sales.product_id",
+                "Sales.sku_id",
+                "Sales.has_fbs",
+                "Sales.has_fbo",
+                "CategoryHierarchy.category_l1_id",
+                "CategoryHierarchy.category_l2_id",
+                "CategoryHierarchy.category_l3_id",
+                "CategoryHierarchy.category_l4_id",
+                "CategoryHierarchy.category_l5_id",
+                "CategoryHierarchy.category_l6_id"
+              ]
+            }
+          }
+        },
+        "dimensions": {},
+        "segments": {}
+      },
+      "dataSource": "clickhouse",
+      "dbType": "clickhouse",
+      "extDbType": "cubestore",
+      "external": true,
+      "slowQuery": false,
+      "data": []
+    }
+  ],
+  "pivotQuery": {
+    "measures": [
+      "Sales.seller_revenue_without_delivery_measure"
+    ],
+    "dimensions": [],
+    "timeDimensions": [
+      {
+        "dimension": "Sales.created_at",
+        "dateRange": [
+          "2025-04-01T00:00:00.000",
+          "2025-04-01T23:59:59.999"
+        ],
+        "compareDateRange": null,
+        "granularity": "month"
+      }
+    ],
+    "limit": 10000,
+    "timezone": "Europe/Moscow",
+    "filters": [
+      {
+        "member": "Sales.shop_id",
+        "operator": "equals",
+        "values": [
+          "98"
+        ]
+      },
+      {
+        "member": "Sales.shop_id",
+        "operator": "equals",
+        "values": [
+          "98"
+        ]
+      }
+    ],
+    "rowLimit": 10000,
+    "queryType": "regularQuery"
+  },
+  "slowQuery": false
+}

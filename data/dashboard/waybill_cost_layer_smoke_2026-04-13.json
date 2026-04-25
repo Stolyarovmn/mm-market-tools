@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "sheet_name": "Товары на отправку",
+    "source_file": "/home/user/mm-market-tools/data/local/waybill_synthetic_sample.json",
+    "column_mapping": {
+      "barcode": "Штрихкод",
+      "cogs": "Себестоимость",
+      "quantity": "Количество",
+      "title": "Наименование",
+      "sku": "Артикул",
+      "product_id": null,
+      "upd_id": "УПД",
+      "planned_supply_at": "Дата поставки",
+      "waybill_id": "Номер накладной"
+    }
+  },
+  "summary": {
+    "sheet_name": "Товары на отправку",
+    "source_file": "/home/user/mm-market-tools/data/local/waybill_synthetic_sample.json",
+    "raw_rows_count": 3,
+    "normalized_rows_count": 3,
+    "unmatched_rows_count": 0,
+    "rows_with_barcode": 3,
+    "rows_with_cogs": 3,
+    "rows_with_quantity": 3,
+    "total_quantity_supplied": 27,
+    "total_batch_cogs": 3260.0,
+    "avg_unit_cogs": 114.83,
+    "column_mapping_coverage": 0.8888888888888888
+  },
+  "rows": [
+    {
+      "waybill_id": "WB-1001",
+      "planned_supply_at": "2026-04-10 10:00",
+      "barcode": "4601234567890",
+      "sku": "SKU-001",
+      "product_id": null,
+      "title": "Игрушка А",
+      "quantity_supplied": 10,
+      "unit_cogs": 125.5,
+      "batch_cogs_total": 1255.0,
+      "upd_id": "UPD-001",
+      "source_row": 2,
+      "source_sheet": "Товары на отправку",
+      "source_file": "/home/user/mm-market-tools/data/local/waybill_synthetic_sample.json",
+      "cost_source": "waybill_excel"
+    },
+    {
+      "waybill_id": "WB-1001",
+      "planned_supply_at": "2026-04-10 10:00",
+      "barcode": "4601234567891",
+      "sku": "SKU-002",
+      "product_id": null,
+      "title": "Игрушка Б",
+      "quantity_supplied": 5,
+      "unit_cogs": 89.0,
+      "batch_cogs_total": 445.0,
+      "upd_id": "UPD-001",
+      "source_row": 3,
+      "source_sheet": "Товары на отправку",
+      "source_file": "/home/user/mm-market-tools/data/local/waybill_synthetic_sample.json",
+      "cost_source": "waybill_excel"
+    },
+    {
+      "waybill_id": "WB-1002",
+      "planned_supply_at": "2026-04-12 12:00",
+      "barcode": "4601234567890",
+      "sku": "SKU-001",
+      "product_id": null,
+      "title": "Игрушка А",
+      "quantity_supplied": 12,
+      "unit_cogs": 130.0,
+      "batch_cogs_total": 1560.0,
+      "upd_id": "UPD-002",
+      "source_row": 4,
+      "source_sheet": "Товары на отправку",
+      "source_file": "/home/user/mm-market-tools/data/local/waybill_synthetic_sample.json",
+      "cost_source": "waybill_excel"
+    }
+  ],
+  "unmatched_rows": [],
+  "historical_cogs": {
+    "items": [
+      {
+        "identity_key": "4601234567890",
+        "barcode": "4601234567890",
+        "sku": "SKU-001",
+        "product_id": null,
+        "title": "Игрушка А",
+        "latest_unit_cogs": 130.0,
+        "latest_planned_supply_at": "2026-04-12 12:00",
+        "batch_count": 2,
+        "avg_unit_cogs": 127.75,
+        "min_unit_cogs": 125.5,
+        "max_unit_cogs": 130.0,
+        "sources": [
+          "waybill_excel"
+        ]
+      },
+      {
+        "identity_key": "4601234567891",
+        "barcode": "4601234567891",
+        "sku": "SKU-002",
+        "product_id": null,
+        "title": "Игрушка Б",
+        "latest_unit_cogs": 89.0,
+        "latest_planned_supply_at": "2026-04-10 10:00",
+        "batch_count": 1,
+        "avg_unit_cogs": 89.0,
+        "min_unit_cogs": 89.0,
+        "max_unit_cogs": 89.0,
+        "sources": [
+          "waybill_excel"
+        ]
+      }
+    ],
+    "summary": {
+      "historical_cogs_items": 2,
+      "items_with_cost": 2
+    }
+  },
+  "report_kind": "waybill_cost_layer"
+}

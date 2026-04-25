@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MM Market Tools Dashboard</title>
+  <link rel="stylesheet" href="/ui/styles.css">
+  <style>
+    /* --- Entity-first navigation --- */
+    .entity-title-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .entity-title-row h3 { margin: 0; flex: 1 1 auto; }
+    .entity-position-badge { font-size: .75rem; font-variant-numeric: tabular-nums; padding: 2px 7px; border-radius: 10px; background: var(--color-border, #e0e0e0); color: var(--color-text-muted, #888); white-space: nowrap; }
+    .entity-cross-badge   { font-size: .75rem; padding: 2px 7px; border-radius: 10px; background: var(--color-accent-soft, rgba(107,138,253,.15)); color: var(--color-accent, #6b8afd); white-space: nowrap; }
+    .entity-info-note     { font-size: .8rem; color: var(--color-text-muted, #888); margin: 0 0 8px; }
+
+    /* History sparkline */
+    .entity-spark-row   { display: flex; align-items: flex-end; gap: 6px; margin-top: 10px; }
+    .entity-spark-label { font-size: .75rem; color: var(--color-text-muted, #888); white-space: nowrap; }
+    .entity-spark-value { font-size: .75rem; font-weight: 600; }
+    .entity-spark-wrap  { display: flex; align-items: flex-end; gap: 2px; height: 28px; }
+    .entity-spark-bar   { width: 6px; border-radius: 2px 2px 0 0; background: var(--color-accent, #6b8afd); opacity: .7; min-height: 3px; transition: opacity .15s; cursor: default; }
+    .entity-spark-bar:hover { opacity: 1; }
+
+    /* Keyboard shortcut hint in entity detail */
+    .entity-key-hint { font-size: .72rem; color: var(--color-text-muted, #888); margin-top: 6px; }
+    kbd { display: inline-block; padding: 1px 4px; border-radius: 3px; border: 1px solid var(--color-border,#ccc); font-size: .7rem; background: var(--color-surface, #f5f5f5); }
+
+    /* --- Buyer reviews --- */
+    .buyer-reviews-list { display: flex; flex-direction: column; gap: 16px; }
+    .review-card { background: var(--color-surface, #fff); border: 1px solid var(--color-border, #e0e0e0); border-radius: 8px; padding: 16px; }
+    .review-card[data-kind="question"] { border-left: 3px solid var(--color-accent, #6b8afd); }
+    .review-card[data-kind="review"]   { border-left: 3px solid var(--color-warn, #f0a500); }
+    .review-card[data-kind="review"][data-rating="5"],
+    .review-card[data-kind="review"][data-rating="4"] { border-left-color: var(--color-good, #4caf50); }
+    .review-card[data-kind="review"][data-rating="1"],
+    .review-card[data-kind="review"][data-rating="2"] { border-left-color: var(--color-bad, #e53935); }
+    .review-header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+    .review-header h3 { margin: 0; font-size: .95rem; flex: 1 1 auto; }
+    .review-stars { font-size: .85rem; letter-spacing: .1em; }
+    .review-meta  { font-size: .75rem; color: var(--color-text-muted, #888); }
+    .review-text  { margin: 8px 0 12px; line-height: 1.5; }
+    .reply-editor { width: 100%; box-sizing: border-box; min-height: 80px; padding: 8px 10px; border: 1px solid var(--color-border, #e0e0e0); border-radius: 6px; font-size: .9rem; font-family: inherit; resize: vertical; background: var(--color-bg, #fafafa); color: var(--color-text, #111); }
+    .reply-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+    .reply-strategy { font-size: .72rem; color: var(--color-text-muted, #888); }
+    .reply-sent-badge { font-size: .8rem; color: var(--color-good, #4caf50); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">MM Market Tools</p>
+        <h1>Дашборд магазина</h1>
+        <p class="subtitle" id="hero-subtitle">Интерактивный просмотр операционных и исторических отчётов из слоя аналитических данных.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="theme-toggle icon-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
+          <span id="theme-toggle-label">◐</span>
+        </button>
+        <a class="theme-toggle compact-button" id="refresh-link-report-top" href="/refresh.html" style="display:none" title="Открыть refresh runner для этого отчёта">▶ Обновить</a>
+        <a class="theme-toggle" id="refresh-link-top" href="/refresh.html">Обновить данные</a>
+        <label class="field">
+          <span id="report-select-label">Отчёт</span>
+          <select id="report-select"></select>
+        </label>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel meta-panel">
+        <div class="panel-header">
+          <h2>Сводка отчёта</h2>
+          <p>Период, режим получения данных и основные источники для текущего отчёта.</p>
+        </div>
+        <div class="meta-grid" id="meta-grid"></div>
+      </section>
+
+      <section class="panel" id="kpi-panel">
+        <div class="panel-header">
+          <h2>Ключевые показатели</h2>
+          <p>Быстрый верхний слой чисел, на который дальше опираются действия и интерпретации.</p>
+        </div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+      </section>
+
+      <section class="panel" id="priority-panel">
+        <div class="panel-header">
+          <h2 id="priority-title">Приоритеты Сейчас</h2>
+          <p id="priority-subtitle">Главные управленческие действия по текущему отчёту.</p>
+        </div>
+        <div class="compare-grid" id="priority-grid"></div>
+      </section>
+
+      <section class="panel" id="change-panel">
+        <div class="panel-header">
+          <h2>Что Изменилось</h2>
+          <p>Сравнение текущего отчёта с предыдущим отчётом того же типа.</p>
+        </div>
+        <div class="insights-grid" id="change-grid"></div>
+      </section>
+
+      <section class="panel" id="insights-panel">
+        <div class="panel-header">
+          <h2 id="insights-title">Выводы</h2>
+          <p id="insights-subtitle">Автоматические интерпретации по текущему отчёту.</p>
+        </div>
+        <div class="insights-grid" id="insights-grid"></div>
+      </section>
+
+      <section class="panel" id="compare-panel" hidden>
+        <div class="panel-header">
+          <h2>Сравнение Периодов</h2>
+          <p>Год к году, с начала года и сдвиг к базе по long-range данным CubeJS.</p>
+        </div>
+        <div class="compare-grid" id="compare-grid"></div>
+      </section>
+
+      <section class="panel" id="actions-panel">
+        <div class="panel-header">
+          <h2 id="actions-title">Действия</h2>
+          <p id="actions-subtitle">Приоритетные списки для weekly цикла.</p>
+        </div>
+        <div class="action-grid">
+          <div id="action-reorder"></div>
+          <div id="action-markdown"></div>
+          <div id="action-protect"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="action-center-panel">
+        <div class="panel-header">
+          <h2>Центр действий</h2>
+          <p>Сохранённые списки наблюдения и ручные задачи менеджера.</p>
+        </div>
+        <div class="action-center-toolbar" id="action-center-toolbar"></div>
+        <div class="action-grid">
+          <div id="watchlist-panel"></div>
+          <div id="manual-actions-panel"></div>
+          <div id="action-center-status-panel"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="manager-queues-panel">
+        <div class="panel-header">
+          <h2>Очереди дальнейших действий</h2>
+          <p>Срезы по статусам, ответственным и сохранённым представлениям для ежедневного управленческого цикла.</p>
+        </div>
+        <div class="action-grid">
+          <div id="queue-status-panel"></div>
+          <div id="queue-owner-panel"></div>
+          <div id="queue-view-panel"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="entity-detail-panel">
+        <div class="panel-header">
+          <h2>Карточка и история</h2>
+          <p>Детальная карточка сущности: текущие сигналы, history и ручной follow-up.</p>
+        </div>
+        <div id="entity-detail-root" class="entity-detail-root"></div>
+      </section>
+
+      <section class="table-grid" id="tables-panel">
+        <div class="panel" id="table-winners"></div>
+        <div class="panel" id="table-profit"></div>
+        <div class="panel" id="table-risk"></div>
+        <div class="panel" id="table-stale"></div>
+      </section>
+
+      <section class="table-grid" id="family-panel">
+        <div class="panel" id="family-winners"></div>
+        <div class="panel" id="family-reorder"></div>
+        <div class="panel" id="family-variants"></div>
+      </section>
+
+      <section class="panel" id="charts-panel">
+        <div class="panel-header">
+          <h2 id="charts-title">Распределения</h2>
+          <p id="charts-subtitle">Быстрый взгляд на структуру текущего окна.</p>
+        </div>
+        <div class="chart-grid" id="chart-grid"></div>
+      </section>
+
+      <section class="panel" id="trend-panel" hidden>
+        <div class="panel-header">
+          <h2>История По Месяцам</h2>
+          <p>Временной ряд для долгого анализа и сравнения периодов.</p>
+        </div>
+        <div id="trend-grid" class="trend-grid"></div>
+      </section>
+
+      <section class="panel" id="buyer-reviews-panel">
+        <div class="panel-header">
+          <h2 id="buyer-reviews-title">Покупатели</h2>
+          <p>Отзывы и вопросы без ответа. Черновик ответа генерируется автоматически — отредактируй и отправь.</p>
+        </div>
+        <div class="action-center-toolbar" id="buyer-reviews-toolbar"></div>
+        <div id="buyer-reviews-list" class="buyer-reviews-list"></div>
+      </section>
+
+      <section class="panel utility-panel">
+        <div class="panel-header">
+          <h2>Навигация</h2>
+          <p>Быстрые действия без возврата в шапку.</p>
+        </div>
+        <div class="hero-actions utility-actions">
+          <a class="theme-toggle compact-button" id="refresh-link-report" href="/refresh.html" style="display:none">▶ Обновить этот отчёт</a>
+          <a class="theme-toggle" id="refresh-link-bottom" href="/refresh.html">К обновлению данных</a>
+          <label class="field utility-field">
+            <span>Переключить отчёт</span>
+            <select id="report-select-bottom"></select>
+          </label>
+        </div>
+      </section>
+    </main>
+  </div>
+  <button class="theme-toggle floating-top-button" id="scroll-top-button" type="button" aria-label="Наверх">↑</button>
+  <script type="module" src="/ui/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MM Market Tools Refresh</title>
+  <link rel="stylesheet" href="/ui/styles.css">
+  <style>
+    /* --- Progress bar --- */
+    .progress-wrap { margin: 8px 0 4px; }
+    .progress-label { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; margin-bottom: 4px; color: var(--color-text-muted, #888); }
+    .progress-elapsed { font-variant-numeric: tabular-nums; }
+    .progress-track { height: 6px; border-radius: 3px; background: var(--color-border, #e0e0e0); overflow: hidden; }
+    .progress-fill--indeterminate { height: 100%; width: 40%; border-radius: 3px; background: var(--color-accent, #6b8afd); animation: progress-slide 1.5s ease-in-out infinite; }
+    @keyframes progress-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
+
+    /* --- Control-room mode --- */
+    body.ctrl-room .job-card .job-form-grid { display: none; }
+    body.ctrl-room .job-card .job-card-text  { display: none; }
+    body.ctrl-room .job-card { padding: 10px 14px; }
+    body.ctrl-room #run-meta,
+    body.ctrl-room .log-panel { outline: 2px solid var(--color-accent, #6b8afd); border-radius: 6px; }
+    body.ctrl-room #result-summary .insight-card[data-tone="good"] { border-color: var(--color-good, #4caf50); }
+
+    /* --- Retry zone --- */
+    .retry-zone { margin-top: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .retry-hint  { font-size: .8rem; color: var(--color-text-muted, #888); }
+
+    /* --- Targeted job (deep-link highlight) --- */
+    @keyframes targeted-pulse { 0%,100%{box-shadow:0 0 0 0 transparent} 50%{box-shadow:0 0 0 4px var(--color-accent,#6b8afd)} }
+    .job-card--targeted { outline: 2px solid var(--color-accent,#6b8afd); border-radius: 6px; animation: targeted-pulse 1.6s ease-in-out 3; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">MM Market Tools</p>
+        <h1>Обновление данных</h1>
+        <p class="subtitle">Локальный web-runner для online refresh: запуск jobs, статусы и живой лог.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="theme-toggle icon-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
+          <span id="theme-toggle-label">◐</span>
+        </button>
+        <button class="theme-toggle" id="ctrl-room-toggle" type="button" title="Фокус-режим: скрывает формы job и подсвечивает активный запуск">⊞ Фокус</button>
+        <a class="theme-toggle" href="/">К дашборду</a>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel runner-control-panel">
+        <div class="panel-header">
+          <h2 id="runner-control-title">Панель запуска</h2>
+          <p>Быстрый статус, очередь запусков и групповые действия. Очередь идёт последовательно, чтобы не бить в API пачкой.</p>
+        </div>
+        <div class="meta-grid" id="quick-status-grid"></div>
+        <div class="action-center-toolbar" id="queue-toolbar"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 id="token-panel-title">Токен доступа</h2>
+          <p>Единый токен для online jobs. Хранится только в браузерной сессии, перед запуском проверяется по JWT и не попадает в лог запуска.</p>
+        </div>
+        <div class="action-center-toolbar" id="token-toolbar"></div>
+        <div class="meta-grid" id="token-meta"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 id="workflow-title">Как использовать</h2>
+          <p>Когда нужно обновить данные MM, открываешь этот экран из подходящей сетевой сессии, запускаешь нужный job и ждёшь `succeeded`.</p>
+        </div>
+        <div class="insights-grid" id="workflow-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 id="jobs-panel-title">Доступные jobs</h2>
+          <p>Online jobs идут в MM API. Offline jobs работают только по локальным файлам.</p>
+        </div>
+        <div id="jobs-grid" class="jobs-grid"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 id="run-panel-title">Текущий запуск</h2>
+          <p>Статус, параметры и live log. Токен в лог и status не сохраняется.</p>
+        </div>
+        <div class="meta-grid" id="run-meta"></div>
+        <div class="insights-grid" id="result-summary"></div>
+        <pre class="log-panel" id="run-log">Нет активного запуска.</pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 id="runs-history-title">Последние запуски</h2>
+          <p>История job run’ов на этой машине.</p>
+        </div>
+        <div id="runs-grid" class="jobs-grid"></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/ui/refresh.js"></script>
+</body>
+</html>

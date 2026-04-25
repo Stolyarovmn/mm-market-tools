@@ -1,0 +1,5561 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "schema_version": "1.0.0",
+      "file_name": "waybill_cost_layer_2026-04-18_integration.json",
+      "file_path": "data/dashboard/waybill_cost_layer_2026-04-18_integration.json",
+      "report_name": "waybill_cost_layer_2026-04-18_integration",
+      "report_kind": "waybill_cost_layer",
+      "report_variant": "2026-04-18_integration",
+      "generated_at": "2026-04-17T21:01:48.237650+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 2,
+        "sold_skus": 3,
+        "revenue_total": 3260.0,
+        "gross_profit_total": 0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "waybill_rows_count": 3,
+        "historical_cogs_items_count": 2,
+        "rows_without_identity_count": 0,
+        "total_amount": 3260.0,
+        "avg_amount_per_row": 114.83,
+        "total_quantity_supplied": 27
+      },
+      "documents": {
+        "waybill_mode": "local",
+        "waybill_source_file": "data/local/waybill_synthetic_sample.json",
+        "waybill_sheet_name": "Товары на отправку"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "0.0.0",
+      "file_name": "waybill_cost_layer_smoke_2026-04-13.json",
+      "file_path": "data/dashboard/waybill_cost_layer_smoke_2026-04-13.json",
+      "report_name": "waybill_cost_layer_smoke_2026-04-13",
+      "report_kind": "waybill_cost_layer",
+      "report_variant": "smoke_2026-04-13",
+      "generated_at": null,
+      "window": {},
+      "kpis": {},
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "waybill_cost_layer_2026-04-18_integration.json",
+        "report_name": "waybill_cost_layer_2026-04-18_integration",
+        "generated_at": "2026-04-17T21:01:48.237650+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "waybill_cost_layer_2026-04-18_integration.json",
+        "previous_generated_at": "2026-04-17T21:01:48.237650+00:00",
+        "diffs": {},
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "cubejs_period_compare_2026-04-13.json",
+      "file_path": "data/dashboard/cubejs_period_compare_2026-04-13.json",
+      "report_name": "cubejs_period_compare_2026-04-13",
+      "report_kind": "cubejs_period_compare",
+      "report_variant": "Long Range",
+      "generated_at": "2026-04-13T08:40:03.741915+00:00",
+      "window": {
+        "date_from": "2025-04-14",
+        "date_to": "2026-04-13",
+        "window_days": 365
+      },
+      "kpis": {
+        "revenue_total": 149703.80000000002,
+        "gross_profit_total": 0.0,
+        "sold_skus": 1135.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "total_skus": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "sales_return_report_2026-04-13.json",
+      "file_path": "data/dashboard/sales_return_report_2026-04-13.json",
+      "report_name": "sales_return_report_2026-04-13",
+      "report_kind": "sales_return_report",
+      "report_variant": "2026-04-13",
+      "generated_at": "2026-04-13T08:39:25.705695+00:00",
+      "window": {
+        "date_from": "2026-03-15",
+        "date_to": "2026-04-13",
+        "window_days": 30
+      },
+      "kpis": {
+        "return_rows_count": 2,
+        "total_returns_count": 1.0,
+        "unique_return_reasons_count": 2,
+        "rows_without_reason_count": 0,
+        "rows_without_identity_count": 0,
+        "top_reason_share_pct": 100.0,
+        "avg_returns_per_row": 0.5
+      },
+      "documents": {
+        "sales_return_mode": "seller analytics",
+        "sales_return_source": "CubeJS / SalesReturn"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "paid_storage_report_2026-04-13.json",
+      "file_path": "data/dashboard/paid_storage_report_2026-04-13.json",
+      "report_name": "paid_storage_report_2026-04-13",
+      "report_kind": "paid_storage_report",
+      "report_variant": "2026-04-13",
+      "generated_at": "2026-04-13T08:39:25.258012+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 1699,
+        "sold_skus": 1698,
+        "revenue_total": 0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 1699,
+        "stale_stock_count": 1698,
+        "storage_rows_count": 1699,
+        "rows_with_amount_count": 1698,
+        "rows_without_identity_count": 1699,
+        "total_amount": 5591259946.0,
+        "penalty_total": 0,
+        "avg_amount_per_row": 3292850.38
+      },
+      "documents": {
+        "paid_storage_request_id": 451557,
+        "paid_storage_file_name": "paid-storage-report.xlsx",
+        "paid_storage_download_url": "https://ke-report-for-sellers.storage.yandexcloud.net/Documents/014867938b/paid_storage_report.xlsx",
+        "paid_storage_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "sales_return_report_2026-04-13_smoke.json",
+      "file_path": "data/dashboard/sales_return_report_2026-04-13_smoke.json",
+      "report_name": "sales_return_report_2026-04-13_smoke",
+      "report_kind": "sales_return_report",
+      "report_variant": "2026-04-13_smoke",
+      "generated_at": "2026-04-13T07:01:02.139808+00:00",
+      "window": {
+        "date_from": "2026-03-15",
+        "date_to": "2026-04-13",
+        "window_days": 30
+      },
+      "kpis": {
+        "return_rows_count": 5,
+        "total_returns_count": 21.0,
+        "unique_return_reasons_count": 4,
+        "rows_without_reason_count": 1,
+        "rows_without_identity_count": 1,
+        "top_reason_share_pct": 57.14,
+        "avg_returns_per_row": 4.2
+      },
+      "documents": {
+        "sales_return_mode": "local",
+        "sales_return_source": "/tmp/sales_return_smoke.json"
+      },
+      "previous_same_kind": {
+        "file_name": "sales_return_report_2026-04-13.json",
+        "report_name": "sales_return_report_2026-04-13",
+        "generated_at": "2026-04-13T08:39:25.705695+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "sales_return_report_2026-04-13.json",
+        "previous_generated_at": "2026-04-13T08:39:25.705695+00:00",
+        "diffs": {
+          "rows_without_identity_count": {
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          "return_rows_count": {
+            "current": 5.0,
+            "previous": 2.0,
+            "delta": 3.0,
+            "delta_pct": 150.0
+          },
+          "total_returns_count": {
+            "current": 21.0,
+            "previous": 1.0,
+            "delta": 20.0,
+            "delta_pct": 2000.0
+          },
+          "unique_return_reasons_count": {
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          "rows_without_reason_count": {
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          "top_reason_share_pct": {
+            "current": 57.14,
+            "previous": 100.0,
+            "delta": -42.86,
+            "delta_pct": -42.86
+          },
+          "avg_returns_per_row": {
+            "current": 4.2,
+            "previous": 0.5,
+            "delta": 3.7,
+            "delta_pct": 740.0
+          }
+        },
+        "summary": [
+          {
+            "key": "total_returns_count",
+            "current": 21.0,
+            "previous": 1.0,
+            "delta": 20.0,
+            "delta_pct": 2000.0
+          },
+          {
+            "key": "unique_return_reasons_count",
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          {
+            "key": "rows_without_reason_count",
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          {
+            "key": "rows_without_identity_count",
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          {
+            "key": "top_reason_share_pct",
+            "current": 57.14,
+            "previous": 100.0,
+            "delta": -42.86,
+            "delta_pct": -42.86
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "paid_storage_report_2026-04-11_smoke.json",
+      "file_path": "data/dashboard/paid_storage_report_2026-04-11_smoke.json",
+      "report_name": "paid_storage_report_2026-04-11_smoke",
+      "report_kind": "paid_storage_report",
+      "report_variant": "2026-04-11_smoke",
+      "generated_at": "2026-04-11T05:29:20.412756+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 4,
+        "sold_skus": 4,
+        "revenue_total": 2650.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 1,
+        "stale_stock_count": 4,
+        "storage_rows_count": 4,
+        "rows_with_amount_count": 4,
+        "rows_without_identity_count": 1,
+        "total_amount": 2650.0,
+        "penalty_total": 170.0,
+        "avg_amount_per_row": 662.5
+      },
+      "documents": {
+        "paid_storage_request_id": null,
+        "paid_storage_file_name": "paid_storage_smoke.xlsx",
+        "paid_storage_download_url": null,
+        "paid_storage_mode": "local"
+      },
+      "previous_same_kind": {
+        "file_name": "paid_storage_report_2026-04-13.json",
+        "report_name": "paid_storage_report_2026-04-13",
+        "generated_at": "2026-04-13T08:39:25.258012+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "paid_storage_report_2026-04-13.json",
+        "previous_generated_at": "2026-04-13T08:39:25.258012+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 4.0,
+            "previous": 1699.0,
+            "delta": -1695.0,
+            "delta_pct": -99.76
+          },
+          "sold_skus": {
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          "revenue_total": {
+            "current": 2650.0,
+            "previous": 0.0,
+            "delta": 2650.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 1.0,
+            "previous": 1699.0,
+            "delta": -1698.0,
+            "delta_pct": -99.94
+          },
+          "stale_stock_count": {
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          "storage_rows_count": {
+            "current": 4.0,
+            "previous": 1699.0,
+            "delta": -1695.0,
+            "delta_pct": -99.76
+          },
+          "rows_with_amount_count": {
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          "rows_without_identity_count": {
+            "current": 1.0,
+            "previous": 1699.0,
+            "delta": -1698.0,
+            "delta_pct": -99.94
+          },
+          "total_amount": {
+            "current": 2650.0,
+            "previous": 5591259946.0,
+            "delta": -5591257296.0,
+            "delta_pct": -100.0
+          },
+          "penalty_total": {
+            "current": 170.0,
+            "previous": 0.0,
+            "delta": 170.0,
+            "delta_pct": null
+          },
+          "avg_amount_per_row": {
+            "current": 662.5,
+            "previous": 3292850.38,
+            "delta": -3292187.88,
+            "delta_pct": -99.98
+          }
+        },
+        "summary": [
+          {
+            "key": "total_amount",
+            "current": 2650.0,
+            "previous": 5591259946.0,
+            "delta": -5591257296.0,
+            "delta_pct": -100.0
+          },
+          {
+            "key": "rows_with_amount_count",
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          {
+            "key": "rows_without_identity_count",
+            "current": 1.0,
+            "previous": 1699.0,
+            "delta": -1698.0,
+            "delta_pct": -99.94
+          },
+          {
+            "key": "avg_amount_per_row",
+            "current": 662.5,
+            "previous": 3292850.38,
+            "delta": -3292187.88,
+            "delta_pct": -99.98
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "description_seo_report_2026-04-11.json",
+      "file_path": "data/dashboard/description_seo_report_2026-04-11.json",
+      "report_name": "description_seo_report_2026-04-11",
+      "report_kind": "description_seo_report",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:59:12.855170+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 13,
+        "description_needs_work_count": 4,
+        "thin_content_count": 13,
+        "description_gap_count": 12
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "media_richness_report_2026-04-11.json",
+      "file_path": "data/dashboard/media_richness_report_2026-04-11.json",
+      "report_name": "media_richness_report_2026-04-11",
+      "report_kind": "media_richness_report",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:59:09.238308+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 6,
+        "media_needs_work_count": 14,
+        "photo_gap_count": 16,
+        "spec_gap_count": 5,
+        "with_video_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "marketing_card_audit_2026-04-11.json",
+      "file_path": "data/dashboard/marketing_card_audit_2026-04-11.json",
+      "report_name": "marketing_card_audit_2026-04-11",
+      "report_kind": "marketing_card_audit",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:56.264312+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 142623.44,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 60,
+        "price_trap_cards_count": 33,
+        "seo_needs_work_count": 27,
+        "seo_priority_fix_count": 0,
+        "market_supported_cards_count": 30,
+        "double_fix_count": 0,
+        "content_plus_commerce_count": 0,
+        "content_fix_count": 0,
+        "media_needs_work_count": 0,
+        "description_needs_work_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "dynamic_pricing_2026-04-11.json",
+      "file_path": "data/dashboard/dynamic_pricing_2026-04-11.json",
+      "report_name": "dynamic_pricing_2026-04-11",
+      "report_kind": "dynamic_pricing",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:46.712827+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 11,
+        "sold_skus": 11,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "priced_windows_count": 11,
+        "aggressive_price_windows_count": 11,
+        "market_price_windows_count": 0,
+        "test_price_windows_count": 0,
+        "do_not_discount_windows_count": 0,
+        "target_margin_pct": 35.0,
+        "avg_observed_market_price": 966.36,
+        "avg_margin_fit_pct": 81.87
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-11.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-11.json",
+      "report_name": "market_rescored_after_cogs_2026-04-11",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-11",
+      "generated_at": "2026-04-10T21:58:44.577483+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-11.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-11.json",
+      "report_name": "competitor_market_analysis_2026-04-11",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:32.728112+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 187,
+        "sold_skus": 187,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 111,
+        "observed_group_count": 17,
+        "stockout_risk_count": 111,
+        "stale_stock_count": 17,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 3,
+        "overall_dominance_hhi": 935.61,
+        "novelty_proxy_index": 62.29,
+        "other_group_share_pct": 7.79,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 58.82,
+        "economics_coverage_windows_pct": 50.0,
+        "blind_spot_windows_count": 2,
+        "entry_ready_windows_count": 2,
+        "test_entry_windows_count": 1,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "market_rescored_after_cogs_2026-04-11.json",
+        "report_name": "market_rescored_after_cogs_2026-04-11",
+        "generated_at": "2026-04-10T21:58:44.577483+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "market_rescored_after_cogs_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:44.577483+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 187.0,
+            "previous": 196.0,
+            "delta": -9.0,
+            "delta_pct": -4.59
+          },
+          "sold_skus": {
+            "current": 187.0,
+            "previous": 196.0,
+            "delta": -9.0,
+            "delta_pct": -4.59
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 111.0,
+            "previous": 116.0,
+            "delta": -5.0,
+            "delta_pct": -4.31
+          },
+          "stale_stock_count": {
+            "current": 17.0,
+            "previous": 16.0,
+            "delta": 1.0,
+            "delta_pct": 6.25
+          },
+          "observed_seller_count": {
+            "current": 111.0,
+            "previous": 116.0,
+            "delta": -5.0,
+            "delta_pct": -4.31
+          },
+          "observed_group_count": {
+            "current": 17.0,
+            "previous": 16.0,
+            "delta": 1.0,
+            "delta_pct": 6.25
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 3.0,
+            "previous": 5.0,
+            "delta": -2.0,
+            "delta_pct": -40.0
+          },
+          "overall_dominance_hhi": {
+            "current": 935.61,
+            "previous": 1010.31,
+            "delta": -74.7,
+            "delta_pct": -7.39
+          },
+          "novelty_proxy_index": {
+            "current": 62.29,
+            "previous": 63.08,
+            "delta": -0.79,
+            "delta_pct": -1.25
+          },
+          "blind_spot_windows_count": {
+            "current": 2.0,
+            "previous": 4.0,
+            "delta": -2.0,
+            "delta_pct": -50.0
+          },
+          "entry_ready_windows_count": {
+            "current": 2.0,
+            "previous": 1.0,
+            "delta": 1.0,
+            "delta_pct": 100.0
+          },
+          "test_entry_windows_count": {
+            "current": 1.0,
+            "previous": 3.0,
+            "delta": -2.0,
+            "delta_pct": -66.67
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 935.61,
+            "previous": 1010.31,
+            "delta": -74.7,
+            "delta_pct": -7.39
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 62.29,
+            "previous": 63.08,
+            "delta": -0.79,
+            "delta_pct": -1.25
+          },
+          {
+            "key": "observed_seller_count",
+            "current": 111.0,
+            "previous": 116.0,
+            "delta": -5.0,
+            "delta_pct": -4.31
+          },
+          {
+            "key": "blind_spot_windows_count",
+            "current": 2.0,
+            "previous": 4.0,
+            "delta": -2.0,
+            "delta_pct": -50.0
+          },
+          {
+            "key": "entry_ready_windows_count",
+            "current": 2.0,
+            "previous": 1.0,
+            "delta": 1.0,
+            "delta_pct": 100.0
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "marketing_card_audit_2026-04-10.json",
+      "file_path": "data/dashboard/marketing_card_audit_2026-04-10.json",
+      "report_name": "marketing_card_audit_2026-04-10",
+      "report_kind": "marketing_card_audit",
+      "report_variant": "2026-04-10",
+      "generated_at": "2026-04-10T09:42:12.935815+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 142623.44,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 60,
+        "price_trap_cards_count": 33,
+        "seo_needs_work_count": 27,
+        "seo_priority_fix_count": 0,
+        "market_supported_cards_count": 30,
+        "double_fix_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "marketing_card_audit_2026-04-11.json",
+        "report_name": "marketing_card_audit_2026-04-11",
+        "generated_at": "2026-04-10T21:58:56.264312+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "marketing_card_audit_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:56.264312+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 60.0,
+            "previous": 60.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "revenue_total": {
+            "current": 142623.44,
+            "previous": 142623.44,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stale_stock_count": {
+            "current": 29.0,
+            "previous": 29.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "priority_cards_count": {
+            "current": 60.0,
+            "previous": 60.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "price_trap_cards_count": {
+            "current": 33.0,
+            "previous": 33.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "seo_needs_work_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "seo_priority_fix_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "market_supported_cards_count": {
+            "current": 30.0,
+            "previous": 30.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "double_fix_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "dynamic_pricing_2026-04-10.json",
+      "file_path": "data/dashboard/dynamic_pricing_2026-04-10.json",
+      "report_name": "dynamic_pricing_2026-04-10",
+      "report_kind": "dynamic_pricing",
+      "report_variant": "2026-04-10",
+      "generated_at": "2026-04-10T07:59:06.299529+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 11,
+        "sold_skus": 11,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "priced_windows_count": 11,
+        "aggressive_price_windows_count": 11,
+        "market_price_windows_count": 0,
+        "test_price_windows_count": 0,
+        "do_not_discount_windows_count": 0,
+        "target_margin_pct": 35.0,
+        "avg_observed_market_price": 966.36,
+        "avg_margin_fit_pct": 81.87
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "dynamic_pricing_2026-04-11.json",
+        "report_name": "dynamic_pricing_2026-04-11",
+        "generated_at": "2026-04-10T21:58:46.712827+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "dynamic_pricing_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:46.712827+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stale_stock_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "priced_windows_count": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "aggressive_price_windows_count": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "market_price_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "test_price_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "do_not_discount_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-09b.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-09b.json",
+      "report_name": "market_rescored_after_cogs_2026-04-09b",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-09b",
+      "generated_at": "2026-04-09T15:47:50.187944+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-11.json",
+        "report_name": "competitor_market_analysis_2026-04-11",
+        "generated_at": "2026-04-10T21:58:32.728112+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:32.728112+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 196.0,
+            "previous": 187.0,
+            "delta": 9.0,
+            "delta_pct": 4.81
+          },
+          "sold_skus": {
+            "current": 196.0,
+            "previous": 187.0,
+            "delta": 9.0,
+            "delta_pct": 4.81
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 116.0,
+            "previous": 111.0,
+            "delta": 5.0,
+            "delta_pct": 4.5
+          },
+          "stale_stock_count": {
+            "current": 16.0,
+            "previous": 17.0,
+            "delta": -1.0,
+            "delta_pct": -5.88
+          },
+          "observed_seller_count": {
+            "current": 116.0,
+            "previous": 111.0,
+            "delta": 5.0,
+            "delta_pct": 4.5
+          },
+          "observed_group_count": {
+            "current": 16.0,
+            "previous": 17.0,
+            "delta": -1.0,
+            "delta_pct": -5.88
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 5.0,
+            "previous": 3.0,
+            "delta": 2.0,
+            "delta_pct": 66.67
+          },
+          "overall_dominance_hhi": {
+            "current": 1010.31,
+            "previous": 935.61,
+            "delta": 74.7,
+            "delta_pct": 7.98
+          },
+          "novelty_proxy_index": {
+            "current": 63.08,
+            "previous": 62.29,
+            "delta": 0.79,
+            "delta_pct": 1.27
+          },
+          "blind_spot_windows_count": {
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          "entry_ready_windows_count": {
+            "current": 1.0,
+            "previous": 2.0,
+            "delta": -1.0,
+            "delta_pct": -50.0
+          },
+          "test_entry_windows_count": {
+            "current": 3.0,
+            "previous": 1.0,
+            "delta": 2.0,
+            "delta_pct": 200.0
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 1010.31,
+            "previous": 935.61,
+            "delta": 74.7,
+            "delta_pct": 7.98
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 63.08,
+            "previous": 62.29,
+            "delta": 0.79,
+            "delta_pct": 1.27
+          },
+          {
+            "key": "observed_seller_count",
+            "current": 116.0,
+            "previous": 111.0,
+            "delta": 5.0,
+            "delta_pct": 4.5
+          },
+          {
+            "key": "blind_spot_windows_count",
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          {
+            "key": "entry_ready_windows_count",
+            "current": 1.0,
+            "previous": 2.0,
+            "delta": -1.0,
+            "delta_pct": -50.0
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-09test.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-09test.json",
+      "report_name": "market_rescored_after_cogs_2026-04-09test",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-09test",
+      "generated_at": "2026-04-09T15:34:46.209538+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "market_rescored_after_cogs_2026-04-09b.json",
+        "report_name": "market_rescored_after_cogs_2026-04-09b",
+        "generated_at": "2026-04-09T15:47:50.187944+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "market_rescored_after_cogs_2026-04-09b.json",
+        "previous_generated_at": "2026-04-09T15:47:50.187944+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_seller_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_group_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 1010.31,
+            "previous": 1010.31,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 63.08,
+            "previous": 63.08,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "blind_spot_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "entry_ready_windows_count": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "test_entry_windows_count": {
+            "current": 3.0,
+            "previous": 3.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09g.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09g.json",
+      "report_name": "competitor_market_analysis_2026-04-09g",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09g",
+      "generated_at": "2026-04-09T13:02:06.291572+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 56.25,
+        "economics_coverage_windows_pct": 53.33,
+        "blind_spot_windows_count": 5,
+        "entry_ready_windows_count": 0,
+        "test_entry_windows_count": 2,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "market_rescored_after_cogs_2026-04-09test.json",
+        "report_name": "market_rescored_after_cogs_2026-04-09test",
+        "generated_at": "2026-04-09T15:34:46.209538+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "market_rescored_after_cogs_2026-04-09test.json",
+        "previous_generated_at": "2026-04-09T15:34:46.209538+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_seller_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_group_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 1010.31,
+            "previous": 1010.31,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 63.08,
+            "previous": 63.08,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "blind_spot_windows_count": {
+            "current": 5.0,
+            "previous": 4.0,
+            "delta": 1.0,
+            "delta_pct": 25.0
+          },
+          "entry_ready_windows_count": {
+            "current": 0.0,
+            "previous": 1.0,
+            "delta": -1.0,
+            "delta_pct": -100.0
+          },
+          "test_entry_windows_count": {
+            "current": 2.0,
+            "previous": 3.0,
+            "delta": -1.0,
+            "delta_pct": -33.33
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "blind_spot_windows_count",
+            "current": 5.0,
+            "previous": 4.0,
+            "delta": 1.0,
+            "delta_pct": 25.0
+          },
+          {
+            "key": "entry_ready_windows_count",
+            "current": 0.0,
+            "previous": 1.0,
+            "delta": -1.0,
+            "delta_pct": -100.0
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09f.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09f.json",
+      "report_name": "competitor_market_analysis_2026-04-09f",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09f",
+      "generated_at": "2026-04-09T07:45:36.699608+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 177,
+        "sold_skus": 177,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 101,
+        "stale_stock_count": 15,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 4,
+        "overall_dominance_hhi": 983.38,
+        "novelty_proxy_index": 63.85,
+        "other_group_share_pct": 8.24,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 53.33,
+        "economics_coverage_windows_pct": 53.33,
+        "entry_ready_windows_count": 0,
+        "test_entry_windows_count": 1,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09g.json",
+        "report_name": "competitor_market_analysis_2026-04-09g",
+        "generated_at": "2026-04-09T13:02:06.291572+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09g.json",
+        "previous_generated_at": "2026-04-09T13:02:06.291572+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 177.0,
+            "previous": 196.0,
+            "delta": -19.0,
+            "delta_pct": -9.69
+          },
+          "sold_skus": {
+            "current": 177.0,
+            "previous": 196.0,
+            "delta": -19.0,
+            "delta_pct": -9.69
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 101.0,
+            "previous": 116.0,
+            "delta": -15.0,
+            "delta_pct": -12.93
+          },
+          "stale_stock_count": {
+            "current": 15.0,
+            "previous": 16.0,
+            "delta": -1.0,
+            "delta_pct": -6.25
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 4.0,
+            "previous": 5.0,
+            "delta": -1.0,
+            "delta_pct": -20.0
+          },
+          "overall_dominance_hhi": {
+            "current": 983.38,
+            "previous": 1010.31,
+            "delta": -26.93,
+            "delta_pct": -2.67
+          },
+          "novelty_proxy_index": {
+            "current": 63.85,
+            "previous": 63.08,
+            "delta": 0.77,
+            "delta_pct": 1.22
+          },
+          "entry_ready_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "test_entry_windows_count": {
+            "current": 1.0,
+            "previous": 2.0,
+            "delta": -1.0,
+            "delta_pct": -50.0
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 983.38,
+            "previous": 1010.31,
+            "delta": -26.93,
+            "delta_pct": -2.67
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 63.85,
+            "previous": 63.08,
+            "delta": 0.77,
+            "delta_pct": 1.22
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09e.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09e.json",
+      "report_name": "competitor_market_analysis_2026-04-09e",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09e",
+      "generated_at": "2026-04-09T07:22:43.763446+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 5234.37,
+        "novelty_proxy_index": 83.64,
+        "other_group_share_pct": 3.27
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09f.json",
+        "report_name": "competitor_market_analysis_2026-04-09f",
+        "generated_at": "2026-04-09T07:45:36.699608+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09f.json",
+        "previous_generated_at": "2026-04-09T07:45:36.699608+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 177.0,
+            "delta": -127.0,
+            "delta_pct": -71.75
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 177.0,
+            "delta": -127.0,
+            "delta_pct": -71.75
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 101.0,
+            "delta": -74.0,
+            "delta_pct": -73.27
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 15.0,
+            "delta": -5.0,
+            "delta_pct": -33.33
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 4.0,
+            "delta": -3.0,
+            "delta_pct": -75.0
+          },
+          "overall_dominance_hhi": {
+            "current": 5234.37,
+            "previous": 983.38,
+            "delta": 4250.99,
+            "delta_pct": 432.28
+          },
+          "novelty_proxy_index": {
+            "current": 83.64,
+            "previous": 63.85,
+            "delta": 19.79,
+            "delta_pct": 30.99
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 5234.37,
+            "previous": 983.38,
+            "delta": 4250.99,
+            "delta_pct": 432.28
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 83.64,
+            "previous": 63.85,
+            "delta": 19.79,
+            "delta_pct": 30.99
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09d.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09d.json",
+      "report_name": "competitor_market_analysis_2026-04-09d",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09d",
+      "generated_at": "2026-04-09T07:21:54.955648+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 5234.37,
+        "novelty_proxy_index": 83.64,
+        "other_group_share_pct": 3.27
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09e.json",
+        "report_name": "competitor_market_analysis_2026-04-09e",
+        "generated_at": "2026-04-09T07:22:43.763446+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09e.json",
+        "previous_generated_at": "2026-04-09T07:22:43.763446+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 5234.37,
+            "previous": 5234.37,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 83.64,
+            "previous": 83.64,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09c.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09c.json",
+      "report_name": "competitor_market_analysis_2026-04-09c",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09c",
+      "generated_at": "2026-04-09T07:18:30.866627+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 5234.37,
+        "novelty_proxy_index": 83.64,
+        "other_group_share_pct": 3.27
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09d.json",
+        "report_name": "competitor_market_analysis_2026-04-09d",
+        "generated_at": "2026-04-09T07:21:54.955648+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09d.json",
+        "previous_generated_at": "2026-04-09T07:21:54.955648+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 5234.37,
+            "previous": 5234.37,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 83.64,
+            "previous": 83.64,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09b.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09b.json",
+      "report_name": "competitor_market_analysis_2026-04-09b",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09b",
+      "generated_at": "2026-04-09T05:41:24.141711+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 51,
+        "sold_skus": 51,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 28,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 3526.49,
+        "novelty_proxy_index": 82.02,
+        "other_group_share_pct": 2.4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09c.json",
+        "report_name": "competitor_market_analysis_2026-04-09c",
+        "generated_at": "2026-04-09T07:18:30.866627+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09c.json",
+        "previous_generated_at": "2026-04-09T07:18:30.866627+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 51.0,
+            "previous": 50.0,
+            "delta": 1.0,
+            "delta_pct": 2.0
+          },
+          "sold_skus": {
+            "current": 51.0,
+            "previous": 50.0,
+            "delta": 1.0,
+            "delta_pct": 2.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 28.0,
+            "previous": 27.0,
+            "delta": 1.0,
+            "delta_pct": 3.7
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 3526.49,
+            "previous": 5234.37,
+            "delta": -1707.88,
+            "delta_pct": -32.63
+          },
+          "novelty_proxy_index": {
+            "current": 82.02,
+            "previous": 83.64,
+            "delta": -1.62,
+            "delta_pct": -1.94
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 3526.49,
+            "previous": 5234.37,
+            "delta": -1707.88,
+            "delta_pct": -32.63
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 82.02,
+            "previous": 83.64,
+            "delta": -1.62,
+            "delta_pct": -1.94
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09a.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09a.json",
+      "report_name": "competitor_market_analysis_2026-04-09a",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09a",
+      "generated_at": "2026-04-09T05:28:19.971956+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 51,
+        "sold_skus": 51,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 28,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 3526.49,
+        "novelty_proxy_index": 82.02,
+        "other_group_share_pct": 2.4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09b.json",
+        "report_name": "competitor_market_analysis_2026-04-09b",
+        "generated_at": "2026-04-09T05:41:24.141711+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09b.json",
+        "previous_generated_at": "2026-04-09T05:41:24.141711+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 51.0,
+            "previous": 51.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 51.0,
+            "previous": 51.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 28.0,
+            "previous": 28.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 3526.49,
+            "previous": 3526.49,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 82.02,
+            "previous": 82.02,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-08e.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-08e.json",
+      "report_name": "competitor_market_analysis_2026-04-08e",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-08e",
+      "generated_at": "2026-04-08T15:37:51.603754+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 8,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09a.json",
+        "report_name": "competitor_market_analysis_2026-04-09a",
+        "generated_at": "2026-04-09T05:28:19.971956+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09a.json",
+        "previous_generated_at": "2026-04-09T05:28:19.971956+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 51.0,
+            "delta": -1.0,
+            "delta_pct": -1.96
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 51.0,
+            "delta": -1.0,
+            "delta_pct": -1.96
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 28.0,
+            "delta": -1.0,
+            "delta_pct": -3.57
+          },
+          "stale_stock_count": {
+            "current": 8.0,
+            "previous": 10.0,
+            "delta": -2.0,
+            "delta_pct": -20.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_stricter_v2_2026-04-08.json",
+      "report_name": "official_period_analysis_stricter_v2_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Strict V2",
+      "generated_at": "2026-04-08T15:37:26.780408+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_stricter_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_stricter_2026-04-08.json",
+      "report_name": "official_period_analysis_stricter_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Strict",
+      "generated_at": "2026-04-08T15:37:26.767541+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": {
+        "file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+        "report_name": "official_period_analysis_stricter_v2_2026-04-08",
+        "generated_at": "2026-04-08T15:37:26.780408+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+        "previous_generated_at": "2026-04-08T15:37:26.780408+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 1691.0,
+            "previous": 1691.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 13.0,
+            "previous": 13.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 4233.24,
+            "previous": 4233.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 2144.24,
+            "previous": 2144.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stockout_risk_count": {
+            "current": 134.0,
+            "previous": 134.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 556.0,
+            "previous": 556.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_family_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_family_2026-04-08.json",
+      "report_name": "official_period_analysis_family_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Family",
+      "generated_at": "2026-04-08T15:36:02.303950+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": {
+        "file_name": "official_period_analysis_stricter_2026-04-08.json",
+        "report_name": "official_period_analysis_stricter_2026-04-08",
+        "generated_at": "2026-04-08T15:37:26.767541+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "official_period_analysis_stricter_2026-04-08.json",
+        "previous_generated_at": "2026-04-08T15:37:26.767541+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 1691.0,
+            "previous": 1691.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 13.0,
+            "previous": 13.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 4233.24,
+            "previous": 4233.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 2144.24,
+            "previous": 2144.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stockout_risk_count": {
+            "current": 134.0,
+            "previous": 134.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 556.0,
+            "previous": 556.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "weekly_operational_report_2026-04-08.json",
+      "file_path": "data/dashboard/weekly_operational_report_2026-04-08.json",
+      "report_name": "weekly_operational_report_2026-04-08",
+      "report_kind": "weekly_operational",
+      "report_variant": "Weekly",
+      "generated_at": "2026-04-08T15:36:02.296215+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_dashboard_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_dashboard_2026-04-08.json",
+      "report_name": "official_period_analysis_dashboard_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Dashboard",
+      "generated_at": "2026-04-08T14:31:25.281197+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T14:46:54+03:00",
+        "window_days": 6.62
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "official_period_analysis_family_2026-04-08.json",
+        "report_name": "official_period_analysis_family_2026-04-08",
+        "generated_at": "2026-04-08T15:36:02.303950+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "official_period_analysis_family_2026-04-08.json",
+        "previous_generated_at": "2026-04-08T15:36:02.303950+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 1691.0,
+            "previous": 1691.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 13.0,
+            "previous": 13.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 4233.24,
+            "previous": 4233.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 2144.24,
+            "previous": 2144.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stockout_risk_count": {
+            "current": 134.0,
+            "previous": 134.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 556.0,
+            "previous": 556.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-08d.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-08d.json",
+      "report_name": "competitor_market_analysis_2026-04-08d",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-08d",
+      "generated_at": "2026-04-08T14:09:50.385267+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 8,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-08e.json",
+        "report_name": "competitor_market_analysis_2026-04-08e",
+        "generated_at": "2026-04-08T15:37:51.603754+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-08e.json",
+        "previous_generated_at": "2026-04-08T15:37:51.603754+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 8.0,
+            "previous": 8.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "cubejs_period_compare_2026-04-08.json",
+      "file_path": "data/dashboard/cubejs_period_compare_2026-04-08.json",
+      "report_name": "cubejs_period_compare_2026-04-08",
+      "report_kind": "cubejs_period_compare",
+      "report_variant": "Long Range",
+      "generated_at": "2026-04-08T13:04:43.277664+00:00",
+      "window": {
+        "date_from": "2025-04-09",
+        "date_to": "2026-04-08",
+        "window_days": 365
+      },
+      "kpis": {
+        "revenue_total": 144542.01,
+        "gross_profit_total": 0.0,
+        "sold_skus": 1147.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "total_skus": 0
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "cubejs_period_compare_2026-04-13.json",
+        "report_name": "cubejs_period_compare_2026-04-13",
+        "generated_at": "2026-04-13T08:40:03.741915+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "cubejs_period_compare_2026-04-13.json",
+        "previous_generated_at": "2026-04-13T08:40:03.741915+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "sold_skus": {
+            "current": 1147.0,
+            "previous": 1135.0,
+            "delta": 12.0,
+            "delta_pct": 1.06
+          },
+          "revenue_total": {
+            "current": 144542.01,
+            "previous": 149703.80000000002,
+            "delta": -5161.79,
+            "delta_pct": -3.45
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stale_stock_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          }
+        },
+        "summary": [
+          {
+            "key": "revenue_total",
+            "current": 144542.01,
+            "previous": 149703.80000000002,
+            "delta": -5161.79,
+            "delta_pct": -3.45
+          },
+          {
+            "key": "sold_skus",
+            "current": 1147.0,
+            "previous": 1135.0,
+            "delta": 12.0,
+            "delta_pct": 1.06
+          }
+        ]
+      }
+    }
+  ],
+  "reports": [
+    {
+      "schema_version": "1.0.0",
+      "file_name": "waybill_cost_layer_2026-04-18_integration.json",
+      "file_path": "data/dashboard/waybill_cost_layer_2026-04-18_integration.json",
+      "report_name": "waybill_cost_layer_2026-04-18_integration",
+      "report_kind": "waybill_cost_layer",
+      "report_variant": "2026-04-18_integration",
+      "generated_at": "2026-04-17T21:01:48.237650+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 2,
+        "sold_skus": 3,
+        "revenue_total": 3260.0,
+        "gross_profit_total": 0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "waybill_rows_count": 3,
+        "historical_cogs_items_count": 2,
+        "rows_without_identity_count": 0,
+        "total_amount": 3260.0,
+        "avg_amount_per_row": 114.83,
+        "total_quantity_supplied": 27
+      },
+      "documents": {
+        "waybill_mode": "local",
+        "waybill_source_file": "data/local/waybill_synthetic_sample.json",
+        "waybill_sheet_name": "Товары на отправку"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "0.0.0",
+      "file_name": "waybill_cost_layer_smoke_2026-04-13.json",
+      "file_path": "data/dashboard/waybill_cost_layer_smoke_2026-04-13.json",
+      "report_name": "waybill_cost_layer_smoke_2026-04-13",
+      "report_kind": "waybill_cost_layer",
+      "report_variant": "smoke_2026-04-13",
+      "generated_at": null,
+      "window": {},
+      "kpis": {},
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "waybill_cost_layer_2026-04-18_integration.json",
+        "report_name": "waybill_cost_layer_2026-04-18_integration",
+        "generated_at": "2026-04-17T21:01:48.237650+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "waybill_cost_layer_2026-04-18_integration.json",
+        "previous_generated_at": "2026-04-17T21:01:48.237650+00:00",
+        "diffs": {},
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "cubejs_period_compare_2026-04-13.json",
+      "file_path": "data/dashboard/cubejs_period_compare_2026-04-13.json",
+      "report_name": "cubejs_period_compare_2026-04-13",
+      "report_kind": "cubejs_period_compare",
+      "report_variant": "Long Range",
+      "generated_at": "2026-04-13T08:40:03.741915+00:00",
+      "window": {
+        "date_from": "2025-04-14",
+        "date_to": "2026-04-13",
+        "window_days": 365
+      },
+      "kpis": {
+        "revenue_total": 149703.80000000002,
+        "gross_profit_total": 0.0,
+        "sold_skus": 1135.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "total_skus": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "sales_return_report_2026-04-13.json",
+      "file_path": "data/dashboard/sales_return_report_2026-04-13.json",
+      "report_name": "sales_return_report_2026-04-13",
+      "report_kind": "sales_return_report",
+      "report_variant": "2026-04-13",
+      "generated_at": "2026-04-13T08:39:25.705695+00:00",
+      "window": {
+        "date_from": "2026-03-15",
+        "date_to": "2026-04-13",
+        "window_days": 30
+      },
+      "kpis": {
+        "return_rows_count": 2,
+        "total_returns_count": 1.0,
+        "unique_return_reasons_count": 2,
+        "rows_without_reason_count": 0,
+        "rows_without_identity_count": 0,
+        "top_reason_share_pct": 100.0,
+        "avg_returns_per_row": 0.5
+      },
+      "documents": {
+        "sales_return_mode": "seller analytics",
+        "sales_return_source": "CubeJS / SalesReturn"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "paid_storage_report_2026-04-13.json",
+      "file_path": "data/dashboard/paid_storage_report_2026-04-13.json",
+      "report_name": "paid_storage_report_2026-04-13",
+      "report_kind": "paid_storage_report",
+      "report_variant": "2026-04-13",
+      "generated_at": "2026-04-13T08:39:25.258012+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 1699,
+        "sold_skus": 1698,
+        "revenue_total": 0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 1699,
+        "stale_stock_count": 1698,
+        "storage_rows_count": 1699,
+        "rows_with_amount_count": 1698,
+        "rows_without_identity_count": 1699,
+        "total_amount": 5591259946.0,
+        "penalty_total": 0,
+        "avg_amount_per_row": 3292850.38
+      },
+      "documents": {
+        "paid_storage_request_id": 451557,
+        "paid_storage_file_name": "paid-storage-report.xlsx",
+        "paid_storage_download_url": "https://ke-report-for-sellers.storage.yandexcloud.net/Documents/014867938b/paid_storage_report.xlsx",
+        "paid_storage_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "sales_return_report_2026-04-13_smoke.json",
+      "file_path": "data/dashboard/sales_return_report_2026-04-13_smoke.json",
+      "report_name": "sales_return_report_2026-04-13_smoke",
+      "report_kind": "sales_return_report",
+      "report_variant": "2026-04-13_smoke",
+      "generated_at": "2026-04-13T07:01:02.139808+00:00",
+      "window": {
+        "date_from": "2026-03-15",
+        "date_to": "2026-04-13",
+        "window_days": 30
+      },
+      "kpis": {
+        "return_rows_count": 5,
+        "total_returns_count": 21.0,
+        "unique_return_reasons_count": 4,
+        "rows_without_reason_count": 1,
+        "rows_without_identity_count": 1,
+        "top_reason_share_pct": 57.14,
+        "avg_returns_per_row": 4.2
+      },
+      "documents": {
+        "sales_return_mode": "local",
+        "sales_return_source": "/tmp/sales_return_smoke.json"
+      },
+      "previous_same_kind": {
+        "file_name": "sales_return_report_2026-04-13.json",
+        "report_name": "sales_return_report_2026-04-13",
+        "generated_at": "2026-04-13T08:39:25.705695+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "sales_return_report_2026-04-13.json",
+        "previous_generated_at": "2026-04-13T08:39:25.705695+00:00",
+        "diffs": {
+          "rows_without_identity_count": {
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          "return_rows_count": {
+            "current": 5.0,
+            "previous": 2.0,
+            "delta": 3.0,
+            "delta_pct": 150.0
+          },
+          "total_returns_count": {
+            "current": 21.0,
+            "previous": 1.0,
+            "delta": 20.0,
+            "delta_pct": 2000.0
+          },
+          "unique_return_reasons_count": {
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          "rows_without_reason_count": {
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          "top_reason_share_pct": {
+            "current": 57.14,
+            "previous": 100.0,
+            "delta": -42.86,
+            "delta_pct": -42.86
+          },
+          "avg_returns_per_row": {
+            "current": 4.2,
+            "previous": 0.5,
+            "delta": 3.7,
+            "delta_pct": 740.0
+          }
+        },
+        "summary": [
+          {
+            "key": "total_returns_count",
+            "current": 21.0,
+            "previous": 1.0,
+            "delta": 20.0,
+            "delta_pct": 2000.0
+          },
+          {
+            "key": "unique_return_reasons_count",
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          {
+            "key": "rows_without_reason_count",
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          {
+            "key": "rows_without_identity_count",
+            "current": 1.0,
+            "previous": 0.0,
+            "delta": 1.0,
+            "delta_pct": null
+          },
+          {
+            "key": "top_reason_share_pct",
+            "current": 57.14,
+            "previous": 100.0,
+            "delta": -42.86,
+            "delta_pct": -42.86
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "paid_storage_report_2026-04-11_smoke.json",
+      "file_path": "data/dashboard/paid_storage_report_2026-04-11_smoke.json",
+      "report_name": "paid_storage_report_2026-04-11_smoke",
+      "report_kind": "paid_storage_report",
+      "report_variant": "2026-04-11_smoke",
+      "generated_at": "2026-04-11T05:29:20.412756+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 4,
+        "sold_skus": 4,
+        "revenue_total": 2650.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 1,
+        "stale_stock_count": 4,
+        "storage_rows_count": 4,
+        "rows_with_amount_count": 4,
+        "rows_without_identity_count": 1,
+        "total_amount": 2650.0,
+        "penalty_total": 170.0,
+        "avg_amount_per_row": 662.5
+      },
+      "documents": {
+        "paid_storage_request_id": null,
+        "paid_storage_file_name": "paid_storage_smoke.xlsx",
+        "paid_storage_download_url": null,
+        "paid_storage_mode": "local"
+      },
+      "previous_same_kind": {
+        "file_name": "paid_storage_report_2026-04-13.json",
+        "report_name": "paid_storage_report_2026-04-13",
+        "generated_at": "2026-04-13T08:39:25.258012+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "paid_storage_report_2026-04-13.json",
+        "previous_generated_at": "2026-04-13T08:39:25.258012+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 4.0,
+            "previous": 1699.0,
+            "delta": -1695.0,
+            "delta_pct": -99.76
+          },
+          "sold_skus": {
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          "revenue_total": {
+            "current": 2650.0,
+            "previous": 0.0,
+            "delta": 2650.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 1.0,
+            "previous": 1699.0,
+            "delta": -1698.0,
+            "delta_pct": -99.94
+          },
+          "stale_stock_count": {
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          "storage_rows_count": {
+            "current": 4.0,
+            "previous": 1699.0,
+            "delta": -1695.0,
+            "delta_pct": -99.76
+          },
+          "rows_with_amount_count": {
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          "rows_without_identity_count": {
+            "current": 1.0,
+            "previous": 1699.0,
+            "delta": -1698.0,
+            "delta_pct": -99.94
+          },
+          "total_amount": {
+            "current": 2650.0,
+            "previous": 5591259946.0,
+            "delta": -5591257296.0,
+            "delta_pct": -100.0
+          },
+          "penalty_total": {
+            "current": 170.0,
+            "previous": 0.0,
+            "delta": 170.0,
+            "delta_pct": null
+          },
+          "avg_amount_per_row": {
+            "current": 662.5,
+            "previous": 3292850.38,
+            "delta": -3292187.88,
+            "delta_pct": -99.98
+          }
+        },
+        "summary": [
+          {
+            "key": "total_amount",
+            "current": 2650.0,
+            "previous": 5591259946.0,
+            "delta": -5591257296.0,
+            "delta_pct": -100.0
+          },
+          {
+            "key": "rows_with_amount_count",
+            "current": 4.0,
+            "previous": 1698.0,
+            "delta": -1694.0,
+            "delta_pct": -99.76
+          },
+          {
+            "key": "rows_without_identity_count",
+            "current": 1.0,
+            "previous": 1699.0,
+            "delta": -1698.0,
+            "delta_pct": -99.94
+          },
+          {
+            "key": "avg_amount_per_row",
+            "current": 662.5,
+            "previous": 3292850.38,
+            "delta": -3292187.88,
+            "delta_pct": -99.98
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "description_seo_report_2026-04-11.json",
+      "file_path": "data/dashboard/description_seo_report_2026-04-11.json",
+      "report_name": "description_seo_report_2026-04-11",
+      "report_kind": "description_seo_report",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:59:12.855170+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 13,
+        "description_needs_work_count": 4,
+        "thin_content_count": 13,
+        "description_gap_count": 12
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "media_richness_report_2026-04-11.json",
+      "file_path": "data/dashboard/media_richness_report_2026-04-11.json",
+      "report_name": "media_richness_report_2026-04-11",
+      "report_kind": "media_richness_report",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:59:09.238308+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 6,
+        "media_needs_work_count": 14,
+        "photo_gap_count": 16,
+        "spec_gap_count": 5,
+        "with_video_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "marketing_card_audit_2026-04-11.json",
+      "file_path": "data/dashboard/marketing_card_audit_2026-04-11.json",
+      "report_name": "marketing_card_audit_2026-04-11",
+      "report_kind": "marketing_card_audit",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:56.264312+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 142623.44,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 60,
+        "price_trap_cards_count": 33,
+        "seo_needs_work_count": 27,
+        "seo_priority_fix_count": 0,
+        "market_supported_cards_count": 30,
+        "double_fix_count": 0,
+        "content_plus_commerce_count": 0,
+        "content_fix_count": 0,
+        "media_needs_work_count": 0,
+        "description_needs_work_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "dynamic_pricing_2026-04-11.json",
+      "file_path": "data/dashboard/dynamic_pricing_2026-04-11.json",
+      "report_name": "dynamic_pricing_2026-04-11",
+      "report_kind": "dynamic_pricing",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:46.712827+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 11,
+        "sold_skus": 11,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "priced_windows_count": 11,
+        "aggressive_price_windows_count": 11,
+        "market_price_windows_count": 0,
+        "test_price_windows_count": 0,
+        "do_not_discount_windows_count": 0,
+        "target_margin_pct": 35.0,
+        "avg_observed_market_price": 966.36,
+        "avg_margin_fit_pct": 81.87
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-11.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-11.json",
+      "report_name": "market_rescored_after_cogs_2026-04-11",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-11",
+      "generated_at": "2026-04-10T21:58:44.577483+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-11.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-11.json",
+      "report_name": "competitor_market_analysis_2026-04-11",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:32.728112+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 187,
+        "sold_skus": 187,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 111,
+        "observed_group_count": 17,
+        "stockout_risk_count": 111,
+        "stale_stock_count": 17,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 3,
+        "overall_dominance_hhi": 935.61,
+        "novelty_proxy_index": 62.29,
+        "other_group_share_pct": 7.79,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 58.82,
+        "economics_coverage_windows_pct": 50.0,
+        "blind_spot_windows_count": 2,
+        "entry_ready_windows_count": 2,
+        "test_entry_windows_count": 1,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "market_rescored_after_cogs_2026-04-11.json",
+        "report_name": "market_rescored_after_cogs_2026-04-11",
+        "generated_at": "2026-04-10T21:58:44.577483+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "market_rescored_after_cogs_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:44.577483+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 187.0,
+            "previous": 196.0,
+            "delta": -9.0,
+            "delta_pct": -4.59
+          },
+          "sold_skus": {
+            "current": 187.0,
+            "previous": 196.0,
+            "delta": -9.0,
+            "delta_pct": -4.59
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 111.0,
+            "previous": 116.0,
+            "delta": -5.0,
+            "delta_pct": -4.31
+          },
+          "stale_stock_count": {
+            "current": 17.0,
+            "previous": 16.0,
+            "delta": 1.0,
+            "delta_pct": 6.25
+          },
+          "observed_seller_count": {
+            "current": 111.0,
+            "previous": 116.0,
+            "delta": -5.0,
+            "delta_pct": -4.31
+          },
+          "observed_group_count": {
+            "current": 17.0,
+            "previous": 16.0,
+            "delta": 1.0,
+            "delta_pct": 6.25
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 3.0,
+            "previous": 5.0,
+            "delta": -2.0,
+            "delta_pct": -40.0
+          },
+          "overall_dominance_hhi": {
+            "current": 935.61,
+            "previous": 1010.31,
+            "delta": -74.7,
+            "delta_pct": -7.39
+          },
+          "novelty_proxy_index": {
+            "current": 62.29,
+            "previous": 63.08,
+            "delta": -0.79,
+            "delta_pct": -1.25
+          },
+          "blind_spot_windows_count": {
+            "current": 2.0,
+            "previous": 4.0,
+            "delta": -2.0,
+            "delta_pct": -50.0
+          },
+          "entry_ready_windows_count": {
+            "current": 2.0,
+            "previous": 1.0,
+            "delta": 1.0,
+            "delta_pct": 100.0
+          },
+          "test_entry_windows_count": {
+            "current": 1.0,
+            "previous": 3.0,
+            "delta": -2.0,
+            "delta_pct": -66.67
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 935.61,
+            "previous": 1010.31,
+            "delta": -74.7,
+            "delta_pct": -7.39
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 62.29,
+            "previous": 63.08,
+            "delta": -0.79,
+            "delta_pct": -1.25
+          },
+          {
+            "key": "observed_seller_count",
+            "current": 111.0,
+            "previous": 116.0,
+            "delta": -5.0,
+            "delta_pct": -4.31
+          },
+          {
+            "key": "blind_spot_windows_count",
+            "current": 2.0,
+            "previous": 4.0,
+            "delta": -2.0,
+            "delta_pct": -50.0
+          },
+          {
+            "key": "entry_ready_windows_count",
+            "current": 2.0,
+            "previous": 1.0,
+            "delta": 1.0,
+            "delta_pct": 100.0
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "marketing_card_audit_2026-04-10.json",
+      "file_path": "data/dashboard/marketing_card_audit_2026-04-10.json",
+      "report_name": "marketing_card_audit_2026-04-10",
+      "report_kind": "marketing_card_audit",
+      "report_variant": "2026-04-10",
+      "generated_at": "2026-04-10T09:42:12.935815+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 142623.44,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 60,
+        "price_trap_cards_count": 33,
+        "seo_needs_work_count": 27,
+        "seo_priority_fix_count": 0,
+        "market_supported_cards_count": 30,
+        "double_fix_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "marketing_card_audit_2026-04-11.json",
+        "report_name": "marketing_card_audit_2026-04-11",
+        "generated_at": "2026-04-10T21:58:56.264312+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "marketing_card_audit_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:56.264312+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 60.0,
+            "previous": 60.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "revenue_total": {
+            "current": 142623.44,
+            "previous": 142623.44,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stale_stock_count": {
+            "current": 29.0,
+            "previous": 29.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "priority_cards_count": {
+            "current": 60.0,
+            "previous": 60.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "price_trap_cards_count": {
+            "current": 33.0,
+            "previous": 33.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "seo_needs_work_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "seo_priority_fix_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "market_supported_cards_count": {
+            "current": 30.0,
+            "previous": 30.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "double_fix_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "dynamic_pricing_2026-04-10.json",
+      "file_path": "data/dashboard/dynamic_pricing_2026-04-10.json",
+      "report_name": "dynamic_pricing_2026-04-10",
+      "report_kind": "dynamic_pricing",
+      "report_variant": "2026-04-10",
+      "generated_at": "2026-04-10T07:59:06.299529+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 11,
+        "sold_skus": 11,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "priced_windows_count": 11,
+        "aggressive_price_windows_count": 11,
+        "market_price_windows_count": 0,
+        "test_price_windows_count": 0,
+        "do_not_discount_windows_count": 0,
+        "target_margin_pct": 35.0,
+        "avg_observed_market_price": 966.36,
+        "avg_margin_fit_pct": 81.87
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "dynamic_pricing_2026-04-11.json",
+        "report_name": "dynamic_pricing_2026-04-11",
+        "generated_at": "2026-04-10T21:58:46.712827+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "dynamic_pricing_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:46.712827+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stale_stock_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "priced_windows_count": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "aggressive_price_windows_count": {
+            "current": 11.0,
+            "previous": 11.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "market_price_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "test_price_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "do_not_discount_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-09b.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-09b.json",
+      "report_name": "market_rescored_after_cogs_2026-04-09b",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-09b",
+      "generated_at": "2026-04-09T15:47:50.187944+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-11.json",
+        "report_name": "competitor_market_analysis_2026-04-11",
+        "generated_at": "2026-04-10T21:58:32.728112+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-11.json",
+        "previous_generated_at": "2026-04-10T21:58:32.728112+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 196.0,
+            "previous": 187.0,
+            "delta": 9.0,
+            "delta_pct": 4.81
+          },
+          "sold_skus": {
+            "current": 196.0,
+            "previous": 187.0,
+            "delta": 9.0,
+            "delta_pct": 4.81
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 116.0,
+            "previous": 111.0,
+            "delta": 5.0,
+            "delta_pct": 4.5
+          },
+          "stale_stock_count": {
+            "current": 16.0,
+            "previous": 17.0,
+            "delta": -1.0,
+            "delta_pct": -5.88
+          },
+          "observed_seller_count": {
+            "current": 116.0,
+            "previous": 111.0,
+            "delta": 5.0,
+            "delta_pct": 4.5
+          },
+          "observed_group_count": {
+            "current": 16.0,
+            "previous": 17.0,
+            "delta": -1.0,
+            "delta_pct": -5.88
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 5.0,
+            "previous": 3.0,
+            "delta": 2.0,
+            "delta_pct": 66.67
+          },
+          "overall_dominance_hhi": {
+            "current": 1010.31,
+            "previous": 935.61,
+            "delta": 74.7,
+            "delta_pct": 7.98
+          },
+          "novelty_proxy_index": {
+            "current": 63.08,
+            "previous": 62.29,
+            "delta": 0.79,
+            "delta_pct": 1.27
+          },
+          "blind_spot_windows_count": {
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          "entry_ready_windows_count": {
+            "current": 1.0,
+            "previous": 2.0,
+            "delta": -1.0,
+            "delta_pct": -50.0
+          },
+          "test_entry_windows_count": {
+            "current": 3.0,
+            "previous": 1.0,
+            "delta": 2.0,
+            "delta_pct": 200.0
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 1010.31,
+            "previous": 935.61,
+            "delta": 74.7,
+            "delta_pct": 7.98
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 63.08,
+            "previous": 62.29,
+            "delta": 0.79,
+            "delta_pct": 1.27
+          },
+          {
+            "key": "observed_seller_count",
+            "current": 116.0,
+            "previous": 111.0,
+            "delta": 5.0,
+            "delta_pct": 4.5
+          },
+          {
+            "key": "blind_spot_windows_count",
+            "current": 4.0,
+            "previous": 2.0,
+            "delta": 2.0,
+            "delta_pct": 100.0
+          },
+          {
+            "key": "entry_ready_windows_count",
+            "current": 1.0,
+            "previous": 2.0,
+            "delta": -1.0,
+            "delta_pct": -50.0
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-09test.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-09test.json",
+      "report_name": "market_rescored_after_cogs_2026-04-09test",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-09test",
+      "generated_at": "2026-04-09T15:34:46.209538+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "market_rescored_after_cogs_2026-04-09b.json",
+        "report_name": "market_rescored_after_cogs_2026-04-09b",
+        "generated_at": "2026-04-09T15:47:50.187944+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "market_rescored_after_cogs_2026-04-09b.json",
+        "previous_generated_at": "2026-04-09T15:47:50.187944+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_seller_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_group_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 1010.31,
+            "previous": 1010.31,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 63.08,
+            "previous": 63.08,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "blind_spot_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "entry_ready_windows_count": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "test_entry_windows_count": {
+            "current": 3.0,
+            "previous": 3.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09g.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09g.json",
+      "report_name": "competitor_market_analysis_2026-04-09g",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09g",
+      "generated_at": "2026-04-09T13:02:06.291572+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 56.25,
+        "economics_coverage_windows_pct": 53.33,
+        "blind_spot_windows_count": 5,
+        "entry_ready_windows_count": 0,
+        "test_entry_windows_count": 2,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "market_rescored_after_cogs_2026-04-09test.json",
+        "report_name": "market_rescored_after_cogs_2026-04-09test",
+        "generated_at": "2026-04-09T15:34:46.209538+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "market_rescored_after_cogs_2026-04-09test.json",
+        "previous_generated_at": "2026-04-09T15:34:46.209538+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 196.0,
+            "previous": 196.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_seller_count": {
+            "current": 116.0,
+            "previous": 116.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_group_count": {
+            "current": 16.0,
+            "previous": 16.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 1010.31,
+            "previous": 1010.31,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 63.08,
+            "previous": 63.08,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "blind_spot_windows_count": {
+            "current": 5.0,
+            "previous": 4.0,
+            "delta": 1.0,
+            "delta_pct": 25.0
+          },
+          "entry_ready_windows_count": {
+            "current": 0.0,
+            "previous": 1.0,
+            "delta": -1.0,
+            "delta_pct": -100.0
+          },
+          "test_entry_windows_count": {
+            "current": 2.0,
+            "previous": 3.0,
+            "delta": -1.0,
+            "delta_pct": -33.33
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "blind_spot_windows_count",
+            "current": 5.0,
+            "previous": 4.0,
+            "delta": 1.0,
+            "delta_pct": 25.0
+          },
+          {
+            "key": "entry_ready_windows_count",
+            "current": 0.0,
+            "previous": 1.0,
+            "delta": -1.0,
+            "delta_pct": -100.0
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09f.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09f.json",
+      "report_name": "competitor_market_analysis_2026-04-09f",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09f",
+      "generated_at": "2026-04-09T07:45:36.699608+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 177,
+        "sold_skus": 177,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 101,
+        "stale_stock_count": 15,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 4,
+        "overall_dominance_hhi": 983.38,
+        "novelty_proxy_index": 63.85,
+        "other_group_share_pct": 8.24,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 53.33,
+        "economics_coverage_windows_pct": 53.33,
+        "entry_ready_windows_count": 0,
+        "test_entry_windows_count": 1,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09g.json",
+        "report_name": "competitor_market_analysis_2026-04-09g",
+        "generated_at": "2026-04-09T13:02:06.291572+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09g.json",
+        "previous_generated_at": "2026-04-09T13:02:06.291572+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 177.0,
+            "previous": 196.0,
+            "delta": -19.0,
+            "delta_pct": -9.69
+          },
+          "sold_skus": {
+            "current": 177.0,
+            "previous": 196.0,
+            "delta": -19.0,
+            "delta_pct": -9.69
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 101.0,
+            "previous": 116.0,
+            "delta": -15.0,
+            "delta_pct": -12.93
+          },
+          "stale_stock_count": {
+            "current": 15.0,
+            "previous": 16.0,
+            "delta": -1.0,
+            "delta_pct": -6.25
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 4.0,
+            "previous": 5.0,
+            "delta": -1.0,
+            "delta_pct": -20.0
+          },
+          "overall_dominance_hhi": {
+            "current": 983.38,
+            "previous": 1010.31,
+            "delta": -26.93,
+            "delta_pct": -2.67
+          },
+          "novelty_proxy_index": {
+            "current": 63.85,
+            "previous": 63.08,
+            "delta": 0.77,
+            "delta_pct": 1.22
+          },
+          "entry_ready_windows_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "test_entry_windows_count": {
+            "current": 1.0,
+            "previous": 2.0,
+            "delta": -1.0,
+            "delta_pct": -50.0
+          },
+          "avoid_windows_count": {
+            "current": 4.0,
+            "previous": 4.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 983.38,
+            "previous": 1010.31,
+            "delta": -26.93,
+            "delta_pct": -2.67
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 63.85,
+            "previous": 63.08,
+            "delta": 0.77,
+            "delta_pct": 1.22
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09e.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09e.json",
+      "report_name": "competitor_market_analysis_2026-04-09e",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09e",
+      "generated_at": "2026-04-09T07:22:43.763446+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 5234.37,
+        "novelty_proxy_index": 83.64,
+        "other_group_share_pct": 3.27
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09f.json",
+        "report_name": "competitor_market_analysis_2026-04-09f",
+        "generated_at": "2026-04-09T07:45:36.699608+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09f.json",
+        "previous_generated_at": "2026-04-09T07:45:36.699608+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 177.0,
+            "delta": -127.0,
+            "delta_pct": -71.75
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 177.0,
+            "delta": -127.0,
+            "delta_pct": -71.75
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 101.0,
+            "delta": -74.0,
+            "delta_pct": -73.27
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 15.0,
+            "delta": -5.0,
+            "delta_pct": -33.33
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 4.0,
+            "delta": -3.0,
+            "delta_pct": -75.0
+          },
+          "overall_dominance_hhi": {
+            "current": 5234.37,
+            "previous": 983.38,
+            "delta": 4250.99,
+            "delta_pct": 432.28
+          },
+          "novelty_proxy_index": {
+            "current": 83.64,
+            "previous": 63.85,
+            "delta": 19.79,
+            "delta_pct": 30.99
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 5234.37,
+            "previous": 983.38,
+            "delta": 4250.99,
+            "delta_pct": 432.28
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 83.64,
+            "previous": 63.85,
+            "delta": 19.79,
+            "delta_pct": 30.99
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09d.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09d.json",
+      "report_name": "competitor_market_analysis_2026-04-09d",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09d",
+      "generated_at": "2026-04-09T07:21:54.955648+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 5234.37,
+        "novelty_proxy_index": 83.64,
+        "other_group_share_pct": 3.27
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09e.json",
+        "report_name": "competitor_market_analysis_2026-04-09e",
+        "generated_at": "2026-04-09T07:22:43.763446+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09e.json",
+        "previous_generated_at": "2026-04-09T07:22:43.763446+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 5234.37,
+            "previous": 5234.37,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 83.64,
+            "previous": 83.64,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09c.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09c.json",
+      "report_name": "competitor_market_analysis_2026-04-09c",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09c",
+      "generated_at": "2026-04-09T07:18:30.866627+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 5234.37,
+        "novelty_proxy_index": 83.64,
+        "other_group_share_pct": 3.27
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09d.json",
+        "report_name": "competitor_market_analysis_2026-04-09d",
+        "generated_at": "2026-04-09T07:21:54.955648+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09d.json",
+        "previous_generated_at": "2026-04-09T07:21:54.955648+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 5234.37,
+            "previous": 5234.37,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 83.64,
+            "previous": 83.64,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09b.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09b.json",
+      "report_name": "competitor_market_analysis_2026-04-09b",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09b",
+      "generated_at": "2026-04-09T05:41:24.141711+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 51,
+        "sold_skus": 51,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 28,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 3526.49,
+        "novelty_proxy_index": 82.02,
+        "other_group_share_pct": 2.4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09c.json",
+        "report_name": "competitor_market_analysis_2026-04-09c",
+        "generated_at": "2026-04-09T07:18:30.866627+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09c.json",
+        "previous_generated_at": "2026-04-09T07:18:30.866627+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 51.0,
+            "previous": 50.0,
+            "delta": 1.0,
+            "delta_pct": 2.0
+          },
+          "sold_skus": {
+            "current": 51.0,
+            "previous": 50.0,
+            "delta": 1.0,
+            "delta_pct": 2.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 28.0,
+            "previous": 27.0,
+            "delta": 1.0,
+            "delta_pct": 3.7
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 3526.49,
+            "previous": 5234.37,
+            "delta": -1707.88,
+            "delta_pct": -32.63
+          },
+          "novelty_proxy_index": {
+            "current": 82.02,
+            "previous": 83.64,
+            "delta": -1.62,
+            "delta_pct": -1.94
+          }
+        },
+        "summary": [
+          {
+            "key": "overall_dominance_hhi",
+            "current": 3526.49,
+            "previous": 5234.37,
+            "delta": -1707.88,
+            "delta_pct": -32.63
+          },
+          {
+            "key": "novelty_proxy_index",
+            "current": 82.02,
+            "previous": 83.64,
+            "delta": -1.62,
+            "delta_pct": -1.94
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-09a.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-09a.json",
+      "report_name": "competitor_market_analysis_2026-04-09a",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-09a",
+      "generated_at": "2026-04-09T05:28:19.971956+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 51,
+        "sold_skus": 51,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 28,
+        "stale_stock_count": 10,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1,
+        "overall_dominance_hhi": 3526.49,
+        "novelty_proxy_index": 82.02,
+        "other_group_share_pct": 2.4
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09b.json",
+        "report_name": "competitor_market_analysis_2026-04-09b",
+        "generated_at": "2026-04-09T05:41:24.141711+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09b.json",
+        "previous_generated_at": "2026-04-09T05:41:24.141711+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 51.0,
+            "previous": 51.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 51.0,
+            "previous": 51.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 28.0,
+            "previous": 28.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 10.0,
+            "previous": 10.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "overall_dominance_hhi": {
+            "current": 3526.49,
+            "previous": 3526.49,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "novelty_proxy_index": {
+            "current": 82.02,
+            "previous": 82.02,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-08e.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-08e.json",
+      "report_name": "competitor_market_analysis_2026-04-08e",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-08e",
+      "generated_at": "2026-04-08T15:37:51.603754+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 8,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-09a.json",
+        "report_name": "competitor_market_analysis_2026-04-09a",
+        "generated_at": "2026-04-09T05:28:19.971956+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-09a.json",
+        "previous_generated_at": "2026-04-09T05:28:19.971956+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 51.0,
+            "delta": -1.0,
+            "delta_pct": -1.96
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 51.0,
+            "delta": -1.0,
+            "delta_pct": -1.96
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 28.0,
+            "delta": -1.0,
+            "delta_pct": -3.57
+          },
+          "stale_stock_count": {
+            "current": 8.0,
+            "previous": 10.0,
+            "delta": -2.0,
+            "delta_pct": -20.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_stricter_v2_2026-04-08.json",
+      "report_name": "official_period_analysis_stricter_v2_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Strict V2",
+      "generated_at": "2026-04-08T15:37:26.780408+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_stricter_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_stricter_2026-04-08.json",
+      "report_name": "official_period_analysis_stricter_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Strict",
+      "generated_at": "2026-04-08T15:37:26.767541+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": {
+        "file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+        "report_name": "official_period_analysis_stricter_v2_2026-04-08",
+        "generated_at": "2026-04-08T15:37:26.780408+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+        "previous_generated_at": "2026-04-08T15:37:26.780408+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 1691.0,
+            "previous": 1691.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 13.0,
+            "previous": 13.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 4233.24,
+            "previous": 4233.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 2144.24,
+            "previous": 2144.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stockout_risk_count": {
+            "current": 134.0,
+            "previous": 134.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 556.0,
+            "previous": 556.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_family_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_family_2026-04-08.json",
+      "report_name": "official_period_analysis_family_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Family",
+      "generated_at": "2026-04-08T15:36:02.303950+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": {
+        "file_name": "official_period_analysis_stricter_2026-04-08.json",
+        "report_name": "official_period_analysis_stricter_2026-04-08",
+        "generated_at": "2026-04-08T15:37:26.767541+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "official_period_analysis_stricter_2026-04-08.json",
+        "previous_generated_at": "2026-04-08T15:37:26.767541+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 1691.0,
+            "previous": 1691.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 13.0,
+            "previous": 13.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 4233.24,
+            "previous": 4233.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 2144.24,
+            "previous": 2144.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stockout_risk_count": {
+            "current": 134.0,
+            "previous": 134.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 556.0,
+            "previous": 556.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "weekly_operational_report_2026-04-08.json",
+      "file_path": "data/dashboard/weekly_operational_report_2026-04-08.json",
+      "report_name": "weekly_operational_report_2026-04-08",
+      "report_kind": "weekly_operational",
+      "report_variant": "Weekly",
+      "generated_at": "2026-04-08T15:36:02.296215+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_dashboard_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_dashboard_2026-04-08.json",
+      "report_name": "official_period_analysis_dashboard_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Dashboard",
+      "generated_at": "2026-04-08T14:31:25.281197+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T14:46:54+03:00",
+        "window_days": 6.62
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "official_period_analysis_family_2026-04-08.json",
+        "report_name": "official_period_analysis_family_2026-04-08",
+        "generated_at": "2026-04-08T15:36:02.303950+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "official_period_analysis_family_2026-04-08.json",
+        "previous_generated_at": "2026-04-08T15:36:02.303950+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 1691.0,
+            "previous": 1691.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 13.0,
+            "previous": 13.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 4233.24,
+            "previous": 4233.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "gross_profit_total": {
+            "current": 2144.24,
+            "previous": 2144.24,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stockout_risk_count": {
+            "current": 134.0,
+            "previous": 134.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 556.0,
+            "previous": 556.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "competitor_market_analysis_2026-04-08d.json",
+      "file_path": "data/dashboard/competitor_market_analysis_2026-04-08d.json",
+      "report_name": "competitor_market_analysis_2026-04-08d",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "2026-04-08d",
+      "generated_at": "2026-04-08T14:09:50.385267+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 50,
+        "sold_skus": 50,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 27,
+        "stale_stock_count": 8,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 1
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "competitor_market_analysis_2026-04-08e.json",
+        "report_name": "competitor_market_analysis_2026-04-08e",
+        "generated_at": "2026-04-08T15:37:51.603754+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "competitor_market_analysis_2026-04-08e.json",
+        "previous_generated_at": "2026-04-08T15:37:51.603754+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "sold_skus": {
+            "current": 50.0,
+            "previous": 50.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "revenue_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 27.0,
+            "previous": 27.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "stale_stock_count": {
+            "current": 8.0,
+            "previous": 8.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_price_bands": {
+            "current": 5.0,
+            "previous": 5.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          },
+          "observed_idea_clusters": {
+            "current": 1.0,
+            "previous": 1.0,
+            "delta": 0.0,
+            "delta_pct": 0.0
+          }
+        },
+        "summary": []
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "file_name": "cubejs_period_compare_2026-04-08.json",
+      "file_path": "data/dashboard/cubejs_period_compare_2026-04-08.json",
+      "report_name": "cubejs_period_compare_2026-04-08",
+      "report_kind": "cubejs_period_compare",
+      "report_variant": "Long Range",
+      "generated_at": "2026-04-08T13:04:43.277664+00:00",
+      "window": {
+        "date_from": "2025-04-09",
+        "date_to": "2026-04-08",
+        "window_days": 365
+      },
+      "kpis": {
+        "revenue_total": 144542.01,
+        "gross_profit_total": 0.0,
+        "sold_skus": 1147.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "total_skus": 0
+      },
+      "documents": {},
+      "previous_same_kind": {
+        "file_name": "cubejs_period_compare_2026-04-13.json",
+        "report_name": "cubejs_period_compare_2026-04-13",
+        "generated_at": "2026-04-13T08:40:03.741915+00:00"
+      },
+      "change_from_previous": {
+        "previous_file_name": "cubejs_period_compare_2026-04-13.json",
+        "previous_generated_at": "2026-04-13T08:40:03.741915+00:00",
+        "diffs": {
+          "total_skus": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "sold_skus": {
+            "current": 1147.0,
+            "previous": 1135.0,
+            "delta": 12.0,
+            "delta_pct": 1.06
+          },
+          "revenue_total": {
+            "current": 144542.01,
+            "previous": 149703.80000000002,
+            "delta": -5161.79,
+            "delta_pct": -3.45
+          },
+          "gross_profit_total": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stockout_risk_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          },
+          "stale_stock_count": {
+            "current": 0.0,
+            "previous": 0.0,
+            "delta": 0.0,
+            "delta_pct": null
+          }
+        },
+        "summary": [
+          {
+            "key": "revenue_total",
+            "current": 144542.01,
+            "previous": 149703.80000000002,
+            "delta": -5161.79,
+            "delta_pct": -3.45
+          },
+          {
+            "key": "sold_skus",
+            "current": 1147.0,
+            "previous": 1135.0,
+            "delta": 12.0,
+            "delta_pct": 1.06
+          }
+        ]
+      }
+    }
+  ],
+  "latest": {
+    "schema_version": "1.0.0",
+    "file_name": "waybill_cost_layer_2026-04-18_integration.json",
+    "file_path": "data/dashboard/waybill_cost_layer_2026-04-18_integration.json",
+    "report_name": "waybill_cost_layer_2026-04-18_integration",
+    "report_kind": "waybill_cost_layer",
+    "report_variant": "2026-04-18_integration",
+    "generated_at": "2026-04-17T21:01:48.237650+00:00",
+    "window": {},
+    "kpis": {
+      "total_skus": 2,
+      "sold_skus": 3,
+      "revenue_total": 3260.0,
+      "gross_profit_total": 0,
+      "stockout_risk_count": 0,
+      "stale_stock_count": 0,
+      "waybill_rows_count": 3,
+      "historical_cogs_items_count": 2,
+      "rows_without_identity_count": 0,
+      "total_amount": 3260.0,
+      "avg_amount_per_row": 114.83,
+      "total_quantity_supplied": 27
+    },
+    "documents": {
+      "waybill_mode": "local",
+      "waybill_source_file": "data/local/waybill_synthetic_sample.json",
+      "waybill_sheet_name": "Товары на отправку"
+    },
+    "previous_same_kind": null,
+    "change_from_previous": null
+  },
+  "latest_by_kind": {
+    "competitor_market_analysis": {
+      "schema_version": "1.0.0",
+      "file_name": "market_rescored_after_cogs_2026-04-11.json",
+      "file_path": "data/dashboard/market_rescored_after_cogs_2026-04-11.json",
+      "report_name": "market_rescored_after_cogs_2026-04-11",
+      "report_kind": "competitor_market_analysis",
+      "report_variant": "Rescored 2026-04-11",
+      "generated_at": "2026-04-10T21:58:44.577483+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 196,
+        "sold_skus": 196,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "observed_seller_count": 116,
+        "observed_group_count": 16,
+        "stockout_risk_count": 116,
+        "stale_stock_count": 16,
+        "observed_price_bands": 5,
+        "observed_idea_clusters": 5,
+        "overall_dominance_hhi": 1010.31,
+        "novelty_proxy_index": 63.08,
+        "other_group_share_pct": 11.88,
+        "target_margin_pct": 35.0,
+        "economics_coverage_groups_pct": 62.5,
+        "economics_coverage_windows_pct": 60.0,
+        "blind_spot_windows_count": 4,
+        "entry_ready_windows_count": 1,
+        "test_entry_windows_count": 3,
+        "avoid_windows_count": 4
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "cubejs_period_compare": {
+      "schema_version": "1.0.0",
+      "file_name": "cubejs_period_compare_2026-04-13.json",
+      "file_path": "data/dashboard/cubejs_period_compare_2026-04-13.json",
+      "report_name": "cubejs_period_compare_2026-04-13",
+      "report_kind": "cubejs_period_compare",
+      "report_variant": "Long Range",
+      "generated_at": "2026-04-13T08:40:03.741915+00:00",
+      "window": {
+        "date_from": "2025-04-14",
+        "date_to": "2026-04-13",
+        "window_days": 365
+      },
+      "kpis": {
+        "revenue_total": 149703.80000000002,
+        "gross_profit_total": 0.0,
+        "sold_skus": 1135.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "total_skus": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "description_seo_report": {
+      "schema_version": "1.0.0",
+      "file_name": "description_seo_report_2026-04-11.json",
+      "file_path": "data/dashboard/description_seo_report_2026-04-11.json",
+      "report_name": "description_seo_report_2026-04-11",
+      "report_kind": "description_seo_report",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:59:12.855170+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 13,
+        "description_needs_work_count": 4,
+        "thin_content_count": 13,
+        "description_gap_count": 12
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "dynamic_pricing": {
+      "schema_version": "1.0.0",
+      "file_name": "dynamic_pricing_2026-04-11.json",
+      "file_path": "data/dashboard/dynamic_pricing_2026-04-11.json",
+      "report_name": "dynamic_pricing_2026-04-11",
+      "report_kind": "dynamic_pricing",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:46.712827+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 11,
+        "sold_skus": 11,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "priced_windows_count": 11,
+        "aggressive_price_windows_count": 11,
+        "market_price_windows_count": 0,
+        "test_price_windows_count": 0,
+        "do_not_discount_windows_count": 0,
+        "target_margin_pct": 35.0,
+        "avg_observed_market_price": 966.36,
+        "avg_margin_fit_pct": 81.87
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "marketing_card_audit": {
+      "schema_version": "1.0.0",
+      "file_name": "marketing_card_audit_2026-04-11.json",
+      "file_path": "data/dashboard/marketing_card_audit_2026-04-11.json",
+      "report_name": "marketing_card_audit_2026-04-11",
+      "report_kind": "marketing_card_audit",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:58:56.264312+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 142623.44,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 60,
+        "price_trap_cards_count": 33,
+        "seo_needs_work_count": 27,
+        "seo_priority_fix_count": 0,
+        "market_supported_cards_count": 30,
+        "double_fix_count": 0,
+        "content_plus_commerce_count": 0,
+        "content_fix_count": 0,
+        "media_needs_work_count": 0,
+        "description_needs_work_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "media_richness_report": {
+      "schema_version": "1.0.0",
+      "file_name": "media_richness_report_2026-04-11.json",
+      "file_path": "data/dashboard/media_richness_report_2026-04-11.json",
+      "report_name": "media_richness_report_2026-04-11",
+      "report_kind": "media_richness_report",
+      "report_variant": "2026-04-11",
+      "generated_at": "2026-04-10T21:59:09.238308+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 60,
+        "sold_skus": 0,
+        "revenue_total": 0.0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 29,
+        "priority_cards_count": 6,
+        "media_needs_work_count": 14,
+        "photo_gap_count": 16,
+        "spec_gap_count": 5,
+        "with_video_count": 0
+      },
+      "documents": {},
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "official_period_analysis": {
+      "schema_version": "1.0.0",
+      "file_name": "official_period_analysis_stricter_v2_2026-04-08.json",
+      "file_path": "data/dashboard/official_period_analysis_stricter_v2_2026-04-08.json",
+      "report_name": "official_period_analysis_stricter_v2_2026-04-08",
+      "report_kind": "official_period_analysis",
+      "report_variant": "Strict V2",
+      "generated_at": "2026-04-08T15:37:26.780408+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "paid_storage_report": {
+      "schema_version": "1.0.0",
+      "file_name": "paid_storage_report_2026-04-13.json",
+      "file_path": "data/dashboard/paid_storage_report_2026-04-13.json",
+      "report_name": "paid_storage_report_2026-04-13",
+      "report_kind": "paid_storage_report",
+      "report_variant": "2026-04-13",
+      "generated_at": "2026-04-13T08:39:25.258012+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 1699,
+        "sold_skus": 1698,
+        "revenue_total": 0,
+        "gross_profit_total": 0.0,
+        "stockout_risk_count": 1699,
+        "stale_stock_count": 1698,
+        "storage_rows_count": 1699,
+        "rows_with_amount_count": 1698,
+        "rows_without_identity_count": 1699,
+        "total_amount": 5591259946.0,
+        "penalty_total": 0,
+        "avg_amount_per_row": 3292850.38
+      },
+      "documents": {
+        "paid_storage_request_id": 451557,
+        "paid_storage_file_name": "paid-storage-report.xlsx",
+        "paid_storage_download_url": "https://ke-report-for-sellers.storage.yandexcloud.net/Documents/014867938b/paid_storage_report.xlsx",
+        "paid_storage_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "sales_return_report": {
+      "schema_version": "1.0.0",
+      "file_name": "sales_return_report_2026-04-13.json",
+      "file_path": "data/dashboard/sales_return_report_2026-04-13.json",
+      "report_name": "sales_return_report_2026-04-13",
+      "report_kind": "sales_return_report",
+      "report_variant": "2026-04-13",
+      "generated_at": "2026-04-13T08:39:25.705695+00:00",
+      "window": {
+        "date_from": "2026-03-15",
+        "date_to": "2026-04-13",
+        "window_days": 30
+      },
+      "kpis": {
+        "return_rows_count": 2,
+        "total_returns_count": 1.0,
+        "unique_return_reasons_count": 2,
+        "rows_without_reason_count": 0,
+        "rows_without_identity_count": 0,
+        "top_reason_share_pct": 100.0,
+        "avg_returns_per_row": 0.5
+      },
+      "documents": {
+        "sales_return_mode": "seller analytics",
+        "sales_return_source": "CubeJS / SalesReturn"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "waybill_cost_layer": {
+      "schema_version": "1.0.0",
+      "file_name": "waybill_cost_layer_2026-04-18_integration.json",
+      "file_path": "data/dashboard/waybill_cost_layer_2026-04-18_integration.json",
+      "report_name": "waybill_cost_layer_2026-04-18_integration",
+      "report_kind": "waybill_cost_layer",
+      "report_variant": "2026-04-18_integration",
+      "generated_at": "2026-04-17T21:01:48.237650+00:00",
+      "window": {},
+      "kpis": {
+        "total_skus": 2,
+        "sold_skus": 3,
+        "revenue_total": 3260.0,
+        "gross_profit_total": 0,
+        "stockout_risk_count": 0,
+        "stale_stock_count": 0,
+        "waybill_rows_count": 3,
+        "historical_cogs_items_count": 2,
+        "rows_without_identity_count": 0,
+        "total_amount": 3260.0,
+        "avg_amount_per_row": 114.83,
+        "total_quantity_supplied": 27
+      },
+      "documents": {
+        "waybill_mode": "local",
+        "waybill_source_file": "data/local/waybill_synthetic_sample.json",
+        "waybill_sheet_name": "Товары на отправку"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    },
+    "weekly_operational": {
+      "schema_version": "1.0.0",
+      "file_name": "weekly_operational_report_2026-04-08.json",
+      "file_path": "data/dashboard/weekly_operational_report_2026-04-08.json",
+      "report_name": "weekly_operational_report_2026-04-08",
+      "report_kind": "weekly_operational",
+      "report_variant": "Weekly",
+      "generated_at": "2026-04-08T15:36:02.296215+00:00",
+      "window": {
+        "date_from": "2026-04-02T00:00:00+03:00",
+        "date_to": "2026-04-08T23:59:59.999000+03:00",
+        "window_days": 7.0
+      },
+      "kpis": {
+        "total_skus": 1691,
+        "sold_skus": 13,
+        "family_count": 813,
+        "multi_variant_family_count": 264,
+        "revenue_total": 4233.24,
+        "gross_profit_total": 2144.24,
+        "stockout_risk_count": 134,
+        "stale_stock_count": 556
+      },
+      "documents": {
+        "sells_request_id": 951802,
+        "left_out_request_id": 951804,
+        "sells_mode": "reused",
+        "left_out_mode": "reused"
+      },
+      "previous_same_kind": null,
+      "change_from_previous": null
+    }
+  }
+}

@@ -1,0 +1,385 @@
+{
+  "session_date": "2026-04-10",
+  "updated_at": "2026-04-10T15:05:00+03:00",
+  "mode": "autonomous",
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Session task tracker",
+      "status": "completed",
+      "notes": "Создан и используется как основной state-tracker длинной автономной сессии."
+    },
+    {
+      "id": "TASK-002",
+      "title": "ISSUE-002 true sales velocity without OOS days",
+      "status": "completed",
+      "notes": "Operational math переделана на proxy velocity без OOS-дней, smoke test пройден."
+    },
+    {
+      "id": "TASK-003",
+      "title": "ISSUE-005 proactive JWT guard",
+      "status": "completed",
+      "notes": "Guard в core/auth.py провалидирован на expired/near-expiry/healthy synthetic JWT."
+    },
+    {
+      "id": "TASK-004",
+      "title": "Versioned dashboard schema",
+      "status": "completed",
+      "notes": "Добавлены dashboard_schema.py, schema_version в bundles и миграция старых dashboard JSON."
+    },
+    {
+      "id": "TASK-005",
+      "title": "Refresh runner artifact links",
+      "status": "completed",
+      "notes": "Runner теперь собирает Saved-артефакты, показывает их и отдаёт через /api/artifact."
+    },
+    {
+      "id": "TASK-006",
+      "title": "Change summary between reports",
+      "status": "completed",
+      "notes": "Index и UI теперь показывают change summary относительно предыдущего отчёта того же вида."
+    },
+    {
+      "id": "TASK-007",
+      "title": "Persistent action/watchlist store",
+      "status": "completed",
+      "notes": "Добавлен persistent action_center.json и API через web_refresh_server."
+    },
+    {
+      "id": "TASK-008",
+      "title": "UI for actions/watchlists",
+      "status": "completed",
+      "notes": "Main UI показывает Action Center и позволяет добавлять сущности в watchlist и manual actions."
+    },
+    {
+      "id": "TASK-009",
+      "title": "Main UI navigation improvements",
+      "status": "completed",
+      "notes": "Добавлены нижняя навигация, второй selector, переход на refresh UI и кнопка Наверх."
+    },
+    {
+      "id": "TASK-010",
+      "title": "Docs, changelog, memory, research follow-through",
+      "status": "completed",
+      "notes": "README, ROADMAP, CHANGELOG и project memory обновлены; backlog синхронизирован."
+    },
+    {
+      "id": "TASK-011",
+      "title": "Nightly research alignment and disagreement protocol",
+      "status": "completed",
+      "notes": "nightly_research_report прочитан, позиция зафиксирована в disagreements."
+    },
+    {
+      "id": "TASK-012",
+      "title": "ISSUE-007 action-driven dashboard layer",
+      "status": "completed",
+      "notes": "Добавлен верхний action-first блок Приоритеты Сейчас для operational/market/compare режимов."
+    },
+    {
+      "id": "TASK-013",
+      "title": "Function-to-UI coverage audit",
+      "status": "completed",
+      "notes": "Собран coverage audit по CLI/UI и разделению manager-facing vs CLI-only функций."
+    },
+    {
+      "id": "TASK-014",
+      "title": "Full documentation and comments consistency audit",
+      "status": "completed",
+      "notes": "Собран consistency audit, README/ROADMAP/CHANGELOG дополнительно выровнены."
+    },
+    {
+      "id": "TASK-015",
+      "title": "Big test plan and test matrix",
+      "status": "completed",
+      "notes": "Собран большой test plan и выполнен help sweep 31/31, плюс live API tests refresh runner."
+    },
+    {
+      "id": "TASK-016",
+      "title": "Manual testing hooks for user-assisted QA",
+      "status": "completed",
+      "notes": "В test plan добавлен отдельный раздел Manual QA Tasks To Ask User."
+    },
+    {
+      "id": "TASK-017",
+      "title": "Dynamic pricing research backlog",
+      "status": "completed",
+      "notes": "Сделан первый recommendation-first repricer report без auto-apply."
+    },
+    {
+      "id": "TASK-018",
+      "title": "UI modularization backlog for app.js",
+      "status": "in_progress",
+      "notes": "Начат безопасный вынос API/state-слоёв в ui/api.js и ui/state.js; дальше components/views."
+    },
+    {
+      "id": "TASK-019",
+      "title": "Action Center fetch reliability fix",
+      "status": "completed",
+      "notes": "Убран жёсткий хардкод 127.0.0.1, добавлен fallback по hostname/localhost и более понятные ошибки."
+    },
+    {
+      "id": "TASK-020",
+      "title": "Manual cleanup of stale Action Center records",
+      "status": "completed",
+      "notes": "Вручную удалены старые лишние записи и дубли из action_center.json."
+    },
+    {
+      "id": "TASK-021",
+      "title": "ISSUE-008 recommendation pricing engine",
+      "status": "completed",
+      "notes": "Recommendation-first pricing engine теперь выпускает reports + dashboard bundle и имеет UI-представление."
+    },
+    {
+      "id": "TASK-022",
+      "title": "Dashboard index schema alignment",
+      "status": "completed",
+      "notes": "Index выровнен: dual contract items/reports, новый report kind dynamic_pricing больше не теряется."
+    },
+    {
+      "id": "TASK-023",
+      "title": "Dynamic pricing dashboard UI integration",
+      "status": "completed",
+      "notes": "Dynamic pricing интегрирован в UI, refresh runner и smoke-test слой."
+    },
+    {
+      "id": "TASK-024",
+      "title": "UI modularization: dashboard views split",
+      "status": "completed",
+      "notes": "View logic и generic UI components вынесены в dashboard_views.js и components.js без big-bang rewrite."
+    },
+    {
+      "id": "TASK-025",
+      "title": "Dynamic pricing smoke test and runner verification",
+      "status": "completed",
+      "notes": "Добавлен smoke_test_pricing_pipeline.py, runner перезапущен, /api/jobs подтверждает dynamic_pricing job."
+    },
+    {
+      "id": "TASK-026",
+      "title": "Refresh navigation hostname consistency",
+      "status": "completed",
+      "notes": "Ссылки на refresh UI и diagnostics в UI больше не завязаны только на 127.0.0.1."
+    },
+    {
+      "id": "TASK-027",
+      "title": "ISSUE-010 documentation and contract sync pass",
+      "status": "completed",
+      "notes": "README/contracts/docs ещё раз выровнены; добавлен consistency_audit_2026-04-10b.md и новые модули отражены в документации."
+    },
+    {
+      "id": "TASK-028",
+      "title": "ISSUE-011 price trap auditor",
+      "status": "completed",
+      "notes": "Сделан initial layer price trap auditor: build_price_trap_report.py, 33 matched SKU, refresh job и smoke test."
+    },
+    {
+      "id": "TASK-029",
+      "title": "ISSUE-012 backlog carry-forward",
+      "status": "completed",
+      "notes": "ISSUE-012 сначала был вынесен в backlog, а затем в той же итерации получил initial implementation через title_seo_report."
+    },
+    {
+      "id": "TASK-030",
+      "title": "Price trap runner and smoke verification",
+      "status": "completed",
+      "notes": "Runner перезапущен, /api/jobs отдаёт price_trap_audit, smoke_test_price_trap_report.py проходит."
+    },
+    {
+      "id": "TASK-031",
+      "title": "ISSUE-012 title SEO priority analyzer",
+      "status": "completed",
+      "notes": "Сделан initial layer title SEO analyzer: build_title_seo_report.py, report и smoke test."
+    },
+    {
+      "id": "TASK-032",
+      "title": "Title SEO runner and smoke integration",
+      "status": "completed",
+      "notes": "Title SEO audit добавлен в refresh runner как offline job title_seo_audit и проверен через /api/jobs."
+    },
+    {
+      "id": "TASK-033",
+      "title": "Title SEO report validation",
+      "status": "completed",
+      "notes": "smoke_test_title_seo_report.py проходит; title SEO report собран по 150 normalized rows."
+    },
+    {
+      "id": "TASK-034",
+      "title": "ISSUE-013 marketing audit UI/report integration",
+      "status": "completed",
+      "notes": "Price trap и title SEO выведены из CLI-only состояния в единый manager-facing marketing audit layer с dashboard/UI."
+    },
+    {
+      "id": "TASK-035",
+      "title": "Marketing card audit bundle",
+      "status": "completed",
+      "notes": "Сделаны build_marketing_card_audit.py, reports + dashboard bundle, unified KPI/actions/tables/charts."
+    },
+    {
+      "id": "TASK-036",
+      "title": "Marketing audit UI integration",
+      "status": "completed",
+      "notes": "Добавлен report kind marketing_card_audit в dashboard index, selector, main UI и refresh runner."
+    },
+    {
+      "id": "TASK-037",
+      "title": "Marketing audit smoke and runner verification",
+      "status": "completed",
+      "notes": "SMOKE_MARKETING_CARD_AUDIT_OK; /api/jobs после перезапуска runner отдаёт marketing_card_audit."
+    },
+    {
+      "id": "TASK-038",
+      "title": "Marketing audit merge bug fix",
+      "status": "completed",
+      "notes": "Исправлен баг первой версии, где unified audit терял часть price_trap сигналов из-за неверного merge по rows."
+    },
+    {
+      "id": "TASK-039",
+      "title": "Marketing audit Action Center entity typing fix",
+      "status": "completed",
+      "notes": "SKU-строки marketing audit теперь сохраняются в Action Center как sku, а не market_segment."
+    },
+    {
+      "id": "TASK-040",
+      "title": "ISSUE-013 carry-forward next step",
+      "status": "completed",
+      "notes": "Добавлен initial entity-level history по карточке и detail-panel с текущим ручным follow-up статусом из Action Center."
+    },
+    {
+      "id": "TASK-041",
+      "title": "Entity history index layer",
+      "status": "completed",
+      "notes": "Сделаны core/entity_history.py, build_entity_history_index.py и автоматическая пересборка data/local/entity_history_index.json через build_dashboard_index.py."
+    },
+    {
+      "id": "TASK-042",
+      "title": "Marketing entity detail panel in UI",
+      "status": "completed",
+      "notes": "В main UI добавлена панель Карточка И История, кнопка Детали и связка с Action Center follow-up статусом."
+    },
+    {
+      "id": "TASK-043",
+      "title": "Entity history smoke and docs sync",
+      "status": "completed",
+      "notes": "Добавлен smoke_test_entity_history_index.py; README/ROADMAP/CHANGELOG обновлены."
+    },
+    {
+      "id": "TASK-044",
+      "title": "ISSUE-014 backlog positioning",
+      "status": "completed",
+      "notes": "ISSUE-014 перенесён в roadmap/changelog backlog; зафиксирована оговорка про риск ложной точности без подтверждённых dimensions/weight."
+    },
+    {
+      "id": "TASK-045",
+      "title": "Action Center follow-up workflow deepening",
+      "status": "completed",
+      "notes": "Добавлен initial acknowledgement flow по сущности: backend endpoint, store и кнопка Подтвердить разбор в detail-panel."
+    },
+    {
+      "id": "TASK-046",
+      "title": "Action Center acknowledgement verification",
+      "status": "completed",
+      "notes": "Live POST на /api/action-center/acknowledge подтверждён; acknowledgement сохраняется в action_center.json и виден в summary."
+    },
+    {
+      "id": "TASK-047",
+      "title": "Follow-up workflow next step",
+      "status": "completed",
+      "notes": "Action Center переведён от snapshot-состояния к event-log истории решений по сущности; detail-panel уже показывает журнал ручных действий."
+    },
+    {
+      "id": "TASK-048",
+      "title": "Dashboard and runner same-origin contract fix",
+      "status": "completed",
+      "notes": "Основной UI переведён на web_refresh_server.py на :8000; Action Center и detail-panel теперь работают через same-origin /api."
+    },
+    {
+      "id": "TASK-049",
+      "title": "UI guardrails for long labels and detail focus",
+      "status": "completed",
+      "notes": "Добавлены wrap-guardrails для длинных значений и явный scroll/pulse feedback для кнопки Детали."
+    },
+    {
+      "id": "TASK-050",
+      "title": "Action Center manager workflow deepening",
+      "status": "completed",
+      "notes": "Добавлены owner, расширенные статусы задач и saved views в Action Center; backend и UI поддерживают manager workflow."
+    },
+    {
+      "id": "TASK-051",
+      "title": "Action Center owner and status discipline",
+      "status": "completed",
+      "notes": "Новые статусы open/in_progress/blocked/done и owner-поле проведены через store, API и main UI."
+    },
+    {
+      "id": "TASK-052",
+      "title": "Action Center saved views",
+      "status": "completed",
+      "notes": "Добавлены saved views, фильтр action list и toolbar для быстрого переключения управленческих очередей."
+    },
+    {
+      "id": "TASK-053",
+      "title": "Backlog sync for ISSUE-016/017/018",
+      "status": "completed",
+      "notes": "Новые auditor issues, не взятые в реализацию, явно перенесены в roadmap/changelog backlog, чтобы не потерялись."
+    },
+    {
+      "id": "TASK-054",
+      "title": "Next manager workflow step",
+      "status": "completed",
+      "notes": "В main UI добавлены очереди follow-up по статусам, owner и saved views, чтобы Action Center читался как manager dispatcher."
+    },
+    {
+      "id": "TASK-055",
+      "title": "Manager queue layer in dashboard",
+      "status": "completed",
+      "notes": "Добавлен отдельный блок Очереди Follow-up: queue by status, queue by owner, queue by saved views."
+    },
+    {
+      "id": "TASK-056",
+      "title": "Next entity manager pages step",
+      "status": "in_progress",
+      "notes": "Следующий шаг: делать entity-level manager pages и уменьшать дубли между detail-panel, очередями и action-lists."
+    },
+    {
+      "id": "TASK-057",
+      "title": "ISSUE-016 media richness auditor",
+      "status": "completed",
+      "notes": "Сделан initial heuristic layer: общий content cache, media richness report, dashboard contract, refresh job и smoke test."
+    },
+    {
+      "id": "TASK-058",
+      "title": "ISSUE-018 description SEO richness auditor",
+      "status": "completed",
+      "notes": "Сделан initial heuristic layer: thin content, title-term coverage, group-relative description gap, refresh job и smoke test."
+    },
+    {
+      "id": "TASK-059",
+      "title": "ISSUE-017 dimension-fee optimizer research pass",
+      "status": "completed",
+      "notes": "Принято решение не внедрять optimizer без подтверждённого источника weight/dimensions; создан отдельный research note и disagreement protocol."
+    },
+    {
+      "id": "TASK-060",
+      "title": "Marketing audit merge with media/description layers",
+      "status": "completed",
+      "notes": "Unified marketing audit теперь умеет подмешивать media/description сигналы, если соответствующие JSON уже собраны."
+    },
+    {
+      "id": "TASK-061",
+      "title": "Refresh runner result layer",
+      "status": "completed",
+      "notes": "Refresh UI усилен до control-room шага: добавлен блок результата run, preview payload, связка артефактов с dashboard bundle и быстрый переход в основной dashboard."
+    },
+    {
+      "id": "TASK-062",
+      "title": "Owner feedback UI polish pass",
+      "status": "completed",
+      "notes": "Интегрирован feedback управляющего: улучшены info-bubbles, локализация, display-title с SKU, верхняя сводка, плавающая кнопка вверх и issue-mapping по owner feedback."
+    },
+    {
+      "id": "TASK-063",
+      "title": "Tooltip overlay and detail navigation pass",
+      "status": "completed",
+      "notes": "Подсказки (i) вынесены в глобальный overlay поверх всей страницы; в detail-panel добавлены переходы к предыдущей и следующей сущности."
+    }
+  ]
+}

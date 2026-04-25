@@ -1,0 +1,6 @@
+amount_value,barcode,identity,product_id,reason,return_count,seller_sku_id,sku,title
+3500.0,,WONDERS-519540,,Брак,7.0,WONDERS-519540,WONDERS-519540,WONDERS-519540-КОНФЕТН
+2100.0,,LAPKI-2201,,Брак,5.0,LAPKI-2201,LAPKI-2201,LAPKI-2201
+900.0,,SKWISH-778,,Повреждение упаковки,4.0,SKWISH-778,SKWISH-778,SKWISH-778
+1200.0,,WONDERS-519540,,Не соответствует ожиданиям,3.0,WONDERS-519540,WONDERS-519540,WONDERS-519540-КОНФЕТН
+400.0,,,,Без причины,2.0,,,SKU-EMPTY

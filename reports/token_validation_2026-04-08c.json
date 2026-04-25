@@ -1,0 +1,23 @@
+{
+  "shop_id": 98,
+  "cubejs_meta": {
+    "ok": true,
+    "cubes": 24,
+    "sales_cube_present": true
+  },
+  "cubejs_load": {
+    "ok": true,
+    "revenue_rows": 6,
+    "orders_items_rows": 6
+  },
+  "documents_requests": {
+    "ok": true,
+    "total_elements": 2,
+    "rows": 2
+  },
+  "documents_create": {
+    "ok": false,
+    "status_code": 400,
+    "body": "{\"payload\":null,\"errors\":[{\"code\":\"validation-failed-001\",\"message\":\"Validation failed\"},{\"code\":\"validation-failed-001\",\"message\":\"Validation failed\"}],\"timestamp\":\"2026-04-08T16:04:37.60847513\",\"trace\":\"69d65265cb5b7b508c3c4a7ae0a3afc0\",\"error\":\"Validation failed\"}"
+  }
+}

@@ -1,0 +1,4726 @@
+{
+  "generated_from": "/home/user/mm-market-tools/data/normalized/weekly_operational_report_2026-04-08.json",
+  "summary": {
+    "audited_rows": 150,
+    "priority_fix_count": 0,
+    "needs_work_count": 42,
+    "strong_count": 108,
+    "main_noun_late_count": 2,
+    "entity_late_count": 6,
+    "generic_lead_count": 3,
+    "title_too_long_count": 0
+  },
+  "rows": [
+    {
+      "key": "WONDERS-ДОРИСУЙ-ОРАНЖ",
+      "product_id": 38753,
+      "title": "Учимся рисовать тренажер по рисованию компактные развивающие игры в дорогу Bondibon",
+      "title_tokens": [
+        "учимся",
+        "рисовать",
+        "тренажер",
+        "по",
+        "рисованию",
+        "компактные",
+        "развивающие",
+        "игры",
+        "в",
+        "дорогу",
+        "bondibon"
+      ],
+      "lead_tokens": [
+        "учимся",
+        "рисовать",
+        "тренажер"
+      ],
+      "main_noun": "игры",
+      "main_noun_position": 8,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 60,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_late"
+      ],
+      "recommendations": [
+        "Перенести главный тип товара в первые 3 слова."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ОТЛИЧИЯ",
+      "product_id": 38757,
+      "title": "'Найди отличия!' - компактная развивающая игра в дорогу Bondibon",
+      "title_tokens": [
+        "найди",
+        "отличия",
+        "компактная",
+        "развивающая",
+        "игра",
+        "в",
+        "дорогу",
+        "bondibon"
+      ],
+      "lead_tokens": [
+        "найди",
+        "отличия",
+        "компактная"
+      ],
+      "main_noun": "игра",
+      "main_noun_position": 5,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 60,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_late"
+      ],
+      "recommendations": [
+        "Перенести главный тип товара в первые 3 слова."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КСЛФ1-ДЕРЕВОМ",
+      "product_id": 326,
+      "title": "Ксилофон",
+      "title_tokens": [
+        "ксилофон"
+      ],
+      "lead_tokens": [
+        "ксилофон"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПДСВКВ1-БЕЛЫЙ",
+      "product_id": 2161,
+      "title": "Подсвечник в винтажном стиле",
+      "title_tokens": [
+        "подсвечник",
+        "в",
+        "винтажном",
+        "стиле"
+      ],
+      "lead_tokens": [
+        "подсвечник",
+        "винтажном",
+        "стиле"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПДСВКВ1-ЧЕРН",
+      "product_id": 2161,
+      "title": "Подсвечник в винтажном стиле",
+      "title_tokens": [
+        "подсвечник",
+        "в",
+        "винтажном",
+        "стиле"
+      ],
+      "lead_tokens": [
+        "подсвечник",
+        "винтажном",
+        "стиле"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПДСВКР1-БЕЛЫЙ",
+      "product_id": 2155,
+      "title": "Подсвечник 'Фонарь' 13 см",
+      "title_tokens": [
+        "подсвечник",
+        "фонарь",
+        "13",
+        "см"
+      ],
+      "lead_tokens": [
+        "подсвечник",
+        "фонарь",
+        "13"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПДСВКР1-ЧЕРН",
+      "product_id": 2155,
+      "title": "Подсвечник 'Фонарь' 13 см",
+      "title_tokens": [
+        "подсвечник",
+        "фонарь",
+        "13",
+        "см"
+      ],
+      "lead_tokens": [
+        "подсвечник",
+        "фонарь",
+        "13"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПДСВПД1-БЕЛЫЙ",
+      "product_id": 2158,
+      "title": "Подсвечник 'Фонарь на держателе' 21 см",
+      "title_tokens": [
+        "подсвечник",
+        "фонарь",
+        "на",
+        "держателе",
+        "21",
+        "см"
+      ],
+      "lead_tokens": [
+        "подсвечник",
+        "фонарь",
+        "держателе"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПДСВПД1-ЧЕРН",
+      "product_id": 2158,
+      "title": "Подсвечник 'Фонарь на держателе' 21 см",
+      "title_tokens": [
+        "подсвечник",
+        "фонарь",
+        "на",
+        "держателе",
+        "21",
+        "см"
+      ],
+      "lead_tokens": [
+        "подсвечник",
+        "фонарь",
+        "держателе"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КВРКДР1",
+      "product_id": 1640,
+      "title": "Коврик для рисования 'Автобус' 58х48 см",
+      "title_tokens": [
+        "коврик",
+        "для",
+        "рисования",
+        "автобус",
+        "58х48",
+        "см"
+      ],
+      "lead_tokens": [
+        "коврик",
+        "рисования",
+        "автобус"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГСУМК1-ЧЕРН",
+      "product_id": 2204,
+      "title": "Новогодняя сумка для подарков",
+      "title_tokens": [
+        "новогодняя",
+        "сумка",
+        "для",
+        "подарков"
+      ],
+      "lead_tokens": [
+        "новогодняя",
+        "сумка",
+        "подарков"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГСУМК1-УГОЛЬН",
+      "product_id": 2204,
+      "title": "Новогодняя сумка для подарков",
+      "title_tokens": [
+        "новогодняя",
+        "сумка",
+        "для",
+        "подарков"
+      ],
+      "lead_tokens": [
+        "новогодняя",
+        "сумка",
+        "подарков"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГСУМК1-СЕРЫЙ",
+      "product_id": 2204,
+      "title": "Новогодняя сумка для подарков",
+      "title_tokens": [
+        "новогодняя",
+        "сумка",
+        "для",
+        "подарков"
+      ],
+      "lead_tokens": [
+        "новогодняя",
+        "сумка",
+        "подарков"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ГОНОЧНЫ",
+      "product_id": 9927,
+      "title": "Гоночный трек с 4 машинками",
+      "title_tokens": [
+        "гоночный",
+        "трек",
+        "с",
+        "4",
+        "машинками"
+      ],
+      "lead_tokens": [
+        "гоночный",
+        "трек",
+        "4"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЯЩИКСОР",
+      "product_id": 10328,
+      "title": "Сортировочный бокс 80 предметов",
+      "title_tokens": [
+        "сортировочный",
+        "бокс",
+        "80",
+        "предметов"
+      ],
+      "lead_tokens": [
+        "сортировочный",
+        "бокс",
+        "80"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-АВТОВОЗ",
+      "product_id": 12919,
+      "title": "Автовоз",
+      "title_tokens": [
+        "автовоз"
+      ],
+      "lead_tokens": [
+        "автовоз"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СВИСТОК-ЧЕРН",
+      "product_id": 13316,
+      "title": "Деревянный свисток - человечек",
+      "title_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СВИСТОК-КРАСН",
+      "product_id": 13316,
+      "title": "Деревянный свисток - человечек",
+      "title_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СВИСТОК-СИНИЙ",
+      "product_id": 13316,
+      "title": "Деревянный свисток - человечек",
+      "title_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СВИСТОК-ГОЛУБ",
+      "product_id": 13316,
+      "title": "Деревянный свисток - человечек",
+      "title_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "свисток",
+        "человечек"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СВИНКА",
+      "product_id": 13321,
+      "title": "Свинка на облаке",
+      "title_tokens": [
+        "свинка",
+        "на",
+        "облаке"
+      ],
+      "lead_tokens": [
+        "свинка",
+        "облаке"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ГАРМОНЬ-КРАСН",
+      "product_id": 13399,
+      "title": "Губная деревянная гармошка",
+      "title_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "lead_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ГАРМОНЬ-ЗЕЛЕН",
+      "product_id": 13399,
+      "title": "Губная деревянная гармошка",
+      "title_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "lead_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ГАРМОНЬ-ЖЕЛТ",
+      "product_id": 13399,
+      "title": "Губная деревянная гармошка",
+      "title_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "lead_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ГАРМОНЬ-СИНИЙ",
+      "product_id": 13399,
+      "title": "Губная деревянная гармошка",
+      "title_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "lead_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ГАРМОНЬ-ГОЛУБ",
+      "product_id": 13399,
+      "title": "Губная деревянная гармошка",
+      "title_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "lead_tokens": [
+        "губная",
+        "деревянная",
+        "гармошка"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-КРАСН",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-ЛАЙМ",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-ЖЕЛТ",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-КОРАЛЛ",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-СИНИЙ",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-МОРСК",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КРАСОЧН-ОРАНЖ",
+      "product_id": 13406,
+      "title": "Деревянные погремушки - маракасы 19 см",
+      "title_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы",
+        "19",
+        "см"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "погремушки",
+        "маракасы"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-БУБНЫ-КЛУБНИК",
+      "product_id": 13408,
+      "title": "Бубен",
+      "title_tokens": [
+        "бубен"
+      ],
+      "lead_tokens": [
+        "бубен"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-БУБНЫ-БОЖЬЯКО",
+      "product_id": 13408,
+      "title": "Бубен",
+      "title_tokens": [
+        "бубен"
+      ],
+      "lead_tokens": [
+        "бубен"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-БУБНЫ-ЛЯГУШКА",
+      "product_id": 13408,
+      "title": "Бубен",
+      "title_tokens": [
+        "бубен"
+      ],
+      "lead_tokens": [
+        "бубен"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-БУБНЫ-РЫБКА",
+      "product_id": 13408,
+      "title": "Бубен",
+      "title_tokens": [
+        "бубен"
+      ],
+      "lead_tokens": [
+        "бубен"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-БУБНЫ-МНОГОРЫ",
+      "product_id": 13408,
+      "title": "Бубен",
+      "title_tokens": [
+        "бубен"
+      ],
+      "lead_tokens": [
+        "бубен"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МЕТАЛЛО-БЕЛЫЙ",
+      "product_id": 30518,
+      "title": "Металлофон 8 нот",
+      "title_tokens": [
+        "металлофон",
+        "8",
+        "нот"
+      ],
+      "lead_tokens": [
+        "металлофон",
+        "8",
+        "нот"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МЕТАЛЛО-ОРАНЖ",
+      "product_id": 30518,
+      "title": "Металлофон 8 нот",
+      "title_tokens": [
+        "металлофон",
+        "8",
+        "нот"
+      ],
+      "lead_tokens": [
+        "металлофон",
+        "8",
+        "нот"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ТАНГРАМ",
+      "product_id": 30810,
+      "title": "Танграм в нежных тонах",
+      "title_tokens": [
+        "танграм",
+        "в",
+        "нежных",
+        "тонах"
+      ],
+      "lead_tokens": [
+        "танграм",
+        "нежных",
+        "тонах"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЦВЕТКОД",
+      "product_id": 31882,
+      "title": "Головоломка BONDIBON Smart Games Цветовой код (ВВ0352)",
+      "title_tokens": [
+        "головоломка",
+        "bondibon",
+        "smart",
+        "games",
+        "цветовой",
+        "код",
+        "вв0352"
+      ],
+      "lead_tokens": [
+        "головоломка",
+        "bondibon",
+        "smart"
+      ],
+      "main_noun": null,
+      "main_noun_position": null,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 70,
+      "seo_status": "needs_work",
+      "issues": [
+        "main_noun_unknown"
+      ],
+      "recommendations": [
+        "Уточнить главный тип товара явным существительным в начале title."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-9705157-ЖЕЛТ",
+      "product_id": 2529546,
+      "title": "Мыльные пузыри Большие Лунтик Барбоскины 200 мл",
+      "title_tokens": [
+        "мыльные",
+        "пузыри",
+        "большие",
+        "лунтик",
+        "барбоскины",
+        "200",
+        "мл"
+      ],
+      "lead_tokens": [
+        "мыльные",
+        "пузыри",
+        "лунтик"
+      ],
+      "main_noun": "мыльные",
+      "main_noun_position": 1,
+      "entities": [
+        "лунтик",
+        "барбоскины"
+      ],
+      "entity_positions": {
+        "лунтик": 4,
+        "барбоскины": 5
+      },
+      "seo_score": 75,
+      "seo_status": "strong",
+      "issues": [
+        "entity_late"
+      ],
+      "recommendations": [
+        "Поднять персонажа/бренд ближе к началу title."
+      ],
+      "units_sold": 2,
+      "gross_profit": 280.26,
+      "stock_value_sale": 6456.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "04094",
+      "product_id": 895377,
+      "title": "Кукла магнитная с одеждой. Игра магнитная Одевашки. Ксюша",
+      "title_tokens": [
+        "кукла",
+        "магнитная",
+        "с",
+        "одеждой",
+        "игра",
+        "магнитная",
+        "одевашки",
+        "ксюша"
+      ],
+      "lead_tokens": [
+        "кукла",
+        "магнитная",
+        "одеждой"
+      ],
+      "main_noun": "кукла",
+      "main_noun_position": 1,
+      "entities": [
+        "ксюша"
+      ],
+      "entity_positions": {
+        "ксюша": 8
+      },
+      "seo_score": 75,
+      "seo_status": "strong",
+      "issues": [
+        "entity_late"
+      ],
+      "recommendations": [
+        "Поднять персонажа/бренд ближе к началу title."
+      ],
+      "units_sold": 1,
+      "gross_profit": 131.73,
+      "stock_value_sale": 10819.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КАРТИНЫ-МАРСАЛ-15Х15",
+      "product_id": 2449171,
+      "title": "Картина по номерам детская Холодное сердце Пони Котики Корги Единорог Космос",
+      "title_tokens": [
+        "картина",
+        "по",
+        "номерам",
+        "детская",
+        "холодное",
+        "сердце",
+        "пони",
+        "котики",
+        "корги",
+        "единорог",
+        "космос"
+      ],
+      "lead_tokens": [
+        "картина",
+        "номерам",
+        "холодное"
+      ],
+      "main_noun": "картина",
+      "main_noun_position": 1,
+      "entities": [
+        "холодное сердце",
+        "единорог",
+        "корги",
+        "пони",
+        "котики"
+      ],
+      "entity_positions": {
+        "холодное сердце": 5,
+        "единорог": 10,
+        "корги": 9,
+        "пони": 7,
+        "котики": 8
+      },
+      "seo_score": 75,
+      "seo_status": "strong",
+      "issues": [
+        "entity_late"
+      ],
+      "recommendations": [
+        "Поднять персонажа/бренд ближе к началу title."
+      ],
+      "units_sold": 1,
+      "gross_profit": 158.2,
+      "stock_value_sale": 3763.2,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "wow-21х15-Белый",
+      "product_id": 2515846,
+      "title": "Картина по номерам детская ракраска. Холсте с подрамником Единорог Пони Холодное сердце",
+      "title_tokens": [
+        "картина",
+        "по",
+        "номерам",
+        "детская",
+        "ракраска",
+        "холсте",
+        "с",
+        "подрамником",
+        "единорог",
+        "пони",
+        "холодное",
+        "сердце"
+      ],
+      "lead_tokens": [
+        "картина",
+        "номерам",
+        "ракраска"
+      ],
+      "main_noun": "картина",
+      "main_noun_position": 1,
+      "entities": [
+        "холодное сердце",
+        "единорог",
+        "пони"
+      ],
+      "entity_positions": {
+        "холодное сердце": 11,
+        "единорог": 9,
+        "пони": 10
+      },
+      "seo_score": 75,
+      "seo_status": "strong",
+      "issues": [
+        "entity_late"
+      ],
+      "recommendations": [
+        "Поднять персонажа/бренд ближе к началу title."
+      ],
+      "units_sold": 1,
+      "gross_profit": 154.4,
+      "stock_value_sale": 3160.96,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-04890-ВИШН",
+      "product_id": 2213304,
+      "title": "Детский набор для вышивки крестиком Единорог Корги Лиса Коала",
+      "title_tokens": [
+        "детский",
+        "набор",
+        "для",
+        "вышивки",
+        "крестиком",
+        "единорог",
+        "корги",
+        "лиса",
+        "коала"
+      ],
+      "lead_tokens": [
+        "вышивки",
+        "крестиком",
+        "единорог"
+      ],
+      "main_noun": "набор",
+      "main_noun_position": 2,
+      "entities": [
+        "единорог",
+        "корги"
+      ],
+      "entity_positions": {
+        "единорог": 6,
+        "корги": 7
+      },
+      "seo_score": 75,
+      "seo_status": "strong",
+      "issues": [
+        "entity_late"
+      ],
+      "recommendations": [
+        "Поднять персонажа/бренд ближе к началу title."
+      ],
+      "units_sold": 1,
+      "gross_profit": 104.28,
+      "stock_value_sale": 2739.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ОДЕВАШК-ГОЛУБ",
+      "product_id": 2406358,
+      "title": "Магнитная кукла с нарядами Алиса 'Одевашки'",
+      "title_tokens": [
+        "магнитная",
+        "кукла",
+        "с",
+        "нарядами",
+        "алиса",
+        "одевашки"
+      ],
+      "lead_tokens": [
+        "магнитная",
+        "кукла",
+        "нарядами"
+      ],
+      "main_noun": "магнитная",
+      "main_noun_position": 1,
+      "entities": [
+        "алиса"
+      ],
+      "entity_positions": {
+        "алиса": 5
+      },
+      "seo_score": 75,
+      "seo_status": "strong",
+      "issues": [
+        "entity_late"
+      ],
+      "recommendations": [
+        "Поднять персонажа/бренд ближе к началу title."
+      ],
+      "units_sold": 1,
+      "gross_profit": 88.13,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЧЕРВЯЧК-ЯБЛОКО",
+      "product_id": 35682,
+      "title": "Деревянная игрушка магнитная рыбалка ' Поймай червячка ' яблоко  клубничка",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "магнитная",
+        "рыбалка",
+        "поймай",
+        "червячка",
+        "яблоко",
+        "клубничка"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "магнитная",
+        "рыбалка"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 85,
+      "seo_status": "strong",
+      "issues": [
+        "generic_lead"
+      ],
+      "recommendations": [
+        "Убрать слишком общие прилагательные из начала и начать с товара или сильного entity."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЧЕРВЯЧК-ГРУША",
+      "product_id": 35682,
+      "title": "Деревянная игрушка магнитная рыбалка ' Поймай червячка ' яблоко  клубничка",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "магнитная",
+        "рыбалка",
+        "поймай",
+        "червячка",
+        "яблоко",
+        "клубничка"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "магнитная",
+        "рыбалка"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 85,
+      "seo_status": "strong",
+      "issues": [
+        "generic_lead"
+      ],
+      "recommendations": [
+        "Убрать слишком общие прилагательные из начала и начать с товара или сильного entity."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЧЕРВЯЧК-КЛУБНИК",
+      "product_id": 35682,
+      "title": "Деревянная игрушка магнитная рыбалка ' Поймай червячка ' яблоко  клубничка",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "магнитная",
+        "рыбалка",
+        "поймай",
+        "червячка",
+        "яблоко",
+        "клубничка"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "магнитная",
+        "рыбалка"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 85,
+      "seo_status": "strong",
+      "issues": [
+        "generic_lead"
+      ],
+      "recommendations": [
+        "Убрать слишком общие прилагательные из начала и начать с товара или сильного entity."
+      ],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "wow-опыты12-ГОЛУБ",
+      "product_id": 2743846,
+      "title": "Набор для опытов. Опыты детские. Большой набор",
+      "title_tokens": [
+        "набор",
+        "для",
+        "опытов",
+        "опыты",
+        "детские",
+        "большой",
+        "набор"
+      ],
+      "lead_tokens": [
+        "опытов",
+        "опыты"
+      ],
+      "main_noun": "набор",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 459.33,
+      "stock_value_sale": 13491.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПЗЛ05",
+      "product_id": 455258,
+      "title": "Детские деревянные пазлы 'Учись считать'",
+      "title_tokens": [
+        "детские",
+        "деревянные",
+        "пазлы",
+        "учись",
+        "считать"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "пазлы",
+        "учись"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 133.8,
+      "stock_value_sale": 9043.65,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "wow-чехол-РОЗОВ",
+      "product_id": 2455331,
+      "title": "Защитный чехол на сиденье автомобиля / Защитная накидка на спинку сиденья / Незапинайка",
+      "title_tokens": [
+        "защитный",
+        "чехол",
+        "на",
+        "сиденье",
+        "автомобиля",
+        "защитная",
+        "накидка",
+        "на",
+        "спинку",
+        "сиденья",
+        "незапинайка"
+      ],
+      "lead_tokens": [
+        "защитный",
+        "чехол",
+        "сиденье"
+      ],
+      "main_noun": "чехол",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 197.0,
+      "stock_value_sale": 5390.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДОСКИ2-РЫЖИЙ",
+      "product_id": 1316058,
+      "title": "Доски для выжигания по дереву 2 штуки. Набор досок деревянных",
+      "title_tokens": [
+        "доски",
+        "для",
+        "выжигания",
+        "по",
+        "дереву",
+        "2",
+        "штуки",
+        "набор",
+        "досок",
+        "деревянных"
+      ],
+      "lead_tokens": [
+        "доски",
+        "выжигания",
+        "дереву"
+      ],
+      "main_noun": "доски",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 59.28,
+      "stock_value_sale": 2587.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-04220-КРАСН",
+      "product_id": 937685,
+      "title": "Магнитная игра 'Азбука с картинками' 54 элемента. Русский алфавит",
+      "title_tokens": [
+        "магнитная",
+        "игра",
+        "азбука",
+        "с",
+        "картинками",
+        "54",
+        "элемента",
+        "русский",
+        "алфавит"
+      ],
+      "lead_tokens": [
+        "магнитная",
+        "игра",
+        "азбука"
+      ],
+      "main_noun": "магнитная",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 148.55,
+      "stock_value_sale": 1715.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СИНИЙ24-ЗЕЛХАКИ",
+      "product_id": 2380711,
+      "title": "Пазл детский Синий трактор Транспорт животные дикие домашние на ферме 24 элемента",
+      "title_tokens": [
+        "пазл",
+        "детский",
+        "синий",
+        "трактор",
+        "транспорт",
+        "животные",
+        "дикие",
+        "домашние",
+        "на",
+        "ферме",
+        "24",
+        "элемента"
+      ],
+      "lead_tokens": [
+        "пазл",
+        "синий",
+        "трактор"
+      ],
+      "main_noun": "пазл",
+      "main_noun_position": 1,
+      "entities": [
+        "синий трактор"
+      ],
+      "entity_positions": {
+        "синий трактор": 3
+      },
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 72.03,
+      "stock_value_sale": 1668.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-02654",
+      "product_id": 1610616,
+      "title": "Настольная игра Крестики-нолики с деревянными фишками и полем",
+      "title_tokens": [
+        "настольная",
+        "игра",
+        "крестики",
+        "нолики",
+        "с",
+        "деревянными",
+        "фишками",
+        "и",
+        "полем"
+      ],
+      "lead_tokens": [
+        "настольная",
+        "игра",
+        "крестики"
+      ],
+      "main_noun": "игра",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 1,
+      "gross_profit": 157.25,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДОМИНО",
+      "product_id": 30429,
+      "title": "Детское Домино Половинки 'Животные и игрушки' 28 плашек",
+      "title_tokens": [
+        "детское",
+        "домино",
+        "половинки",
+        "животные",
+        "и",
+        "игрушки",
+        "28",
+        "плашек"
+      ],
+      "lead_tokens": [
+        "домино",
+        "половинки",
+        "животные"
+      ],
+      "main_noun": "домино",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 21627.0,
+      "current_winner": false,
+      "stale_stock": true
+    },
+    {
+      "key": "WONDERS-ГОЛОВОЛ-ЧЕРН",
+      "product_id": 13252,
+      "title": "Детская деревянная игрушка Мозаика Геоанимо",
+      "title_tokens": [
+        "детская",
+        "деревянная",
+        "игрушка",
+        "мозаика",
+        "геоанимо"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "мозаика",
+        "геоанимо"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 17820.0,
+      "current_winner": false,
+      "stale_stock": true
+    },
+    {
+      "key": "WONDERS-ГОЛОВОЛ-ОРАНЖ",
+      "product_id": 13252,
+      "title": "Детская деревянная игрушка Мозаика Геоанимо",
+      "title_tokens": [
+        "детская",
+        "деревянная",
+        "игрушка",
+        "мозаика",
+        "геоанимо"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "мозаика",
+        "геоанимо"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 14256.0,
+      "current_winner": false,
+      "stale_stock": true
+    },
+    {
+      "key": "WONDERS-СЕРПАНТ",
+      "product_id": 28819,
+      "title": "Игрушка для развития моторики 'Серпантинка'",
+      "title_tokens": [
+        "игрушка",
+        "для",
+        "развития",
+        "моторики",
+        "серпантинка"
+      ],
+      "lead_tokens": [
+        "развития",
+        "моторики",
+        "серпантинка"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 2250.0,
+      "current_winner": false,
+      "stale_stock": true
+    },
+    {
+      "key": "WONDERS-ВКЛЖИВ1-СЕРЕБРН",
+      "product_id": 2051,
+      "title": "Игрушка-вкладыши 'Животные'",
+      "title_tokens": [
+        "игрушка",
+        "вкладыши",
+        "животные"
+      ],
+      "lead_tokens": [
+        "вкладыши",
+        "животные"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛЖИВ1-СЕРЫЙ",
+      "product_id": 2051,
+      "title": "Игрушка-вкладыши 'Животные'",
+      "title_tokens": [
+        "игрушка",
+        "вкладыши",
+        "животные"
+      ],
+      "lead_tokens": [
+        "вкладыши",
+        "животные"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛЖИВ1-ЧЕРН",
+      "product_id": 2051,
+      "title": "Игрушка-вкладыши 'Животные'",
+      "title_tokens": [
+        "игрушка",
+        "вкладыши",
+        "животные"
+      ],
+      "lead_tokens": [
+        "вкладыши",
+        "животные"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛЖИВ1-УГОЛЬН",
+      "product_id": 2051,
+      "title": "Игрушка-вкладыши 'Животные'",
+      "title_tokens": [
+        "игрушка",
+        "вкладыши",
+        "животные"
+      ],
+      "lead_tokens": [
+        "вкладыши",
+        "животные"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-ЧЕРН",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-СЕРЫЙ",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-СЕРЕБРН",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-БЕЛЫЙ",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-КОРИЧН",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-ТРАКОТ",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНАВЛ1-ОЛИВК",
+      "product_id": 2183,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-ЧЕРН",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-УГОЛЬН",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-БЕЛЫЙ",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-КОРИЧН",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-ОЛИВК",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-ХАКИ",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-СЕРЕБРН",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГНВЛ1-КРАСН",
+      "product_id": 2185,
+      "title": "Новогодние декоративные наволочки 45х45 см",
+      "title_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "декоративные",
+        "наволочки"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЮБКДЁЛ1",
+      "product_id": 2187,
+      "title": "Юбка для новогодней ёлки",
+      "title_tokens": [
+        "юбка",
+        "для",
+        "новогодней",
+        "ёлки"
+      ],
+      "lead_tokens": [
+        "юбка",
+        "новогодней",
+        "ёлки"
+      ],
+      "main_noun": "юбка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЮБДЁЛБ1",
+      "product_id": 1814,
+      "title": "Юбка для новогодней ёлки белая",
+      "title_tokens": [
+        "юбка",
+        "для",
+        "новогодней",
+        "ёлки",
+        "белая"
+      ],
+      "lead_tokens": [
+        "юбка",
+        "новогодней",
+        "ёлки"
+      ],
+      "main_noun": "юбка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-РЖДНСК1",
+      "product_id": 2188,
+      "title": "Рождественский носок 45 см",
+      "title_tokens": [
+        "рождественский",
+        "носок",
+        "45",
+        "см"
+      ],
+      "lead_tokens": [
+        "рождественский",
+        "носок",
+        "45"
+      ],
+      "main_noun": "носок",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГЧХСТ1",
+      "product_id": 2189,
+      "title": "Новогодние чехлы на спинку стула 2 штуки",
+      "title_tokens": [
+        "новогодние",
+        "чехлы",
+        "на",
+        "спинку",
+        "стула",
+        "2",
+        "штуки"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "чехлы",
+        "спинку"
+      ],
+      "main_noun": "чехлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГСКТР1",
+      "product_id": 1798,
+      "title": "Новогодняя скатерть 132 х 208 см",
+      "title_tokens": [
+        "новогодняя",
+        "скатерть",
+        "132",
+        "х",
+        "208",
+        "см"
+      ],
+      "lead_tokens": [
+        "новогодняя",
+        "скатерть",
+        "132"
+      ],
+      "main_noun": "скатерть",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГЧСТП1-КОРИЧН",
+      "product_id": 1807,
+      "title": "Новогодние чехлы для столовых приборов",
+      "title_tokens": [
+        "новогодние",
+        "чехлы",
+        "для",
+        "столовых",
+        "приборов"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "чехлы",
+        "столовых"
+      ],
+      "main_noun": "чехлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГЧСТП1-СЕРЫЙ",
+      "product_id": 1807,
+      "title": "Новогодние чехлы для столовых приборов",
+      "title_tokens": [
+        "новогодние",
+        "чехлы",
+        "для",
+        "столовых",
+        "приборов"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "чехлы",
+        "столовых"
+      ],
+      "main_noun": "чехлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГЧСТП1-БЕЛЫЙ",
+      "product_id": 1807,
+      "title": "Новогодние чехлы для столовых приборов",
+      "title_tokens": [
+        "новогодние",
+        "чехлы",
+        "для",
+        "столовых",
+        "приборов"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "чехлы",
+        "столовых"
+      ],
+      "main_noun": "чехлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НГЧСТП1-ЧЕРН",
+      "product_id": 1807,
+      "title": "Новогодние чехлы для столовых приборов",
+      "title_tokens": [
+        "новогодние",
+        "чехлы",
+        "для",
+        "столовых",
+        "приборов"
+      ],
+      "lead_tokens": [
+        "новогодние",
+        "чехлы",
+        "столовых"
+      ],
+      "main_noun": "чехлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЕКНАВ1-МАНГО",
+      "product_id": 2197,
+      "title": "Декоративные наволочки 45х45 см  2 штуки",
+      "title_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см",
+        "2",
+        "штуки"
+      ],
+      "lead_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЕКНАВ1-ЛАВАНД",
+      "product_id": 2197,
+      "title": "Декоративные наволочки 45х45 см  2 штуки",
+      "title_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см",
+        "2",
+        "штуки"
+      ],
+      "lead_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЕКНАВ1-ЛАЙМ",
+      "product_id": 2197,
+      "title": "Декоративные наволочки 45х45 см  2 штуки",
+      "title_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см",
+        "2",
+        "штуки"
+      ],
+      "lead_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЕКНАВ1-БАГРОВ",
+      "product_id": 2197,
+      "title": "Декоративные наволочки 45х45 см  2 штуки",
+      "title_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см",
+        "2",
+        "штуки"
+      ],
+      "lead_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЕКНАВ1-ФУКСИЯ",
+      "product_id": 2197,
+      "title": "Декоративные наволочки 45х45 см  2 штуки",
+      "title_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45",
+        "см",
+        "2",
+        "штуки"
+      ],
+      "lead_tokens": [
+        "декоративные",
+        "наволочки",
+        "45х45"
+      ],
+      "main_noun": "наволочки",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ИГРУШКА-СТЧМЗУ1",
+      "product_id": 323,
+      "title": "Деревянная игрушка-стучалка",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "стучалка"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "стучалка"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЕРПРВ1-ДЕРЕВО",
+      "product_id": 348,
+      "title": "Деревянный конструктор - сортер Паровозик. Развивающая игрушка",
+      "title_tokens": [
+        "деревянный",
+        "конструктор",
+        "сортер",
+        "паровозик",
+        "развивающая",
+        "игрушка"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "конструктор",
+        "сортер"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МШСРКС1",
+      "product_id": 395,
+      "title": "Игрушка деревянная 3 в 1: машинка сортер ксилофон",
+      "title_tokens": [
+        "игрушка",
+        "деревянная",
+        "3",
+        "в",
+        "1",
+        "машинка",
+        "сортер",
+        "ксилофон"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "3",
+        "1"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЖРФВЕС1",
+      "product_id": 1613,
+      "title": "Деревянная игрушка 'Весёлый жирафик' 3 в 1: счеты арифметические кубики лабиринт",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "весёлый",
+        "жирафик",
+        "3",
+        "в",
+        "1",
+        "счеты",
+        "арифметические",
+        "кубики",
+        "лабиринт"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "весёлый",
+        "жирафик"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЖРФМУЗ1-ДЕРЕВОМ",
+      "product_id": 1612,
+      "title": "Деревянная игрушка 'Музыкальный жирафик' 3 в 1: счеты арифметические кубики ксилофон",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "музыкальный",
+        "жирафик",
+        "3",
+        "в",
+        "1",
+        "счеты",
+        "арифметические",
+        "кубики",
+        "ксилофон"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "музыкальный",
+        "жирафик"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КНСТДР1",
+      "product_id": 2201,
+      "title": "Конструктор деревянный Happy Farm 52 детали",
+      "title_tokens": [
+        "конструктор",
+        "деревянный",
+        "happy",
+        "farm",
+        "52",
+        "детали"
+      ],
+      "lead_tokens": [
+        "конструктор",
+        "деревянный",
+        "happy"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЛЕОНСТ1-ДЕРЕВО",
+      "product_id": 253,
+      "title": "Игрушка-стучалка 'Лягушонок Леон'",
+      "title_tokens": [
+        "игрушка",
+        "стучалка",
+        "лягушонок",
+        "леон"
+      ],
+      "lead_tokens": [
+        "стучалка",
+        "лягушонок",
+        "леон"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КНСТДР2",
+      "product_id": 6705,
+      "title": "Конструктор деревянный 'Цифры' 53 детали",
+      "title_tokens": [
+        "конструктор",
+        "деревянный",
+        "цифры",
+        "53",
+        "детали"
+      ],
+      "lead_tokens": [
+        "конструктор",
+        "деревянный",
+        "цифры"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КНСТДР3",
+      "product_id": 6706,
+      "title": "Конструктор деревянный в ящике 26 деталей",
+      "title_tokens": [
+        "конструктор",
+        "деревянный",
+        "в",
+        "ящике",
+        "26",
+        "деталей"
+      ],
+      "lead_tokens": [
+        "конструктор",
+        "деревянный",
+        "ящике"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ОВЩДЕР1",
+      "product_id": 9858,
+      "title": "Игровой набор 'Фрукты-овощи' из дерева",
+      "title_tokens": [
+        "игровой",
+        "набор",
+        "фрукты",
+        "овощи",
+        "из",
+        "дерева"
+      ],
+      "lead_tokens": [
+        "игровой",
+        "фрукты",
+        "овощи"
+      ],
+      "main_noun": "набор",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ОВЩДЕР2",
+      "product_id": 9860,
+      "title": "Игровой продуктовый набор дерево",
+      "title_tokens": [
+        "игровой",
+        "продуктовый",
+        "набор",
+        "дерево"
+      ],
+      "lead_tokens": [
+        "игровой",
+        "продуктовый",
+        "дерево"
+      ],
+      "main_noun": "набор",
+      "main_noun_position": 3,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ШНРДЕР1",
+      "product_id": 9863,
+      "title": "Шнуровка 'Мое фруктовое дерево'",
+      "title_tokens": [
+        "шнуровка",
+        "мое",
+        "фруктовое",
+        "дерево"
+      ],
+      "lead_tokens": [
+        "шнуровка",
+        "мое",
+        "фруктовое"
+      ],
+      "main_noun": "шнуровка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-БЛНСГОЛ",
+      "product_id": 9868,
+      "title": "Игрушка-балансир 'Голубка'",
+      "title_tokens": [
+        "игрушка",
+        "балансир",
+        "голубка"
+      ],
+      "lead_tokens": [
+        "балансир",
+        "голубка"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МЗКПУГ-ПЛАСТИК",
+      "product_id": 358,
+      "title": "Мозаика 'Пуговицы'",
+      "title_tokens": [
+        "мозаика",
+        "пуговицы"
+      ],
+      "lead_tokens": [
+        "мозаика",
+        "пуговицы"
+      ],
+      "main_noun": "мозаика",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИ1-ЧЕРН",
+      "product_id": 9902,
+      "title": "Кубики 9 штук",
+      "title_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "lead_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИ1-СЕРЫЙ",
+      "product_id": 9902,
+      "title": "Кубики 9 штук",
+      "title_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "lead_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИ1-КРАСН",
+      "product_id": 9902,
+      "title": "Кубики 9 штук",
+      "title_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "lead_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИ1-ЖЕЛТ",
+      "product_id": 9902,
+      "title": "Кубики 9 штук",
+      "title_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "lead_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИ1-БЕЛЫЙ",
+      "product_id": 9902,
+      "title": "Кубики 9 штук",
+      "title_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "lead_tokens": [
+        "кубики",
+        "9",
+        "штук"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МЕМОРИ1",
+      "product_id": 9926,
+      "title": "Игра настольная Мемори мемо на память и логику",
+      "title_tokens": [
+        "игра",
+        "настольная",
+        "мемори",
+        "мемо",
+        "на",
+        "память",
+        "и",
+        "логику"
+      ],
+      "lead_tokens": [
+        "игра",
+        "настольная",
+        "мемори"
+      ],
+      "main_noun": "игра",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СЛОНЁН1",
+      "product_id": 10005,
+      "title": "Сортер 'Логический слонёнок'",
+      "title_tokens": [
+        "сортер",
+        "логический",
+        "слонёнок"
+      ],
+      "lead_tokens": [
+        "сортер",
+        "логический",
+        "слонёнок"
+      ],
+      "main_noun": "сортер",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЗАЙКИПЗ",
+      "product_id": 10198,
+      "title": "Деревянный пазл 'Семья кроликов'",
+      "title_tokens": [
+        "деревянный",
+        "пазл",
+        "семья",
+        "кроликов"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "пазл",
+        "семья"
+      ],
+      "main_noun": "пазл",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПИРАМИД",
+      "product_id": 10314,
+      "title": "Пирамидка деревянная",
+      "title_tokens": [
+        "пирамидка",
+        "деревянная"
+      ],
+      "lead_tokens": [
+        "пирамидка",
+        "деревянная"
+      ],
+      "main_noun": "пирамидка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ПИРМАЛ1",
+      "product_id": 10659,
+      "title": "Деревянная пирамидка",
+      "title_tokens": [
+        "деревянная",
+        "пирамидка"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "пирамидка"
+      ],
+      "main_noun": "пирамидка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КНСТСАМ",
+      "product_id": 12903,
+      "title": "Деревянный конструктор. Большой набор.",
+      "title_tokens": [
+        "деревянный",
+        "конструктор",
+        "большой",
+        "набор"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "конструктор"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КОНСТРУ",
+      "product_id": 12912,
+      "title": "Конструктор деревянный 'Creative blocks' 40 штук",
+      "title_tokens": [
+        "конструктор",
+        "деревянный",
+        "creative",
+        "blocks",
+        "40",
+        "штук"
+      ],
+      "lead_tokens": [
+        "конструктор",
+        "деревянный",
+        "creative"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДОМСОРТ",
+      "product_id": 12930,
+      "title": "Домик - сортер деревянный",
+      "title_tokens": [
+        "домик",
+        "сортер",
+        "деревянный"
+      ],
+      "lead_tokens": [
+        "домик",
+        "сортер",
+        "деревянный"
+      ],
+      "main_noun": "сортер",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СОРТ2Х2",
+      "product_id": 13241,
+      "title": "Сортер для развития мелкой моторики 2х2",
+      "title_tokens": [
+        "сортер",
+        "для",
+        "развития",
+        "мелкой",
+        "моторики",
+        "2х2"
+      ],
+      "lead_tokens": [
+        "сортер",
+        "развития",
+        "мелкой"
+      ],
+      "main_noun": "сортер",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СОРТЕРТ",
+      "product_id": 13242,
+      "title": "Деревянный сортер 'Тетрис' - Собери квадрат",
+      "title_tokens": [
+        "деревянный",
+        "сортер",
+        "тетрис",
+        "собери",
+        "квадрат"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "сортер",
+        "тетрис"
+      ],
+      "main_noun": "сортер",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МГНЛИЦА",
+      "product_id": 13255,
+      "title": "Магнитный конструктор 'Смешные лица'",
+      "title_tokens": [
+        "магнитный",
+        "конструктор",
+        "смешные",
+        "лица"
+      ],
+      "lead_tokens": [
+        "магнитный",
+        "конструктор",
+        "смешные"
+      ],
+      "main_noun": "магнитный",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МГНМЕДВ",
+      "product_id": 13256,
+      "title": "Магнитный конструктор 'Весёлые друзья'",
+      "title_tokens": [
+        "магнитный",
+        "конструктор",
+        "весёлые",
+        "друзья"
+      ],
+      "lead_tokens": [
+        "магнитный",
+        "конструктор",
+        "весёлые"
+      ],
+      "main_noun": "магнитный",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИМ-25ШТВКО",
+      "product_id": 13263,
+      "title": "Деревянные кубики 5 цветов",
+      "title_tokens": [
+        "деревянные",
+        "кубики",
+        "5",
+        "цветов"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "кубики",
+        "5"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КУБИКИМ-50ШТЮВК",
+      "product_id": 13263,
+      "title": "Деревянные кубики 5 цветов",
+      "title_tokens": [
+        "деревянные",
+        "кубики",
+        "5",
+        "цветов"
+      ],
+      "lead_tokens": [
+        "деревянные",
+        "кубики",
+        "5"
+      ],
+      "main_noun": "кубики",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЖЭНГА1",
+      "product_id": 13270,
+      "title": "Игра 'Джэнга' 6 цветов",
+      "title_tokens": [
+        "игра",
+        "джэнга",
+        "6",
+        "цветов"
+      ],
+      "lead_tokens": [
+        "игра",
+        "джэнга",
+        "6"
+      ],
+      "main_noun": "игра",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛАДЫШ-ЧЕРН",
+      "product_id": 13276,
+      "title": "Пазлы - вкладыши деревянные фигуры",
+      "title_tokens": [
+        "пазлы",
+        "вкладыши",
+        "деревянные",
+        "фигуры"
+      ],
+      "lead_tokens": [
+        "пазлы",
+        "вкладыши",
+        "деревянные"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛАДЫШ-СЕРЫЙ",
+      "product_id": 13276,
+      "title": "Пазлы - вкладыши деревянные фигуры",
+      "title_tokens": [
+        "пазлы",
+        "вкладыши",
+        "деревянные",
+        "фигуры"
+      ],
+      "lead_tokens": [
+        "пазлы",
+        "вкладыши",
+        "деревянные"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛАДЫШ-БЕЛЫЙ",
+      "product_id": 13276,
+      "title": "Пазлы - вкладыши деревянные фигуры",
+      "title_tokens": [
+        "пазлы",
+        "вкладыши",
+        "деревянные",
+        "фигуры"
+      ],
+      "lead_tokens": [
+        "пазлы",
+        "вкладыши",
+        "деревянные"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ШНРЁЖИК",
+      "product_id": 13313,
+      "title": "Шнуровка 'Запасливый Ёжик'",
+      "title_tokens": [
+        "шнуровка",
+        "запасливый",
+        "ёжик"
+      ],
+      "lead_tokens": [
+        "шнуровка",
+        "запасливый",
+        "ёжик"
+      ],
+      "main_noun": "шнуровка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ШНРБАНК-КРАСН",
+      "product_id": 13323,
+      "title": "Игрушка-шнуровка в контейнере 45 шт",
+      "title_tokens": [
+        "игрушка",
+        "шнуровка",
+        "в",
+        "контейнере",
+        "45",
+        "шт"
+      ],
+      "lead_tokens": [
+        "шнуровка",
+        "контейнере",
+        "45"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ШНРБАНК-СИНИЙ",
+      "product_id": 13323,
+      "title": "Игрушка-шнуровка в контейнере 45 шт",
+      "title_tokens": [
+        "игрушка",
+        "шнуровка",
+        "в",
+        "контейнере",
+        "45",
+        "шт"
+      ],
+      "lead_tokens": [
+        "шнуровка",
+        "контейнере",
+        "45"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-МАШКОНС",
+      "product_id": 13326,
+      "title": "Машинка-конструктор и Стучалка 2в1 деревянная",
+      "title_tokens": [
+        "машинка",
+        "конструктор",
+        "и",
+        "стучалка",
+        "2в1",
+        "деревянная"
+      ],
+      "lead_tokens": [
+        "машинка",
+        "конструктор",
+        "стучалка"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ИГРВАНН",
+      "product_id": 13772,
+      "title": "Набор игрушек для ванны",
+      "title_tokens": [
+        "набор",
+        "игрушек",
+        "для",
+        "ванны"
+      ],
+      "lead_tokens": [
+        "игрушек",
+        "ванны"
+      ],
+      "main_noun": "набор",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КОНТУРН-ЧЕРН",
+      "product_id": 13773,
+      "title": "Контурные пазлы 6 картинок в коробке",
+      "title_tokens": [
+        "контурные",
+        "пазлы",
+        "6",
+        "картинок",
+        "в",
+        "коробке"
+      ],
+      "lead_tokens": [
+        "контурные",
+        "пазлы",
+        "6"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КОНТУРН-БЕЛЫЙ",
+      "product_id": 13773,
+      "title": "Контурные пазлы 6 картинок в коробке",
+      "title_tokens": [
+        "контурные",
+        "пазлы",
+        "6",
+        "картинок",
+        "в",
+        "коробке"
+      ],
+      "lead_tokens": [
+        "контурные",
+        "пазлы",
+        "6"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КОНТУРН-КРАСН",
+      "product_id": 13773,
+      "title": "Контурные пазлы 6 картинок в коробке",
+      "title_tokens": [
+        "контурные",
+        "пазлы",
+        "6",
+        "картинок",
+        "в",
+        "коробке"
+      ],
+      "lead_tokens": [
+        "контурные",
+        "пазлы",
+        "6"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КОНТУРН-ЗОЛОТ",
+      "product_id": 13773,
+      "title": "Контурные пазлы 6 картинок в коробке",
+      "title_tokens": [
+        "контурные",
+        "пазлы",
+        "6",
+        "картинок",
+        "в",
+        "коробке"
+      ],
+      "lead_tokens": [
+        "контурные",
+        "пазлы",
+        "6"
+      ],
+      "main_noun": "пазлы",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-КАКТУС",
+      "product_id": 29845,
+      "title": "Деревянный конструктор - балансир Кактус",
+      "title_tokens": [
+        "деревянный",
+        "конструктор",
+        "балансир",
+        "кактус"
+      ],
+      "lead_tokens": [
+        "деревянный",
+        "конструктор",
+        "балансир"
+      ],
+      "main_noun": "конструктор",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЁЖМАГНИ",
+      "product_id": 30784,
+      "title": "Деревянная игрушка - конструктор Ёжик",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "конструктор",
+        "ёжик"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "конструктор",
+        "ёжик"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СОРТЕР2",
+      "product_id": 31666,
+      "title": "Сортер 2 в 1 для развития мелкой моторики",
+      "title_tokens": [
+        "сортер",
+        "2",
+        "в",
+        "1",
+        "для",
+        "развития",
+        "мелкой",
+        "моторики"
+      ],
+      "lead_tokens": [
+        "сортер",
+        "2",
+        "1"
+      ],
+      "main_noun": "сортер",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВЕСЫБАЛ",
+      "product_id": 35438,
+      "title": "Развивающая игрушка - балансир Весы",
+      "title_tokens": [
+        "развивающая",
+        "игрушка",
+        "балансир",
+        "весы"
+      ],
+      "lead_tokens": [
+        "развивающая",
+        "балансир",
+        "весы"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ЛЬВЁНОК",
+      "product_id": 35657,
+      "title": "Сортер 'Львёнок'",
+      "title_tokens": [
+        "сортер",
+        "львёнок"
+      ],
+      "lead_tokens": [
+        "сортер",
+        "львёнок"
+      ],
+      "main_noun": "сортер",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-СЛОНИКБ",
+      "product_id": 35817,
+      "title": "Деревянная игрушка - балансир 'Слонёнок'",
+      "title_tokens": [
+        "деревянная",
+        "игрушка",
+        "балансир",
+        "слонёнок"
+      ],
+      "lead_tokens": [
+        "деревянная",
+        "балансир",
+        "слонёнок"
+      ],
+      "main_noun": "игрушка",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ДЖЕНГА2",
+      "product_id": 36210,
+      "title": "Игра Дженга / Падающая башня",
+      "title_tokens": [
+        "игра",
+        "дженга",
+        "падающая",
+        "башня"
+      ],
+      "lead_tokens": [
+        "игра",
+        "дженга",
+        "падающая"
+      ],
+      "main_noun": "игра",
+      "main_noun_position": 1,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-НАБВАНН",
+      "product_id": 37714,
+      "title": "Игровой набор для купания",
+      "title_tokens": [
+        "игровой",
+        "набор",
+        "для",
+        "купания"
+      ],
+      "lead_tokens": [
+        "игровой",
+        "купания"
+      ],
+      "main_noun": "набор",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    },
+    {
+      "key": "WONDERS-ВКЛЦВЕТ",
+      "product_id": 38040,
+      "title": "Доска-вкладыши",
+      "title_tokens": [
+        "доска",
+        "вкладыши"
+      ],
+      "lead_tokens": [
+        "доска",
+        "вкладыши"
+      ],
+      "main_noun": "вкладыши",
+      "main_noun_position": 2,
+      "entities": [],
+      "entity_positions": {},
+      "seo_score": 100,
+      "seo_status": "strong",
+      "issues": [],
+      "recommendations": [],
+      "units_sold": 0,
+      "gross_profit": 0.0,
+      "stock_value_sale": 0.0,
+      "current_winner": false,
+      "stale_stock": false
+    }
+  ]
+}

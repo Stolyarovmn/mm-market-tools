@@ -1,0 +1,81 @@
+{
+  "watchlists": [
+    {
+      "id": "d38ce98cc5a9",
+      "entity_key": "Антистрессы и сквиши::Агрессивно входить",
+      "title": "Антистрессы и сквиши",
+      "entity_type": "market_segment",
+      "report_kind": "dynamic_pricing",
+      "context": "Агрессивно входить",
+      "note": "",
+      "created_at": "2026-04-10T10:26:03.006660+00:00",
+      "updated_at": "2026-04-10T10:26:03.047551+00:00"
+    },
+    {
+      "id": "9870d9532b4e",
+      "entity_key": "Транспорт и машинки::Тестировать точечно",
+      "title": "Транспорт и машинки",
+      "entity_type": "market_segment",
+      "report_kind": "competitor_market_analysis",
+      "context": "Тестировать точечно",
+      "note": "",
+      "created_at": "2026-04-10T07:13:32.006702+00:00",
+      "updated_at": "2026-04-10T10:39:48.836452+00:00"
+    },
+    {
+      "id": "f14ff70c146b",
+      "entity_key": "WONDERS-519540-КОНФЕТН",
+      "title": "Конструктор для девочек 'Фургон кафе-мороженое' блочный",
+      "entity_type": "sku",
+      "report_kind": "weekly_operational",
+      "context": "Кандидаты на уценку",
+      "note": "",
+      "created_at": "2026-04-10T07:10:31.312803+00:00",
+      "updated_at": "2026-04-10T07:10:31.312829+00:00"
+    }
+  ],
+  "actions": [
+    {
+      "id": "59102e4c53a6",
+      "title": "Антистрессы и сквиши",
+      "entity_key": "Антистрессы и сквиши::Агрессивно входить",
+      "entity_type": "market_segment",
+      "report_kind": "dynamic_pricing",
+      "context": "Агрессивно входить",
+      "note": "123",
+      "status": "open",
+      "created_at": "2026-04-10T10:26:13.340293+00:00",
+      "updated_at": "2026-04-10T10:26:13.367026+00:00"
+    },
+    {
+      "id": "96f33d8535ea",
+      "title": "Транспорт и машинки",
+      "entity_key": "Транспорт и машинки::Тестировать точечно",
+      "entity_type": "market_segment",
+      "report_kind": "competitor_market_analysis",
+      "context": "Тестировать точечно",
+      "note": "",
+      "status": "open",
+      "created_at": "2026-04-10T07:14:54.897195+00:00",
+      "updated_at": "2026-04-10T07:14:54.897201+00:00"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "updated_at": "2026-04-10T10:46:22.221547+00:00",
+  "acknowledgements": [
+    {
+      "id": "9f6b6e30c2eb",
+      "entity_key": "WONDERS-ДОМИНО",
+      "title": "Детское Домино Половинки 'Животные и игрушки' 28 плашек",
+      "entity_type": "sku",
+      "report_kind": "marketing_card_audit",
+      "context": "Тест цены",
+      "note": "manual review ok",
+      "acknowledged_at": "2026-04-10T10:10:13.437652+00:00",
+      "created_at": "2026-04-10T10:10:13.437654+00:00",
+      "updated_at": "2026-04-10T10:10:13.437656+00:00"
+    }
+  ],
+  "events": [],
+  "saved_views": []
+}

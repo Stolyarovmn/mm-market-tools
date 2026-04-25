@@ -1,0 +1,420 @@
+{
+  "summary": {
+    "blind_window_count": 14,
+    "blind_group_count": 6,
+    "missing_cogs_groups": 6,
+    "no_assortment_reference_groups": 0
+  },
+  "group_backlog": [
+    {
+      "group": "Антистрессы и сквиши",
+      "window_count": 2,
+      "best_priority_score": 97.0,
+      "best_window_score": 80.0,
+      "orders_sum": 9911,
+      "my_sku_count": 4,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "top_windows": [
+        {
+          "group": "Антистрессы и сквиши",
+          "price_band": "0-199",
+          "entry_window_score": 80.0,
+          "orders_sum": 8460,
+          "seller_count": 10,
+          "my_sku_count": 4,
+          "my_avg_price": 301.5,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 97.0
+        },
+        {
+          "group": "Антистрессы и сквиши",
+          "price_band": "200-499",
+          "entry_window_score": 42.0,
+          "orders_sum": 1451,
+          "seller_count": 5,
+          "my_sku_count": 4,
+          "my_avg_price": 301.5,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 46.97
+        }
+      ]
+    },
+    {
+      "group": "Ролевые игрушки и бластеры",
+      "window_count": 3,
+      "best_priority_score": 78.18,
+      "best_window_score": 55.0,
+      "orders_sum": 7797,
+      "my_sku_count": 3,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "top_windows": [
+        {
+          "group": "Ролевые игрушки и бластеры",
+          "price_band": "0-199",
+          "entry_window_score": 55.0,
+          "orders_sum": 4865,
+          "seller_count": 9,
+          "my_sku_count": 3,
+          "my_avg_price": 231.36,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 78.18
+        },
+        {
+          "group": "Ролевые игрушки и бластеры",
+          "price_band": "200-499",
+          "entry_window_score": 35.0,
+          "orders_sum": 2717,
+          "seller_count": 3,
+          "my_sku_count": 3,
+          "my_avg_price": 231.36,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 50.86
+        },
+        {
+          "group": "Ролевые игрушки и бластеры",
+          "price_band": "800-1199",
+          "entry_window_score": 32.0,
+          "orders_sum": 215,
+          "seller_count": 2,
+          "my_sku_count": 3,
+          "my_avg_price": 231.36,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 32.23
+        }
+      ]
+    },
+    {
+      "group": "Мягкие игрушки и театр",
+      "window_count": 3,
+      "best_priority_score": 75.55,
+      "best_window_score": 47.0,
+      "orders_sum": 8563,
+      "my_sku_count": 18,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "top_windows": [
+        {
+          "group": "Мягкие игрушки и театр",
+          "price_band": "200-499",
+          "entry_window_score": 47.0,
+          "orders_sum": 6710,
+          "seller_count": 11,
+          "my_sku_count": 18,
+          "my_avg_price": 476.51,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 75.55
+        },
+        {
+          "group": "Мягкие игрушки и театр",
+          "price_band": "1200+",
+          "entry_window_score": 30.0,
+          "orders_sum": 1766,
+          "seller_count": 4,
+          "my_sku_count": 18,
+          "my_avg_price": 476.51,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 41.27
+        },
+        {
+          "group": "Мягкие игрушки и театр",
+          "price_band": "500-799",
+          "entry_window_score": 32.0,
+          "orders_sum": 87,
+          "seller_count": 2,
+          "my_sku_count": 18,
+          "my_avg_price": 476.51,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 31.38
+        }
+      ]
+    },
+    {
+      "group": "Конструкторы",
+      "window_count": 3,
+      "best_priority_score": 67.75,
+      "best_window_score": 35.0,
+      "orders_sum": 19062,
+      "my_sku_count": 35,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "top_windows": [
+        {
+          "group": "Конструкторы",
+          "price_band": "0-199",
+          "entry_window_score": 35.0,
+          "orders_sum": 17727,
+          "seller_count": 7,
+          "my_sku_count": 35,
+          "my_avg_price": 665.89,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 67.75
+        },
+        {
+          "group": "Конструкторы",
+          "price_band": "800-1199",
+          "entry_window_score": 40.0,
+          "orders_sum": 1233,
+          "seller_count": 3,
+          "my_sku_count": 35,
+          "my_avg_price": 665.89,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 44.22
+        },
+        {
+          "group": "Конструкторы",
+          "price_band": "1200+",
+          "entry_window_score": 40.0,
+          "orders_sum": 102,
+          "seller_count": 3,
+          "my_sku_count": 35,
+          "my_avg_price": 665.89,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 36.68
+        }
+      ]
+    },
+    {
+      "group": "Товары для малышей",
+      "window_count": 2,
+      "best_priority_score": 66.75,
+      "best_window_score": 47.0,
+      "orders_sum": 6629,
+      "my_sku_count": 29,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "top_windows": [
+        {
+          "group": "Товары для малышей",
+          "price_band": "0-199",
+          "entry_window_score": 47.0,
+          "orders_sum": 3930,
+          "seller_count": 5,
+          "my_sku_count": 29,
+          "my_avg_price": 402.74,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 66.75
+        },
+        {
+          "group": "Товары для малышей",
+          "price_band": "200-499",
+          "entry_window_score": 47.0,
+          "orders_sum": 2699,
+          "seller_count": 5,
+          "my_sku_count": 29,
+          "my_avg_price": 402.74,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 58.54
+        }
+      ]
+    },
+    {
+      "group": "Кубики, мозаика и пирамидки",
+      "window_count": 1,
+      "best_priority_score": 52.56,
+      "best_window_score": 35.0,
+      "orders_sum": 2971,
+      "my_sku_count": 39,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "top_windows": [
+        {
+          "group": "Кубики, мозаика и пирамидки",
+          "price_band": "200-499",
+          "entry_window_score": 35.0,
+          "orders_sum": 2971,
+          "seller_count": 6,
+          "my_sku_count": 39,
+          "my_avg_price": 479.46,
+          "blind_spot_type": "missing_cogs",
+          "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+          "priority_score": 52.56
+        }
+      ]
+    }
+  ],
+  "window_backlog": [
+    {
+      "group": "Антистрессы и сквиши",
+      "price_band": "0-199",
+      "entry_window_score": 80.0,
+      "orders_sum": 8460,
+      "seller_count": 10,
+      "my_sku_count": 4,
+      "my_avg_price": 301.5,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 97.0
+    },
+    {
+      "group": "Ролевые игрушки и бластеры",
+      "price_band": "0-199",
+      "entry_window_score": 55.0,
+      "orders_sum": 4865,
+      "seller_count": 9,
+      "my_sku_count": 3,
+      "my_avg_price": 231.36,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 78.18
+    },
+    {
+      "group": "Мягкие игрушки и театр",
+      "price_band": "200-499",
+      "entry_window_score": 47.0,
+      "orders_sum": 6710,
+      "seller_count": 11,
+      "my_sku_count": 18,
+      "my_avg_price": 476.51,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 75.55
+    },
+    {
+      "group": "Конструкторы",
+      "price_band": "0-199",
+      "entry_window_score": 35.0,
+      "orders_sum": 17727,
+      "seller_count": 7,
+      "my_sku_count": 35,
+      "my_avg_price": 665.89,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 67.75
+    },
+    {
+      "group": "Товары для малышей",
+      "price_band": "0-199",
+      "entry_window_score": 47.0,
+      "orders_sum": 3930,
+      "seller_count": 5,
+      "my_sku_count": 29,
+      "my_avg_price": 402.74,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 66.75
+    },
+    {
+      "group": "Товары для малышей",
+      "price_band": "200-499",
+      "entry_window_score": 47.0,
+      "orders_sum": 2699,
+      "seller_count": 5,
+      "my_sku_count": 29,
+      "my_avg_price": 402.74,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 58.54
+    },
+    {
+      "group": "Кубики, мозаика и пирамидки",
+      "price_band": "200-499",
+      "entry_window_score": 35.0,
+      "orders_sum": 2971,
+      "seller_count": 6,
+      "my_sku_count": 39,
+      "my_avg_price": 479.46,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 52.56
+    },
+    {
+      "group": "Ролевые игрушки и бластеры",
+      "price_band": "200-499",
+      "entry_window_score": 35.0,
+      "orders_sum": 2717,
+      "seller_count": 3,
+      "my_sku_count": 3,
+      "my_avg_price": 231.36,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 50.86
+    },
+    {
+      "group": "Антистрессы и сквиши",
+      "price_band": "200-499",
+      "entry_window_score": 42.0,
+      "orders_sum": 1451,
+      "seller_count": 5,
+      "my_sku_count": 4,
+      "my_avg_price": 301.5,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 46.97
+    },
+    {
+      "group": "Конструкторы",
+      "price_band": "800-1199",
+      "entry_window_score": 40.0,
+      "orders_sum": 1233,
+      "seller_count": 3,
+      "my_sku_count": 35,
+      "my_avg_price": 665.89,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 44.22
+    },
+    {
+      "group": "Мягкие игрушки и театр",
+      "price_band": "1200+",
+      "entry_window_score": 30.0,
+      "orders_sum": 1766,
+      "seller_count": 4,
+      "my_sku_count": 18,
+      "my_avg_price": 476.51,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 41.27
+    },
+    {
+      "group": "Конструкторы",
+      "price_band": "1200+",
+      "entry_window_score": 40.0,
+      "orders_sum": 102,
+      "seller_count": 3,
+      "my_sku_count": 35,
+      "my_avg_price": 665.89,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 36.68
+    },
+    {
+      "group": "Ролевые игрушки и бластеры",
+      "price_band": "800-1199",
+      "entry_window_score": 32.0,
+      "orders_sum": 215,
+      "seller_count": 2,
+      "my_sku_count": 3,
+      "my_avg_price": 231.36,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 32.23
+    },
+    {
+      "group": "Мягкие игрушки и театр",
+      "price_band": "500-799",
+      "entry_window_score": 32.0,
+      "orders_sum": 87,
+      "seller_count": 2,
+      "my_sku_count": 18,
+      "my_avg_price": 476.51,
+      "blind_spot_type": "missing_cogs",
+      "next_step": "дозаполнить себестоимость по своим SKU этой группы",
+      "priority_score": 31.38
+    }
+  ]
+}

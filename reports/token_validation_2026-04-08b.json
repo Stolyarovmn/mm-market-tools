@@ -1,0 +1,22 @@
+{
+  "shop_id": 98,
+  "cubejs_meta": {
+    "ok": true,
+    "cubes": 24,
+    "sales_cube_present": true
+  },
+  "cubejs_load": {
+    "ok": false,
+    "error": "400 Client Error: Bad Request for url: https://seller-analytics.mm.ru/cubejs-api/v1/load?query=%7B%22measures%22%3A+%5B%22Sales.seller_revenue_without_delivery_measure%22%2C+%22Sales.seller_profit%22%2C+%22Sales.orders_number%22%2C+%22Sales.item_sold_number%22%5D%2C+%22timezone%22%3A+%22Europe%2FMoscow%22%2C+%22timeDimensions%22%3A+%5B%7B%22dimension%22%3A+%22Sales.created_at%22%2C+%22dateRange%22%3A+%5B%222026-04-02%22%2C+%222026-04-08%22%5D%2C+%22granularity%22%3A+%22day%22%7D%5D%2C+%22filters%22%3A+%5B%7B%22member%22%3A+%22Sales.shop_id%22%2C+%22operator%22%3A+%22equals%22%2C+%22values%22%3A+%5B%2298%22%5D%7D%5D%7D&queryType=multi"
+  },
+  "documents_requests": {
+    "ok": true,
+    "total_elements": 2,
+    "rows": 2
+  },
+  "documents_create": {
+    "ok": false,
+    "status_code": 400,
+    "body": "{\"payload\":null,\"errors\":[{\"code\":\"validation-failed-001\",\"message\":\"Validation failed\"},{\"code\":\"validation-failed-001\",\"message\":\"Validation failed\"}],\"timestamp\":\"2026-04-08T16:01:44.624350708\",\"trace\":\"69d651b820fea525169cce01128e7f74\",\"error\":\"Validation failed\"}"
+  }
+}

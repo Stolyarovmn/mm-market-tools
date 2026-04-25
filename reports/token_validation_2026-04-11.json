@@ -1,0 +1,31 @@
+{
+  "shop_id": 98,
+  "token_health": {
+    "has_exp": true,
+    "exp": 1775859095,
+    "expires_at": "2026-04-10T22:11:35+00:00",
+    "expires_at_moscow": "2026-04-11T01:11:35+03:00",
+    "seconds_left": 811,
+    "status": "valid"
+  },
+  "cubejs_meta": {
+    "ok": true,
+    "cubes": 24,
+    "sales_cube_present": true
+  },
+  "cubejs_load": {
+    "ok": true,
+    "revenue_rows": 5,
+    "orders_items_rows": 5
+  },
+  "documents_requests": {
+    "ok": true,
+    "total_elements": 24,
+    "rows": 24
+  },
+  "documents_create": {
+    "ok": false,
+    "status_code": 400,
+    "body": "{\"payload\":null,\"errors\":[{\"code\":\"validation-failed-001\",\"message\":\"Validation failed\"},{\"code\":\"validation-failed-001\",\"message\":\"Validation failed\"}],\"timestamp\":\"2026-04-11T00:58:03.43620662\",\"trace\":\"69d9726b4ebff81a651d40b714abf172\",\"error\":\"Validation failed\"}"
+  }
+}

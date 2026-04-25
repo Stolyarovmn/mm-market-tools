@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-04-13T08:40:03.741915+00:00",
+  "history_window": {
+    "date_from": "2023-04-01",
+    "date_to": "2026-04-13",
+    "history_years": 3
+  },
+  "periods": {
+    "current_trailing_year": {
+      "date_from": "2025-04-14",
+      "date_to": "2026-04-13",
+      "metrics": {
+        "revenue_total": 149703.80000000002,
+        "orders_total": 1014.0,
+        "items_sold_total": 1135.0
+      }
+    },
+    "previous_year_same_window": {
+      "date_from": "2024-04-14",
+      "date_to": "2025-04-13",
+      "metrics": {
+        "revenue_total": 0.0,
+        "orders_total": 0.0,
+        "items_sold_total": 0.0
+      },
+      "delta_vs_current": {
+        "revenue_total_pct": null,
+        "orders_total_pct": null,
+        "items_sold_total_pct": null
+      }
+    },
+    "three_year_same_window": {
+      "date_from": "2022-04-14",
+      "date_to": "2023-04-13",
+      "metrics": {
+        "revenue_total": 0.0,
+        "orders_total": 0.0,
+        "items_sold_total": 0.0
+      },
+      "delta_vs_current": {
+        "revenue_total_pct": null,
+        "orders_total_pct": null,
+        "items_sold_total_pct": null
+      }
+    },
+    "current_ytd": {
+      "date_from": "2026-01-01",
+      "date_to": "2026-04-13",
+      "metrics": {
+        "revenue_total": 149703.8,
+        "orders_total": 411.0,
+        "items_sold_total": 448.0
+      }
+    },
+    "previous_ytd": {
+      "date_from": "2025-01-01",
+      "date_to": "2025-04-13",
+      "metrics": {
+        "revenue_total": 0.0,
+        "orders_total": 0.0,
+        "items_sold_total": 0.0
+      },
+      "delta_vs_current": {
+        "revenue_total_pct": null,
+        "orders_total_pct": null,
+        "items_sold_total_pct": null
+      }
+    }
+  },
+  "series_monthly": [
+    {
+      "Sales.created_at.month": "2026-01-01T00:00:00.000",
+      "Sales.created_at": "2026-01-01T00:00:00.000",
+      "Sales.seller_revenue_without_delivery_measure": "42776",
+      "Sales.item_sold_number": "150",
+      "Sales.orders_number": "138"
+    },
+    {
+      "Sales.created_at.month": "2026-02-01T00:00:00.000",
+      "Sales.created_at": "2026-02-01T00:00:00.000",
+      "Sales.seller_revenue_without_delivery_measure": "45011.6",
+      "Sales.item_sold_number": "123",
+      "Sales.orders_number": "120"
+    },
+    {
+      "Sales.created_at.month": "2026-03-01T00:00:00.000",
+      "Sales.created_at": "2026-03-01T00:00:00.000",
+      "Sales.seller_revenue_without_delivery_measure": "50319.94",
+      "Sales.item_sold_number": "142",
+      "Sales.orders_number": "127"
+    },
+    {
+      "Sales.created_at.month": "2026-04-01T00:00:00.000",
+      "Sales.created_at": "2026-04-01T00:00:00.000",
+      "Sales.seller_revenue_without_delivery_measure": "11596.259999999998",
+      "Sales.orders_number": "26",
+      "Sales.item_sold_number": "33"
+    }
+  ]
+}

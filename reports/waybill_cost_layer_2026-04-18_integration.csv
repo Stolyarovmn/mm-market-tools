@@ -1,0 +1,4 @@
+barcode,batch_cogs_total,cost_source,planned_supply_at,product_id,quantity_supplied,sku,source_file,source_row,source_sheet,title,unit_cogs,upd_id,waybill_id
+4601234567890,1255.0,waybill_excel,2026-04-10 10:00,,10,SKU-001,data/local/waybill_synthetic_sample.json,2,Товары на отправку,Игрушка А,125.5,UPD-001,WB-1001
+4601234567891,445.0,waybill_excel,2026-04-10 10:00,,5,SKU-002,data/local/waybill_synthetic_sample.json,3,Товары на отправку,Игрушка Б,89.0,UPD-001,WB-1001
+4601234567890,1560.0,waybill_excel,2026-04-12 12:00,,12,SKU-001,data/local/waybill_synthetic_sample.json,4,Товары на отправку,Игрушка А,130.0,UPD-002,WB-1002

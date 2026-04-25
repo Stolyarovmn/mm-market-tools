@@ -1,0 +1,169 @@
+{
+  "queryType": "regularQuery",
+  "results": [
+    {
+      "query": {
+        "measures": [
+          "Sales.seller_revenue_without_delivery_measure"
+        ],
+        "dimensions": [],
+        "timeDimensions": [
+          {
+            "dimension": "Sales.created_at",
+            "dateRange": [
+              "2025-04-01T00:00:00.000",
+              "2026-04-08T23:59:59.999"
+            ],
+            "compareDateRange": null,
+            "granularity": "month"
+          }
+        ],
+        "limit": 10000,
+        "timezone": "Europe/Moscow",
+        "filters": [
+          {
+            "member": "Sales.shop_id",
+            "operator": "equals",
+            "values": [
+              "98"
+            ]
+          },
+          {
+            "member": "Sales.shop_id",
+            "operator": "equals",
+            "values": [
+              "98"
+            ]
+          }
+        ],
+        "rowLimit": 10000
+      },
+      "lastRefreshTime": "2026-04-08T07:10:10.000Z",
+      "annotation": {
+        "segments": {},
+        "dimensions": {},
+        "measures": {
+          "Sales.seller_revenue_without_delivery_measure": {
+            "title": "Sales Seller Revenue Without Delivery Measure",
+            "shortTitle": "Seller Revenue Without Delivery Measure",
+            "description": "Выручка продавца без учёта стоимости доставки",
+            "type": "number",
+            "drillMembers": [
+              "Sales.shop_id",
+              "Sales.category_id",
+              "Sales.product_id",
+              "Sales.sku_id",
+              "Sales.has_fbs",
+              "Sales.has_fbo",
+              "CategoryHierarchy.category_l1_id",
+              "CategoryHierarchy.category_l2_id",
+              "CategoryHierarchy.category_l3_id",
+              "CategoryHierarchy.category_l4_id",
+              "CategoryHierarchy.category_l5_id",
+              "CategoryHierarchy.category_l6_id"
+            ],
+            "drillMembersGrouped": {
+              "measures": [],
+              "dimensions": [
+                "Sales.shop_id",
+                "Sales.category_id",
+                "Sales.product_id",
+                "Sales.sku_id",
+                "Sales.has_fbs",
+                "Sales.has_fbo",
+                "CategoryHierarchy.category_l1_id",
+                "CategoryHierarchy.category_l2_id",
+                "CategoryHierarchy.category_l3_id",
+                "CategoryHierarchy.category_l4_id",
+                "CategoryHierarchy.category_l5_id",
+                "CategoryHierarchy.category_l6_id"
+              ]
+            }
+          }
+        },
+        "timeDimensions": {
+          "Sales.created_at.month": {
+            "title": "Sales Created at",
+            "shortTitle": "Created at",
+            "type": "time",
+            "granularity": {
+              "name": "month",
+              "title": "month",
+              "interval": "1 month"
+            }
+          },
+          "Sales.created_at": {
+            "title": "Sales Created at",
+            "shortTitle": "Created at",
+            "type": "time"
+          }
+        }
+      },
+      "dataSource": "clickhouse",
+      "dbType": "clickhouse",
+      "extDbType": "cubestore",
+      "external": true,
+      "slowQuery": false,
+      "data": [
+        {
+          "Sales.seller_revenue_without_delivery_measure": "42776",
+          "Sales.created_at": "2026-01-01T00:00:00.000",
+          "Sales.created_at.month": "2026-01-01T00:00:00.000"
+        },
+        {
+          "Sales.created_at": "2026-02-01T00:00:00.000",
+          "Sales.created_at.month": "2026-02-01T00:00:00.000",
+          "Sales.seller_revenue_without_delivery_measure": "45011.6"
+        },
+        {
+          "Sales.seller_revenue_without_delivery_measure": "50319.94",
+          "Sales.created_at": "2026-03-01T00:00:00.000",
+          "Sales.created_at.month": "2026-03-01T00:00:00.000"
+        },
+        {
+          "Sales.created_at": "2026-04-01T00:00:00.000",
+          "Sales.created_at.month": "2026-04-01T00:00:00.000",
+          "Sales.seller_revenue_without_delivery_measure": "6434.47"
+        }
+      ]
+    }
+  ],
+  "pivotQuery": {
+    "measures": [
+      "Sales.seller_revenue_without_delivery_measure"
+    ],
+    "dimensions": [],
+    "timeDimensions": [
+      {
+        "dimension": "Sales.created_at",
+        "dateRange": [
+          "2025-04-01T00:00:00.000",
+          "2026-04-08T23:59:59.999"
+        ],
+        "compareDateRange": null,
+        "granularity": "month"
+      }
+    ],
+    "limit": 10000,
+    "timezone": "Europe/Moscow",
+    "filters": [
+      {
+        "member": "Sales.shop_id",
+        "operator": "equals",
+        "values": [
+          "98"
+        ]
+      },
+      {
+        "member": "Sales.shop_id",
+        "operator": "equals",
+        "values": [
+          "98"
+        ]
+      }
+    ],
+    "rowLimit": 10000,
+    "queryType": "regularQuery"
+  },
+  "slowQuery": false
+}

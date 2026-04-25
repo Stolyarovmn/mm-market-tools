@@ -1,0 +1,192 @@
+{
+  "total": 31,
+  "fail": 0,
+  "results": [
+    {
+      "file": "analyze_competitor_market.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: analyze_competitor_market.py [-h] [--category-id CATEGORY_ID]"
+    },
+    {
+      "file": "analyze_official_reports.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: analyze_official_reports.py [-h] --sells-report SELLS_REPORT"
+    },
+    {
+      "file": "analyze_product_ideas.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: analyze_product_ideas.py [-h] [--category-id CATEGORY_ID]"
+    },
+    {
+      "file": "analyze_products.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: analyze_products.py [-h] [--token TOKEN] [--shop-id SHOP_ID]"
+    },
+    {
+      "file": "analyze_time_window.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: analyze_time_window.py [-h] --start-snapshot START_SNAPSHOT"
+    },
+    {
+      "file": "analyze_variant_families.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: analyze_variant_families.py [-h] --sells-report SELLS_REPORT"
+    },
+    {
+      "file": "benchmark_product_cards.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: benchmark_product_cards.py [-h] [--token TOKEN]"
+    },
+    {
+      "file": "build_cost_coverage_backlog.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: build_cost_coverage_backlog.py [-h] [--input-json INPUT_JSON]"
+    },
+    {
+      "file": "build_dashboard_index.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: build_dashboard_index.py [-h] [--dashboard-dir DASHBOARD_DIR]"
+    },
+    {
+      "file": "build_growth_plan.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: build_growth_plan.py [-h] [--report-dir REPORT_DIR]"
+    },
+    {
+      "file": "build_market_margin_fit_report.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: build_market_margin_fit_report.py [-h] [--input-json INPUT_JSON]"
+    },
+    {
+      "file": "build_zero_cogs_registry.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: build_zero_cogs_registry.py [-h] [--official-json OFFICIAL_JSON]"
+    },
+    {
+      "file": "collect_sellers.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: collect_sellers.py [-h] [--category-id CATEGORY_ID] [--token TOKEN]"
+    },
+    {
+      "file": "compare_shops.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: compare_shops.py [-h] [--token TOKEN] [--my-shop-id MY_SHOP_ID]"
+    },
+    {
+      "file": "compare_top_seller_overlaps.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: compare_top_seller_overlaps.py [-h] [--token TOKEN]"
+    },
+    {
+      "file": "cubejs_period_compare.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: cubejs_period_compare.py [-h] --token TOKEN [--shop-id SHOP_ID]"
+    },
+    {
+      "file": "cubejs_query.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: cubejs_query.py [-h] [--token TOKEN] [--cookie COOKIE]"
+    },
+    {
+      "file": "export_cogs_fill_template.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: export_cogs_fill_template.py [-h] [--registry-json REGISTRY_JSON]"
+    },
+    {
+      "file": "get_sellers.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: get_sellers.py [-h] [--category-id CATEGORY_ID] [--page-size PAGE_SIZE]"
+    },
+    {
+      "file": "ingest_cogs_fill.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: ingest_cogs_fill.py [-h] --fill-csv FILL_CSV [--store-json STORE_JSON]"
+    },
+    {
+      "file": "migrate_dashboard_schema.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: migrate_dashboard_schema.py [-h] [--dashboard-dir DASHBOARD_DIR]"
+    },
+    {
+      "file": "refresh_operational_dashboard.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: refresh_operational_dashboard.py [-h] --sells-report SELLS_REPORT"
+    },
+    {
+      "file": "request_document_report.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: request_document_report.py [-h] [--token TOKEN] [--base-url BASE_URL]"
+    },
+    {
+      "file": "rescore_market_after_cogs_fill.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: rescore_market_after_cogs_fill.py [-h] [--market-json MARKET_JSON]"
+    },
+    {
+      "file": "run_cogs_backfill_cycle.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: run_cogs_backfill_cycle.py [-h] [--fill-csv FILL_CSV]"
+    },
+    {
+      "file": "smoke_test_market_pipeline.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: smoke_test_market_pipeline.py [-h] [--dashboard-json DASHBOARD_JSON]"
+    },
+    {
+      "file": "smoke_test_official_pipeline.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: smoke_test_official_pipeline.py [-h] [--sells-report SELLS_REPORT]"
+    },
+    {
+      "file": "snapshot_shop.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: snapshot_shop.py [-h] [--token TOKEN] [--shop-id SHOP_ID]"
+    },
+    {
+      "file": "validate_token_integrations.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: validate_token_integrations.py [-h] [--token TOKEN] [--shop-id SHOP_ID]"
+    },
+    {
+      "file": "web_refresh_server.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: web_refresh_server.py [-h] [--host HOST] [--port PORT]"
+    },
+    {
+      "file": "weekly_operational_report.py",
+      "code": 0,
+      "ok": true,
+      "first_line": "usage: weekly_operational_report.py [-h] --token TOKEN [--shop-id SHOP_ID]"
+    }
+  ]
+}
