@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Magnit Market Command Center",
+  "schemaVersion": 1,
+  "description": "Командный центр магазина WONDERS на Магнит Маркет v3: ежедневный план с tooltips, SKU/product links, SEO compare, score bar, A/B журнал, ROMI калькулятор, API с токеном, источники со staleness. Dark mode."
+}
+</script>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Магнит Маркет · Командный Центр</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --color-bg:#f6f7f9;--color-surface:#ffffff;--color-surface-secondary:#f0f2f5;
+  --color-border:rgba(0,0,0,0.08);--color-border-subtle:rgba(0,0,0,0.05);
+  --color-text-primary:#111827;--color-text-secondary:#6b7280;--color-text-tertiary:#9ca3af;
+  --color-accent:#2563eb;--color-accent-soft:#eff6ff;
+  --color-teal:#0d9488;--color-teal-soft:#f0fdfb;
+  --color-amber:#d97706;--color-amber-soft:#fffbeb;
+  --color-coral:#dc2626;--color-coral-soft:#fef2f2;
+  --color-green:#059669;--color-green-soft:#ecfdf5;
+  --color-purple:#7c3aed;--color-purple-soft:#f5f3ff;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-pill:999px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04);
+}
+@media(prefers-color-scheme:dark){:root{
+  --color-bg:#0f1117;--color-surface:#1a1d27;--color-surface-secondary:#222536;
+  --color-border:rgba(255,255,255,0.08);--color-border-subtle:rgba(255,255,255,0.04);
+  --color-text-primary:#f1f5f9;--color-text-secondary:#94a3b8;--color-text-tertiary:#64748b;
+  --color-accent:#3b82f6;--color-accent-soft:rgba(59,130,246,0.12);
+  --color-teal:#2dd4bf;--color-teal-soft:rgba(45,212,191,0.1);
+  --color-amber:#fbbf24;--color-amber-soft:rgba(251,191,36,0.1);
+  --color-coral:#f87171;--color-coral-soft:rgba(248,113,113,0.1);
+  --color-green:#34d399;--color-green-soft:rgba(52,211,153,0.1);
+  --color-purple:#a78bfa;--color-purple-soft:rgba(167,139,250,0.1);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);
+}}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--color-bg);color:var(--color-text-primary);font-size:13px;line-height:1.5;padding:16px;min-height:100vh;}
+.header{margin-bottom:16px;}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;}
+.header-title{font-size:17px;font-weight:700;letter-spacing:-0.02em;}
+.header-badge{background:var(--color-accent-soft);color:var(--color-accent);font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-pill);letter-spacing:0.04em;text-transform:uppercase;}
+.header-sub{font-size:11px;color:var(--color-text-secondary);}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:12px;}
+.kpi-card{background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:10px 12px;box-shadow:var(--shadow-sm);}
+.kpi-value{font-size:20px;font-weight:700;line-height:1.1;}
+.kpi-label{font-size:10px;color:var(--color-text-secondary);margin-top:3px;}
+.kpi-card.ok .kpi-value{color:var(--color-teal);}
+.kpi-card.warn .kpi-value{color:var(--color-amber);}
+.kpi-card.danger .kpi-value{color:var(--color-coral);}
+.insight-list{margin-bottom:12px;display:flex;flex-direction:column;gap:4px;}
+.insight{padding:8px 12px;border-radius:var(--radius-md);font-size:12px;border-left:3px solid;}
+.insight.info{background:var(--color-accent-soft);border-color:var(--color-accent);color:var(--color-accent);}
+.insight.high{background:var(--color-coral-soft);border-color:var(--color-coral);color:var(--color-coral);}
+.insight.warn{background:var(--color-amber-soft);border-color:var(--color-amber);color:var(--color-amber);}
+.insight.ok{background:var(--color-green-soft);border-color:var(--color-green);color:var(--color-green);}
+.tabs-wrapper{margin-bottom:12px;}
+.tab-pills{display:flex;flex-wrap:wrap;gap:4px;padding:4px;background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);}
+.tab-btn{padding:6px 14px;background:transparent;border:none;border-radius:var(--radius-pill);cursor:pointer;font-size:12px;font-weight:500;color:var(--color-text-secondary);transition:all 0.15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--color-text-primary);background:var(--color-surface-secondary);}
+.tab-btn.active{background:var(--color-accent);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(37,99,235,0.3);}
+.tab-content{display:none;}.tab-content.active{display:block;}
+.card{background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:8px;box-shadow:var(--shadow-sm);}
+.action-card{position:relative;overflow:hidden;}
+.action-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--color-border);}
+.action-card.type-price_fix::before{background:var(--color-coral);}
+.action-card.type-price_strategy::before{background:var(--color-amber);}
+.action-card.type-title_seo::before{background:var(--color-purple);}
+.action-card.type-return_investigate::before{background:var(--color-coral);}
+.action-card.type-storage_cost::before{background:var(--color-text-tertiary);}
+.action-card.quickwin::after{content:'Quick win';position:absolute;top:8px;right:10px;font-size:9px;font-weight:700;color:var(--color-teal);background:var(--color-teal-soft);padding:2px 7px;border-radius:var(--radius-pill);letter-spacing:0.04em;text-transform:uppercase;}
+.action-header{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.action-rank{font-size:11px;font-weight:700;color:var(--color-text-tertiary);min-width:22px;}
+.type-pill{display:inline-block;padding:2px 8px;border-radius:var(--radius-pill);font-size:10px;font-weight:600;}
+.type-pill.price_fix{background:var(--color-coral-soft);color:var(--color-coral);}
+.type-pill.price_strategy{background:var(--color-amber-soft);color:var(--color-amber);}
+.type-pill.title_seo{background:var(--color-purple-soft);color:var(--color-purple);}
+.type-pill.return_investigate{background:var(--color-coral-soft);color:var(--color-coral);}
+.type-pill.storage_cost{background:var(--color-surface-secondary);color:var(--color-text-secondary);}
+.action-title{font-size:13px;font-weight:600;margin-bottom:2px;}
+.action-group{font-size:10px;color:var(--color-text-tertiary);margin-bottom:4px;}
+.action-headline{font-size:12px;color:var(--color-text-secondary);font-weight:500;margin-bottom:2px;}
+.action-detail{font-size:11px;color:var(--color-text-secondary);line-height:1.4;}
+/* SKU row */
+.sku-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
+.sku-chip{font-family:ui-monospace,"SF Mono",Consolas,monospace;font-size:10px;background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:4px;padding:2px 7px;cursor:pointer;color:var(--color-text-secondary);transition:all 0.15s;user-select:none;}
+.sku-chip:hover{background:var(--color-accent-soft);color:var(--color-accent);border-color:transparent;}
+.sku-chip:active{transform:scale(0.97);}
+.product-link{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;border:0.5px solid var(--color-border);color:var(--color-text-tertiary);font-size:12px;text-decoration:none;transition:all 0.15s;}
+.product-link:hover{background:var(--color-accent);color:#fff;border-color:transparent;}
+/* SEO compare */
+.seo-compare{margin-top:8px;border:0.5px solid var(--color-purple);border-radius:var(--radius-sm);overflow:hidden;}
+.seo-compare-row{padding:7px 10px;}
+.seo-compare-row+.seo-compare-row{border-top:0.5px solid var(--color-border-subtle);}
+.seo-row-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
+.seo-row-label.current{color:var(--color-text-tertiary);}
+.seo-row-label.candidate{color:var(--color-teal);}
+.seo-current-text{font-size:11px;color:var(--color-text-tertiary);text-decoration:line-through;}
+.seo-candidate-text{font-size:12px;color:var(--color-teal);font-weight:600;}
+/* Score bar */
+.score-bar-wrap{margin:8px 0 6px;}
+.score-bar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;}
+.score-bar-label-text{font-size:10px;color:var(--color-text-tertiary);display:flex;align-items:center;gap:0;}
+.score-bar-value{font-size:10px;color:var(--color-text-tertiary);}
+.score-bar-track{height:4px;background:var(--color-surface-secondary);border-radius:2px;overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:2px;transition:width 0.4s;}
+.score-bar-fill.high{background:var(--color-teal);}
+.score-bar-fill.med{background:var(--color-amber);}
+.score-bar-fill.low{background:var(--color-coral);}
+/* Price row */
+.price-row{display:flex;gap:12px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--color-border-subtle);flex-wrap:wrap;}
+.price-item{display:flex;flex-direction:column;gap:1px;}
+.price-item-label{font-size:9px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.05em;}
+.price-item-val{font-size:13px;font-weight:700;}
+.price-item-val.old{text-decoration:line-through;color:var(--color-text-tertiary);font-weight:400;}
+.price-item-val.new{color:var(--color-teal);}
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.chip{padding:2px 7px;border-radius:var(--radius-pill);font-size:10px;background:var(--color-surface-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border);display:inline-flex;align-items:center;gap:2px;}
+.chip.ok{background:var(--color-green-soft);color:var(--color-green);border-color:transparent;}
+.chip.warn{background:var(--color-amber-soft);color:var(--color-amber);border-color:transparent;}
+.chip.danger{background:var(--color-coral-soft);color:var(--color-coral);border-color:transparent;}
+/* Buttons */
+.action-btns{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;align-items:center;}
+.btn{padding:6px 12px;border-radius:var(--radius-sm);border:0.5px solid var(--color-border);background:var(--color-surface);font-size:11px;cursor:pointer;color:var(--color-text-secondary);font-weight:500;transition:all 0.15s;display:inline-flex;align-items:center;gap:4px;}
+.btn:hover{background:var(--color-surface-secondary);color:var(--color-text-primary);}
+.btn.primary{background:var(--color-accent);color:#fff;border-color:transparent;}
+.btn.primary:hover{opacity:0.9;}
+.btn.done{background:var(--color-teal);color:#fff;border-color:transparent;cursor:default;}
+.btn.secondary{background:var(--color-purple-soft);color:var(--color-purple);border-color:transparent;}
+/* Tooltip system */
+.tt-wrap{position:relative;display:inline-flex;align-items:center;}
+.tt-btn{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--color-text-tertiary);background:transparent;color:var(--color-text-tertiary);font-size:9px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:4px;flex-shrink:0;transition:all 0.15s;line-height:1;}
+.tt-btn:hover,.tt-wrap.pinned .tt-btn{color:var(--color-accent);border-color:var(--color-accent);}
+.tt-box{display:none;position:absolute;z-index:200;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:180px;max-width:260px;background:var(--color-text-primary);color:var(--color-surface);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;line-height:1.5;font-weight:400;text-align:left;box-shadow:var(--shadow-md);white-space:normal;pointer-events:auto;}
+.tt-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--color-text-primary);}
+.tt-wrap:hover .tt-box,.tt-wrap.pinned .tt-box{display:block;}
+.tt-wrap.tt-right .tt-box{left:auto;right:0;transform:none;}
+.tt-wrap.tt-right .tt-box::after{left:auto;right:10px;transform:none;}
+/* Applied/A-B */
+.applied-row{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:10px 12px;margin-bottom:6px;}
+.status-pill{padding:3px 9px;border-radius:var(--radius-pill);font-size:10px;font-weight:600;}
+.status-pill.pending{background:var(--color-amber-soft);color:var(--color-amber);}
+.status-pill.measured{background:var(--color-green-soft);color:var(--color-green);}
+.ab-timeline{display:flex;align-items:flex-start;gap:0;margin:12px 0;}
+.ab-step{display:flex;flex-direction:column;align-items:center;flex:1;}
+.ab-step-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ab-step-dot.done{background:var(--color-teal);}
+.ab-step-dot.active{background:var(--color-amber);}
+.ab-step-dot.idle{background:var(--color-surface-secondary);border:1.5px solid var(--color-border);}
+.ab-line{height:2px;flex:1;margin-top:4px;}
+.ab-line.done{background:var(--color-teal);}
+.ab-line.idle{background:var(--color-border);}
+.ab-step-label{font-size:9px;color:var(--color-text-tertiary);margin-top:4px;text-align:center;max-width:72px;line-height:1.3;}
+/* ROMI */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.field{margin-bottom:8px;}
+.field label{display:flex;align-items:center;font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;font-weight:500;}
+.field input,.field select{width:100%;padding:6px 8px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;background:var(--color-surface-secondary);color:var(--color-text-primary);transition:border-color 0.15s;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--color-accent);}
+.field .hint{font-size:9px;color:var(--color-text-tertiary);margin-top:2px;}
+.section-label{display:flex;align-items:center;font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin:14px 0 8px;}
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.metric-card{padding:10px;border-radius:var(--radius-md);border:0.5px solid var(--color-border);text-align:center;background:var(--color-surface-secondary);}
+.metric-card .m-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--color-text-tertiary);margin-bottom:3px;}
+.metric-card .m-value{font-size:17px;font-weight:700;}
+.metric-card .m-sub{font-size:9px;color:var(--color-text-tertiary);margin-top:2px;}
+.metric-card.green{background:var(--color-green-soft);border-color:transparent;}
+.metric-card.green .m-value,.metric-card.green .m-sub{color:var(--color-green);}
+.metric-card.yellow{background:var(--color-amber-soft);border-color:transparent;}
+.metric-card.yellow .m-value,.metric-card.yellow .m-sub{color:var(--color-amber);}
+.metric-card.red{background:var(--color-coral-soft);border-color:transparent;}
+.metric-card.red .m-value,.metric-card.red .m-sub{color:var(--color-coral);}
+.details-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:0.5px solid var(--color-border-subtle);font-size:11px;color:var(--color-text-secondary);}
+.details-row:last-child{border:none;}
+.details-row strong{color:var(--color-text-primary);}
+table.sensitivity{width:100%;border-collapse:collapse;font-size:10px;margin-top:6px;}
+table.sensitivity th,table.sensitivity td{padding:5px 6px;text-align:center;border:0.5px solid var(--color-border);}
+table.sensitivity th{background:var(--color-surface-secondary);font-weight:600;color:var(--color-text-secondary);}
+table.sensitivity td.green{background:var(--color-green-soft);color:var(--color-green);font-weight:600;}
+table.sensitivity td.yellow{background:var(--color-amber-soft);color:var(--color-amber);font-weight:600;}
+table.sensitivity td.red{background:var(--color-coral-soft);color:var(--color-coral);font-weight:600;}
+/* Help panel */
+.help-panel{background:var(--color-accent-soft);border:0.5px solid var(--color-accent);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:12px;font-size:12px;color:var(--color-text-secondary);line-height:1.6;}
+.help-toggle-btn{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-size:11px;color:var(--color-accent);font-weight:600;padding:0;margin-bottom:8px;}
+.help-toggle-btn .toggle-icon{font-size:10px;transition:transform 0.2s;}
+.help-toggle-btn.open .toggle-icon{transform:rotate(90deg);}
+/* API tab */
+.api-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);margin-bottom:4px;font-size:11px;flex-wrap:wrap;}
+.method-pill{padding:2px 7px;border-radius:var(--radius-pill);font-size:9px;font-weight:700;flex-shrink:0;}
+.method-pill.GET{background:var(--color-green-soft);color:var(--color-green);}
+.method-pill.POST{background:var(--color-accent-soft);color:var(--color-accent);}
+.method-pill.GAP{background:var(--color-surface-secondary);color:var(--color-text-tertiary);}
+.api-url{font-family:ui-monospace,"SF Mono",Consolas,monospace;color:var(--color-accent);font-size:10px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+.api-status-badge{font-size:9px;font-weight:700;flex-shrink:0;}
+.api-status-badge.ok{color:var(--color-teal);}
+.api-status-badge.fix{color:var(--color-amber);}
+.api-status-badge.todo{color:var(--color-text-tertiary);}
+.api-note{font-size:10px;color:var(--color-text-tertiary);flex-basis:100%;padding-left:52px;}
+.token-section{background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:12px;}
+.token-row{display:flex;gap:8px;align-items:center;}
+.token-row input{flex:1;padding:7px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;background:var(--color-surface-secondary);color:var(--color-text-primary);font-family:ui-monospace,monospace;}
+.token-dot{width:8px;height:8px;border-radius:50%;background:var(--color-text-tertiary);flex-shrink:0;transition:background 0.2s;}
+.token-dot.active{background:var(--color-teal);}
+.test-result{background:var(--color-surface-secondary);border-radius:var(--radius-sm);padding:8px 10px;margin-top:4px;font-size:10px;font-family:ui-monospace,monospace;color:var(--color-text-secondary);display:none;white-space:pre-wrap;max-height:80px;overflow:auto;}
+/* Staleness */
+.stale-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:var(--radius-pill);font-size:10px;font-weight:600;}
+.stale-badge.fresh{background:var(--color-green-soft);color:var(--color-green);}
+.stale-badge.warn{background:var(--color-amber-soft);color:var(--color-amber);}
+.stale-badge.stale{background:var(--color-coral-soft);color:var(--color-coral);}
+.source-card{background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:10px 12px;margin-bottom:6px;}
+.source-name{font-size:12px;font-weight:600;color:var(--color-text-primary);margin-bottom:2px;}
+.source-meta{font-size:10px;color:var(--color-text-tertiary);}
+.source-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center;}
+.drop-zone{border:1.5px dashed var(--color-border);border-radius:var(--radius-md);padding:20px;text-align:center;color:var(--color-text-tertiary);font-size:12px;margin-top:12px;cursor:pointer;transition:all 0.2s;}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--color-accent);color:var(--color-accent);background:var(--color-accent-soft);}
+/* Buyers/comms */
+.comm-empty{text-align:center;padding:24px;color:var(--color-text-tertiary);font-size:12px;}
+.comm-empty-icon{font-size:28px;margin-bottom:8px;opacity:0.5;}
+.ai-suggestion{background:var(--color-purple-soft);border:0.5px solid var(--color-purple);border-radius:var(--radius-sm);padding:8px 10px;margin-top:6px;}
+.ai-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-purple);margin-bottom:3px;}
+.ai-text{font-size:11px;color:var(--color-text-secondary);font-style:italic;}
+.template-preview{background:var(--color-surface-secondary);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;color:var(--color-text-secondary);font-style:italic;white-space:pre-wrap;margin-top:6px;line-height:1.5;}
+/* Alert banner */
+.alert-banner{padding:8px 12px;border-radius:var(--radius-sm);font-size:11px;margin-bottom:6px;border:0.5px solid transparent;}
+.alert-banner.warn{background:var(--color-amber-soft);border-color:var(--color-amber);color:var(--color-amber);}
+.alert-banner.danger{background:var(--color-coral-soft);border-color:var(--color-coral);color:var(--color-coral);}
+.alert-banner.ok{background:var(--color-green-soft);border-color:var(--color-green);color:var(--color-green);}
+.alert-banner.info{background:var(--color-accent-soft);border-color:var(--color-accent);color:var(--color-accent);}
+/* Blockers */
+.blocker{margin-bottom:6px;padding:10px 12px;background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);border-left:3px solid var(--color-border);}
+.blocker.critical{border-left-color:var(--color-coral);}
+.blocker.high{border-left-color:var(--color-amber);}
+.blocker.med{border-left-color:var(--color-accent);}
+.blocker.low{border-left-color:var(--color-text-tertiary);}
+.blocker.resolved{border-left-color:var(--color-teal);opacity:0.6;}
+.blocker-header{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+.sev-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.blocker.critical .sev-dot{background:var(--color-coral);}
+.blocker.high .sev-dot{background:var(--color-amber);}
+.blocker.med .sev-dot{background:var(--color-accent);}
+.blocker.low .sev-dot{background:var(--color-text-tertiary);}
+.blocker.resolved .sev-dot{background:var(--color-teal);}
+.blocker-title{font-size:12px;font-weight:600;}
+.blocker-body{font-size:11px;color:var(--color-text-secondary);line-height:1.5;}
+/* Filter bar */
+.filter-bar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.filter-pill{padding:4px 10px;border-radius:var(--radius-pill);border:0.5px solid var(--color-border);background:var(--color-surface);font-size:11px;cursor:pointer;color:var(--color-text-secondary);transition:all 0.15s;}
+.filter-pill:hover{background:var(--color-surface-secondary);}
+.filter-pill.active{background:var(--color-text-primary);color:var(--color-surface);border-color:transparent;}
+/* Misc */
+code{font-family:ui-monospace,"SF Mono",Consolas,monospace;background:var(--color-surface-secondary);padding:1px 5px;border-radius:3px;font-size:10px;color:var(--color-text-secondary);}
+.empty{color:var(--color-text-tertiary);font-style:italic;padding:24px;text-align:center;font-size:12px;}
+footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-border);font-size:10px;color:var(--color-text-tertiary);text-align:center;}
+.toast{position:fixed;top:16px;right:16px;background:var(--color-text-primary);color:var(--color-surface);padding:10px 16px;border-radius:var(--radius-md);font-size:12px;z-index:999;opacity:0;transform:translateY(-8px);transition:all 0.2s;box-shadow:var(--shadow-md);}
+.toast.show{opacity:1;transform:translateY(0);}
+.text-sm{font-size:11px;}.text-xs{font-size:10px;}.text-muted{color:var(--color-text-secondary);}.text-tertiary{color:var(--color-text-tertiary);}.text-teal{color:var(--color-teal);}.text-amber{color:var(--color-amber);}.text-coral{color:var(--color-coral);}.text-primary{color:var(--color-text-primary);}.fw-600{font-weight:600;}.mt-4{margin-top:4px;}.mt-8{margin-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-title">Магнит Маркет · Командный центр</div>
+    <div class="header-badge">WONDERS · shop 98</div>
+  </div>
+  <div class="header-sub" id="header-sub">Загрузка...</div>
+</div>
+<div class="kpi-grid" id="kpi-grid"></div>
+<div class="insight-list" id="insights-box"></div>
+
+<div class="tabs-wrapper">
+  <div class="tab-pills">
+    <button class="tab-btn active" data-tab="plan">План</button>
+    <button class="tab-btn" data-tab="reviews">Отзывы</button>
+    <button class="tab-btn" data-tab="applied">A/B</button>
+    <button class="tab-btn" data-tab="romi">ROMI</button>
+    <button class="tab-btn" data-tab="api">API</button>
+    <button class="tab-btn" data-tab="buyers">Покупатели</button>
+    <button class="tab-btn" data-tab="blockers">Блокеры</button>
+    <button class="tab-btn" data-tab="sources">Источники</button>
+  </div>
+</div>
+
+<div id="tab-plan" class="tab-content active"></div>
+<div id="tab-reviews" class="tab-content"></div>
+<div id="tab-applied" class="tab-content"></div>
+<div id="tab-romi" class="tab-content"></div>
+<div id="tab-api" class="tab-content"></div>
+<div id="tab-buyers" class="tab-content"></div>
+<div id="tab-blockers" class="tab-content"></div>
+<div id="tab-sources" class="tab-content"></div>
+
+<footer>Итерация <span id="iter-num">—</span> · Обновлено <span id="iter-updated">—</span> · goal: WONDERS в ТОП-10</footer>
+<div id="toast" class="toast"></div>
+
+<script>
+const PAYLOAD = {"plan":{"generated_at":"2026-04-22T06:53:53.999332+00:00","kpis":{"actions_in_plan":12,"quick_wins_count":6,"by_type_count":{"price_fix":3,"price_strategy":3,"title_seo":3,"return_investigate":2,"storage_cost":1},"potential_price_shift_rub":4.09,"zero_stock_in_top":0,"stockout_risk_in_top":0,"competitor_aware_in_top":8},"metadata":{"sources_used":["marketing_card_audit (24 → marketing_card_audit_2026-04-11.json)","dynamic_pricing (8 → dynamic_pricing_2026-04-11.json)","sales_return_report (2 → sales_return_report_2026-04-13.json)","paid_storage_report (10 → paid_storage_report_2026-04-13.json)","competitor_market_analysis (0 → market_rescored_after_cogs_2026-04-11.json)","weekly_operational_report (ctx → weekly_operational_report_2026-04-08.json)"],"sources_skipped":["price_trap_report"],"stock_context_source":"weekly_operational_report_2026-04-08.json","competitor_context_source":"market_rescored_after_cogs_2026-04-11.json","stock_annotated":2,"competitor_annotated":31},"insights":[{"severity":"info","message":"Сформировано 12 действий; из них быстрых побед: 6."},{"severity":"high","message":"Сначала закройте все price_fix — 5 минут, ломает психологический порог."},{"severity":"high","message":"Возвраты давят на рейтинг и ранжирование. Разберитесь сегодня."},{"severity":"warn","message":"Stock-контекст 14 дней давности. Цены/остатки могли сдвинуться."}],"actions":[{"rank":1,"action_type":"price_fix","title":"Детское Домино Половинки 'Животные и игрушки' 28 плашек","group":"Пазлы","headline":"Тест цены","detail":"цена 801.0 ₽ висит выше порога 799 ₽ на 2.0 ₽","current_value":801.0,"suggested_value":799,"priority_score":84.63,"compound_score":89.63,"quick_win":true,"entity_key":"WONDERS-ДОМИНО","product_id":30429,"meta":{"total_stock":27,"stockout_risk":false,"stale_stock":true,"market_median_price":null,"price_vs_market_pct":null}},{"rank":2,"action_type":"price_fix","title":"Настольная игра Baby Toys 'Азбука для самых маленьких' русский алфавит","group":"Книги и обучающие материалы","headline":"Тест цены","detail":"цена 400.5 ₽ висит выше порога 399 ₽ на 1.5 ₽; рыночный контекст: можно агрессивно входить","current_value":400.5,"suggested_value":399,"priority_score":68.31,"compound_score":88.31,"quick_win":true,"entity_key":"WONDERS-04270","product_id":950401,"meta":{"total_stock":null,"market_median_price":350.0,"price_vs_market_pct":14.43}},{"rank":3,"action_type":"price_fix","title":"Логическая пирамидка 'Учимся считать'","group":"Кубики, мозаика и пирамидки","headline":"Тест цены","detail":"цена 499.59 ₽ висит выше порога 499 ₽ на 0.59 ₽","current_value":499.59,"suggested_value":499,"priority_score":71.4,"compound_score":86.4,"quick_win":true,"entity_key":"WONDERS-ПСЧ3007","product_id":419169,"meta":{"total_stock":null,"stale_stock":true,"market_median_price":324.0,"price_vs_market_pct":54.19}},{"rank":4,"action_type":"price_strategy","title":"Прочее [200-499]","group":"Прочее","headline":"Ценовая стратегия: можно агрессивно входить","detail":"рынок оставляет запас маржи даже при цене чуть ниже среднего","current_value":301.49,"suggested_value":295.46,"priority_score":70.0,"compound_score":73.0,"quick_win":false,"entity_key":"group:Прочее:band:200-499","meta":{"market_median_price":220.0,"price_vs_market_pct":37.04}},{"rank":5,"action_type":"price_strategy","title":"Прочее [800-1199]","group":"Прочее","headline":"Ценовая стратегия: можно агрессивно входить","detail":"ВНИМАНИЕ: мы +364% над рынком — снижение на 20 ₽ не поможет, нужна ревизия закупки","current_value":1021.63,"suggested_value":1001.2,"priority_score":70.0,"compound_score":73.0,"quick_win":false,"entity_key":"group:Прочее:band:800-1199","meta":{"market_median_price":220.0,"price_vs_market_pct":364.38}},{"rank":6,"action_type":"price_strategy","title":"Антистрессы и сквиши [200-499]","group":"Антистрессы и сквиши","headline":"Ценовая стратегия: можно агрессивно входить","detail":"рынок оставляет запас маржи даже при цене чуть ниже среднего","current_value":349.24,"suggested_value":342.26,"priority_score":70.0,"compound_score":73.0,"quick_win":false,"entity_key":"group:Антистрессы и сквиши:band:200-499","meta":{"market_median_price":169.0,"price_vs_market_pct":106.65}},{"rank":7,"action_type":"title_seo","title":"Учимся рисовать тренажер по рисованию компактные развивающие игры в дорогу Bondibon","group":"Прочее","headline":"Переписать title","detail":"SEO: main_noun_late. Кандидат: 'Развивающая игра Bondibon — учимся рисовать (тренажёр для детей)'","current_value":499.0,"suggested_value":295.46,"priority_score":28.0,"compound_score":33.8,"quick_win":true,"entity_key":"WONDERS-ДОРИСУЙ-ОРАНЖ","product_id":38753,"meta":{"market_median_price":220.0,"price_vs_market_pct":126.82}},{"rank":8,"action_type":"title_seo","title":"'Найди отличия!' - компактная развивающая игра в дорогу Bondibon","group":"Прочее","headline":"Переписать title","detail":"SEO: main_noun_late. Кандидат: 'Развивающая игра в дорогу Bondibon «Найди отличия!»'","current_value":620.0,"suggested_value":569.0,"priority_score":28.0,"compound_score":33.8,"quick_win":true,"entity_key":"WONDERS-ОТЛИЧИЯ","product_id":38757,"meta":{"market_median_price":220.0,"price_vs_market_pct":181.82}},{"rank":9,"action_type":"title_seo","title":"Ксилофон","group":"Прочее","headline":"Переписать title","detail":"SEO: main_noun_unknown. Кандидат: 'Деревянный ксилофон развивающий для детей 3+ (WONDERS)'","current_value":380.0,"suggested_value":295.46,"priority_score":28.0,"compound_score":33.8,"quick_win":true,"entity_key":"WONDERS-КСЛФ1-ДЕРЕВОМ","product_id":326,"meta":{"market_median_price":220.0,"price_vs_market_pct":72.73}},{"rank":10,"action_type":"return_investigate","title":"2623485","headline":"Разобраться с возвратами (REGULAR)","detail":"SKU 2623485: 1 возврат, REGULAR. Найти паттерн → описание, размер, фото.","current_value":1.0,"priority_score":45.0,"compound_score":33.75,"quick_win":false,"entity_key":"return:2623485","product_id":"970356","meta":{}},{"rank":11,"action_type":"return_investigate","title":"7941901","headline":"Разобраться с возвратами (CANCELED)","detail":"SKU 7941901: 0 возвратов, CANCELED. Проверить паттерн.","current_value":0.0,"priority_score":40.0,"compound_score":25.0,"quick_win":false,"entity_key":"return:7941901","product_id":"2539424","meta":{"total_stock":33,"stale_stock":true}},{"rank":12,"action_type":"storage_cost","title":"Платное хранение","headline":"Сократить платное хранение","detail":"Сумма хранения: 0 ₽ (пока чисто). Варианты: распродажа, вывоз FBS, снижение FBO-остатка.","current_value":0.0,"priority_score":30.0,"compound_score":18.0,"quick_win":false,"entity_key":"storage:noname","meta":{}}]},"review_booster":{"generated_at":"2026-04-22T06:58:38.677096+00:00","kpis":{"responses_suggested":2,"high_priority_responses":0,"reason_coverage":2},"insights":[{"severity":"info","message":"2 шаблона готовы. Ответить сегодня = 5-10 мин + прямой сигнал площадке."}],"rows":[{"product_id":"970356","sku":"2623485","title":"2623485","return_reason_code":"REGULAR","reason_label":"Стандартный возврат","return_count":1,"template_response":"Здравствуйте! Спасибо, что поделились впечатлением. Мы зафиксировали возврат и изучаем, что могло пойти не так. Если остались вопросы по товару — напишите, мы поможем подобрать подходящую модель из ассортимента.","action_for_seller":"Проверить карточку: соответствует ли описание реальному товару. Частые REGULAR на одном SKU → пересмотреть фото/размеры.","priority":"medium"},{"product_id":"2539424","sku":"7941901","title":"7941901","return_reason_code":"UNKNOWN","reason_label":"Причина не указана","return_count":0,"template_response":"Здравствуйте! Спасибо, что выбрали наш магазин. Если у вас есть вопросы по товару или предложения — напишите, мы всегда открыты к обратной связи.","action_for_seller":"Если много UNKNOWN без пояснений — возможно клиенты просто закрывают окно возврата. Не паниковать.","priority":"medium"}]},"applied_actions":{"summary":{"total_entries":1,"pending_count":1,"measured_count":0},"entries":[{"id":"b1dea387a5fe","action_id":1,"entity_key":"WONDERS-ДОМИНО","product_id":30429,"title":"Детское Домино Половинки 'Животные и игрушки' 28 плашек","action_type":"price_fix","applied_at":"2026-04-22T06:56:24.391642+00:00","measurement_due_at":"2026-04-29T06:56:24.391642+00:00","status":"pending","baseline":{"current_value":801.0,"suggested_value":799,"total_stock":27}}]},"api_status":{"checked_at":"2026-04-22T07:14:00+00:00","shop_id":98,"token_status":"valid","token_expires_moscow":"2026-04-22T14:28:51+03:00","cubes":24,"existing_documents":34,"endpoints":[{"url":"seller-analytics.mm.ru/cubejs-api/v1/meta","method":"GET","status":"ok","note":"24 cubes, Sales cube present"},{"url":"seller-analytics.mm.ru/cubejs-api/v1/load","method":"GET","status":"ok","note":"revenue + orders за 7 дней"},{"url":"api.business.kazanexpress.ru/api/seller/documents/requests","method":"GET","status":"ok","note":"34 отчёта в истории"},{"url":"api.business.kazanexpress.ru/api/seller/documents/create","method":"POST","status":"fix","note":"400 validation-failed — фикс payload в 005"},{"url":"api.business.kazanexpress.ru/api/seller/category/tree","method":"GET","status":"ok","note":"используется для привязки"},{"url":"api.business.kazanexpress.ru/api/seller/shop/{id}/product/getProducts","method":"GET","status":"ok","note":"список товаров магазина"},{"url":"api.kazanexpress.ru/api/v2/product/{id}","method":"GET","status":"ok","note":"публичная карточка"},{"url":"web-api.mm.ru/v2/goods/search","method":"POST","status":"ok","note":"поиск конкурентов"},{"url":"web-api.mm.ru/v1/goods/filters","method":"POST","status":"ok","note":"фильтры категории"}],"gaps":[{"name":"Reviews/Rating API","status":"todo","note":"нет в Seller API. Workaround: парсинг публичной карточки"},{"name":"Search position / visibility","status":"todo","note":"ежедневный public search по ключевым запросам"},{"name":"Price history","status":"todo","note":"ежедневный snapshot getProducts → price_history.jsonl"},{"name":"Order-level details","status":"todo","note":"CubeJS только агрегаты; детали в SELLS_REPORT CSV"},{"name":"Promo/campaign participation","status":"todo","note":"нужен для Q8 (Promo Impact Tracker)"}]},"blockers":[{"id":"B-009","sev":"critical","title":"COGS не интегрирован в scoring","body":"Система советует снижать цены на товары где мы +54%/+182%/+364% над рынком. Без COGS невозможно отличить «разумное» от «убить маржу». Action 005: интегрировать waybill_cost_layer + фильтр price_vs_market>50% → hold."},{"id":"B-010","sev":"high","title":"Давность данных 11-14 дней","body":"stock_context=weekly_operational_report_2026-04-08 (14 дней), competitor=market_rescored_2026-04-11 (11 дней). Action 005: warn-flag если context>7 дней, triggered refresh, миграция на daily cubejs snapshot."},{"id":"B-011","sev":"high","title":"83% действий без stock-контекста","body":"stock_annotated=2 из 12. Вероятно product_id mismatch между bundles (str vs int, suffix). Action 005: трейсинг + нормализация ключей."},{"id":"B-012","sev":"med","title":"competitor_annotated counter=31 vs 12 действий","body":"Считает по группам, а не по SKU. Либо ошибка формулы, либо by design с неправильным именем. Action 005: проверить в _build_competitor_context()."},{"id":"B-002","sev":"resolved","title":"Ответы Максима получены","body":"Q1-Q9 заданы, ответы зафиксированы. Остался частично: точные GMV/маржа — но они добываются через API."},{"id":"B-007","sev":"resolved","title":"Stock validation встроен","body":"Daily Action Plan читает weekly_operational_report как контекст (bug-fix по kind ключу в 004)."},{"id":"B-008","sev":"high","title":"A/B measurement window 0-7 дней","body":"Applied Actions использует weekly_operational агрегат → измерение смещено. Action 005: daily cubejs pipeline, документировать offset."}],"iteration":{"number":"004","updated_at":"2026-04-22T07:15Z","status":"in_progress","uncertainty":0.48}};
+
+// ── Globals ─────────────────────────────────────────────────────────────────
+let apiToken = '';
+
+// ── Utils ────────────────────────────────────────────────────────────────────
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+function copyToClipboard(text,label){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>toast(label||'Скопировано'),()=>fbCopy(text,label));}else fbCopy(text,label);}
+function fbCopy(text,label){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(label||'Скопировано');}catch(e){toast('Не удалось скопировать');}document.body.removeChild(ta);}
+function esc(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function toggleHelp(id,btn){const el=document.getElementById(id);const isOpen=el.style.display!=='none';el.style.display=isOpen?'none':'block';btn.classList.toggle('open',!isOpen);}
+
+// ── Tooltip system ────────────────────────────────────────────────────────────
+function pinTip(btn){
+  const wrap=btn.closest('.tt-wrap');
+  const wasPinned=wrap.classList.contains('pinned');
+  document.querySelectorAll('.tt-wrap.pinned').forEach(w=>w.classList.remove('pinned'));
+  if(!wasPinned){
+    wrap.classList.add('pinned');
+    const close=(e)=>{if(!wrap.contains(e.target)){wrap.classList.remove('pinned');document.removeEventListener('click',close,true);}};
+    setTimeout(()=>document.addEventListener('click',close,true),0);
+  }
+}
+function tip(text,right){return `<span class="tt-wrap${right?' tt-right':''}"><button class="tt-btn" onclick="pinTip(this)">i</button><div class="tt-box">${text}</div></span>`;}
+
+// ── SEO candidate parser ──────────────────────────────────────────────────────
+function parseCandidate(detail){
+  if(!detail)return null;
+  const m=detail.match(/[Кк]андидат:\s*['"""«](.+?)['"""»]$/)||detail.match(/[Кк]андидат:\s*['"""«](.+)/);
+  return m?m[1].replace(/['"""»]+$/,'').trim():null;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+function renderHeader(){
+  const p=PAYLOAD.plan||{};const it=PAYLOAD.iteration||{};
+  const genAt=p.generated_at?p.generated_at.slice(0,16).replace('T',' '):'—';
+  document.getElementById('header-sub').textContent=`Последний план: ${genAt} UTC · Источников: ${((p.metadata||{}).sources_used||[]).length} · Неопределённость: ${it.uncertainty||'—'}`;
+  document.getElementById('iter-num').textContent=it.number||'—';
+  document.getElementById('iter-updated').textContent=it.updated_at||'—';
+}
+
+// ── KPIs ──────────────────────────────────────────────────────────────────────
+function renderKPIs(){
+  const k=(PAYLOAD.plan||{}).kpis||{};const rb=(PAYLOAD.review_booster||{}).kpis||{};
+  const aa=PAYLOAD.applied_actions||{};const api=PAYLOAD.api_status||{};
+  const items=[
+    {v:k.actions_in_plan||0,k:'Действий в плане'},
+    {v:k.quick_wins_count||0,k:'Quick wins',cls:'ok'},
+    {v:((k.potential_price_shift_rub||0)).toFixed(0)+' ₽',k:'Сдвиг цен'},
+    {v:k.competitor_aware_in_top||0,k:'Vs рынок'},
+    {v:rb.responses_suggested||0,k:'Шаблонов'},
+    {v:(aa.summary||{}).pending_count||0,k:'Pending A/B',cls:'warn'},
+    {v:api.token_status==='valid'?'OK':'Error',k:'API токен',cls:api.token_status==='valid'?'ok':'danger'},
+    {v:api.cubes||0,k:'CubeJS cubes'}
+  ];
+  document.getElementById('kpi-grid').innerHTML=items.map(i=>`<div class="kpi-card ${i.cls||''}"><div class="kpi-value">${i.v}</div><div class="kpi-label">${i.k}</div></div>`).join('');
+}
+
+function renderInsights(){
+  const ins=((PAYLOAD.plan||{}).insights||[]).concat(((PAYLOAD.review_booster||{}).insights)||[]);
+  document.getElementById('insights-box').innerHTML=ins.map(i=>`<div class="insight ${i.severity||'info'}">${esc(i.message||'')}</div>`).join('');
+}
+
+// ── Plan Tab ──────────────────────────────────────────────────────────────────
+const TYPE_LABELS={price_fix:'Цена fix',price_strategy:'Стратегия',title_seo:'SEO',return_investigate:'Возвраты',storage_cost:'Хранение',content_fix:'Контент',market_opportunity:'Рынок'};
+function typeLabel(t){return TYPE_LABELS[t]||t;}
+
+function renderPlan(){
+  const box=document.getElementById('tab-plan');
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  if(!actions.length){box.innerHTML='<div class="empty">Нет действий.</div>';return;}
+  const types=[...new Set(actions.map(a=>a.action_type))];
+  box.innerHTML=`<div class="filter-bar" id="plan-filter">
+    <button class="filter-pill active" data-filter="all">Все (${actions.length})</button>
+    ${types.map(t=>`<button class="filter-pill" data-filter="${t}">${typeLabel(t)} (${actions.filter(a=>a.action_type===t).length})</button>`).join('')}
+    <button class="filter-pill" data-filter="quickwin">Quick wins (${actions.filter(a=>a.quick_win).length})</button>
+  </div><div id="plan-cards">${actions.map(renderActionCard).join('')}</div>`;
+  attachPlanEvents(box,actions);
+}
+
+function attachPlanEvents(box,actions){
+  box.querySelectorAll('[data-apply]').forEach(b=>b.addEventListener('click',onApplyClick));
+  box.querySelectorAll('[data-cmd]').forEach(b=>b.addEventListener('click',()=>{copyToClipboard(b.dataset.cmd,'CLI команда скопирована');}));
+  box.querySelectorAll('.sku-chip[data-sku]').forEach(b=>b.addEventListener('click',()=>{copyToClipboard(b.dataset.sku);toast('SKU скопирован: '+b.dataset.sku);}));
+  box.querySelectorAll('.filter-pill').forEach(p=>p.addEventListener('click',()=>{
+    box.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    const af=p.dataset.filter;
+    const cards=box.querySelector('#plan-cards');
+    cards.innerHTML=actions.filter(a=>af==='all'||a.action_type===af||(af==='quickwin'&&a.quick_win)).map(renderActionCard).join('');
+    attachPlanEvents(box,actions);
+  }));
+}
+
+function renderActionCard(a){
+  const meta=a.meta||{};
+  const score=a.compound_score||a.priority_score||0;
+  const sp=Math.min(100,score).toFixed(0);
+  const sc=score>=80?'high':(score>=50?'med':'low');
+  const pid=a.product_id;
+  const productUrl=pid?`https://megamarket.ru/catalogue/details/${pid}/`:'#';
+  const candidate=parseCandidate(a.detail||'');
+
+  const chips=[];
+  if(meta.total_stock!=null){const c=meta.total_stock<=0?'danger':(meta.total_stock<5?'warn':'ok');chips.push(`<span class="chip ${c}">Остаток: ${meta.total_stock}</span>`);}
+  if(meta.stale_stock)chips.push(`<span class="chip warn">Данные устарели ${tip('Данные об остатках старше 7 дней. Проверьте ЛК перед применением.')}</span>`);
+  if(meta.price_vs_market_pct!=null){const v=meta.price_vs_market_pct;const c=v>50?'danger':(v>10?'warn':(v<-3?'ok':''));chips.push(`<span class="chip ${c}">Vs рынок: ${v>0?'+':''}${v.toFixed(1)}% ${tip('Разница между нашей ценой и медианой рынка.<br>+% = мы дороже рынка. >+50% — опасно без знания COGS.')}</span>`);}
+  if(meta.market_median_price)chips.push(`<span class="chip">Медиана: ${meta.market_median_price} ₽</span>`);
+
+  let priceHtml='';
+  if(a.current_value!=null){
+    priceHtml=`<div class="price-row">
+      <div class="price-item"><span class="price-item-label">Сейчас</span><span class="price-item-val ${a.suggested_value?'old':''}">${a.current_value} ₽</span></div>
+      ${a.suggested_value?`<div class="price-item"><span class="price-item-label">Цель</span><span class="price-item-val new">${a.suggested_value} ₽</span></div>`:''}
+    </div>`;
+  }
+
+  let seoHtml='';
+  if(a.action_type==='title_seo'&&candidate){
+    seoHtml=`<div class="seo-compare">
+      <div class="seo-compare-row"><div class="seo-row-label current">Сейчас — неэффективно</div><div class="seo-current-text">${esc(a.title)}</div></div>
+      <div class="seo-compare-row"><div class="seo-row-label candidate">Кандидат — рекомендуется</div><div class="seo-candidate-text">${esc(candidate)}</div></div>
+    </div>`;
+  }
+
+  const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
+  const applyTip=tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность. (TASK-008)');
+  const cliTip=tip('Копирует Python-команду для записи изменения в <code>applied_actions.json</code> через mm-market-tools CLI.<br>Запустите в терминале после применения.');
+
+  return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
+    <div class="action-header">
+      <span class="action-rank">#${a.rank}</span>
+      <span class="type-pill ${a.action_type}">${typeLabel(a.action_type)}</span>
+    </div>
+    <div class="action-title">${a.action_type==='title_seo'&&candidate?esc(candidate):esc(a.title)}</div>
+    ${a.group?`<div class="action-group">${esc(a.group)}</div>`:''}
+    <div class="action-headline">${esc(a.headline||'')}</div>
+    ${a.action_type!=='title_seo'&&a.detail?`<div class="action-detail mt-4">${esc(a.detail)}</div>`:''}
+    ${seoHtml}
+    <div class="score-bar-wrap">
+      <div class="score-bar-header">
+        <span class="score-bar-label-text">Приоритет ${tip('Compound score (0–100):<br><b>тип действия × рыночный контекст × срочность</b><br>80–100 = критично · 50–79 = важно · &lt;50 = фоновое')}</span>
+        <span class="score-bar-value">${sp}/100</span>
+      </div>
+      <div class="score-bar-track"><div class="score-bar-fill ${sc}" style="width:${sp}%"></div></div>
+    </div>
+    ${priceHtml}
+    ${pid?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(pid))}" title="Нажмите для копирования SKU">SKU ${esc(String(pid))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
+    ${chips.length?`<div class="chips">${chips.join('')}</div>`:''}
+    <div class="action-btns">
+      <button class="btn primary" data-apply="${a.rank}">Применил ${applyTip}</button>
+      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI ${cliTip}</button>
+    </div>
+  </div>`;
+}
+
+function onApplyClick(e){
+  const btn=e.currentTarget;
+  btn.classList.add('done');btn.textContent='Отмечено ✓';btn.disabled=true;
+  toast('Записано! Через 7 дней появится в A/B журнале.');
+}
+
+// ── Reviews Tab ───────────────────────────────────────────────────────────────
+function renderReviews(){
+  const box=document.getElementById('tab-reviews');
+  const rows=((PAYLOAD.review_booster||{}).rows)||[];
+  if(!rows.length){box.innerHTML='<div class="empty">Нет возвратов для обработки.</div>';return;}
+  box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">Возвраты влияют на рейтинг магазина и позиции в поиске. Ответьте сегодня — это прямой сигнал площадке.</div>`
+    +rows.map((r,idx)=>`<div class="card action-card type-return_investigate">
+    <div class="action-header">
+      <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
+      <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
+    </div>
+    <div class="action-title">SKU <span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+    <div class="template-preview">${esc(r.template_response||'')}</div>
+    <div class="text-sm text-muted mt-4">Проверьте карточку: ${esc(r.action_for_seller||'')}</div>
+    <div class="action-btns">
+      <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
+    </div>
+  </div>`).join('');
+}
+
+// ── A/B Tab ───────────────────────────────────────────────────────────────────
+function renderApplied(){
+  const box=document.getElementById('tab-applied');
+  const entries=((PAYLOAD.applied_actions||{}).entries)||[];
+  const summary=(PAYLOAD.applied_actions||{}).summary||{};
+
+  const howItWorks=`<div class="card" style="margin-bottom:12px">
+    <button class="help-toggle-btn" onclick="toggleHelp('ab-help',this)"><span class="toggle-icon">▶</span> Как работает A/B журнал ${tip('Applied Actions — журнал применённых изменений с автоматическим измерением результата через CubeJS.')}</button>
+    <div id="ab-help" style="display:none;font-size:12px;color:var(--color-text-secondary);line-height:1.7">
+      <strong style="color:var(--color-text-primary)">Workflow:</strong><br>
+      1. Вы применяете изменение (цена, заголовок) и нажимаете «Применил» в плане.<br>
+      2. Действие фиксируется в <code>applied_actions.json</code> с baseline метриками.<br>
+      3. Через 7 дней система сравнивает orders/views/conversion до и после через CubeJS.<br>
+      4. Результат появляется здесь со статусом <strong>measured</strong> и дельтой.<br>
+      5. Карточка уходит из плана навсегда — пока система не найдёт новую возможность.<br>
+      <div class="alert-banner info" style="margin-top:8px">Полная интеграция с CubeJS — <strong>TASK-008</strong> в разработке.</div>
+    </div>
+  </div>`;
+
+  const now=Date.now();
+  const entriesHtml=entries.length?entries.map(e=>{
+    const dueMs=e.measurement_due_at?new Date(e.measurement_due_at).getTime():null;
+    const daysLeft=dueMs?Math.max(0,Math.ceil((dueMs-now)/86400000)):null;
+    const timelineHtml=`<div style="display:flex;align-items:flex-start;gap:0;margin:10px 0 6px">
+      <div class="ab-step"><div class="ab-step-dot done"></div><div class="ab-step-label">Применено</div></div>
+      <div class="ab-line ${e.status==='measured'?'done':'done'}" style="margin-top:4px"></div>
+      <div class="ab-step"><div class="ab-step-dot ${e.status==='measured'?'done':'active'}"></div><div class="ab-step-label">Замер${daysLeft!==null?`<br><strong>${daysLeft}д осталось</strong>`:''}</div></div>
+      <div class="ab-line ${e.status==='measured'?'done':'idle'}" style="margin-top:4px"></div>
+      <div class="ab-step"><div class="ab-step-dot ${e.status==='measured'?'done':'idle'}"></div><div class="ab-step-label">Результат</div></div>
+    </div>`;
+    return `<div class="applied-row" style="flex-direction:column;align-items:flex-start">
+      <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
+        <div><div class="fw-600">${esc(e.title||e.entity_key||'?')}</div>
+        <div class="text-xs text-muted">${esc(e.action_type)} · Применено: ${e.applied_at?e.applied_at.slice(0,10):'—'}</div></div>
+        <span class="status-pill ${e.status}">${e.status}</span>
+      </div>
+      ${timelineHtml}
+    </div>`;
+  }).join(''):`<div class="empty">Нет применённых действий. Нажмите «Применил» на карточке в Плане.</div>`;
+
+  box.innerHTML=howItWorks+`<div class="text-xs text-muted" style="margin-bottom:8px">Всего: <strong>${summary.total_entries||0}</strong> · Pending: <strong class="text-amber">${summary.pending_count||0}</strong> · Измерено: <strong class="text-teal">${summary.measured_count||0}</strong></div>`+entriesHtml;
+}
+
+// ── ROMI Tab ──────────────────────────────────────────────────────────────────
+function renderROMI(){
+  const box=document.getElementById('tab-romi');
+  box.innerHTML=`<div class="card">
+    <button class="help-toggle-btn" onclick="toggleHelp('romi-help',this)" style="margin-bottom:10px"><span class="toggle-icon">▶</span> Как пользоваться калькулятором</button>
+    <div id="romi-help" style="display:none" class="help-panel">
+      <strong>ROMI-калькулятор</strong> — оценивает рентабельность рекламного буста на Магнит Маркет.<br>
+      1. Введите параметры товара (цена, <strong>COGS</strong> ${tip('Cost Of Goods Sold — себестоимость товара. Включает закупочную цену без упаковки и доставки.')}, комиссию, упаковку, логистику).<br>
+      2. Укажите параметры рекламы (<strong>CPC</strong> ${tip('Cost Per Click — стоимость одного клика в Буст продаж.')}, <strong>CTR</strong> ${tip('Click-Through Rate — % показов, которые становятся кликами.')}, конверсию).<br>
+      3. Смотрите на <strong>ROMI</strong> ${tip('Return On Marketing Investment = (Прибыль от рекламы − Бюджет) / Бюджет × 100%.<br>≥100% = реклама окупается дважды.')}, <strong>CAC</strong> ${tip('Customer Acquisition Cost — стоимость привлечения одного покупателя через рекламу. = Бюджет / Продажи.')}, <strong>break-even CPC</strong> ${tip('Максимальная цена клика при которой реклама ещё не убыточна. = Маржа/ед × Конверсия%.')}.<br>
+      4. Таблица sensitivity — как изменится ROMI при разных CPC и конверсии.<br>
+      <strong>Правило 50%:</strong> бюджет рекламы не должен превышать 50% месячной прибыли магазина.
+    </div>
+    <div class="fw-600" style="font-size:14px;margin-bottom:14px">ROMI Калькулятор — WONDERS (детские игрушки)</div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">Товар</div>
+        <div class="field"><label>Категория</label><select id="r_category">
+          <option value="toys" selected>Игрушки / детское (17%)</option>
+          <option value="audio">Аудио (5%)</option><option value="beauty">Красота (28%)</option>
+          <option value="appliances">Бытовая техника (22%)</option><option value="electronics">Электроника (15%)</option>
+          <option value="clothing">Одежда (25%)</option><option value="home">Дом (20%)</option><option value="food">Продукты (10%)</option>
+        </select></div>
+        <div class="field"><label>Комиссия %</label><input type="number" id="r_commission" value="17" min="0" max="50" step="0.5"></div>
+        <div class="field"><label>Цена, ₽/шт</label><input type="number" id="r_price" value="499" min="1"></div>
+        <div class="field"><label>COGS ${tip('Себестоимость — закупочная цена без упаковки и логистики.')}, ₽/шт</label><input type="number" id="r_cogs" value="180" min="0"></div>
+        <div class="field"><label>Упаковка, ₽/шт</label><input type="number" id="r_packaging" value="30" min="0"></div>
+        <div class="field"><label>Логистика, ₽/шт</label><input type="number" id="r_logistics" value="60" min="0"></div>
+        <div class="field"><label>% возвратов</label><input type="number" id="r_returns" value="5" min="0" max="100" step="0.5"><div class="hint">Детские игрушки: 5-8%</div></div>
+        <div class="section-label">Реклама (Буст)</div>
+        <div class="field"><label>Бюджет, ₽/мес</label><input type="number" id="r_budget" value="5000" min="0"></div>
+        <div class="field"><label>CPC ${tip('Cost Per Click — стоимость одного клика.')}, ₽</label><input type="number" id="r_cpc" value="5" min="0.1" step="0.5"></div>
+        <div class="field"><label>CTR ${tip('Click-Through Rate — % показов → кликов.')}, %</label><input type="number" id="r_ctr" value="2.5" min="0.1" max="20" step="0.1"></div>
+        <div class="field"><label>Конверсия, %</label><input type="number" id="r_conv" value="8" min="0.1" max="100" step="0.5"></div>
+        <div class="section-label">Бюджет-правило (50% прибыли)</div>
+        <div class="field"><label>Выручка прошлого месяца, ₽</label><input type="number" id="r_revmonth" value="300000" min="0"></div>
+        <div class="field"><label>Чистая маржа магазина, %</label><input type="number" id="r_marginpct" value="25" min="0" max="100" step="0.5"></div>
+        <div class="alert-banner info" id="r_budgetrule">Допустимый бюджет: <strong>—</strong></div>
+      </div>
+      <div>
+        <div class="section-label">Результат</div>
+        <div class="metrics-row">
+          <div class="metric-card" id="r_m_romi"><div class="m-label">ROMI ${tip('Return On Marketing Investment')}</div><div class="m-value">—</div><div class="m-sub">—</div></div>
+          <div class="metric-card" id="r_m_margin"><div class="m-label">Маржа/ед</div><div class="m-value">—</div><div class="m-sub">—</div></div>
+          <div class="metric-card" id="r_m_cac"><div class="m-label">CAC ${tip('Customer Acquisition Cost — стоимость привлечения покупателя')}</div><div class="m-value">—</div><div class="m-sub">—</div></div>
+        </div>
+        <div id="r_alerts"></div>
+        <div class="section-label">Юнит-экономика</div>
+        <div class="details-row"><span>Цена</span><strong id="r_d_price">—</strong></div>
+        <div class="details-row"><span>Комиссия</span><strong id="r_d_commission">—</strong></div>
+        <div class="details-row"><span>COGS</span><strong id="r_d_cogs">—</strong></div>
+        <div class="details-row"><span>Упаковка</span><strong id="r_d_packaging">—</strong></div>
+        <div class="details-row"><span>Логистика</span><strong id="r_d_logistics">—</strong></div>
+        <div class="details-row"><span>Потери на возвраты</span><strong id="r_d_returns">—</strong></div>
+        <div class="details-row"><span><strong>Маржа/ед</strong></span><strong id="r_d_margin">—</strong></div>
+        <div class="section-label">Реклама</div>
+        <div class="details-row"><span>Клики (оценка)</span><strong id="r_d_clicks">—</strong></div>
+        <div class="details-row"><span>Продажи от рекламы</span><strong id="r_d_sales">—</strong></div>
+        <div class="details-row"><span>Прибыль от рекламы</span><strong id="r_d_profit">—</strong></div>
+        <div class="details-row"><span>ROAS ${tip('Return On Ad Spend = Выручка / Бюджет. Показывает сколько ₽ выручки на 1 ₽ рекламы.')}</span><strong id="r_d_roas">—</strong></div>
+        <div class="details-row"><span>Break-even CPC ${tip('Максимальная цена клика при которой реклама ещё не убыточна.')}</span><strong id="r_d_becpc">—</strong></div>
+        <div class="section-label">Sensitivity (CPC × конверсия)</div>
+        <table class="sensitivity" id="r_sens"></table>
+        <div class="section-label">Рекомендация</div>
+        <div id="r_rec" class="alert-banner info">—</div>
+      </div>
+    </div>
+  </div>`;
+
+  const PRESETS={audio:{c:5,cpc:5,ctr:2.5,cv:9,pk:80},beauty:{c:28,cpc:8,ctr:3,cv:12,pk:120},appliances:{c:22,cpc:6,ctr:2,cv:8,pk:150},electronics:{c:15,cpc:6,ctr:2.5,cv:10,pk:120},toys:{c:17,cpc:5,ctr:2.5,cv:8,pk:30},clothing:{c:25,cpc:4,ctr:3,cv:7,pk:60},home:{c:20,cpc:5,ctr:2,cv:9,pk:80},food:{c:10,cpc:4,ctr:2.5,cv:11,pk:40}};
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value)||0;
+  const rub=v=>!isFinite(v)?'—':(v>=0?'':'−')+Math.abs(Math.round(v)).toLocaleString('ru-RU')+' ₽';
+  const pct=v=>!isFinite(v)?'—':v.toFixed(1)+'%';
+  function setMetric(id,val,sub,lvl){const el=$(id);el.className='metric-card '+lvl;el.querySelector('.m-value').textContent=val;el.querySelector('.m-sub').textContent=sub;}
+
+  function calc(){
+    const price=num('r_price'),cogs=num('r_cogs'),pk=num('r_packaging'),lg=num('r_logistics'),
+          cm=num('r_commission'),rt=num('r_returns'),bg=num('r_budget'),cpc=num('r_cpc'),
+          ctr=num('r_ctr'),cv=num('r_conv'),rev=num('r_revmonth'),mpt=num('r_marginpct');
+    const monthlyProfit=rev*mpt/100;const allowed=monthlyProfit*0.5;
+    $('r_budgetrule').innerHTML=`Допустимый бюджет: <strong>${rub(allowed)}</strong> / мес `+(bg>allowed?`<span style="color:var(--color-coral)"> · превышает лимит</span>`:'');
+    const commR=price*cm/100;
+    const retL=price*rt/100*0.7;
+    const marginUnit=price-commR-cogs-pk-lg-retL;
+    const marginPct=price>0?marginUnit/price*100:0;
+    $('r_d_price').textContent=rub(price);$('r_d_commission').textContent='−'+rub(commR);
+    $('r_d_cogs').textContent='−'+rub(cogs);$('r_d_packaging').textContent='−'+rub(pk);
+    $('r_d_logistics').textContent='−'+rub(lg);$('r_d_returns').textContent='−'+rub(retL);
+    $('r_d_margin').textContent=rub(marginUnit)+' ('+pct(marginPct)+')';
+    const clicks=cpc>0?bg/cpc:0;
+    const sales=clicks*cv/100;
+    const profit=sales*marginUnit-bg;
+    const roas=bg>0?(sales*price)/bg:0;
+    const romi=bg>0?profit/bg*100:0;
+    const cac=sales>0?bg/sales:Infinity;
+    const becpc=marginUnit*cv/100;
+    $('r_d_clicks').textContent=Math.round(clicks).toLocaleString('ru-RU');
+    $('r_d_sales').textContent=sales.toFixed(1)+' шт';
+    $('r_d_profit').textContent=rub(profit);
+    $('r_d_roas').textContent=isFinite(roas)&&roas>0?roas.toFixed(2)+'x':'—';
+    $('r_d_becpc').textContent=rub(becpc);
+    let rL='red',rS='убыток';if(romi>=100){rL='green';rS='×2';}else if(romi>=50){rL='yellow';rS='на грани';}else if(romi>=0){rL='yellow';rS='в ноль';}
+    setMetric('r_m_romi',(isFinite(romi)?romi.toFixed(0):'—')+'%',rS,rL);
+    let mL='red',mS='тонкая';if(marginUnit>=500){mL='green';mS='здоровая';}else if(marginUnit>=200){mL='yellow';mS='средняя';}if(marginUnit<0){mL='red';mS='убыток';}
+    setMetric('r_m_margin',rub(marginUnit),mS,mL);
+    let cL='red',cS='дорого';if(cac<400){cL='green';cS='ок';}else if(cac<800){cL='yellow';cS='высоко';}
+    setMetric('r_m_cac',isFinite(cac)?rub(cac):'∞',cS,cL);
+    const alerts=[];
+    if(marginUnit<0)alerts.push({c:'danger',t:'Товар убыточен даже без рекламы. Пересмотрите цену или COGS.'});
+    if(cac>price)alerts.push({c:'danger',t:'CAC ('+rub(cac)+') > цены товара — реклама сжигает деньги.'});
+    else if(cac>price*0.25)alerts.push({c:'warn',t:'CAC > 25% от цены.'});
+    if(bg>allowed&&allowed>0)alerts.push({c:'warn',t:'Бюджет > 50% прибыли. Уменьшите до '+rub(allowed)+'.'});
+    if(romi>=100)alerts.push({c:'ok',t:'ROMI ≥ 100%. Масштабируйте ×1.5 раз в 2 недели.'});
+    if(cpc>becpc&&becpc>0)alerts.push({c:'warn',t:'CPC выше break-even ('+rub(becpc)+').'});
+    $('r_alerts').innerHTML=alerts.map(a=>`<div class="alert-banner ${a.c}" style="margin-bottom:4px">${a.t}</div>`).join('');
+    const cpcR=[Math.max(1,cpc-3),Math.max(1,cpc-1),cpc,cpc+2,cpc+4];
+    const cvR=[Math.max(1,cv-4),Math.max(1,cv-2),cv,cv+2,cv+4];
+    let h='<thead><tr><th>CPC / Конв.</th>';
+    for(const c of cvR)h+=`<th>${c.toFixed(1)}%</th>`;
+    h+='</tr></thead><tbody>';
+    for(const cc of cpcR){
+      h+=`<tr><th>${cc.toFixed(1)}₽</th>`;
+      for(const vv of cvR){
+        const _cl=bg/cc,_s=_cl*vv/100,_p=_s*marginUnit-bg,_r=bg>0?_p/bg*100:0;
+        let l='red';if(_r>=100)l='green';else if(_r>=0)l='yellow';
+        h+=`<td class="${l}">${_r.toFixed(0)}%</td>`;
+      }
+      h+='</tr>';
+    }
+    h+='</tbody>';
+    $('r_sens').innerHTML=h;
+    const rec=$('r_rec');let rT='',rC='info';
+    if(marginUnit<0){rT='Не запускать промо. Убыточен. Поднимите цену на '+rub(Math.abs(marginUnit)+50)+' или снизьте COGS.';rC='danger';}
+    else if(romi>=100){rT='Запускать и масштабировать. ROMI '+romi.toFixed(0)+'%. Старт '+rub(Math.min(bg,allowed||bg))+'/мес, ×2 через 2 нед при CPC < '+rub(becpc)+'.';rC='ok';}
+    else if(romi>=0){rT='Осторожно. ROMI '+romi.toFixed(0)+'%. Сначала поднимите конверсию карточки, потом масштабируйте.';rC='warn';}
+    else{rT='Не запускать в такой конфигурации. '+(cac>price*0.25?'CAC высоко. ':'')+(cpc>becpc?'CPC > break-even. ':'')+(cv<5?'Низкая конверсия. ':'')+'Доработайте карточку → ретест через 2 нед.';rC='danger';}
+    rec.className='alert-banner '+rC;rec.textContent=rT;
+  }
+
+  $('r_category').addEventListener('change',()=>{
+    const p=PRESETS[$('r_category').value];if(!p)return;
+    $('r_commission').value=p.c;$('r_cpc').value=p.cpc;$('r_ctr').value=p.ctr;$('r_conv').value=p.cv;$('r_packaging').value=p.pk;
+    calc();
+  });
+  box.querySelectorAll('input').forEach(el=>el.addEventListener('input',calc));
+  calc();
+}
+
+// ── API Tab ───────────────────────────────────────────────────────────────────
+function renderAPI(){
+  const box=document.getElementById('tab-api');
+  const api=PAYLOAD.api_status||{};
+  const tokenBadge=api.token_status==='valid'
+    ?`<span style="color:var(--color-teal);font-weight:600">✓ Валиден до ${api.token_expires_moscow||'—'}</span>`
+    :`<span style="color:var(--color-coral);font-weight:600">⚠ Требует обновления</span>`;
+
+  let html=`<div class="token-section">
+    <div class="section-label" style="margin-top:0">API Токен ${tip('Токен хранится только в памяти страницы — не сохраняется нигде. При перезагрузке нужно ввести снова.')}</div>
+    <div class="token-row">
+      <div class="token-dot" id="token-dot"></div>
+      <input type="password" id="token-input" placeholder="Вставьте Bearer-токен..." oninput="onTokenInput(this.value)">
+      <button class="btn primary" onclick="onTokenSave()">Сохранить</button>
+      <button class="btn" onclick="onTokenClear()">Очистить</button>
+    </div>
+    <div class="text-xs text-muted mt-4">Из данных: ${tokenBadge} · shop_id: ${api.shop_id||'—'} · CubeJS: ${api.cubes||0} cubes</div>
+  </div>
+  <div class="section-label">Работающие endpoints</div>`;
+
+  (api.endpoints||[]).forEach((e,i)=>{
+    const statusCls=e.status==='ok'?'ok':(e.status==='fix'?'fix':'todo');
+    const statusTxt=e.status==='ok'?'✓ OK':(e.status==='fix'?'⚠ Fix':'— todo');
+    html+=`<div class="source-card" style="flex-direction:column;align-items:flex-start">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <span class="method-pill ${e.method}">${esc(e.method)}</span>
+        <span class="api-url">${esc(e.url)}</span>
+        <span class="api-status-badge ${statusCls}" style="margin-left:auto">${statusTxt}</span>
+        <button class="btn" style="flex-shrink:0;font-size:10px;padding:3px 8px" onclick="testEndpoint(${i})">curl</button>
+      </div>
+      <div class="text-xs text-muted mt-4">${esc(e.note)}</div>
+      <div class="test-result" id="test-result-${i}"></div>
+    </div>`;
+  });
+
+  html+=`<div class="section-label" style="margin-top:12px">Пробелы API (план 005-006)</div>`;
+  (api.gaps||[]).forEach(g=>{
+    html+=`<div class="source-card">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <span class="method-pill GAP">GAP</span>
+        <span class="api-url">${esc(g.name)}</span>
+        <span class="api-status-badge todo" style="margin-left:auto">todo</span>
+      </div>
+      <div class="text-xs text-muted mt-4">${esc(g.note)}</div>
+    </div>`;
+  });
+  html+=`<div class="alert-banner info" style="margin-top:10px">Полный отчёт: <code>deliverables/MAGNIT_API_NEEDS.md</code>. Refresh-token handler — задача 005.</div>`;
+  box.innerHTML=html;
+}
+
+function onTokenInput(val){
+  document.getElementById('token-dot').classList.toggle('active',val.length>0);
+}
+function onTokenSave(){
+  const inp=document.getElementById('token-input');
+  apiToken=inp.value;
+  document.getElementById('token-dot').className='token-dot'+(apiToken?'active':'');
+  if(apiToken){toast('Токен сохранён в памяти страницы');}
+}
+function onTokenClear(){
+  apiToken='';
+  document.getElementById('token-input').value='';
+  document.getElementById('token-dot').className='token-dot';
+  toast('Токен очищен');
+}
+function testEndpoint(i){
+  const ep=(PAYLOAD.api_status||{}).endpoints||[];
+  if(!ep[i])return;
+  const e=ep[i];
+  const tk=apiToken?`Bearer ${apiToken.slice(0,6)}...`:'<your-token>';
+  const curl=`curl -X ${e.method} "https://${e.url}" \\\n  -H "Authorization: ${tk}" \\\n  -H "Content-Type: application/json"`;
+  const el=document.getElementById('test-result-'+i);
+  if(el.style.display==='block'&&el.textContent===curl){el.style.display='none';return;}
+  el.textContent=curl;el.style.display='block';
+}
+
+// ── Buyers Tab ────────────────────────────────────────────────────────────────
+function renderBuyers(){
+  const box=document.getElementById('tab-buyers');
+  const rows=((PAYLOAD.review_booster||{}).rows)||[];
+
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">
+    Вкладка для коммуникации с покупателями. Возвраты — прямой сигнал площадке. Ответьте сегодня.
+    <strong>TASK-007:</strong> AI-подбор ответа (локальный LLM для типовых, Gemini для нетипичных) + отправка через API.
+  </div>`;
+
+  if(rows.length){
+    html+=`<div class="section-label">Шаблоны ответов на возвраты</div>`;
+    rows.forEach(r=>{
+      html+=`<div class="card action-card type-return_investigate">
+        <div class="action-header">
+          <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
+          <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
+        </div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:4px">SKU: <span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+        <div class="template-preview">${esc(r.template_response||'')}</div>
+        <div class="ai-suggestion">
+          <div class="ai-label">AI-предложение ${tip('После внедрения TASK-007: AI подберёт тон ответа автоматически — мягкий для эмоциональных отзывов, формальный для технических.')}</div>
+          <div class="ai-text">⏳ AI-ответ будет доступен после TASK-007 — система предложит вариант на основе причины возврата и истории покупателя.</div>
+        </div>
+        <div class="action-btns">
+          <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
+          <button class="btn" disabled title="Требует TASK-007">Отправить через API</button>
+        </div>
+      </div>`;
+    });
+  }
+
+  html+=`<div class="section-label" style="margin-top:12px">Вопросы покупателей</div>
+  <div class="comm-empty">
+    <div class="comm-empty-icon">💬</div>
+    <div>Вопросов от покупателей пока нет.</div>
+    <div class="text-xs text-muted mt-4">После TASK-007: вопросы из карточки товара будут появляться здесь с AI-предложением ответа.</div>
+  </div>`;
+
+  box.innerHTML=html;
+}
+
+// ── Blockers Tab ──────────────────────────────────────────────────────────────
+function renderBlockers(){
+  const box=document.getElementById('tab-blockers');
+  const blk=PAYLOAD.blockers||[];
+  const order={critical:0,high:1,med:2,low:3,resolved:4};
+  const sorted=[...blk].sort((a,b)=>(order[a.sev]??9)-(order[b.sev]??9));
+  const sevLabel={critical:'Критично',high:'Высокий',med:'Средний',low:'Низкий',resolved:'Решено'};
+  let html=`<div class="text-sm text-muted" style="margin-bottom:10px">B-009 и B-010 — приоритет #1 для итерации 005.</div>`;
+  sorted.forEach(b=>{
+    html+=`<div class="blocker ${b.sev}">
+      <div class="blocker-header">
+        <span class="sev-dot"></span>
+        <span class="text-xs text-muted">${sevLabel[b.sev]||b.sev}</span>
+        <span class="blocker-title">${esc(b.id)}: ${esc(b.title)}</span>
+      </div>
+      <div class="blocker-body">${esc(b.body)}</div>
+    </div>`;
+  });
+  box.innerHTML=html;
+}
+
+// ── Sources Tab ───────────────────────────────────────────────────────────────
+function stalenessLabel(dateStr){
+  if(!dateStr)return{cls:'stale',txt:'неизвестно'};
+  const match=dateStr.match(/(\d{4}-\d{2}-\d{2})/);
+  if(!match)return{cls:'stale',txt:'нет даты'};
+  const days=Math.floor((Date.now()-new Date(match[1]).getTime())/86400000);
+  if(days<3)return{cls:'fresh',txt:`${days}д назад`};
+  if(days<7)return{cls:'warn',txt:`${days}д назад`};
+  return{cls:'stale',txt:`${days}д назад`};
+}
+
+function renderSources(){
+  const box=document.getElementById('tab-sources');
+  const md=(PAYLOAD.plan||{}).metadata||{};
+
+  let html=`<div class="section-label" style="margin-top:0">Использованные источники</div>`;
+  (md.sources_used||[]).forEach(s=>{
+    const st=stalenessLabel(s);
+    html+=`<div class="source-card">
+      <div>
+        <div class="source-name">${esc(s.split('(')[0].trim())}</div>
+        <div class="source-meta">${esc(s)}</div>
+      </div>
+      <div style="flex-shrink:0"><span class="stale-badge ${st.cls}">⬤ ${st.txt}</span></div>
+    </div>`;
+  });
+
+  if((md.sources_skipped||[]).length){
+    html+=`<div class="section-label">Пропущено (нет bundle)</div>`;
+    (md.sources_skipped||[]).forEach(s=>{
+      html+=`<div class="source-card">
+        <div class="source-name" style="color:var(--color-text-tertiary)">${esc(s)}</div>
+        <span class="stale-badge stale">⬤ отсутствует</span>
+      </div>`;
+    });
+  }
+
+  html+=`<div class="section-label">Ключевые контексты</div>`;
+  const stockSt=stalenessLabel('2026-04-08');
+  const compSt=stalenessLabel('2026-04-11');
+  html+=`<div class="source-card" style="flex-direction:column;align-items:flex-start">
+    <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
+      <div><div class="source-name">Stock context</div><div class="source-meta">${esc(md.stock_context_source||'—')} · аннотировано: ${md.stock_annotated||0}</div></div>
+      <span class="stale-badge ${stockSt.cls}">⬤ ${stockSt.txt}</span>
+    </div>
+    <div class="source-actions">
+      <button class="btn" onclick="copyToClipboard('python3 run_pipeline.py --refresh weekly_operational_report');toast('Команда скопирована')">Скопировать refresh CLI</button>
+    </div>
+  </div>
+  <div class="source-card" style="flex-direction:column;align-items:flex-start">
+    <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
+      <div><div class="source-name">Competitor context</div><div class="source-meta">${esc(md.competitor_context_source||'—')} · аннотировано: ${md.competitor_annotated||0}</div></div>
+      <span class="stale-badge ${compSt.cls}">⬤ ${compSt.txt}</span>
+    </div>
+    <div class="source-actions">
+      <button class="btn" onclick="copyToClipboard('python3 run_pipeline.py --refresh competitor_market_analysis');toast('Команда скопирована')">Скопировать refresh CLI</button>
+    </div>
+  </div>`;
+
+  html+=`<div class="section-label">Загрузить отчёт вручную</div>
+  <div class="drop-zone" id="drop-zone" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event)" onclick="document.getElementById('file-input-hidden').click()">
+    ⬆ Перетащите .json / .csv отчёт сюда или нажмите для выбора
+    <div class="text-xs text-muted mt-4">После загрузки: TASK-006 добавит автоматический ingestion pipeline</div>
+  </div>
+  <input type="file" id="file-input-hidden" accept=".json,.csv" style="display:none" onchange="handleFileSelect(this)">`;
+
+  box.innerHTML=html;
+}
+
+function handleFileDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('dragover');
+  const file=e.dataTransfer.files[0];
+  if(file)toast(`Файл "${file.name}" получен. Ingestion — TASK-006.`);
+}
+function handleFileSelect(inp){
+  const file=inp.files[0];
+  if(file)toast(`Файл "${file.name}" выбран. Ingestion — TASK-006.`);
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+function setupTabs(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+renderHeader();
+renderKPIs();
+renderInsights();
+renderPlan();
+renderReviews();
+renderApplied();
+renderROMI();
+renderAPI();
+renderBuyers();
+renderBlockers();
+renderSources();
+setupTabs();
+</script>
+</body>
+</html>
