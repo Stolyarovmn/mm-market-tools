@@ -13,7 +13,8 @@ Commands:
   setup               Initialize GitHub remote (first-time setup)
   push [message]      Commit all changes and push to origin/main
   deploy-dashboard    Push dashboard HTML to gh-pages branch → GitHub Pages
-  sync-tasks          Sync TASKS.md → GitHub Issues (create/update)
+  build-process-snapshot  Refresh docs/process_snapshot.json from GitHub
+  sync-tasks          Legacy bridge (deprecated, do not use)
   update-wiki         Push docs/*.md to GitHub Wiki
   new-release [ver]   Tag current state as a release
   lock <file>         Mark file as "in-use" by current agent
@@ -41,6 +42,7 @@ LOCKS_DIR    = PROJECT_ROOT / ".locks"
 TASKS_FILE   = PROJECT_ROOT / "TASKS.md"
 DOCS_DIR     = PROJECT_ROOT / "docs"
 DASHBOARD_SRC = PROJECT_ROOT.parent / "magnit_command_center_v3.html"  # latest artifact
+PROCESS_SNAPSHOT_SCRIPT = PROJECT_ROOT / "scripts" / "build_process_snapshot.py"
 GH_BIN       = Path("/sessions/keen-wizardly-turing/gh_bin")  # Cowork session binary
 GH_CMD       = str(GH_BIN) if GH_BIN.exists() else "gh"
 
@@ -122,6 +124,7 @@ def cmd_status(args):
         owner, repo = GH_REPO.split("/")
         pages_url = f"https://{owner}.github.io/{repo}/"
         info(f"Pages URL: {pages_url}")
+        info(f"Process View: {pages_url}process.html")
 
     print()
 
@@ -208,55 +211,20 @@ def cmd_deploy_dashboard(args):
         ok(f"Live at: https://{owner}.github.io/{repo}/")
 
 
-def cmd_sync_tasks(args):
-    """Sync TASKS.md → GitHub Issues."""
-    if not GH_TOKEN or not GH_REPO:
-        err("GH_TOKEN and GH_REPO required for sync-tasks")
+def cmd_build_process_snapshot(args):
+    """Refresh docs/process_snapshot.json from live GitHub state."""
+    if not PROCESS_SNAPSHOT_SCRIPT.exists():
+        err("scripts/build_process_snapshot.py not found")
         sys.exit(1)
+    run(["python3", str(PROCESS_SNAPSHOT_SCRIPT)])
+    ok("Process snapshot refreshed")
 
-    if not TASKS_FILE.exists():
-        err("TASKS.md not found")
-        return
 
-    # Parse TASKS.md  (format: - [ ] / - [x] / #N. [status] Title)
-    tasks = []
-    for line in TASKS_FILE.read_text().splitlines():
-        m = re.match(r"^#(\d+)\.\s+\[(\w[\w\s]*)\]\s+(.+)$", line)
-        if m:
-            tasks.append({
-                "id":     m.group(1),
-                "status": m.group(2).strip().lower(),
-                "title":  m.group(3).strip(),
-            })
-
-    info(f"Found {len(tasks)} tasks in TASKS.md")
-
-    # Get existing issues
-    existing_raw = gh("issue", "list", "--repo", GH_REPO,
-                      "--state", "all", "--json", "number,title,state,labels",
-                      "--limit", "200", capture=True)
-    existing = json.loads(existing_raw) if existing_raw else []
-    existing_by_title = {i["title"]: i for i in existing}
-
-    created = updated = skipped = 0
-    for t in tasks:
-        label = "status:done" if "complet" in t["status"] else (
-                "status:active" if "progress" in t["status"] else "status:pending")
-        if t["title"] in existing_by_title:
-            skipped += 1
-        else:
-            # Create new issue
-            try:
-                gh("issue", "create",
-                   "--repo", GH_REPO,
-                   "--title", t["title"],
-                   "--label", label,
-                   "--body", f"Synced from TASKS.md #{t['id']}\nStatus: {t['status']}")
-                created += 1
-            except Exception as e:
-                err(f"Failed to create issue for #{t['id']}: {e}")
-
-    ok(f"Tasks synced: {created} created, {updated} updated, {skipped} skipped")
+def cmd_sync_tasks(args):
+    """Deprecated legacy bridge kept only to fail loudly."""
+    err("sync-tasks is deprecated. Use GitHub issue forms + Projects as the canonical task layer.")
+    err("If you need the Pages process view refreshed, run: python3 skills/mm-github/mm_github.py build-process-snapshot")
+    sys.exit(1)
 
 
 def cmd_update_wiki(args):
@@ -362,6 +330,7 @@ COMMANDS = {
     "setup":            cmd_setup,
     "push":             cmd_push,
     "deploy-dashboard": cmd_deploy_dashboard,
+    "build-process-snapshot": cmd_build_process_snapshot,
     "sync-tasks":       cmd_sync_tasks,
     "update-wiki":      cmd_update_wiki,
     "new-release":      cmd_new_release,

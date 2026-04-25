@@ -1,0 +1,51 @@
+name: Process Hygiene and Process Snapshot
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited, labeled, unlabeled, closed, reopened]
+  issue_comment:
+    types: [created, edited, deleted]
+  pull_request:
+    types: [opened, edited, synchronize, reopened, closed, labeled, unlabeled]
+  push:
+    branches: [main]
+    paths:
+      - '.github/**'
+      - 'docs/**'
+      - 'scripts/build_process_snapshot.py'
+  schedule:
+    - cron: '15 * * * *'
+
+jobs:
+  process-hygiene:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: read
+      pull-requests: read
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build process snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python3 scripts/build_process_snapshot.py
+
+      - name: Commit process snapshot
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "MM Market Bot"
+          git add docs/process_snapshot.json
+          git diff --staged --quiet || git commit -m "docs: refresh process snapshot"
+          git push
+

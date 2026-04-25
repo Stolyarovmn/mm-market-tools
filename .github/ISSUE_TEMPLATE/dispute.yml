@@ -1,0 +1,65 @@
+name: Dispute
+description: Формальный спор по контракту, процессу или трактовке решения
+title: "[dispute] "
+labels:
+  - type:dispute
+  - status:review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Formal dispute нужен только для концептуального конфликта.
+        Технический сбой без конфликта трактуется как blocker, а не dispute.
+  - type: dropdown
+    id: initiator
+    attributes:
+      label: Initiator
+      options:
+        - orchestrator
+        - executor
+        - auditor
+        - owner
+    validations:
+      required: true
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      placeholder: Что именно конфликтует
+    validations:
+      required: true
+  - type: textarea
+    id: conflict
+    attributes:
+      label: Conflict
+      description: В чём именно концептуальный конфликт.
+    validations:
+      required: true
+  - type: textarea
+    id: position_a
+    attributes:
+      label: Position A
+    validations:
+      required: true
+  - type: textarea
+    id: position_b
+    attributes:
+      label: Position B
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      placeholder: |
+        - file/path
+        - issue #123
+        - pull #456
+    validations:
+      required: true
+  - type: textarea
+    id: resolution
+    attributes:
+      label: Resolution
+      description: Оставь пустым при создании, если решение ещё не принято.
+

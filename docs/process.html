@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MM Market Tools · Process View</title>
+  <link rel="stylesheet" href="./process.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">GitHub-native process</p>
+        <h1>Process View</h1>
+        <p class="sub">Лёгкий процессный слой поверх уже существующего Pages UI. Канон живёт в GitHub issues, projects, PR и repo docs.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" id="new-task-link" href="#">Новая задача</a>
+        <a class="button" id="new-dispute-link" href="#">Новый спор</a>
+        <a class="button" id="project-link" href="#">Project</a>
+        <a class="button" href="./index.html">Назад в dashboard</a>
+      </div>
+    </header>
+
+    <section class="summary-grid" id="summary-grid"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Tasks</h2>
+        <p>Открытые задачи, которые уже оформлены нативно в GitHub.</p>
+      </div>
+      <div id="tasks-list" class="stack"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Review / Audit</h2>
+        <p>Что требует верификации, review или повторной попытки.</p>
+      </div>
+      <div id="audit-list" class="stack"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Disputes</h2>
+        <p>Formal disputes по контракту и трактовке решений.</p>
+      </div>
+      <div id="disputes-list" class="stack"></div>
+    </section>
+
+    <section class="panel two-col">
+      <div>
+        <div class="panel-head">
+          <h2>Open PRs</h2>
+          <p>Execution artifacts и текущий кодовый поток.</p>
+        </div>
+        <div id="prs-list" class="stack"></div>
+      </div>
+      <div>
+        <div class="panel-head">
+          <h2>Workflows</h2>
+          <p>Последние автоматические процессы и их состояние.</p>
+        </div>
+        <div id="workflows-list" class="stack"></div>
+      </div>
+    </section>
+
+    <section class="panel two-col">
+      <div>
+        <div class="panel-head">
+          <h2>Memory</h2>
+          <p>Основные документы для recovery и continuity.</p>
+        </div>
+        <div id="memory-list" class="stack"></div>
+      </div>
+      <div>
+        <div class="panel-head">
+          <h2>Warnings</h2>
+          <p>Что ещё не выражено нативно или требует настройки.</p>
+        </div>
+        <div id="warnings-list" class="stack"></div>
+      </div>
+    </section>
+  </main>
+  <script src="./process.js"></script>
+</body>
+</html>
+

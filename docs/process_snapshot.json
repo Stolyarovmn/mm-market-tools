@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-04-25T21:12:54Z",
+  "meta": {
+    "repo": "Stolyarovmn/mm-market-tools",
+    "repo_url": "https://github.com/Stolyarovmn/mm-market-tools",
+    "issues_url": "https://github.com/Stolyarovmn/mm-market-tools/issues",
+    "pulls_url": "https://github.com/Stolyarovmn/mm-market-tools/pulls",
+    "actions_url": "https://github.com/Stolyarovmn/mm-market-tools/actions",
+    "project_url": "https://github.com/Stolyarovmn/mm-market-tools/projects",
+    "discussions_url": "https://github.com/Stolyarovmn/mm-market-tools/discussions",
+    "new_task_url": "https://github.com/Stolyarovmn/mm-market-tools/issues/new?template=task.yml",
+    "new_dispute_url": "https://github.com/Stolyarovmn/mm-market-tools/issues/new?template=dispute.yml"
+  },
+  "summary": {
+    "open_tasks": 0,
+    "review_queue": 0,
+    "open_disputes": 1,
+    "open_prs": 0,
+    "failed_workflows": 1,
+    "warning_count": 1
+  },
+  "tasks": [],
+  "review_queue": [],
+  "disputes": [
+    {
+      "title": "DISPUTE-001 (resolved): Правила взаимодействия агентов — 13 правил Codex",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/issues/7",
+      "meta": "#7 · done · open",
+      "labels": [
+        "status:done",
+        "type:dispute"
+      ]
+    }
+  ],
+  "pull_requests": [],
+  "workflows": [
+    {
+      "title": "pages build and deployment",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/actions/runs/24922275277",
+      "meta": "completed · main",
+      "labels": [
+        "success"
+      ],
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "title": "pages build and deployment",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/actions/runs/24922260005",
+      "meta": "completed · main",
+      "labels": [
+        "success"
+      ],
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "title": "Deploy Dashboard to GitHub Pages",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/actions/runs/24922252658",
+      "meta": "completed · main",
+      "labels": [
+        "failure"
+      ],
+      "status": "completed",
+      "conclusion": "failure"
+    }
+  ],
+  "memory_docs": [
+    {
+      "title": "README.md",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/blob/main/README.md",
+      "meta": "Главный вход в проект",
+      "labels": [
+        "memory",
+        "canon"
+      ]
+    },
+    {
+      "title": "ROADMAP.md",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/blob/main/ROADMAP.md",
+      "meta": "Приоритеты и backlog",
+      "labels": [
+        "memory",
+        "planning"
+      ]
+    },
+    {
+      "title": "CHANGELOG.md",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/blob/main/CHANGELOG.md",
+      "meta": "История важных изменений",
+      "labels": [
+        "memory",
+        "history"
+      ]
+    },
+    {
+      "title": "METHODOLOGY.md",
+      "url": "https://github.com/Stolyarovmn/mm-market-tools/blob/main/METHODOLOGY.md",
+      "meta": "Методологический слой",
+      "labels": [
+        "memory",
+        "methodology"
+      ]
+    },
+    {
+      "title": "docs/github-operating-model.md",
+      "url": "./github-operating-model.md",
+      "meta": "GitHub-native process contract",
+      "labels": [
+        "process"
+      ]
+    },
+    {
+      "title": "docs/github/labels-schema.md",
+      "url": "./github/labels-schema.md",
+      "meta": "Schema labels",
+      "labels": [
+        "process"
+      ]
+    },
+    {
+      "title": "docs/github/project-fields.md",
+      "url": "./github/project-fields.md",
+      "meta": "Project fields",
+      "labels": [
+        "process"
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "title": "No native task issues found",
+      "body": "Создай первую задачу через issue form `task.yml`, чтобы task lifecycle перестал зависеть от legacy-потока."
+    }
+  ]
+}

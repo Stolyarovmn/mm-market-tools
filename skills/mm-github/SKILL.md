@@ -21,7 +21,8 @@ python3 skills/mm-github/mm_github.py status
 | `setup` | Первый запуск: создать GitHub-репо, push, включить Pages |
 | `push [--message "..."]` | Commit all + git push |
 | `deploy-dashboard` | Скопировать dashboard HTML → docs/index.html → push → GitHub Pages |
-| `sync-tasks` | TASKS.md → GitHub Issues (создаёт недостающие) |
+| `build-process-snapshot` | Обновить `docs/process_snapshot.json` из live GitHub state |
+| `sync-tasks` | Legacy bridge, больше не использовать как канон |
 | `update-wiki` | docs/*.md + README/ROADMAP → GitHub Wiki |
 | `new-release [--version v0.5]` | Тег + Release на текущем коммите |
 | `lock --file path/to/file` | Занять файл (защита от конфликтов агентов) |
@@ -62,9 +63,14 @@ AGENT_NAME  # "claude" | "codex" | "gemini"
 - URL: `https://{owner}.github.io/mm-market-tools/`
 - Источник: ветка `main`, папка `/docs`
 - Обновление: автоматически при каждом `push` (30-60 сек)
+- Процессный слой: `https://{owner}.github.io/mm-market-tools/process.html`
 
 Команда `deploy-dashboard` берёт последний `magnit_command_center_*.html`
 из рабочей директории, кладёт его в `docs/index.html` и делает push.
+
+Команда `build-process-snapshot` не создаёт задачи из markdown-файла.
+Она только собирает текущий GitHub-native process state в `docs/process_snapshot.json`,
+чтобы Pages UI показывал issues / disputes / PR / workflow health.
 
 ## GitHub Actions (auto-deploy)
 

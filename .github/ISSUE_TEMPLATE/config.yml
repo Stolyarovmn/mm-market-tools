@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Process docs
+    url: https://github.com/Stolyarovmn/mm-market-tools/blob/main/docs/github-operating-model.md
+    about: Прочитай operating model перед созданием нестандартного issue.

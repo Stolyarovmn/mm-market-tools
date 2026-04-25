@@ -1,0 +1,76 @@
+name: Task
+description: Каноническая рабочая задача для развития mm-market-tools
+title: "[task] "
+labels:
+  - type:task
+  - status:queued
+body:
+  - type: markdown
+    attributes:
+      value: |
+        GitHub-native task issue для `mm-market-tools`.
+        Эта форма заменяет старый подход `TASKS.md -> issues`.
+  - type: input
+    id: goal
+    attributes:
+      label: Goal
+      description: Одно чёткое предложение о том, что нужно сделать.
+      placeholder: Добавить ...
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Criteria
+      description: Как мы поймём, что задача завершена.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Короткий контекст, связанные документы, ограничения.
+      placeholder: |
+        - repo docs:
+        - related reports:
+        - constraints:
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Artifacts / References
+      description: Пути, PR, reports, screenshots, ссылки на связанные артефакты.
+      placeholder: |
+        - README.md
+        - ROADMAP.md
+        - reports/...
+        - linked PR: #
+  - type: input
+    id: target
+    attributes:
+      label: Target area
+      description: Подсистема или зона продукта.
+      placeholder: ui / analytics / refresh runner / github-process
+  - type: dropdown
+    id: role_owner
+    attributes:
+      label: Role owner
+      description: Кто сейчас должен вести задачу.
+      options:
+        - orchestrator
+        - executor
+        - auditor
+        - unassigned
+    validations:
+      required: true
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline
+      description: Если срок важен, зафиксируй его явно.
+      placeholder: 2026-05-01
+

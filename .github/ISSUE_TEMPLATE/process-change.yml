@@ -1,0 +1,37 @@
+name: Process Change
+description: Изменение регламента, workflow или GitHub-native процесса
+title: "[process] "
+labels:
+  - type:process-change
+  - status:queued
+body:
+  - type: input
+    id: problem
+    attributes:
+      label: Problem
+      placeholder: Какая реальная боль или пробел обнаружен
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Что меняем и почему это лучше выражать нативно через GitHub.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Что затронет изменение.
+      placeholder: |
+        - Issues
+        - Projects
+        - Pages UI
+        - Actions
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: На чём основано решение.
+
