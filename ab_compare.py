@@ -13,9 +13,19 @@ from core.paths import REPORTS_DIR, ensure_dir
 
 DEFAULT_BASE_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/load"
 DEFAULT_MEASURES = [
-    "Sales.seller_revenue_without_delivery_measure",
+    "Sales.items_sell_price",
     "Sales.orders_number",
     "Sales.item_sold_number",
+]
+DEFAULT_DIMENSIONS = [
+    "CategoryHierarchy.category_l1_id",
+    "CategoryHierarchy.category_l2_id",
+    "CategoryHierarchy.category_l3_id",
+    "CategoryHierarchy.category_l4_id",
+    "CategoryHierarchy.category_l5_id",
+    "CategoryHierarchy.category_l6_id",
+    "Sales.product_id",
+    "Sales.sku_id",
 ]
 
 
@@ -60,11 +70,13 @@ def pct_delta(current, reference):
 def build_variant_query(args, product_id, date_range):
     return {
         "measures": list(DEFAULT_MEASURES),
+        "dimensions": list(DEFAULT_DIMENSIONS),
         "timezone": args.timezone,
         "timeDimensions": [
             {
                 "dimension": args.time_dimension,
                 "dateRange": parse_date_range(date_range),
+                "granularity": args.granularity,
             }
         ],
         "filters": [
@@ -73,21 +85,16 @@ def build_variant_query(args, product_id, date_range):
                 "operator": "equals",
                 "values": [str(args.shop_id)],
             },
-            {
-                "member": args.product_filter_member,
-                "operator": "equals",
-                "values": [str(product_id)],
-            },
         ],
     }
 
 
-def extract_metrics(payload):
-    rows = flatten_results(payload)
-    row = rows[0] if rows else {}
-    revenue = metric_value(row, "Sales.seller_revenue_without_delivery_measure")
-    orders = metric_value(row, "Sales.orders_number")
-    sold_qty = metric_value(row, "Sales.item_sold_number")
+def aggregate_product_metrics(rows, product_id):
+    product_key = str(product_id)
+    matched = [row for row in rows if str(row.get("Sales.product_id") or "") == product_key]
+    revenue = sum(metric_value(row, "Sales.items_sell_price") for row in matched)
+    orders = sum(metric_value(row, "Sales.orders_number") for row in matched)
+    sold_qty = sum(metric_value(row, "Sales.item_sold_number") for row in matched)
     return {
         "revenue": revenue,
         "orders": orders,
@@ -158,6 +165,7 @@ def parse_args():
     parser.add_argument("--product-filter-member", default="Sales.product_id")
     parser.add_argument("--time-dimension", default="Sales.created_at")
     parser.add_argument("--timezone", default="Europe/Moscow")
+    parser.add_argument("--granularity", default="day")
     parser.add_argument("--a-product-id", required=True, type=int)
     parser.add_argument("--a-date-range", required=True)
     parser.add_argument("--a-label", default="A")
@@ -187,12 +195,19 @@ def fetch_variant(args, label, product_id, date_range):
                 "Try another server-side contract or refresh worker configuration."
             ) from exc
         raise
+    rows = flatten_results(payload)
+    metrics = aggregate_product_metrics(rows, product_id)
+    if metrics["orders"] == 0 and metrics["sold_qty"] == 0 and metrics["revenue"] == 0:
+        raise RuntimeError(
+            f"No rows matched product_id={product_id} in the returned CubeJS dimensional dataset. "
+            "The query shape succeeded, but the requested product is absent in the selected shop/date window."
+        )
     return {
         "label": label,
         "product_id": product_id,
         "date_range": parse_date_range(date_range),
         "query": query,
-        "metrics": extract_metrics(payload),
+        "metrics": metrics,
     }
 
 

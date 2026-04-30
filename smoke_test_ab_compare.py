@@ -1,10 +1,41 @@
 #!/usr/bin/env python3
 import math
 
-from ab_compare import build_comparison_payload
+from ab_compare import aggregate_product_metrics, build_comparison_payload
 
 
 def smoke_test():
+    aggregated = aggregate_product_metrics(
+        [
+            {
+                "Sales.product_id": "101",
+                "Sales.sku_id": "sku-1",
+                "Sales.items_sell_price": "400",
+                "Sales.item_sold_number": "5",
+                "Sales.orders_number": "4",
+            },
+            {
+                "Sales.product_id": "101",
+                "Sales.sku_id": "sku-2",
+                "Sales.items_sell_price": "200",
+                "Sales.item_sold_number": "3",
+                "Sales.orders_number": "2",
+            },
+            {
+                "Sales.product_id": "202",
+                "Sales.sku_id": "sku-9",
+                "Sales.items_sell_price": "900",
+                "Sales.item_sold_number": "10",
+                "Sales.orders_number": "9",
+            },
+        ],
+        product_id=101,
+    )
+    assert math.isclose(aggregated["revenue"], 600.0)
+    assert math.isclose(aggregated["orders"], 6.0)
+    assert math.isclose(aggregated["sold_qty"], 8.0)
+    assert math.isclose(aggregated["avg_price"], 75.0)
+
     payload = build_comparison_payload(
         variant_a={
             "label": "A",
