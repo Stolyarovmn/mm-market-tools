@@ -151,23 +151,6 @@ export MM_COMPETITOR_SHOP_ID=40319
 
 ## Основной workflow
 
-## Continuity и audit loop
-
-Перед каждой новой автономной итерацией нужно читать не только текущий код и roadmap, но и внешний audit-контур:
-
-1. `auditor_logs/issues.md`
-2. `auditor_logs/disagreements*.md`
-3. project memory в `.codex/memories/mm_market_tools_*.md`
-4. `ROADMAP.md`
-5. `CHANGELOG.md`
-
-Правила:
-
-- `issues.md` это не приказ, а слой внешней проверки;
-- `disagreements*.md` это официальный журнал обсуждения разногласий с аудитором;
-- если по `ISSUE` есть несогласие, оно должно быть зафиксировано именно в `disagreements*.md`, а не теряться в чате;
-- если `ISSUE` не берётся в текущую итерацию, он обязан остаться в `ROADMAP.md` и/или `CHANGELOG.md -> Unreleased`.
-
 ### A. Собрать всех продавцов по категории MM
 
 Пример для категории `Игрушки и игры`:
