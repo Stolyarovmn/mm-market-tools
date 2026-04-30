@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt --quiet
 
-      - name: Generate daily action plan
+      - name: Refresh upstream report bundles
         env:
           KE_TOKEN: ${{ inputs.ke_token != '' && inputs.ke_token || secrets.KE_TOKEN }}
           CUBEJS_TOKEN: ${{ inputs.ke_token != '' && inputs.ke_token || secrets.CUBEJS_TOKEN }}
@@ -53,8 +53,11 @@ jobs:
           fi
           python3 build_dashboard_index.py || echo "WARNING: build_dashboard_index.py not found, using existing data"
 
+      - name: Build daily action plan payload
+        run: python3 build_daily_action_plan.py --offline-fallback
+
       - name: Build SQLite database
-        run: python3 scripts/build_sqlite.py
+        run: python3 scripts/build_sqlite.py --data data/dashboard/daily_action_plan.json
 
       - name: Create GitHub Release with data.db
         run: |

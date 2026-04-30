@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Build SQLite database from dashboard JSON data.
 
-Reads data/dashboard/index.json and writes data.db for upload
+Reads data/dashboard/daily_action_plan.json and writes data.db for upload
 to GitHub Releases (fetched by GitHub Pages via sql.js).
 
 Usage:
     python scripts/build_sqlite.py
-    python scripts/build_sqlite.py --data path/to/index.json --out data.db
+    python scripts/build_sqlite.py --data path/to/daily_action_plan.json --out data.db
 """
 import argparse
 import json
@@ -14,7 +14,7 @@ import sqlite3
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-DEFAULT_DATA = ROOT / "data" / "dashboard" / "index.json"
+DEFAULT_DATA = ROOT / "data" / "dashboard" / "daily_action_plan.json"
 DEFAULT_OUT = ROOT / "data.db"
 
 DDL = """
