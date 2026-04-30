@@ -40,6 +40,19 @@ The main divergence is not in core product code. It is in:
 - agent/process artifacts that should be removed or kept out of the product repo
 - GitHub Pages / workflow / dashboard data areas that need explicit policy
 
+## Decision Sync (2026-04-30)
+
+The owner decisions collected during the PR `#26` review currently resolve the main policy questions like this:
+
+- `data/dashboard/**` -> `local-only` generated pipeline state; the long-term delivery artifact is `data.db` via GitHub Releases, not tracked JSON payloads
+- `data/normalized/**` -> `local-only` generated/intermediate state; small explicit fixtures may still be kept separately if needed for smoke/debug
+- `data/action_center/**` -> split required; runtime state should stay local-only, while any future canonical rules/config should live in a separate explicit config surface
+- `data/reviews/**` -> `local-only`; regenerate or fetch on demand
+- `data/reply_config.json` -> split required between canonical reply rules and local/runtime overrides
+- `docs/index.html` -> supported canonical Pages UI surface
+- `index.html` -> non-canonical duplicate entrypoint; remove or replace with a minimal redirect/stub when the Pages cleanup PR lands
+- `.github/workflows/daily-plan.yml` and `deploy-pages.yml` -> keep in repo, but rewrite around the approved Actions -> SQLite -> Releases -> Pages architecture
+
 ## Path Mapping Rules
 
 These rules cover the whole tree and are the primary classification layer. Explicit exception tables below override the broad rules when needed.
@@ -57,19 +70,20 @@ These rules cover the whole tree and are the primary classification layer. Expli
 | `data/job_runs/**` | `—` | `local-only` | ignore in canonical git |
 | `data/raw_reports/**` | `—` | `local-only` | ignore in canonical git |
 | `reports/**` | `—` | `local-only` | treat as generated output, not canonical source |
-| `data/dashboard/**` | same relative path | `needs-decision` | decide whether dashboard JSONs are source artifacts or generated output |
-| `data/normalized/**` | same relative path | `needs-decision` | decide whether normalized datasets belong in git |
-| `.github/workflows/daily-plan.yml` | same relative path | `needs-decision` | decide whether scheduled automation still belongs here |
-| `.github/workflows/deploy-pages.yml` | same relative path | `needs-decision` | decide whether Pages/UI publishing remains in scope |
-| `docs/index.html` and `index.html` | same relative path | `needs-decision` | decide whether Pages entrypoints remain canonical |
+| `data/dashboard/**` | `—` | `local-only` | generated dashboard payloads are intermediate pipeline state, not canonical source | keep out of canonical git; rebuild in Actions/agent runs |
+| `data/normalized/**` | `—` | `local-only` | generated/intermediate normalized layer should not remain as tracked bulk data | keep out of canonical git; optional fixtures must be explicit and narrow |
+| `.github/workflows/daily-plan.yml` | same relative path | `migrate` | supported automation surface for data/SQLite generation remains in scope | keep and rewrite under the approved architecture |
+| `.github/workflows/deploy-pages.yml` | same relative path | `migrate` | supported Pages/UI publishing remains in scope | keep and align with the approved architecture |
+| `docs/index.html` | `docs/index.html` | `migrate` | canonical Pages UI surface remains in scope | keep and evolve as the main interface |
+| `index.html` | `—` | `remove` | duplicate/non-canonical entrypoint once `docs/index.html` is canonical | remove or replace with a minimal redirect/stub in a focused cleanup PR |
 
 ## Top-Level Classification
 
 | local_path | canonical_path | classification | reason | action |
 |---|---|---|---|---|
 | `.env.example` | `.env.example` | `migrate` | shared product config template | review local diff and keep canonical |
-| `.github/workflows/daily-plan.yml` | `.github/workflows/daily-plan.yml` | `needs-decision` | scheduled product automation exists, but it still needs an explicit keep/remove policy and secret/value review | review under issue `#20` |
-| `.github/workflows/deploy-pages.yml` | `.github/workflows/deploy-pages.yml` | `needs-decision` | depends on whether Pages/UI remains a product goal | review under issue `#20` |
+| `.github/workflows/daily-plan.yml` | `.github/workflows/daily-plan.yml` | `migrate` | scheduled product automation remains in scope, but should be rewritten around Actions -> SQLite -> Releases | keep in repo and update under issue `#20` |
+| `.github/workflows/deploy-pages.yml` | `.github/workflows/deploy-pages.yml` | `migrate` | Pages/UI remains a supported product surface | keep in repo and align with canonical Pages entrypoint |
 | `.github/workflows/sync-tasks.yml` | `.github/workflows/sync-tasks.yml` | `remove` | agent-task sync workflow, not product runtime | remove from canonical |
 | `.gitignore` | `.gitignore` | `migrate` | policy file needed for later cleanup PRs | update after manifest review |
 | `README.md` | `README.md` | `migrate` | product documentation | merge local product-facing edits; remove agent-only sections under `#19` |
@@ -79,20 +93,20 @@ These rules cover the whole tree and are the primary classification layer. Expli
 | `<root-level product .py files>` | same relative paths | `migrate` | primary application code | merge intentionally |
 | `core/**` | `core/**` | `migrate` | application modules | merge intentionally |
 | `ui/**` | `ui/**` | `migrate` | UI assets | merge intentionally |
-| `data/dashboard/**` | `data/dashboard/**` | `needs-decision` | currently tracked JSON outputs may be generated rather than source | decide retention policy |
-| `data/normalized/**` | `data/normalized/**` | `needs-decision` | normalized datasets may be too environment-specific for canonical git | decide retention policy |
+| `data/dashboard/**` | `—` | `local-only` | generated dashboard payload layer is intermediate state once SQLite/Releases is canonical | ignore in canonical git and rebuild in pipeline |
+| `data/normalized/**` | `—` | `local-only` | normalized layer is generated/intermediate and should not be tracked in bulk | ignore in canonical git; keep only explicit small fixtures if later needed |
 | `data/local/**` | `—` | `local-only` | machine-specific runtime state | ignore and remove from git scope |
 | `data/raw_reports/**` | `—` | `local-only` | imported raw source files | ignore and keep local |
 | `data/job_runs/**` | `—` | `local-only` | execution logs and transient statuses | ignore and keep local |
-| `data/action_center/**` | same relative paths if kept | `needs-decision` | may be product state or runtime cache | decide source-vs-runtime policy |
-| `data/reviews/**` | same relative paths if kept | `needs-decision` | may contain generated fetched review payloads | decide retention policy |
-| `data/reply_config.json` | `data/reply_config.json` | `needs-decision` | config-like, but may contain machine or environment assumptions | review before preserve |
+| `data/action_center/**` | split by future policy | `needs-decision` | path should be split between canonical config/rules and runtime state instead of treated as one class | define canonical subset, keep computed state local-only |
+| `data/reviews/**` | `—` | `local-only` | fetched/generated review payloads should be regenerated on demand | ignore in canonical git |
+| `data/reply_config.json` | split into canonical + local files | `needs-decision` | reply rules should be versioned separately from local/runtime overrides | split before preserve |
 | `reports/**` | `—` | `local-only` | generated analysis outputs | remove from canonical over time |
 | `old/**` | `—` | `remove` | archived agent/process artifacts | do not migrate |
 | `AUDIT_2026-04-08.md` | `AUDIT_2026-04-08.md` | `remove` | agent audit artifact, not product documentation | remove from canonical |
 | `skills/mm-github/**` | `—` | `remove` | process skill layer for old GitHub-native workflow | remove from canonical |
-| `docs/index.html` | `docs/index.html` | `needs-decision` | GitHub Pages asset, canonical only today | decide whether product still ships Pages site |
-| `index.html` | `index.html` | `needs-decision` | GitHub Pages root entrypoint, canonical only today | decide whether keep |
+| `docs/index.html` | `docs/index.html` | `migrate` | GitHub Pages UI remains a supported product surface and primary interface | keep as canonical entrypoint |
+| `index.html` | `—` | `remove` | redundant non-canonical entrypoint once `docs/index.html` is canonical | remove or replace with a redirect/stub in a focused PR |
 
 ## Explicit Local-Only Source Files To Migrate
 
@@ -130,7 +144,7 @@ These files exist only in local and should not be migrated as canonical source.
 | `data/local/product_content_cache.json` | `—` | `local-only` | runtime cache | ignore and keep local |
 | `data/local/session_status_2026-04-10.json` | `—` | `local-only` | transient session status | ignore and keep local |
 | `data/local/waybill_synthetic_sample.json` | `—` | `local-only` | local synthetic data | ignore and keep local |
-| `data/reviews/reviews.json` | `—` | `local-only` | fetched/generated payload | ignore until retention policy is defined |
+| `data/reviews/reviews.json` | `—` | `local-only` | fetched/generated payload | ignore and regenerate on demand |
 | `old/AUDIT_2026-04-08.md` | `—` | `remove` | agent audit artifact | do not migrate |
 | `old/automation_reports/executions/TASK-010_execution_1777161138.md` | `—` | `remove` | agent execution artifact | do not migrate |
 | `old/metrics.log` | `—` | `remove` | runtime log artifact | do not migrate |
@@ -149,20 +163,16 @@ These paths are present in the canonical repo but absent from the local nested t
 | `AUDIT_2026-04-08.md` | `—` | `remove` | agent audit artifact | remove from canonical |
 | `skills/mm-github/SKILL.md` | `—` | `remove` | old process skill | remove from canonical |
 | `skills/mm-github/mm_github.py` | `—` | `remove` | old process skill code | remove from canonical |
-| `docs/index.html` | `—` | `needs-decision` | Pages asset exists only in canonical | review keep/remove |
-| `index.html` | `—` | `needs-decision` | Pages root entrypoint exists only in canonical | review keep/remove |
+| `docs/index.html` | `—` | `migrate` | canonical Pages UI already exists only in canonical and remains supported | keep |
+| `index.html` | `—` | `remove` | duplicate/non-canonical root entrypoint | remove or replace with a redirect/stub |
 
 ## Needs-Decision Questions
 
-These questions should be answered before the first bulk sync PR after this manifest:
+The main repo-boundary questions are now resolved. Remaining focused follow-ups before the first bulk sync PR after this manifest:
 
-1. Should `data/dashboard/**` remain tracked, or should it become generated output like `reports/**`?
-2. Should `data/normalized/**` remain tracked, or move to local/generated storage?
-3. Should `data/action_center/**` be treated as product seed data or runtime state?
-4. Should `data/reviews/**` be retained in git, or regenerated on demand?
-5. Is `data/reply_config.json` canonical product config, or environment-specific state?
-6. Do `docs/index.html` and `index.html` still represent a supported Pages/UI surface?
-7. Should `.github/workflows/daily-plan.yml` and `deploy-pages.yml` stay in the product repo after cleanup?
+1. Define the split for `data/action_center/**`: which files become canonical config/rules, and which stay runtime/local-only?
+2. Split `data/reply_config.json` into canonical reply rules vs local/runtime overrides.
+3. In the future Pages cleanup PR, choose whether `index.html` is removed entirely or replaced with a minimal redirect/stub to the canonical `docs/index.html` surface.
 
 ## Recommended Execution Order
 
@@ -170,7 +180,7 @@ These questions should be answered before the first bulk sync PR after this mani
 2. Open a focused removal PR for `AUDIT_2026-04-08.md`, `skills/mm-github/**`, and `sync-tasks.yml`.
 3. Open a focused `.gitignore` / local-state PR for `data/local/**`, `data/job_runs/**`, and report outputs.
 4. Open a focused migration PR for the local-only product code paths listed above.
-5. Resolve the `needs-decision` data/workflow/UI areas in separate reviewable PRs.
+5. Resolve the remaining split-focused follow-ups (`data/action_center/**`, `data/reply_config.json`, root `index.html`) in separate reviewable PRs.
 
 ## Non-Goals
 
