@@ -4,6 +4,7 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
+from requests import HTTPError
 
 from core.cubejs_api import flatten_results, run_cubejs_query
 from core.io_utils import write_json
@@ -168,7 +169,24 @@ def parse_args():
 
 def fetch_variant(args, label, product_id, date_range):
     query = build_variant_query(args, product_id, date_range)
-    payload = run_cubejs_query(query, token=args.token, cookie=args.cookie, base_url=args.base_url)
+    try:
+        payload = run_cubejs_query(query, token=args.token, cookie=args.cookie, base_url=args.base_url)
+    except HTTPError as exc:
+        response = exc.response
+        detail = ""
+        if response is not None:
+            try:
+                body = response.json()
+                detail = body.get("error") or json.dumps(body, ensure_ascii=False)
+            except ValueError:
+                detail = response.text.strip()
+        if "No pre-aggregation table has been built for this query yet" in detail:
+            raise RuntimeError(
+                "CubeJS product-level compare query is authenticated but unsupported by current pre-aggregations. "
+                "The backend accepted the token, but the query shape with shop/product/date filters has no built table yet. "
+                "Try another server-side contract or refresh worker configuration."
+            ) from exc
+        raise
     return {
         "label": label,
         "product_id": product_id,
