@@ -68,7 +68,7 @@ These rules cover the whole tree and are the primary classification layer. Expli
 | local_path | canonical_path | classification | reason | action |
 |---|---|---|---|---|
 | `.env.example` | `.env.example` | `migrate` | shared product config template | review local diff and keep canonical |
-| `.github/workflows/daily-plan.yml` | `.github/workflows/daily-plan.yml` | `needs-decision` | depends on process-only skill layer and stale workflow assumptions | review under issue `#20` |
+| `.github/workflows/daily-plan.yml` | `.github/workflows/daily-plan.yml` | `needs-decision` | scheduled product automation exists, but it still needs an explicit keep/remove policy and secret/value review | review under issue `#20` |
 | `.github/workflows/deploy-pages.yml` | `.github/workflows/deploy-pages.yml` | `needs-decision` | depends on whether Pages/UI remains a product goal | review under issue `#20` |
 | `.github/workflows/sync-tasks.yml` | `.github/workflows/sync-tasks.yml` | `remove` | agent-task sync workflow, not product runtime | remove from canonical |
 | `.gitignore` | `.gitignore` | `migrate` | policy file needed for later cleanup PRs | update after manifest review |
