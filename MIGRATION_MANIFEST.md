@@ -46,11 +46,11 @@ The owner decisions collected during the PR `#26` review currently resolve the m
 
 - `data/dashboard/**` -> `local-only` generated pipeline state; the long-term delivery artifact is `data.db` via GitHub Releases, not tracked JSON payloads
 - `data/normalized/**` -> `local-only` generated/intermediate state; small explicit fixtures may still be kept separately if needed for smoke/debug
-- `data/action_center/**` -> split required; runtime state should stay local-only, while any future canonical rules/config should live in a separate explicit config surface
+- `data/action_center/**` -> treat the current tree as runtime/local-only; if product rules are needed, move them into a separate canonical config surface outside runtime state
 - `data/reviews/**` -> `local-only`; regenerate or fetch on demand
-- `data/reply_config.json` -> split required between canonical reply rules and local/runtime overrides
+- `data/reply_config.json` -> split into canonical reply rules plus separate local/runtime overrides
 - `docs/index.html` -> supported canonical Pages UI surface
-- `index.html` -> non-canonical duplicate entrypoint; remove or replace with a minimal redirect/stub when the Pages cleanup PR lands
+- `index.html` -> temporary non-canonical duplicate entrypoint; remove it after Pages/UI migration is verified complete
 - `.github/workflows/daily-plan.yml` and `deploy-pages.yml` -> keep in repo, but rewrite around the approved Actions -> SQLite -> Releases -> Pages architecture
 
 ## Path Mapping Rules
@@ -75,7 +75,7 @@ These rules cover the whole tree and are the primary classification layer. Expli
 | `.github/workflows/daily-plan.yml` | same relative path | `migrate` | supported automation surface for data/SQLite generation remains in scope | keep and rewrite under the approved architecture |
 | `.github/workflows/deploy-pages.yml` | same relative path | `migrate` | supported Pages/UI publishing remains in scope | keep and align with the approved architecture |
 | `docs/index.html` | `docs/index.html` | `migrate` | canonical Pages UI surface remains in scope | keep and evolve as the main interface |
-| `index.html` | `—` | `remove` | duplicate/non-canonical entrypoint once `docs/index.html` is canonical | remove or replace with a minimal redirect/stub in a focused cleanup PR |
+| `index.html` | `—` | `remove` | temporary duplicate/non-canonical entrypoint once `docs/index.html` is canonical | remove after the Pages/UI migration is verified complete |
 
 ## Top-Level Classification
 
@@ -98,15 +98,15 @@ These rules cover the whole tree and are the primary classification layer. Expli
 | `data/local/**` | `—` | `local-only` | machine-specific runtime state | ignore and remove from git scope |
 | `data/raw_reports/**` | `—` | `local-only` | imported raw source files | ignore and keep local |
 | `data/job_runs/**` | `—` | `local-only` | execution logs and transient statuses | ignore and keep local |
-| `data/action_center/**` | split by future policy | `needs-decision` | path should be split between canonical config/rules and runtime state instead of treated as one class | define canonical subset, keep computed state local-only |
+| `data/action_center/**` | `—` | `local-only` | current tree should be treated as runtime state, not canonical source | ignore in canonical git; extract any future product rules into a separate config surface |
 | `data/reviews/**` | `—` | `local-only` | fetched/generated review payloads should be regenerated on demand | ignore in canonical git |
-| `data/reply_config.json` | split into canonical + local files | `needs-decision` | reply rules should be versioned separately from local/runtime overrides | split before preserve |
+| `data/reply_config.json` | split into canonical + local files | `migrate` | reply rules should be versioned separately from local/runtime overrides | implement the split; keep canonical rules in repo and move local overrides out of git |
 | `reports/**` | `—` | `local-only` | generated analysis outputs | remove from canonical over time |
 | `old/**` | `—` | `remove` | archived agent/process artifacts | do not migrate |
 | `AUDIT_2026-04-08.md` | `AUDIT_2026-04-08.md` | `remove` | agent audit artifact, not product documentation | remove from canonical |
 | `skills/mm-github/**` | `—` | `remove` | process skill layer for old GitHub-native workflow | remove from canonical |
 | `docs/index.html` | `docs/index.html` | `migrate` | GitHub Pages UI remains a supported product surface and primary interface | keep as canonical entrypoint |
-| `index.html` | `—` | `remove` | redundant non-canonical entrypoint once `docs/index.html` is canonical | remove or replace with a redirect/stub in a focused PR |
+| `index.html` | `—` | `remove` | redundant non-canonical entrypoint once `docs/index.html` is canonical | remove after Pages/UI migration completeness is verified |
 
 ## Explicit Local-Only Source Files To Migrate
 
@@ -164,15 +164,15 @@ These paths are present in the canonical repo but absent from the local nested t
 | `skills/mm-github/SKILL.md` | `—` | `remove` | old process skill | remove from canonical |
 | `skills/mm-github/mm_github.py` | `—` | `remove` | old process skill code | remove from canonical |
 | `docs/index.html` | `—` | `migrate` | canonical Pages UI already exists only in canonical and remains supported | keep |
-| `index.html` | `—` | `remove` | duplicate/non-canonical root entrypoint | remove or replace with a redirect/stub |
+| `index.html` | `—` | `remove` | duplicate/non-canonical root entrypoint | remove after Pages/UI migration completeness is verified |
 
 ## Needs-Decision Questions
 
-The main repo-boundary questions are now resolved. Remaining focused follow-ups before the first bulk sync PR after this manifest:
+The main repo-boundary questions are now resolved. Remaining implementation follow-ups before the first bulk sync PR after this manifest:
 
-1. Define the split for `data/action_center/**`: which files become canonical config/rules, and which stay runtime/local-only?
-2. Split `data/reply_config.json` into canonical reply rules vs local/runtime overrides.
-3. In the future Pages cleanup PR, choose whether `index.html` is removed entirely or replaced with a minimal redirect/stub to the canonical `docs/index.html` surface.
+1. Extract any product rules currently implied by `data/action_center/**` into a separate canonical config surface, while keeping the runtime tree local-only.
+2. Implement the accepted split for `data/reply_config.json`: canonical reply rules in repo, local/runtime overrides out of git.
+3. Remove root `index.html` after the Pages/UI migration to canonical `docs/index.html` is verified complete.
 
 ## Recommended Execution Order
 
@@ -180,7 +180,7 @@ The main repo-boundary questions are now resolved. Remaining focused follow-ups 
 2. Open a focused removal PR for `AUDIT_2026-04-08.md`, `skills/mm-github/**`, and `sync-tasks.yml`.
 3. Open a focused `.gitignore` / local-state PR for `data/local/**`, `data/job_runs/**`, and report outputs.
 4. Open a focused migration PR for the local-only product code paths listed above.
-5. Resolve the remaining split-focused follow-ups (`data/action_center/**`, `data/reply_config.json`, root `index.html`) in separate reviewable PRs.
+5. Implement the accepted follow-up changes for `data/action_center/**`, `data/reply_config.json`, and root `index.html` in separate reviewable PRs.
 
 ## Non-Goals
 
