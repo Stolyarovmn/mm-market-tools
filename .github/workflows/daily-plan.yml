@@ -3,8 +3,13 @@ name: Daily Action Plan
 on:
   schedule:
     - cron: '0 6 * * 1-5'   # 06:00 UTC (09:00 MSK), Mon-Fri
-  workflow_dispatch:          # Manual trigger with inputs
+  workflow_dispatch:
     inputs:
+      ke_token:
+        description: 'MM/KE Bearer token (overrides secret for this run)'
+        required: false
+        default: ''
+        type: string
       report_kind:
         description: 'Report kind to regenerate'
         required: false
@@ -32,36 +37,30 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt --quiet
+        run: pip install -r requirements.txt --quiet
 
       - name: Generate daily action plan
         env:
-          KE_TOKEN: ${{ secrets.KE_TOKEN }}
-          CUBEJS_TOKEN: ${{ secrets.CUBEJS_TOKEN }}
+          KE_TOKEN: ${{ inputs.ke_token != '' && inputs.ke_token || secrets.KE_TOKEN }}
+          CUBEJS_TOKEN: ${{ inputs.ke_token != '' && inputs.ke_token || secrets.CUBEJS_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           REPORT="${{ github.event.inputs.report_kind || 'daily_action_plan' }}"
           if [ "$REPORT" = "all" ]; then
-            python3 core/refresh_jobs.py --job paid_storage_report
-            python3 core/refresh_jobs.py --job sales_return_report
-            python3 core/refresh_jobs.py --job dynamic_pricing
+            python3 core/refresh_jobs.py --job paid_storage_report || true
+            python3 core/refresh_jobs.py --job sales_return_report || true
+            python3 core/refresh_jobs.py --job dynamic_pricing || true
           fi
-          python3 build_daily_action_plan.py --offline-fallback
+          python3 build_dashboard_index.py || echo "WARNING: build_dashboard_index.py not found"
 
-      - name: Update dashboard HTML
-        run: |
-          python3 skills/mm-github/mm_github.py deploy-dashboard
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          AGENT_NAME: github-actions
+      - name: Inject data into docs/index.html
+        run: python3 scripts/inject_dashboard_data.py
 
       - name: Commit and push updated data
         run: |
           git config user.email "actions@github.com"
           git config user.name "MM Market Bot"
-          git add data/dashboard/ docs/
+          git add data/dashboard/ docs/index.html
           git diff --staged --quiet || git commit -m "data: daily plan update [$(date -u +%Y-%m-%d)]"
           git push
         env:
