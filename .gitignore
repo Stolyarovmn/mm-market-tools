@@ -28,6 +28,8 @@ data/reports/*.zip
 !data/dashboard/
 !data/reviews/
 !data/reply_config.json
+data/local/*
+!data/local/README.md
 
 # ── Job runs (temp logs) ──────────────────────────────────────────────────────
 job_runs/
