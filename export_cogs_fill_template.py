@@ -5,10 +5,11 @@ import datetime as dt
 from pathlib import Path
 
 from core.io_utils import load_json
+from core.paths import REPORTS_DIR
 
 
-DEFAULT_REGISTRY_JSON = "/home/user/mm-market-tools/reports/zero_cogs_registry_2026-04-09a.json"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_REGISTRY_JSON = str(REPORTS_DIR / "zero_cogs_registry_2026-04-09a.json")
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 DEFAULT_DATE = dt.date.today().isoformat()
 
 

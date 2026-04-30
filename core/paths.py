@@ -13,8 +13,8 @@ elif (_cwd.parent / "build_waybill_cost_layer.py").exists():
     # Запуск из подпапки
     PROJECT_ROOT = _cwd.parent
 else:
-    # Fallback на hardcoded path (для production)
-    PROJECT_ROOT = Path("/home/user/mm-market-tools")
+    # Fallback на расположение самого модуля, без машинно-зависимых путей.
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
 REPORTS_DIR = PROJECT_ROOT / "reports"
 DATA_DIR = PROJECT_ROOT / "data"
 SNAPSHOTS_DIR = DATA_DIR / "snapshots"

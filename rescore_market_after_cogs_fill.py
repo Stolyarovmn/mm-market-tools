@@ -13,13 +13,13 @@ from core.market_economics import (
     load_my_group_economics,
     merge_group_economics,
 )
-from core.paths import COGS_OVERRIDES_PATH, DASHBOARD_DIR, NORMALIZED_DIR, ensure_dir
+from core.paths import COGS_OVERRIDES_PATH, DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir
 
 
-DEFAULT_MARKET_JSON = "/home/user/mm-market-tools/data/normalized/competitor_market_analysis_2026-04-09g.json"
-DEFAULT_OFFICIAL_JSON = "/home/user/mm-market-tools/reports/official_period_analysis_2026-04-08.json"
-DEFAULT_FILL_CSV = "/home/user/mm-market-tools/reports/cogs_fill_template_2026-04-09a.csv"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_MARKET_JSON = str(NORMALIZED_DIR / "competitor_market_analysis_2026-04-09g.json")
+DEFAULT_OFFICIAL_JSON = str(REPORTS_DIR / "official_period_analysis_2026-04-08.json")
+DEFAULT_FILL_CSV = str(REPORTS_DIR / "cogs_fill_template_2026-04-09a.csv")
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 DEFAULT_DATE = dt.date.today().isoformat()
 
 
