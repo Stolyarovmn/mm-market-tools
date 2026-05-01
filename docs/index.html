@@ -329,6 +329,7 @@ let AUX_REPORTS = {
 
 // ── Globals ─────────────────────────────────────────────────────────────────
 let apiToken = localStorage.getItem('mm_api_token') || '';
+const PENDING_QUICKWINS_KEY = 'mm_quickwins_pending_v1';
 
 // ── Utils ────────────────────────────────────────────────────────────────────
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
@@ -370,6 +371,40 @@ function shortDate(ts){
   }catch{
     return ts;
   }
+}
+
+function readPendingQuickWins(){
+  try{
+    return JSON.parse(localStorage.getItem(PENDING_QUICKWINS_KEY) || '{}');
+  }catch(_err){
+    return {};
+  }
+}
+function writePendingQuickWins(payload){
+  localStorage.setItem(PENDING_QUICKWINS_KEY, JSON.stringify(payload || {}));
+}
+function quickWinState(key, activeKeys){
+  const pending = readPendingQuickWins();
+  if(activeKeys.includes(key) && pending[key]) return 'pending_verify';
+  if(!activeKeys.includes(key) && pending[key]) return 'resolved';
+  return 'todo';
+}
+function markQuickWinChanged(key, title, actionLabel){
+  const pending = readPendingQuickWins();
+  pending[key] = {
+    title,
+    actionLabel,
+    changed_at: new Date().toISOString(),
+  };
+  writePendingQuickWins(pending);
+  renderQuickWins();
+  toast('Карточка отмечена: ожидает перепроверки');
+}
+function clearQuickWinState(key){
+  const pending = readPendingQuickWins();
+  delete pending[key];
+  writePendingQuickWins(pending);
+  renderQuickWins();
 }
 
 async function initLiveMode(){
@@ -542,9 +577,16 @@ function renderActionCard(a){
     </div>`;
   }
 
+  let quickWinStateHtml='';
+  if(a.ui_status==='pending_verify'){
+    quickWinStateHtml=`<div class="alert-banner warn" style="margin-top:10px">Ожидает перепроверки: правка уже внесена, теперь запустите refresh и проверьте, ушла ли карточка из quick wins.</div>`;
+  }
+
   const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
   const applyTip=tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность. (TASK-008)');
   const cliTip=tip('Копирует Python-команду для записи изменения в <code>applied_actions.json</code> через mm-market-tools CLI.<br>Запустите в терминале после применения.');
+  const actionButtons=a.ui_actions_html||`<button class="btn primary" data-apply="${a.rank}">Применил ${applyTip}</button>
+      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI ${cliTip}</button>`;
 
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
     <div class="action-header">
@@ -564,11 +606,11 @@ function renderActionCard(a){
       <div class="score-bar-track"><div class="score-bar-fill ${sc}" style="width:${sp}%"></div></div>
     </div>
     ${priceHtml}
+    ${quickWinStateHtml}
     ${pid?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(pid))}" title="Нажмите для копирования SKU">SKU ${esc(String(pid))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     ${chips.length?`<div class="chips">${chips.join('')}</div>`:''}
     <div class="action-btns">
-      <button class="btn primary" data-apply="${a.rank}">Применил ${applyTip}</button>
-      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI ${cliTip}</button>
+      ${actionButtons}
     </div>
   </div>`;
 }
@@ -579,10 +621,13 @@ function onApplyClick(e){
   toast('Записано! Через 7 дней появится в A/B журнале.');
 }
 
-function renderDescriptionQuickWin(row){
+function renderDescriptionQuickWin(row, state, key){
   const recommendations=(row.recommendations||[]).slice(0,3);
   const productUrl=row.product_id?`https://megamarket.ru/catalogue/details/${row.product_id}/`:'#';
   const score=Math.min(100, Number(row.description_score)||0).toFixed(0);
+  const stateHtml=state==='pending_verify'
+    ? `<div class="alert-banner warn" style="margin-top:10px">Ожидает перепроверки: описание уже обновили, теперь запустите refresh и проверьте, ушла ли карточка из списка.</div>`
+    : '';
   return `<div class="card action-card type-title_seo quickwin">
     <div class="action-header">
       <span class="type-pill title_seo">Описание</span>
@@ -594,19 +639,65 @@ function renderDescriptionQuickWin(row){
     ${recommendations.length?`<div class="seo-compare" style="margin-top:10px">
       ${recommendations.map((rec, idx)=>`<div class="seo-compare-row"><div class="seo-row-label ${idx===0?'candidate':'current'}">${idx===0?'Что сделать в первую очередь':'Следующий шаг'}</div><div class="seo-candidate-text" style="font-size:11px">${esc(rec)}</div></div>`).join('')}
     </div>`:''}
+    ${stateHtml}
     ${row.product_id?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">SKU ${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
+    <div class="action-btns">
+      <button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(row.title||row.key||'Карточка')}" data-qw-label="description_seo">Отметить как изменено</button>
+      <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
+    </div>
   </div>`;
 }
 
 function renderQuickWins(){
   const box=document.getElementById('tab-quickwins');
   const actions=((PAYLOAD.plan||{}).actions)||[];
+  const pending = readPendingQuickWins();
   const priceFixes=actions.filter(a=>a.action_type==='price_fix').slice(0,8);
   const titleFixes=actions.filter(a=>a.action_type==='title_seo').slice(0,8);
   const descriptionFixes=(((AUX_REPORTS.descriptionSeo||{}).actions||{}).fix_now||[]).slice(0,6);
 
+  const priceCards=priceFixes.map(a=>{
+    const key=`price_fix:${a.entity_key||a.product_id||a.title}`;
+    const state=quickWinState(key, [
+      ...priceFixes.map(x=>`price_fix:${x.entity_key||x.product_id||x.title}`),
+      ...titleFixes.map(x=>`title_seo:${x.entity_key||x.product_id||x.title}`),
+      ...descriptionFixes.map(x=>`description_seo:${x.key||x.product_id||x.title}`),
+    ]);
+    return {
+      ...a,
+      ui_status: state,
+      ui_actions_html: `<button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(a.title||a.entity_key||'Карточка')}" data-qw-label="price_fix">Отметить как изменено</button>
+      <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
+      <button class="btn" data-cmd="${esc(`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note \"apply ${a.entity_key||''}\"`)}">Скопировать CLI</button>`,
+    };
+  });
+  const titleCards=titleFixes.map(a=>{
+    const key=`title_seo:${a.entity_key||a.product_id||a.title}`;
+    const state=quickWinState(key, [
+      ...priceFixes.map(x=>`price_fix:${x.entity_key||x.product_id||x.title}`),
+      ...titleFixes.map(x=>`title_seo:${x.entity_key||x.product_id||x.title}`),
+      ...descriptionFixes.map(x=>`description_seo:${x.key||x.product_id||x.title}`),
+    ]);
+    return {
+      ...a,
+      ui_status: state,
+      ui_actions_html: `<button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(a.title||a.entity_key||'Карточка')}" data-qw-label="title_seo">Отметить как изменено</button>
+      <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
+      <button class="btn" data-cmd="${esc(a.detail||'')}">Скопировать рекомендацию</button>`,
+    };
+  });
+  const activeKeys=[
+    ...priceFixes.map(x=>`price_fix:${x.entity_key||x.product_id||x.title}`),
+    ...titleFixes.map(x=>`title_seo:${x.entity_key||x.product_id||x.title}`),
+    ...descriptionFixes.map(x=>`description_seo:${x.key||x.product_id||x.title}`),
+  ];
+  const resolvedItems=Object.entries(pending).filter(([key])=>!activeKeys.includes(key));
+
   box.innerHTML=`<div class="alert-banner ok" style="margin-bottom:10px">
     Здесь собраны самые быстрые сценарии роста: сдвиг к психологическим ценам, правка title SEO и усиление описаний карточек.
+  </div>
+  <div class="alert-banner info" style="margin-bottom:10px">
+    Workflow: внесли правку в кабинете → нажали <strong>Отметить как изменено</strong> → запустили <strong>Обновить данные и перепроверить</strong> → после нового refresh карточка либо исчезнет из quick wins, либо останется как всё ещё актуальная.
   </div>
   <div class="kpi-grid" style="margin-bottom:12px">
     <div class="kpi-card ok"><div class="kpi-value">${priceFixes.length}</div><div class="kpi-label">Психологические цены</div></div>
@@ -614,19 +705,47 @@ function renderQuickWins(){
     <div class="kpi-card ${descriptionFixes.length?'warn':''}"><div class="kpi-value">${descriptionFixes.length}</div><div class="kpi-label">Description SEO fixes</div></div>
   </div>
   <div class="section-label">Цена ниже психологического порога</div>
-  ${priceFixes.length
-    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Примеры вроде <strong>801 → 799</strong> уже приходят из daily payload и готовы к просмотру в основном UI.</div>${priceFixes.map(renderActionCard).join('')}`
+  ${priceCards.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Примеры вроде <strong>801 → 799</strong> уже приходят из daily payload и готовы к просмотру в основном UI.</div>${priceCards.map(renderActionCard).join('')}`
     : '<div class="card"><div class="text-sm text-muted">Сейчас нет price-fix кандидатов в текущем плане.</div></div>'}
   <div class="section-label">SEO заголовков карточек</div>
-  ${titleFixes.length
-    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Эти карточки уже попали в quick wins по title SEO и готовы к правке в кабинете.</div>${titleFixes.map(renderActionCard).join('')}`
+  ${titleCards.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Эти карточки уже попали в quick wins по title SEO и готовы к правке в кабинете.</div>${titleCards.map(renderActionCard).join('')}`
     : '<div class="card"><div class="text-sm text-muted">Сейчас нет title SEO quick wins в текущем плане.</div></div>'}
   <div class="section-label">SEO описаний карточек</div>
   ${descriptionFixes.length
-    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Описание подгружается из отдельного <code>description_seo_report</code>, но уже доступно в основном UI для просмотра и приоритизации.</div>${descriptionFixes.map(renderDescriptionQuickWin).join('')}`
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Описание подгружается из отдельного <code>description_seo_report</code>, но уже доступно в основном UI для просмотра и приоритизации.</div>${descriptionFixes.map(row=>renderDescriptionQuickWin(row, quickWinState(`description_seo:${row.key||row.product_id||row.title}`, activeKeys), `description_seo:${row.key||row.product_id||row.title}`)).join('')}`
     : `<div class="card"><div class="text-sm text-muted">Description SEO quick wins пока не доступны.${AUX_REPORTS.descriptionSeoError?` ${esc(AUX_REPORTS.descriptionSeoError)}.`:''}</div></div>`}`;
 
+  if(resolvedItems.length){
+    box.innerHTML += `<div class="section-label">Подтвердилось после обновления</div>
+    <div class="text-xs text-muted" style="margin-bottom:8px">Эти карточки были отмечены как изменённые и больше не попали в новый quick wins payload.</div>
+    ${resolvedItems.map(([key, value])=>`<div class="source-card">
+      <div>
+        <div class="source-name">${esc(value.title||key)}</div>
+        <div class="source-meta">${esc(value.actionLabel||'quick_win')} · отмечено ${shortDate(value.changed_at)}</div>
+      </div>
+      <div class="source-actions">
+        <span class="stale-badge fresh">⬤ resolved</span>
+        <button class="btn" data-qw-clear="${esc(key)}">Убрать из списка</button>
+      </div>
+    </div>`).join('')}`;
+  }
+
   attachPlanEvents(box, actions);
+  attachQuickWinEvents(box);
+}
+
+function attachQuickWinEvents(box){
+  box.querySelectorAll('[data-qw-mark]').forEach(btn=>btn.addEventListener('click',()=>{
+    markQuickWinChanged(btn.dataset.qwMark, btn.dataset.qwTitle || 'Карточка', btn.dataset.qwLabel || 'quick_win');
+  }));
+  box.querySelectorAll('[data-qw-clear]').forEach(btn=>btn.addEventListener('click',()=>{
+    clearQuickWinState(btn.dataset.qwClear);
+  }));
+  box.querySelectorAll('[data-qw-refresh]').forEach(btn=>btn.addEventListener('click',()=>{
+    triggerDataRefresh();
+  }));
 }
 
 // ── Reviews Tab ───────────────────────────────────────────────────────────────
