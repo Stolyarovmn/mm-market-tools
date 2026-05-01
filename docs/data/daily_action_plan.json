@@ -1,0 +1,797 @@
+{
+  "plan": {
+    "generated_at": "2026-05-01T17:11:25.857042+00:00",
+    "kpis": {
+      "actions_in_plan": 34,
+      "quick_wins_count": 24,
+      "by_type_count": {
+        "price_fix": 8,
+        "price_strategy": 8,
+        "storage_cost": 8,
+        "return_investigate": 2,
+        "title_seo": 8
+      },
+      "potential_price_shift_rub": 182.77,
+      "zero_stock_in_top": 0,
+      "stockout_risk_in_top": 1,
+      "competitor_aware_in_top": 6
+    },
+    "metadata": {
+      "sources_used": [
+        "marketing_card_audit (16 actions -> marketing_card_audit_2026-04-11.json)",
+        "dynamic_pricing (8 actions -> dynamic_pricing_2026-04-11.json)",
+        "sales_return_report (2 review rows -> sales_return_report_2026-04-13.json)",
+        "paid_storage_report (8 actions -> paid_storage_report_2026-04-13.json)"
+      ],
+      "sources_skipped": [],
+      "stock_context_source": "weekly_operational_report_2026-04-08.json",
+      "competitor_context_source": "market_rescored_after_cogs_2026-04-11.json",
+      "stock_annotated": 16,
+      "competitor_annotated": 21
+    },
+    "insights": [
+      {
+        "severity": "info",
+        "message": "Психологические пороги уже дают действия: В 33 карточках цена находится чуть выше сильного порога. Это дешёвый тест, особенно когда товар уже лежит на складе."
+      },
+      {
+        "severity": "warn",
+        "message": "Title-слой тоже даёт заметный резерв: 27 карточек выглядят слабо по title-priority. Это не guarantee роста, но хороший пласт для content-улучшений без новой закупки."
+      },
+      {
+        "severity": "info",
+        "message": "Часть карточек лежит в окнах с рабочей рыночной экономикой: 30 карточек попали в группы/ценовые коридоры, где рынок в целом поддерживает вход или тест по вашей марже."
+      },
+      {
+        "severity": "info",
+        "message": "Есть окна для агрессивного входа: Нашлось 11 окон, где можно входить чуть ниже рынка и всё ещё удерживать целевую маржу 35.0%."
+      },
+      {
+        "severity": "info",
+        "message": "Отчёт по платному хранению подключён: В текущем файле видно 1699 строк и суммарный платный слой 5591259946.0 ₽. Это новый контур затрат, которого раньше не было в дашборде."
+      },
+      {
+        "severity": "warn",
+        "message": "Есть строки без надёжной идентификации: 1699 строк не содержат явного SKU/артикула/названия. Их нужно сверять вручную, иначе разбор затрат по карточкам будет неполным."
+      },
+      {
+        "severity": "info",
+        "message": "Сначала смотри крупнейшие начисления: Этот экран пока manager-facing и объяснительный: он показывает, где платный storage/service слой накапливается быстрее всего и что требует ручной проверки."
+      }
+    ],
+    "actions": [
+      {
+        "action_type": "price_fix",
+        "title": "Детское Домино Половинки 'Животные и игрушки' 28 плашек",
+        "group": "Пазлы",
+        "headline": "Тест цены",
+        "detail": "цена 801.0 ₽ висит выше порога 799 ₽ на 2.0 ₽",
+        "current_value": 801.0,
+        "suggested_value": 799.0,
+        "priority_score": 84.63,
+        "compound_score": 89.63,
+        "quick_win": true,
+        "entity_key": "WONDERS-ДОМИНО",
+        "product_id": 30429,
+        "meta": {
+          "total_stock": 27,
+          "stale_stock": true,
+          "market_median_price": null
+        },
+        "rank": 1
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Антистрессы и сквиши · 0-199",
+        "group": "Антистрессы и сквиши",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 111.78,
+        "suggested_value": 109.54,
+        "priority_score": 78.84,
+        "compound_score": 83.84,
+        "quick_win": true,
+        "entity_key": "Антистрессы и сквиши-0-199",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 111.78,
+          "price_vs_market_pct": 169.73
+        },
+        "rank": 2
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Логическая пирамидка 'Учимся считать'",
+        "group": "Кубики, мозаика и пирамидки",
+        "headline": "Тест цены",
+        "detail": "цена 499.59 ₽ висит выше порога 499 ₽ на 0.59 ₽",
+        "current_value": 499.59,
+        "suggested_value": 499.0,
+        "priority_score": 71.4,
+        "compound_score": 76.4,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПСЧ3007",
+        "product_id": 419169,
+        "meta": {
+          "total_stock": 14,
+          "stale_stock": true,
+          "market_median_price": null
+        },
+        "rank": 3
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Набор животных Bondibon 'Ребятам о Зверятах'",
+        "group": "Прочее",
+        "headline": "Тест цены",
+        "detail": "цена 408.59 ₽ висит выше порога 399 ₽ на 9.59 ₽; рыночный контекст: можно агрессивно входить",
+        "current_value": 408.59,
+        "suggested_value": 399.0,
+        "priority_score": 69.95,
+        "compound_score": 74.95,
+        "quick_win": true,
+        "entity_key": "WONDERS-ФЖИВОТН-ЛЗЕЛЕН",
+        "product_id": 45757,
+        "meta": {
+          "total_stock": 16,
+          "stale_stock": true,
+          "market_median_price": 301.49,
+          "price_vs_market_pct": 35.52
+        },
+        "rank": 4
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Игры с прищепками 'Учим цифры'",
+        "group": "Книги и обучающие материалы",
+        "headline": "Тест цены",
+        "detail": "цена 405.0 ₽ висит выше порога 399 ₽ на 6.0 ₽; рыночный контекст: можно агрессивно входить",
+        "current_value": 405.0,
+        "suggested_value": 399.0,
+        "priority_score": 69.84,
+        "compound_score": 74.84,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПР07",
+        "product_id": 605434,
+        "meta": {
+          "total_stock": 7,
+          "stale_stock": true,
+          "market_median_price": 340.2,
+          "price_vs_market_pct": 19.05
+        },
+        "rank": 5
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Конструктор  'Железная дорога' Транспорт Поезд",
+        "group": "Конструкторы",
+        "headline": "Тест цены",
+        "detail": "цена 801.0 ₽ висит выше порога 799 ₽ на 2.0 ₽",
+        "current_value": 801.0,
+        "suggested_value": 799.0,
+        "priority_score": 68.61,
+        "compound_score": 73.61,
+        "quick_win": true,
+        "entity_key": "WONDERS-ВВ4239-КРАСН",
+        "product_id": 1965188,
+        "meta": {
+          "total_stock": 7,
+          "stale_stock": true,
+          "market_median_price": null
+        },
+        "rank": 6
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Настольная игра Baby Toys 'Азбука для самых маленьких' русский алфавит",
+        "group": "Книги и обучающие материалы",
+        "headline": "Тест цены",
+        "detail": "цена 400.5 ₽ висит выше порога 399 ₽ на 1.5 ₽; рыночный контекст: можно агрессивно входить",
+        "current_value": 400.5,
+        "suggested_value": 399.0,
+        "priority_score": 68.31,
+        "compound_score": 73.31,
+        "quick_win": true,
+        "entity_key": "WONDERS-04270",
+        "product_id": 950401,
+        "meta": {
+          "total_stock": 17,
+          "stale_stock": false,
+          "market_median_price": 340.2,
+          "price_vs_market_pct": 17.72
+        },
+        "rank": 7
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Игры с прищепками 'Учим буквы' Алатойс",
+        "group": "Книги и обучающие материалы",
+        "headline": "Тест цены",
+        "detail": "цена 405.0 ₽ висит выше порога 399 ₽ на 6.0 ₽; рыночный контекст: можно агрессивно входить",
+        "current_value": 405.0,
+        "suggested_value": 399.0,
+        "priority_score": 67.81,
+        "compound_score": 72.81,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПР10",
+        "product_id": 605138,
+        "meta": {
+          "total_stock": 2,
+          "stale_stock": true,
+          "market_median_price": 340.2,
+          "price_vs_market_pct": 19.05
+        },
+        "rank": 8
+      },
+      {
+        "action_type": "price_fix",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "headline": "Тест цены",
+        "detail": "цена 410.0 ₽ висит выше порога 399 ₽ на 11.0 ₽; рыночный контекст: можно агрессивно входить",
+        "current_value": 410.0,
+        "suggested_value": 399.0,
+        "priority_score": 66.1,
+        "compound_score": 71.1,
+        "quick_win": true,
+        "entity_key": "НАЗАМОЧ-Горчичный",
+        "product_id": 3064419,
+        "meta": {
+          "total_stock": 10,
+          "stale_stock": true,
+          "market_median_price": 340.2,
+          "price_vs_market_pct": 20.52
+        },
+        "rank": 9
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7607978.0,
+        "suggested_value": null,
+        "priority_score": 70.43,
+        "compound_score": 70.43,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 10
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7598995.0,
+        "suggested_value": null,
+        "priority_score": 70.4,
+        "compound_score": 70.4,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 11
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7587352.0,
+        "suggested_value": null,
+        "priority_score": 70.35,
+        "compound_score": 70.35,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 12
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7587284.0,
+        "suggested_value": null,
+        "priority_score": 70.35,
+        "compound_score": 70.35,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 13
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7587283.0,
+        "suggested_value": null,
+        "priority_score": 70.35,
+        "compound_score": 70.35,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 14
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7570390.0,
+        "suggested_value": null,
+        "priority_score": 70.28,
+        "compound_score": 70.28,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 15
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7570389.0,
+        "suggested_value": null,
+        "priority_score": 70.28,
+        "compound_score": 70.28,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 16
+      },
+      {
+        "action_type": "storage_cost",
+        "title": "Строка без названия",
+        "group": "Платное хранение",
+        "headline": "Проверить складской хвост и вариант уценки",
+        "detail": "Платное хранение уже заметно в расходах; проверьте распродажу, комплектность и точность идентификации SKU.",
+        "current_value": 7570152.0,
+        "suggested_value": null,
+        "priority_score": 70.28,
+        "compound_score": 70.28,
+        "quick_win": false,
+        "entity_key": "Строка без названия",
+        "product_id": null,
+        "meta": {},
+        "rank": 17
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Прочее · 200-499",
+        "group": "Прочее",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 301.49,
+        "suggested_value": 295.46,
+        "priority_score": 58.38,
+        "compound_score": 63.38,
+        "quick_win": true,
+        "entity_key": "Прочее-200-499",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 301.49,
+          "price_vs_market_pct": 60.47
+        },
+        "rank": 18
+      },
+      {
+        "action_type": "return_investigate",
+        "title": "2623485",
+        "group": "Стандартный возврат",
+        "headline": "Разобрать возвраты: Стандартный возврат",
+        "detail": "Проверить карточку, фото и упаковку на предмет ложных ожиданий покупателя.",
+        "current_value": 1.0,
+        "suggested_value": null,
+        "priority_score": 60.0,
+        "compound_score": 60.0,
+        "quick_win": false,
+        "entity_key": "2623485",
+        "product_id": "970356",
+        "meta": {},
+        "rank": 19
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Прочее · 800-1199",
+        "group": "Прочее",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 1021.63,
+        "suggested_value": 1001.2,
+        "priority_score": 51.49,
+        "compound_score": 56.49,
+        "quick_win": true,
+        "entity_key": "Прочее-800-1199",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 1021.63,
+          "price_vs_market_pct": -52.64
+        },
+        "rank": 20
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Антистрессы и сквиши · 200-499",
+        "group": "Антистрессы и сквиши",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 349.24,
+        "suggested_value": 342.26,
+        "priority_score": 50.8,
+        "compound_score": 55.8,
+        "quick_win": true,
+        "entity_key": "Антистрессы и сквиши-200-499",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 349.24,
+          "price_vs_market_pct": -13.67
+        },
+        "rank": 21
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Книги и обучающие материалы · 200-499",
+        "group": "Книги и обучающие материалы",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 340.2,
+        "suggested_value": 333.4,
+        "priority_score": 50.55,
+        "compound_score": 55.55,
+        "quick_win": true,
+        "entity_key": "Книги и обучающие материалы-200-499",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 340.2,
+          "price_vs_market_pct": 37.85
+        },
+        "rank": 22
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Прочее · 1200+",
+        "group": "Прочее",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 2633.0,
+        "suggested_value": 2580.34,
+        "priority_score": 48.42,
+        "compound_score": 53.42,
+        "quick_win": true,
+        "entity_key": "Прочее-1200+",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 2633.0,
+          "price_vs_market_pct": -81.63
+        },
+        "rank": 23
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Транспорт и машинки · 200-499",
+        "group": "Транспорт и машинки",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 282.01,
+        "suggested_value": 276.37,
+        "priority_score": 47.88,
+        "compound_score": 52.88,
+        "quick_win": true,
+        "entity_key": "Транспорт и машинки-200-499",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 282.01,
+          "price_vs_market_pct": 116.39
+        },
+        "rank": 24
+      },
+      {
+        "action_type": "price_strategy",
+        "title": "Книги и обучающие материалы · 1200+",
+        "group": "Книги и обучающие материалы",
+        "headline": "можно агрессивно входить",
+        "detail": "рынок оставляет запас маржи даже при цене чуть ниже среднего",
+        "current_value": 2165.62,
+        "suggested_value": 2122.31,
+        "priority_score": 47.02,
+        "compound_score": 52.02,
+        "quick_win": true,
+        "entity_key": "Книги и обучающие материалы-1200+",
+        "product_id": null,
+        "meta": {
+          "market_median_price": 2165.62,
+          "price_vs_market_pct": -78.35
+        },
+        "rank": 25
+      },
+      {
+        "action_type": "return_investigate",
+        "title": "7941901",
+        "group": "CANCELED",
+        "headline": "Разобрать возвраты: CANCELED",
+        "detail": "Проверить карточку товара и историю возвратов для уточнения причины.",
+        "current_value": 0.0,
+        "suggested_value": null,
+        "priority_score": 50.0,
+        "compound_score": 50.0,
+        "quick_win": false,
+        "entity_key": "7941901",
+        "product_id": "2539424",
+        "meta": {},
+        "rank": 26
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Учимся рисовать тренажер по рисованию компактные развивающие игры в дорогу Bondibon",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_late; рыночный контекст: можно агрессивно входить Перенести главный тип товара в первые 3 слова.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ДОРИСУЙ-ОРАНЖ",
+        "product_id": 38753,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 27
+      },
+      {
+        "action_type": "title_seo",
+        "title": "'Найди отличия!' - компактная развивающая игра в дорогу Bondibon",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_late; рыночный контекст: можно агрессивно входить Перенести главный тип товара в первые 3 слова.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ОТЛИЧИЯ",
+        "product_id": 38757,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 580.61
+        },
+        "rank": 28
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Ксилофон",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_unknown; рыночный контекст: можно агрессивно входить Уточнить главный тип товара явным существительным в начале title.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-КСЛФ1-ДЕРЕВОМ",
+        "product_id": 326,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 29
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_unknown; рыночный контекст: можно агрессивно входить Уточнить главный тип товара явным существительным в начале title.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПДСВКВ1-БЕЛЫЙ",
+        "product_id": 2161,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 30
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_unknown; рыночный контекст: можно агрессивно входить Уточнить главный тип товара явным существительным в начале title.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПДСВКВ1-ЧЕРН",
+        "product_id": 2161,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 31
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Подсвечник 'Фонарь' 13 см",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_unknown; рыночный контекст: можно агрессивно входить Уточнить главный тип товара явным существительным в начале title.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПДСВКР1-БЕЛЫЙ",
+        "product_id": 2155,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 32
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Подсвечник 'Фонарь' 13 см",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_unknown; рыночный контекст: можно агрессивно входить Уточнить главный тип товара явным существительным в начале title.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПДСВКР1-ЧЕРН",
+        "product_id": 2155,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 33
+      },
+      {
+        "action_type": "title_seo",
+        "title": "Подсвечник 'Фонарь на держателе' 21 см",
+        "group": "Прочее",
+        "headline": "Переписать title",
+        "detail": "SEO-сигнал: main_noun_unknown; рыночный контекст: можно агрессивно входить Уточнить главный тип товара явным существительным в начале title.",
+        "current_value": null,
+        "suggested_value": null,
+        "priority_score": 28.0,
+        "compound_score": 28.0,
+        "quick_win": true,
+        "entity_key": "WONDERS-ПДСВПД1-БЕЛЫЙ",
+        "product_id": 2158,
+        "meta": {
+          "total_stock": 0,
+          "stale_stock": false,
+          "market_median_price": 301.49
+        },
+        "rank": 34
+      }
+    ]
+  },
+  "review_booster": {
+    "generated_at": "2026-05-01T17:11:25.857081+00:00",
+    "kpis": {
+      "responses_suggested": 2,
+      "high_priority_responses": 0,
+      "reason_coverage": 2
+    },
+    "insights": [
+      {
+        "severity": "info",
+        "message": "Шаблоны ответов собраны из sales_return_report."
+      }
+    ],
+    "rows": [
+      {
+        "product_id": "970356",
+        "sku": "2623485",
+        "title": "2623485",
+        "return_reason_code": "REGULAR",
+        "reason_label": "Стандартный возврат",
+        "return_count": 1,
+        "template_response": "Спасибо за ваш отзыв! Рады, что 2623485 вас устроил. Будем рады видеть вас снова.",
+        "action_for_seller": "Проверить карточку, фото и упаковку на предмет ложных ожиданий покупателя.",
+        "priority": "medium"
+      },
+      {
+        "product_id": "2539424",
+        "sku": "7941901",
+        "title": "7941901",
+        "return_reason_code": "CANCELED",
+        "reason_label": "CANCELED",
+        "return_count": 0,
+        "template_response": "Спасибо за ваш отзыв! Рады, что 7941901 вас устроил. Будем рады видеть вас снова.",
+        "action_for_seller": "Проверить карточку товара и историю возвратов для уточнения причины.",
+        "priority": "medium"
+      }
+    ]
+  },
+  "applied_actions": {
+    "summary": {
+      "total_entries": 0,
+      "pending_count": 0,
+      "measured_count": 0
+    },
+    "entries": []
+  },
+  "api_status": {
+    "checked_at": "2026-04-10T22:11:35+00:00",
+    "shop_id": 98,
+    "token_status": "valid",
+    "token_expires_moscow": "2026-04-11T01:11:35+03:00",
+    "cubes": 24,
+    "existing_documents": 24,
+    "endpoints": [
+      {
+        "url": "cubejs-api/v1/meta",
+        "method": "GET",
+        "status": "ok",
+        "note": "Кубы аналитики доступны."
+      },
+      {
+        "url": "api/seller/documents/requests",
+        "method": "GET",
+        "status": "ok",
+        "note": "Используем completed documents как основной источник seller reports."
+      },
+      {
+        "url": "api/seller/documents/create",
+        "method": "POST",
+        "status": "fix",
+        "note": "Validation failed, поэтому workflow не должен зависеть от create-контракта."
+      }
+    ],
+    "gaps": [
+      {
+        "name": "documents_create",
+        "status": "todo",
+        "note": "documents/create пока не даёт стабильный контракт; используем reuse completed reports."
+      }
+    ]
+  },
+  "blockers": [
+    {
+      "id": "B-031",
+      "sev": "med",
+      "title": "Workflow still depends on completed dashboard bundles",
+      "body": "Automation can rebuild SQLite and Pages, but some source reports still rely on completed seller documents and cached offline bundles."
+    }
+  ],
+  "iteration": {
+    "number": "012",
+    "updated_at": "2026-05-01T17:11:25.857001+00:00",
+    "status": "in_progress",
+    "uncertainty": 0.32
+  }
+}
