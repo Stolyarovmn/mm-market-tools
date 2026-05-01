@@ -315,6 +315,7 @@ let LIVE = {
   jobs: [],
   runs: [],
   actionCenter: null,
+  reviews: null,
   error: null,
 };
 
@@ -338,6 +339,22 @@ async function loadJsonMaybe(path){
   }
   return resp.json();
 }
+async function postJson(path, payload){
+  const resp = await fetch(path, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+    body: JSON.stringify(payload || {}),
+  });
+  const data = await resp.json().catch(() => ({}));
+  if(!resp.ok){
+    throw new Error(data.error || `${path} failed`);
+  }
+  return data;
+}
 function shortDate(ts){
   if(!ts) return '—';
   try{
@@ -354,11 +371,18 @@ async function initLiveMode(){
       loadJsonMaybe('/api/runs'),
       loadJsonMaybe('/api/action-center'),
     ]);
+    let reviewsPayload = null;
+    try{
+      reviewsPayload = await loadJsonMaybe('/api/reviews');
+    }catch(_err){
+      reviewsPayload = null;
+    }
     LIVE = {
       enabled: true,
       jobs: jobsPayload.jobs || [],
       runs: runsPayload.runs || [],
       actionCenter: actionPayload || null,
+      reviews: reviewsPayload,
       error: null,
     };
   }catch(err){
@@ -367,6 +391,7 @@ async function initLiveMode(){
       jobs: [],
       runs: [],
       actionCenter: null,
+      reviews: null,
       error: err.message || 'live mode unavailable',
     };
   }
@@ -525,6 +550,42 @@ function onApplyClick(e){
 // ── Reviews Tab ───────────────────────────────────────────────────────────────
 function renderReviews(){
   const box=document.getElementById('tab-reviews');
+  if(LIVE.enabled && LIVE.reviews){
+    const rows=(LIVE.reviews.items)||[];
+    if(!rows.length){
+      box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">
+        Live reviews mode активен, но в локальном <code>data/reviews/reviews.json</code> сейчас нет элементов.
+      </div>
+      <div class="card"><div class="text-sm text-muted">Запусти job загрузки отзывов в control room, после чего этот же экран покажет live список.</div></div>`;
+      return;
+    }
+    box.innerHTML=`<div class="alert-banner ok" style="margin-bottom:10px">
+      Live reviews mode активен. Ниже показаны реальные отзывы и вопросы из локального runtime-слоя.
+    </div>`
+    +rows.map((r,idx)=>`<div class="card action-card type-return_investigate">
+      <div class="action-header">
+        <span class="type-pill return_investigate">${esc(r.kind||'review')}</span>
+        <span class="text-xs text-muted">${esc(r.author||'Покупатель')} · ${shortDate(r.created_at)}${r.rating?` · ${'★'.repeat(Math.max(1,Math.min(5,Number(r.rating)||0)))}`:''}</span>
+      </div>
+      <div class="action-title">${esc(r.product_title||`SKU ${r.product_id||'—'}`)}</div>
+      <div class="action-detail mt-4">${esc(r.text||'')}</div>
+      ${r.answer_text?`<div class="ai-suggestion"><div class="ai-label">Уже отправленный ответ</div><div class="ai-text">${esc(r.answer_text)}</div></div>`:''}
+      <div class="action-btns">
+        <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.text||'')});toast('Текст отзыва скопирован')">Скопировать текст</button>
+        <button class="btn" onclick="syncReviewDraft(${idx}, 'tab-reviews')">Сгенерировать черновик</button>
+        <button class="btn" onclick="toggleReviewComposer(${idx}, 'tab-reviews')">Ответить</button>
+      </div>
+      <div id="review-compose-tab-reviews-${idx}" style="display:none;margin-top:8px">
+        <textarea id="review-text-tab-reviews-${idx}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(r.answer_text||'')}</textarea>
+        <div class="action-btns">
+          <button class="btn primary" onclick="sendReviewReply(${idx}, 'tab-reviews')">Отправить через API</button>
+          <button class="btn" onclick="copyComposerText(${idx}, 'tab-reviews')">Скопировать ответ</button>
+        </div>
+        <div class="text-xs text-muted" id="review-status-tab-reviews-${idx}" style="margin-top:6px"></div>
+      </div>
+    </div>`).join('');
+    return;
+  }
   const rows=((PAYLOAD.review_booster||{}).rows)||[];
   if(!rows.length){box.innerHTML='<div class="empty">Нет возвратов для обработки.</div>';return;}
   box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">Возвраты влияют на рейтинг магазина и позиции в поиске. Ответьте сегодня — это прямой сигнал площадке.</div>`
@@ -983,6 +1044,73 @@ function testEndpoint(i){
 // ── Buyers Tab ────────────────────────────────────────────────────────────────
 function renderBuyers(){
   const box=document.getElementById('tab-buyers');
+  if(LIVE.enabled && LIVE.reviews){
+    const rows=(LIVE.reviews.items)||[];
+    const questions=rows.filter(r=>r.kind==='question');
+    const reviews=rows.filter(r=>r.kind!=='question');
+    let html=`<div class="alert-banner ok" style="margin-bottom:10px">
+      Основной UI теперь умеет работать с live reviews/reply tooling через локальный backend. Здесь можно сгенерировать черновик и отправить ответ через API.
+    </div>`;
+
+    if(reviews.length){
+      html+=`<div class="section-label">Отзывы покупателей</div>`;
+      reviews.forEach((r,idx)=>{
+        html+=`<div class="card action-card type-return_investigate">
+          <div class="action-header">
+            <span class="type-pill return_investigate">${r.rating?`${r.rating}/5`:'review'}</span>
+            <span class="text-xs text-muted">${esc(r.author||'Покупатель')} · ${shortDate(r.created_at)}</span>
+          </div>
+          <div class="action-title">${esc(r.product_title||`Товар ${r.product_id||'—'}`)}</div>
+          <div class="action-detail mt-4">${esc(r.text||'')}</div>
+          <div class="action-btns">
+            <button class="btn" onclick="syncReviewDraft(${rows.indexOf(r)}, 'tab-buyers')">AI-черновик</button>
+            <button class="btn primary" onclick="toggleReviewComposer(${rows.indexOf(r)}, 'tab-buyers')">Открыть ответ</button>
+          </div>
+          <div id="review-compose-tab-buyers-${rows.indexOf(r)}" style="display:none;margin-top:8px">
+            <textarea id="review-text-tab-buyers-${rows.indexOf(r)}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(r.answer_text||'')}</textarea>
+            <div class="action-btns">
+              <button class="btn primary" onclick="sendReviewReply(${rows.indexOf(r)}, 'tab-buyers')">Отправить через API</button>
+              <button class="btn" onclick="copyComposerText(${rows.indexOf(r)}, 'tab-buyers')">Скопировать ответ</button>
+            </div>
+            <div class="text-xs text-muted" id="review-status-tab-buyers-${rows.indexOf(r)}" style="margin-top:6px"></div>
+          </div>
+        </div>`;
+      });
+    }
+
+    html+=`<div class="section-label" style="margin-top:12px">Вопросы покупателей</div>`;
+    if(questions.length){
+      questions.forEach((q,idx)=>{
+        html+=`<div class="card">
+          <div class="action-header">
+            <span class="type-pill title_seo">question</span>
+            <span class="text-xs text-muted">${esc(q.author||'Покупатель')} · ${shortDate(q.created_at)}</span>
+          </div>
+          <div class="action-title">${esc(q.product_title||`Товар ${q.product_id||'—'}`)}</div>
+          <div class="action-detail mt-4">${esc(q.text||'')}</div>
+          <div class="action-btns">
+            <button class="btn" onclick="syncReviewDraft(${rows.indexOf(q)}, 'tab-buyers')">AI-черновик</button>
+            <button class="btn primary" onclick="toggleReviewComposer(${rows.indexOf(q)}, 'tab-buyers')">Ответить</button>
+          </div>
+          <div id="review-compose-tab-buyers-${rows.indexOf(q)}" style="display:none;margin-top:8px">
+            <textarea id="review-text-tab-buyers-${rows.indexOf(q)}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(q.answer_text||'')}</textarea>
+            <div class="action-btns">
+              <button class="btn primary" onclick="sendReviewReply(${rows.indexOf(q)}, 'tab-buyers')">Отправить через API</button>
+              <button class="btn" onclick="copyComposerText(${rows.indexOf(q)}, 'tab-buyers')">Скопировать ответ</button>
+            </div>
+            <div class="text-xs text-muted" id="review-status-tab-buyers-${rows.indexOf(q)}" style="margin-top:6px"></div>
+          </div>
+        </div>`;
+      });
+    }else{
+      html+=`<div class="comm-empty">
+        <div class="comm-empty-icon">💬</div>
+        <div>Вопросов от покупателей пока нет.</div>
+      </div>`;
+    }
+    box.innerHTML=html;
+    return;
+  }
   const rows=((PAYLOAD.review_booster||{}).rows)||[];
 
   let html=`<div class="alert-banner info" style="margin-bottom:10px">
@@ -1020,6 +1148,68 @@ function renderBuyers(){
   </div>`;
 
   box.innerHTML=html;
+}
+
+function liveReviewItems(){
+  return (LIVE.reviews && LIVE.reviews.items) || [];
+}
+function toggleReviewComposer(idx, scope){
+  const wrap=document.getElementById(`review-compose-${scope}-${idx}`);
+  if(!wrap)return;
+  wrap.style.display=wrap.style.display==='none'?'block':'none';
+}
+function copyComposerText(idx, scope){
+  const el=document.getElementById(`review-text-${scope}-${idx}`);
+  if(!el)return;
+  copyToClipboard(el.value || '', 'Ответ скопирован');
+}
+async function syncReviewDraft(idx, scope){
+  const item=liveReviewItems()[idx];
+  const statusEl=document.getElementById(`review-status-${scope}-${idx}`);
+  const textEl=document.getElementById(`review-text-${scope}-${idx}`);
+  const wrap=document.getElementById(`review-compose-${scope}-${idx}`);
+  if(!item || !statusEl || !textEl || !wrap){
+    toast('Live reviews item не найден');
+    return;
+  }
+  statusEl.textContent='⏳ Генерирую черновик...';
+  wrap.style.display='block';
+  try{
+    const resp=await postJson('/api/reviews/generate',{item});
+    textEl.value=(resp.draft && resp.draft.text) || '';
+    const strategy=resp.draft?.strategy || 'unknown';
+    const provider=resp.draft?.provider || 'unknown';
+    const llmErr=resp.draft?.llm_error ? ` · fallback: ${resp.draft.llm_error}` : '';
+    statusEl.textContent=`✓ Черновик готов (${strategy}/${provider}${llmErr})`;
+  }catch(err){
+    statusEl.textContent='✗ '+err.message;
+  }
+}
+async function sendReviewReply(idx, scope){
+  const item=liveReviewItems()[idx];
+  const statusEl=document.getElementById(`review-status-${scope}-${idx}`);
+  const textEl=document.getElementById(`review-text-${scope}-${idx}`);
+  if(!item || !statusEl || !textEl){
+    toast('Reply form не найден');
+    return;
+  }
+  if(!apiToken){
+    statusEl.textContent='✗ Сначала сохраните MM Bearer токен во вкладке API';
+    return;
+  }
+  const text=(textEl.value||'').trim();
+  if(!text){
+    statusEl.textContent='✗ Ответ пустой';
+    return;
+  }
+  statusEl.textContent='⏳ Отправляю ответ...';
+  try{
+    await postJson('/api/reviews/send',{token:apiToken,item,text});
+    statusEl.textContent='✓ Ответ отправлен через API';
+    toast('Ответ отправлен');
+  }catch(err){
+    statusEl.textContent='✗ '+err.message;
+  }
 }
 
 // ── Blockers Tab ──────────────────────────────────────────────────────────────
