@@ -19,6 +19,7 @@ def main() -> None:
     assert_contains("Отметить как изменено")
     assert_contains("Обновить данные и перепроверить")
     assert_contains("Подтвердилось после обновления")
+    assert_contains("Первым делом:")
     print("SMOKE_QUICKWINS_UI_OK")
 
 

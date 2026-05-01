@@ -483,6 +483,13 @@ function parseCandidate(detail){
   const m=detail.match(/[Кк]андидат:\s*['"""«](.+?)['"""»]$/)||detail.match(/[Кк]андидат:\s*['"""«](.+)/);
   return m?m[1].replace(/['"""»]+$/,'').trim():null;
 }
+function firstRecommendation(detail){
+  if(!detail) return null;
+  const cleaned=detail.replace(/\s+/g,' ').trim();
+  if(!cleaned) return null;
+  const first=cleaned.split(/[.!?]\s/)[0]?.trim();
+  return first || cleaned;
+}
 
 // ── Header ────────────────────────────────────────────────────────────────────
 function renderHeader(){
@@ -554,6 +561,12 @@ function renderActionCard(a){
   const pid=a.product_id;
   const productUrl=pid?`https://megamarket.ru/catalogue/details/${pid}/`:'#';
   const candidate=parseCandidate(a.detail||'');
+  const firstStep=
+    a.action_type==='price_fix' && a.suggested_value!=null
+      ? `Поставить цену ${a.suggested_value} ₽ вместо ${a.current_value} ₽`
+      : a.action_type==='title_seo'
+        ? (firstRecommendation(a.detail||'') || 'Переписать title по SEO-рекомендации')
+        : null;
 
   const chips=[];
   if(meta.total_stock!=null){const c=meta.total_stock<=0?'danger':(meta.total_stock<5?'warn':'ok');chips.push(`<span class="chip ${c}">Остаток: ${meta.total_stock}</span>`);}
@@ -581,6 +594,9 @@ function renderActionCard(a){
   if(a.ui_status==='pending_verify'){
     quickWinStateHtml=`<div class="alert-banner warn" style="margin-top:10px">Ожидает перепроверки: правка уже внесена, теперь запустите refresh и проверьте, ушла ли карточка из quick wins.</div>`;
   }
+  const firstStepHtml=firstStep
+    ? `<div class="alert-banner info" style="margin-top:10px"><strong>Первым делом:</strong> ${esc(firstStep)}</div>`
+    : '';
 
   const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
   const applyTip=tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность. (TASK-008)');
@@ -606,6 +622,7 @@ function renderActionCard(a){
       <div class="score-bar-track"><div class="score-bar-fill ${sc}" style="width:${sp}%"></div></div>
     </div>
     ${priceHtml}
+    ${firstStepHtml}
     ${quickWinStateHtml}
     ${pid?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(pid))}" title="Нажмите для копирования SKU">SKU ${esc(String(pid))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     ${chips.length?`<div class="chips">${chips.join('')}</div>`:''}
