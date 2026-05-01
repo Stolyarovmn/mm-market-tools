@@ -284,6 +284,9 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div class="tabs-wrapper">
   <div class="tab-pills">
     <button class="tab-btn active" data-tab="plan">План</button>
+    <button class="tab-btn" data-tab="quickwins">Быстрые победы</button>
+    <button class="tab-btn" data-tab="ops">Операции</button>
+    <button class="tab-btn" data-tab="reports">Отчёты</button>
     <button class="tab-btn" data-tab="reviews">Отзывы</button>
     <button class="tab-btn" data-tab="applied">A/B</button>
     <button class="tab-btn" data-tab="romi">ROMI</button>
@@ -295,6 +298,9 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 </div>
 
 <div id="tab-plan" class="tab-content active"></div>
+<div id="tab-quickwins" class="tab-content"></div>
+<div id="tab-ops" class="tab-content"></div>
+<div id="tab-reports" class="tab-content"></div>
 <div id="tab-reviews" class="tab-content"></div>
 <div id="tab-applied" class="tab-content"></div>
 <div id="tab-romi" class="tab-content"></div>
@@ -308,9 +314,22 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 
 <script>
 let PAYLOAD = {};
+let LIVE = {
+  enabled: false,
+  jobs: [],
+  runs: [],
+  actionCenter: null,
+  reviews: null,
+  error: null,
+};
+let AUX_REPORTS = {
+  descriptionSeo: null,
+  descriptionSeoError: null,
+};
 
 // ── Globals ─────────────────────────────────────────────────────────────────
 let apiToken = localStorage.getItem('mm_api_token') || '';
+const PENDING_QUICKWINS_KEY = 'mm_quickwins_pending_v1';
 
 // ── Utils ────────────────────────────────────────────────────────────────────
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
@@ -318,6 +337,132 @@ function copyToClipboard(text,label){if(navigator.clipboard&&navigator.clipboard
 function fbCopy(text,label){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(label||'Скопировано');}catch(e){toast('Не удалось скопировать');}document.body.removeChild(ta);}
 function esc(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function toggleHelp(id,btn){const el=document.getElementById(id);const isOpen=el.style.display!=='none';el.style.display=isOpen?'none':'block';btn.classList.toggle('open',!isOpen);}
+async function loadJsonMaybe(path){
+  const resp = await fetch(path, {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+  });
+  const contentType = resp.headers.get('content-type') || '';
+  if(!resp.ok || !contentType.includes('application/json')){
+    throw new Error(`${path} unavailable`);
+  }
+  return resp.json();
+}
+async function postJson(path, payload){
+  const resp = await fetch(path, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+    body: JSON.stringify(payload || {}),
+  });
+  const data = await resp.json().catch(() => ({}));
+  if(!resp.ok){
+    throw new Error(data.error || `${path} failed`);
+  }
+  return data;
+}
+function shortDate(ts){
+  if(!ts) return '—';
+  try{
+    return new Date(ts).toLocaleString('ru-RU',{dateStyle:'short',timeStyle:'short'});
+  }catch{
+    return ts;
+  }
+}
+
+function readPendingQuickWins(){
+  try{
+    return JSON.parse(localStorage.getItem(PENDING_QUICKWINS_KEY) || '{}');
+  }catch(_err){
+    return {};
+  }
+}
+function writePendingQuickWins(payload){
+  localStorage.setItem(PENDING_QUICKWINS_KEY, JSON.stringify(payload || {}));
+}
+function quickWinState(key, activeKeys){
+  const pending = readPendingQuickWins();
+  if(activeKeys.includes(key) && pending[key]) return 'pending_verify';
+  if(!activeKeys.includes(key) && pending[key]) return 'resolved';
+  return 'todo';
+}
+function markQuickWinChanged(key, title, actionLabel){
+  const pending = readPendingQuickWins();
+  pending[key] = {
+    title,
+    actionLabel,
+    changed_at: new Date().toISOString(),
+  };
+  writePendingQuickWins(pending);
+  renderQuickWins();
+  toast('Карточка отмечена: ожидает перепроверки');
+}
+function clearQuickWinState(key){
+  const pending = readPendingQuickWins();
+  delete pending[key];
+  writePendingQuickWins(pending);
+  renderQuickWins();
+}
+
+async function initLiveMode(){
+  try{
+    const [jobsPayload, runsPayload, actionPayload] = await Promise.all([
+      loadJsonMaybe('/api/jobs'),
+      loadJsonMaybe('/api/runs'),
+      loadJsonMaybe('/api/action-center'),
+    ]);
+    let reviewsPayload = null;
+    try{
+      reviewsPayload = await loadJsonMaybe('/api/reviews');
+    }catch(_err){
+      reviewsPayload = null;
+    }
+    LIVE = {
+      enabled: true,
+      jobs: jobsPayload.jobs || [],
+      runs: runsPayload.runs || [],
+      actionCenter: actionPayload || null,
+      reviews: reviewsPayload,
+      error: null,
+    };
+  }catch(err){
+    LIVE = {
+      enabled: false,
+      jobs: [],
+      runs: [],
+      actionCenter: null,
+      reviews: null,
+      error: err.message || 'live mode unavailable',
+    };
+  }
+}
+
+async function initAuxReports(){
+  try{
+    const indexResp = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/dashboard/index.json`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if(!indexResp.ok) throw new Error(`index.json unavailable (${indexResp.status})`);
+    const dashboardIndex = await indexResp.json();
+    const latest = dashboardIndex?.latest_by_kind?.description_seo_report;
+    if(!latest?.file_path) return;
+    const rawPath = latest.file_path.replace(/^data\/dashboard\//, '');
+    const reportResp = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/dashboard/${rawPath}`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if(!reportResp.ok) throw new Error(`description report unavailable (${reportResp.status})`);
+    AUX_REPORTS.descriptionSeo = await reportResp.json();
+    AUX_REPORTS.descriptionSeoError = null;
+  }catch(err){
+    AUX_REPORTS.descriptionSeo = null;
+    AUX_REPORTS.descriptionSeoError = err.message || 'description report unavailable';
+  }
+}
 
 // ── Tooltip system ────────────────────────────────────────────────────────────
 function pinTip(btn){
@@ -337,6 +482,13 @@ function parseCandidate(detail){
   if(!detail)return null;
   const m=detail.match(/[Кк]андидат:\s*['"""«](.+?)['"""»]$/)||detail.match(/[Кк]андидат:\s*['"""«](.+)/);
   return m?m[1].replace(/['"""»]+$/,'').trim():null;
+}
+function firstRecommendation(detail){
+  if(!detail) return null;
+  const cleaned=detail.replace(/\s+/g,' ').trim();
+  if(!cleaned) return null;
+  const first=cleaned.split(/[.!?]\s/)[0]?.trim();
+  return first || cleaned;
 }
 
 // ── Header ────────────────────────────────────────────────────────────────────
@@ -409,6 +561,12 @@ function renderActionCard(a){
   const pid=a.product_id;
   const productUrl=pid?`https://megamarket.ru/catalogue/details/${pid}/`:'#';
   const candidate=parseCandidate(a.detail||'');
+  const firstStep=
+    a.action_type==='price_fix' && a.suggested_value!=null
+      ? `Поставить цену ${a.suggested_value} ₽ вместо ${a.current_value} ₽`
+      : a.action_type==='title_seo'
+        ? (firstRecommendation(a.detail||'') || 'Переписать title по SEO-рекомендации')
+        : null;
 
   const chips=[];
   if(meta.total_stock!=null){const c=meta.total_stock<=0?'danger':(meta.total_stock<5?'warn':'ok');chips.push(`<span class="chip ${c}">Остаток: ${meta.total_stock}</span>`);}
@@ -432,9 +590,19 @@ function renderActionCard(a){
     </div>`;
   }
 
+  let quickWinStateHtml='';
+  if(a.ui_status==='pending_verify'){
+    quickWinStateHtml=`<div class="alert-banner warn" style="margin-top:10px">Ожидает перепроверки: правка уже внесена, теперь запустите refresh и проверьте, ушла ли карточка из quick wins.</div>`;
+  }
+  const firstStepHtml=firstStep
+    ? `<div class="alert-banner info" style="margin-top:10px"><strong>Первым делом:</strong> ${esc(firstStep)}</div>`
+    : '';
+
   const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
   const applyTip=tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность. (TASK-008)');
   const cliTip=tip('Копирует Python-команду для записи изменения в <code>applied_actions.json</code> через mm-market-tools CLI.<br>Запустите в терминале после применения.');
+  const actionButtons=a.ui_actions_html||`<button class="btn primary" data-apply="${a.rank}">Применил ${applyTip}</button>
+      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI ${cliTip}</button>`;
 
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
     <div class="action-header">
@@ -454,11 +622,12 @@ function renderActionCard(a){
       <div class="score-bar-track"><div class="score-bar-fill ${sc}" style="width:${sp}%"></div></div>
     </div>
     ${priceHtml}
+    ${firstStepHtml}
+    ${quickWinStateHtml}
     ${pid?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(pid))}" title="Нажмите для копирования SKU">SKU ${esc(String(pid))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     ${chips.length?`<div class="chips">${chips.join('')}</div>`:''}
     <div class="action-btns">
-      <button class="btn primary" data-apply="${a.rank}">Применил ${applyTip}</button>
-      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI ${cliTip}</button>
+      ${actionButtons}
     </div>
   </div>`;
 }
@@ -469,9 +638,172 @@ function onApplyClick(e){
   toast('Записано! Через 7 дней появится в A/B журнале.');
 }
 
+function renderDescriptionQuickWin(row, state, key){
+  const recommendations=(row.recommendations||[]).slice(0,3);
+  const productUrl=row.product_id?`https://megamarket.ru/catalogue/details/${row.product_id}/`:'#';
+  const score=Math.min(100, Number(row.description_score)||0).toFixed(0);
+  const stateHtml=state==='pending_verify'
+    ? `<div class="alert-banner warn" style="margin-top:10px">Ожидает перепроверки: описание уже обновили, теперь запустите refresh и проверьте, ушла ли карточка из списка.</div>`
+    : '';
+  return `<div class="card action-card type-title_seo quickwin">
+    <div class="action-header">
+      <span class="type-pill title_seo">Описание</span>
+      <span class="text-xs text-muted">${esc(row.description_status||'needs_work')} · score ${score}/100</span>
+    </div>
+    <div class="action-title">${esc(row.title||row.key||'Карточка')}</div>
+    <div class="action-headline">Усилить описание и раскрыть ключевые слова из title</div>
+    <div class="action-detail mt-4">Символов в описании: <strong>${esc(String(row.description_chars ?? 0))}</strong>${row.description_gap_vs_group!=null?` · gap к медиане группы: <strong>${esc(String(row.description_gap_vs_group))}</strong>`:''}</div>
+    ${recommendations.length?`<div class="seo-compare" style="margin-top:10px">
+      ${recommendations.map((rec, idx)=>`<div class="seo-compare-row"><div class="seo-row-label ${idx===0?'candidate':'current'}">${idx===0?'Что сделать в первую очередь':'Следующий шаг'}</div><div class="seo-candidate-text" style="font-size:11px">${esc(rec)}</div></div>`).join('')}
+    </div>`:''}
+    ${stateHtml}
+    ${row.product_id?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">SKU ${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
+    <div class="action-btns">
+      <button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(row.title||row.key||'Карточка')}" data-qw-label="description_seo">Отметить как изменено</button>
+      <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
+    </div>
+  </div>`;
+}
+
+function renderQuickWins(){
+  const box=document.getElementById('tab-quickwins');
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const pending = readPendingQuickWins();
+  const priceFixes=actions.filter(a=>a.action_type==='price_fix').slice(0,8);
+  const titleFixes=actions.filter(a=>a.action_type==='title_seo').slice(0,8);
+  const descriptionFixes=(((AUX_REPORTS.descriptionSeo||{}).actions||{}).fix_now||[]).slice(0,6);
+
+  const priceCards=priceFixes.map(a=>{
+    const key=`price_fix:${a.entity_key||a.product_id||a.title}`;
+    const state=quickWinState(key, [
+      ...priceFixes.map(x=>`price_fix:${x.entity_key||x.product_id||x.title}`),
+      ...titleFixes.map(x=>`title_seo:${x.entity_key||x.product_id||x.title}`),
+      ...descriptionFixes.map(x=>`description_seo:${x.key||x.product_id||x.title}`),
+    ]);
+    return {
+      ...a,
+      ui_status: state,
+      ui_actions_html: `<button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(a.title||a.entity_key||'Карточка')}" data-qw-label="price_fix">Отметить как изменено</button>
+      <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
+      <button class="btn" data-cmd="${esc(`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note \"apply ${a.entity_key||''}\"`)}">Скопировать CLI</button>`,
+    };
+  });
+  const titleCards=titleFixes.map(a=>{
+    const key=`title_seo:${a.entity_key||a.product_id||a.title}`;
+    const state=quickWinState(key, [
+      ...priceFixes.map(x=>`price_fix:${x.entity_key||x.product_id||x.title}`),
+      ...titleFixes.map(x=>`title_seo:${x.entity_key||x.product_id||x.title}`),
+      ...descriptionFixes.map(x=>`description_seo:${x.key||x.product_id||x.title}`),
+    ]);
+    return {
+      ...a,
+      ui_status: state,
+      ui_actions_html: `<button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(a.title||a.entity_key||'Карточка')}" data-qw-label="title_seo">Отметить как изменено</button>
+      <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
+      <button class="btn" data-cmd="${esc(a.detail||'')}">Скопировать рекомендацию</button>`,
+    };
+  });
+  const activeKeys=[
+    ...priceFixes.map(x=>`price_fix:${x.entity_key||x.product_id||x.title}`),
+    ...titleFixes.map(x=>`title_seo:${x.entity_key||x.product_id||x.title}`),
+    ...descriptionFixes.map(x=>`description_seo:${x.key||x.product_id||x.title}`),
+  ];
+  const resolvedItems=Object.entries(pending).filter(([key])=>!activeKeys.includes(key));
+
+  box.innerHTML=`<div class="alert-banner ok" style="margin-bottom:10px">
+    Здесь собраны самые быстрые сценарии роста: сдвиг к психологическим ценам, правка title SEO и усиление описаний карточек.
+  </div>
+  <div class="alert-banner info" style="margin-bottom:10px">
+    Workflow: внесли правку в кабинете → нажали <strong>Отметить как изменено</strong> → запустили <strong>Обновить данные и перепроверить</strong> → после нового refresh карточка либо исчезнет из quick wins, либо останется как всё ещё актуальная.
+  </div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card ok"><div class="kpi-value">${priceFixes.length}</div><div class="kpi-label">Психологические цены</div></div>
+    <div class="kpi-card ok"><div class="kpi-value">${titleFixes.length}</div><div class="kpi-label">Title SEO fixes</div></div>
+    <div class="kpi-card ${descriptionFixes.length?'warn':''}"><div class="kpi-value">${descriptionFixes.length}</div><div class="kpi-label">Description SEO fixes</div></div>
+  </div>
+  <div class="section-label">Цена ниже психологического порога</div>
+  ${priceCards.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Примеры вроде <strong>801 → 799</strong> уже приходят из daily payload и готовы к просмотру в основном UI.</div>${priceCards.map(renderActionCard).join('')}`
+    : '<div class="card"><div class="text-sm text-muted">Сейчас нет price-fix кандидатов в текущем плане.</div></div>'}
+  <div class="section-label">SEO заголовков карточек</div>
+  ${titleCards.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Эти карточки уже попали в quick wins по title SEO и готовы к правке в кабинете.</div>${titleCards.map(renderActionCard).join('')}`
+    : '<div class="card"><div class="text-sm text-muted">Сейчас нет title SEO quick wins в текущем плане.</div></div>'}
+  <div class="section-label">SEO описаний карточек</div>
+  ${descriptionFixes.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Описание подгружается из отдельного <code>description_seo_report</code>, но уже доступно в основном UI для просмотра и приоритизации.</div>${descriptionFixes.map(row=>renderDescriptionQuickWin(row, quickWinState(`description_seo:${row.key||row.product_id||row.title}`, activeKeys), `description_seo:${row.key||row.product_id||row.title}`)).join('')}`
+    : `<div class="card"><div class="text-sm text-muted">Description SEO quick wins пока не доступны.${AUX_REPORTS.descriptionSeoError?` ${esc(AUX_REPORTS.descriptionSeoError)}.`:''}</div></div>`}`;
+
+  if(resolvedItems.length){
+    box.innerHTML += `<div class="section-label">Подтвердилось после обновления</div>
+    <div class="text-xs text-muted" style="margin-bottom:8px">Эти карточки были отмечены как изменённые и больше не попали в новый quick wins payload.</div>
+    ${resolvedItems.map(([key, value])=>`<div class="source-card">
+      <div>
+        <div class="source-name">${esc(value.title||key)}</div>
+        <div class="source-meta">${esc(value.actionLabel||'quick_win')} · отмечено ${shortDate(value.changed_at)}</div>
+      </div>
+      <div class="source-actions">
+        <span class="stale-badge fresh">⬤ resolved</span>
+        <button class="btn" data-qw-clear="${esc(key)}">Убрать из списка</button>
+      </div>
+    </div>`).join('')}`;
+  }
+
+  attachPlanEvents(box, actions);
+  attachQuickWinEvents(box);
+}
+
+function attachQuickWinEvents(box){
+  box.querySelectorAll('[data-qw-mark]').forEach(btn=>btn.addEventListener('click',()=>{
+    markQuickWinChanged(btn.dataset.qwMark, btn.dataset.qwTitle || 'Карточка', btn.dataset.qwLabel || 'quick_win');
+  }));
+  box.querySelectorAll('[data-qw-clear]').forEach(btn=>btn.addEventListener('click',()=>{
+    clearQuickWinState(btn.dataset.qwClear);
+  }));
+  box.querySelectorAll('[data-qw-refresh]').forEach(btn=>btn.addEventListener('click',()=>{
+    triggerDataRefresh();
+  }));
+}
+
 // ── Reviews Tab ───────────────────────────────────────────────────────────────
 function renderReviews(){
   const box=document.getElementById('tab-reviews');
+  if(LIVE.enabled && LIVE.reviews){
+    const rows=(LIVE.reviews.items)||[];
+    if(!rows.length){
+      box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">
+        Live reviews mode активен, но в локальном <code>data/reviews/reviews.json</code> сейчас нет элементов.
+      </div>
+      <div class="card"><div class="text-sm text-muted">Запусти job загрузки отзывов в control room, после чего этот же экран покажет live список.</div></div>`;
+      return;
+    }
+    box.innerHTML=`<div class="alert-banner ok" style="margin-bottom:10px">
+      Live reviews mode активен. Ниже показаны реальные отзывы и вопросы из локального runtime-слоя.
+    </div>`
+    +rows.map((r,idx)=>`<div class="card action-card type-return_investigate">
+      <div class="action-header">
+        <span class="type-pill return_investigate">${esc(r.kind||'review')}</span>
+        <span class="text-xs text-muted">${esc(r.author||'Покупатель')} · ${shortDate(r.created_at)}${r.rating?` · ${'★'.repeat(Math.max(1,Math.min(5,Number(r.rating)||0)))}`:''}</span>
+      </div>
+      <div class="action-title">${esc(r.product_title||`SKU ${r.product_id||'—'}`)}</div>
+      <div class="action-detail mt-4">${esc(r.text||'')}</div>
+      ${r.answer_text?`<div class="ai-suggestion"><div class="ai-label">Уже отправленный ответ</div><div class="ai-text">${esc(r.answer_text)}</div></div>`:''}
+      <div class="action-btns">
+        <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.text||'')});toast('Текст отзыва скопирован')">Скопировать текст</button>
+        <button class="btn" onclick="syncReviewDraft(${idx}, 'tab-reviews')">Сгенерировать черновик</button>
+        <button class="btn" onclick="toggleReviewComposer(${idx}, 'tab-reviews')">Ответить</button>
+      </div>
+      <div id="review-compose-tab-reviews-${idx}" style="display:none;margin-top:8px">
+        <textarea id="review-text-tab-reviews-${idx}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(r.answer_text||'')}</textarea>
+        <div class="action-btns">
+          <button class="btn primary" onclick="sendReviewReply(${idx}, 'tab-reviews')">Отправить через API</button>
+          <button class="btn" onclick="copyComposerText(${idx}, 'tab-reviews')">Скопировать ответ</button>
+        </div>
+        <div class="text-xs text-muted" id="review-status-tab-reviews-${idx}" style="margin-top:6px"></div>
+      </div>
+    </div>`).join('');
+    return;
+  }
   const rows=((PAYLOAD.review_booster||{}).rows)||[];
   if(!rows.length){box.innerHTML='<div class="empty">Нет возвратов для обработки.</div>';return;}
   box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">Возвраты влияют на рейтинг магазина и позиции в поиске. Ответьте сегодня — это прямой сигнал площадке.</div>`
@@ -530,6 +862,211 @@ function renderApplied(){
   }).join(''):`<div class="empty">Нет применённых действий. Нажмите «Применил» на карточке в Плане.</div>`;
 
   box.innerHTML=howItWorks+`<div class="text-xs text-muted" style="margin-bottom:8px">Всего: <strong>${summary.total_entries||0}</strong> · Pending: <strong class="text-amber">${summary.pending_count||0}</strong> · Измерено: <strong class="text-teal">${summary.measured_count||0}</strong></div>`+entriesHtml;
+}
+
+// ── Operations Tab ───────────────────────────────────────────────────────────
+function renderOps(){
+  const box=document.getElementById('tab-ops');
+  const ac=LIVE.actionCenter||{};
+  const jobs=LIVE.jobs||[];
+  const runs=LIVE.runs||[];
+
+  if(!LIVE.enabled){
+    box.innerHTML=`<div class="alert-banner warn" style="margin-bottom:10px">
+      Live operational mode сейчас недоступен. Этот экран открыт как Pages/read-only UI.
+      Для runtime-операций поднимите локальный backend через <code>web_refresh_server.py</code>, после чего этот же основной интерфейс автоматически подхватит <code>/api/jobs</code>, <code>/api/runs</code> и <code>/api/action-center</code>.
+    </div>
+    <div class="card">
+      <div class="fw-600" style="margin-bottom:6px">Что переезжает в первую волну</div>
+      <div class="text-sm text-muted">Action Center summary, последние job runs, список доступных jobs и переход к legacy screen <code>/refresh.html</code> для полного ручного запуска.</div>
+    </div>`;
+    return;
+  }
+
+  const recentRuns=(runs||[]).slice(0,4);
+  const recentActions=(ac.actions||[]).slice(0,5);
+  const recentEvents=(ac.events||[]).slice(0,5);
+
+  let html=`<div class="alert-banner ok" style="margin-bottom:10px">
+    Live operational mode активен. Основной UI читает локальный runtime API и показывает актуальные jobs, runs и Action Center без переключения на отдельный дашборд.
+  </div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card"><div class="kpi-value">${jobs.length}</div><div class="kpi-label">Jobs доступны</div></div>
+    <div class="kpi-card ${recentRuns.some(r=>r.state==='failed')?'danger':'ok'}"><div class="kpi-value">${recentRuns.length}</div><div class="kpi-label">Последние runs</div></div>
+    <div class="kpi-card ${ac.open_actions_count?'warn':'ok'}"><div class="kpi-value">${ac.open_actions_count||0}</div><div class="kpi-label">Открытых action items</div></div>
+    <div class="kpi-card"><div class="kpi-value">${ac.acknowledged_entities_count||0}</div><div class="kpi-label">Acknowledged entities</div></div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="action-btns">
+      <a class="btn primary" href="/refresh.html">Открыть legacy control room</a>
+      <button class="btn" onclick="location.reload()">Обновить live state</button>
+    </div>
+    <div class="text-xs text-muted mt-4">Legacy screen пока остаётся для полного ручного запуска job и подробного live-log, но основной UI уже показывает operational summary.</div>
+  </div>`;
+
+  html+=`<div class="section-label">Action Center</div>`;
+  if(recentActions.length){
+    recentActions.forEach(a=>{
+      html+=`<div class="card">
+        <div class="action-header">
+          <span class="type-pill ${a.status==='done'?'price_strategy':'return_investigate'}">${esc(a.status||'open')}</span>
+          <span class="text-xs text-muted">${esc(a.report_kind||'unknown')} · ${shortDate(a.updated_at)}</span>
+        </div>
+        <div class="action-title">${esc(a.title||a.entity_key||'Action')}</div>
+        <div class="action-detail mt-4">${esc(a.context||a.note||'Без дополнительного контекста')}</div>
+      </div>`;
+    });
+  }else{
+    html+=`<div class="card"><div class="text-sm text-muted">В Action Center пока нет action items.</div></div>`;
+  }
+
+  html+=`<div class="section-label">Последние runs</div>`;
+  if(recentRuns.length){
+    recentRuns.forEach(run=>{
+      html+=`<div class="source-card">
+        <div>
+          <div class="source-name">${esc(run.job_key||'job')}</div>
+          <div class="source-meta">Старт: ${shortDate(run.started_at)} · Финиш: ${shortDate(run.ended_at)} · Код: ${esc(String(run.return_code ?? 'н/д'))}</div>
+        </div>
+        <span class="stale-badge ${run.state==='failed'?'stale':run.state==='running'?'warn':'fresh'}">⬤ ${esc(run.state||'unknown')}</span>
+      </div>`;
+    });
+  }else{
+    html+=`<div class="card"><div class="text-sm text-muted">История запусков пока пуста.</div></div>`;
+  }
+
+  html+=`<div class="section-label">Jobs</div>`;
+  jobs.slice(0,6).forEach(job=>{
+    html+=`<div class="source-card">
+      <div>
+        <div class="source-name">${esc(job.title||job.job_key||'job')}</div>
+        <div class="source-meta">${esc(job.description||'Описание пока не заполнено')}</div>
+      </div>
+      <span class="stale-badge ${String(job.mode||'').toLowerCase()==='online'?'warn':'fresh'}">⬤ ${esc(job.mode||'unknown')}</span>
+    </div>`;
+  });
+
+  if(recentEvents.length){
+    html+=`<div class="section-label">Последние события</div>`;
+    recentEvents.forEach(ev=>{
+      html+=`<div class="details-row"><span>${esc(ev.event_type||'event')} · ${esc(ev.title||ev.entity_key||'')}</span><strong>${shortDate(ev.created_at)}</strong></div>`;
+    });
+  }
+
+  box.innerHTML=html;
+}
+
+// ── Reports Tab ───────────────────────────────────────────────────────────────
+function reportAvailability(label, actionTypes){
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const meta=(PAYLOAD.plan||{}).metadata||{};
+  const sources=(meta.sources_used||[]).join(' | ');
+  const matchedActions=actions.filter(a=>actionTypes.includes(a.action_type));
+  const available=sources.includes(label);
+  if(available && matchedActions.length) return {state:'available', count:matchedActions.length};
+  if(available) return {state:'partial', count:0};
+  return {state:'missing', count:0};
+}
+
+function statusBadge(state, text){
+  const cls=state==='available'?'fresh':state==='partial'?'warn':'stale';
+  return `<span class="stale-badge ${cls}">⬤ ${text}</span>`;
+}
+
+function renderReportActionList(actions, emptyText){
+  if(!actions.length){
+    return `<div class="text-sm text-muted">${emptyText}</div>`;
+  }
+  return actions.slice(0,5).map(a=>`<div class="details-row"><span>${esc(a.title||a.group||a.entity_key||'Action')}</span><strong>${esc(a.headline||typeLabel(a.action_type))}</strong></div>`).join('');
+}
+
+function renderReports(){
+  const box=document.getElementById('tab-reports');
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const pricing=actions.filter(a=>['price_fix','price_strategy'].includes(a.action_type));
+  const content=actions.filter(a=>['title_seo','content_fix'].includes(a.action_type));
+  const storage=actions.filter(a=>a.action_type==='storage_cost');
+  const returns=actions.filter(a=>a.action_type==='return_investigate');
+  const meta=(PAYLOAD.plan||{}).metadata||{};
+  const sources=(meta.sources_used||[]);
+
+  const blocks=[
+    {
+      title:'Pricing / price trap / repricer',
+      desc:'Рыночные price actions, психологические пороги и recommendation-first pricing уже подмешиваются в основной payload.',
+      avail: reportAvailability('dynamic_pricing', ['price_fix','price_strategy']),
+      actions: pricing,
+      footer:'Следующий шаг: сделать отдельный drilldown/decision flow поверх уже доступных pricing cards.',
+    },
+    {
+      title:'Title SEO / marketing card audit',
+      desc:'Marketing/title слой уже даёт actionable items в основном UI, но пока живёт внутри общего плана, а не как отдельный manager-facing view.',
+      avail: reportAvailability('marketing_card_audit', ['title_seo','content_fix']),
+      actions: content,
+      footer:'Следующий шаг: отдельный shortlist для rewrite и связка с entity pages.',
+    },
+    {
+      title:'Paid storage / storage cost',
+      desc:'Storage layer уже попадает в план действий и виден в основном payload, но пока без отдельного detail-view.',
+      avail: reportAvailability('paid_storage_report', ['storage_cost']),
+      actions: storage,
+      footer:'Следующий шаг: отдельная таблица SKU по storage-cost и trace до исходного report bundle.',
+    },
+    {
+      title:'Returns / review booster',
+      desc:'Возвраты и review booster уже представлены и дополнительно вынесены в live reviews/reply flow.',
+      avail: sources.some(s=>s.includes('sales_return_report')) ? {state:'available', count:returns.length} : {state:'partial', count:returns.length},
+      actions: returns,
+      footer:'Следующий шаг: unified customer-communication view без split между tabs.',
+    },
+    {
+      title:'COGS workflow',
+      desc:'COGS backfill / zero-COGS / rescore cycle реализованы в коде, но ещё не стали отдельной UI-поверхностью в основном интерфейсе.',
+      avail: {state:'missing', count:0},
+      actions: [],
+      footer:'Сейчас это CLI/backend-first слой. Для полноценного переноса нужен отдельный bundle/view для registry, fill-state и rescore artifacts.',
+    },
+    {
+      title:'Waybill cost layer',
+      desc:'Waybill / logistics слой есть в коде и отчётах, но в текущий main payload не подмешивается как отдельный UI-блок.',
+      avail: {state:'missing', count:0},
+      actions: [],
+      footer:'Следующий шаг: добавить bundle в daily action plan / SQLite и затем вывести в основной UI.',
+    },
+  ];
+
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">
+    Это manager-facing слой по issue #43: показывает, какие функциональные блоки уже реально доступны в основном UI, какие доступны частично, а какие пока остаются CLI/backend-only.
+  </div>`;
+
+  html+=`<div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card ok"><div class="kpi-value">${pricing.length}</div><div class="kpi-label">Pricing actions в payload</div></div>
+    <div class="kpi-card ok"><div class="kpi-value">${content.length}</div><div class="kpi-label">Content/SEO actions</div></div>
+    <div class="kpi-card ${storage.length?'warn':'danger'}"><div class="kpi-value">${storage.length}</div><div class="kpi-label">Storage actions</div></div>
+    <div class="kpi-card ${returns.length?'ok':'warn'}"><div class="kpi-value">${returns.length}</div><div class="kpi-label">Returns actions</div></div>
+  </div>`;
+
+  blocks.forEach(block=>{
+    const badgeText=block.avail.state==='available'
+      ? `available${block.avail.count?` · ${block.avail.count}`:''}`
+      : block.avail.state==='partial'
+        ? 'partial'
+        : 'CLI/backend only';
+    html+=`<div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:6px">
+        <div>
+          <div class="action-title">${esc(block.title)}</div>
+          <div class="text-sm text-muted mt-4">${esc(block.desc)}</div>
+        </div>
+        <div style="flex-shrink:0">${statusBadge(block.avail.state, badgeText)}</div>
+      </div>
+      <div class="section-label" style="margin:10px 0 6px">Что уже видно в основном UI</div>
+      ${renderReportActionList(block.actions, 'Пока нет отдельного surfaced action list для этого блока.')}
+      <div class="alert-banner ${block.avail.state==='missing'?'warn':'info'}" style="margin-top:10px">${esc(block.footer)}</div>
+    </div>`;
+  });
+
+  box.innerHTML=html;
 }
 
 // ── ROMI Tab ──────────────────────────────────────────────────────────────────
@@ -689,7 +1226,10 @@ function renderAPI(){
     ?`<span style="color:var(--color-teal);font-weight:600">✓ Валиден до ${api.token_expires_moscow||'—'}</span>`
     :`<span style="color:var(--color-coral);font-weight:600">⚠ Требует обновления</span>`;
 
-  let html=`<div class="token-section">
+  let html=`${LIVE.enabled
+    ? `<div class="alert-banner ok" style="margin-bottom:10px">Локальный runtime API доступен. Токен можно проверять и использовать в live-режиме без перехода на отдельный экран.</div>`
+    : `<div class="alert-banner info" style="margin-bottom:10px">Сейчас открыт read-only Pages режим. Когда этот экран обслуживает локальный backend, здесь становится доступен live API-контур.</div>`
+  }<div class="token-section">
     <div class="section-label" style="margin-top:0">API Токен ${tip('Токен хранится только в памяти страницы — не сохраняется нигде. При перезагрузке нужно ввести снова.')}</div>
     <div class="token-row">
       <div class="token-dot" id="token-dot"></div>
@@ -749,6 +1289,11 @@ function renderAPI(){
   </div>`;
 
   box.innerHTML=html;
+  const tokenInput=document.getElementById('token-input');
+  if(tokenInput && apiToken){
+    tokenInput.value=apiToken;
+    onTokenInput(apiToken);
+  }
   updateGhPatStatus();
 }
 
@@ -830,6 +1375,73 @@ function testEndpoint(i){
 // ── Buyers Tab ────────────────────────────────────────────────────────────────
 function renderBuyers(){
   const box=document.getElementById('tab-buyers');
+  if(LIVE.enabled && LIVE.reviews){
+    const rows=(LIVE.reviews.items)||[];
+    const questions=rows.filter(r=>r.kind==='question');
+    const reviews=rows.filter(r=>r.kind!=='question');
+    let html=`<div class="alert-banner ok" style="margin-bottom:10px">
+      Основной UI теперь умеет работать с live reviews/reply tooling через локальный backend. Здесь можно сгенерировать черновик и отправить ответ через API.
+    </div>`;
+
+    if(reviews.length){
+      html+=`<div class="section-label">Отзывы покупателей</div>`;
+      reviews.forEach((r,idx)=>{
+        html+=`<div class="card action-card type-return_investigate">
+          <div class="action-header">
+            <span class="type-pill return_investigate">${r.rating?`${r.rating}/5`:'review'}</span>
+            <span class="text-xs text-muted">${esc(r.author||'Покупатель')} · ${shortDate(r.created_at)}</span>
+          </div>
+          <div class="action-title">${esc(r.product_title||`Товар ${r.product_id||'—'}`)}</div>
+          <div class="action-detail mt-4">${esc(r.text||'')}</div>
+          <div class="action-btns">
+            <button class="btn" onclick="syncReviewDraft(${rows.indexOf(r)}, 'tab-buyers')">AI-черновик</button>
+            <button class="btn primary" onclick="toggleReviewComposer(${rows.indexOf(r)}, 'tab-buyers')">Открыть ответ</button>
+          </div>
+          <div id="review-compose-tab-buyers-${rows.indexOf(r)}" style="display:none;margin-top:8px">
+            <textarea id="review-text-tab-buyers-${rows.indexOf(r)}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(r.answer_text||'')}</textarea>
+            <div class="action-btns">
+              <button class="btn primary" onclick="sendReviewReply(${rows.indexOf(r)}, 'tab-buyers')">Отправить через API</button>
+              <button class="btn" onclick="copyComposerText(${rows.indexOf(r)}, 'tab-buyers')">Скопировать ответ</button>
+            </div>
+            <div class="text-xs text-muted" id="review-status-tab-buyers-${rows.indexOf(r)}" style="margin-top:6px"></div>
+          </div>
+        </div>`;
+      });
+    }
+
+    html+=`<div class="section-label" style="margin-top:12px">Вопросы покупателей</div>`;
+    if(questions.length){
+      questions.forEach((q,idx)=>{
+        html+=`<div class="card">
+          <div class="action-header">
+            <span class="type-pill title_seo">question</span>
+            <span class="text-xs text-muted">${esc(q.author||'Покупатель')} · ${shortDate(q.created_at)}</span>
+          </div>
+          <div class="action-title">${esc(q.product_title||`Товар ${q.product_id||'—'}`)}</div>
+          <div class="action-detail mt-4">${esc(q.text||'')}</div>
+          <div class="action-btns">
+            <button class="btn" onclick="syncReviewDraft(${rows.indexOf(q)}, 'tab-buyers')">AI-черновик</button>
+            <button class="btn primary" onclick="toggleReviewComposer(${rows.indexOf(q)}, 'tab-buyers')">Ответить</button>
+          </div>
+          <div id="review-compose-tab-buyers-${rows.indexOf(q)}" style="display:none;margin-top:8px">
+            <textarea id="review-text-tab-buyers-${rows.indexOf(q)}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(q.answer_text||'')}</textarea>
+            <div class="action-btns">
+              <button class="btn primary" onclick="sendReviewReply(${rows.indexOf(q)}, 'tab-buyers')">Отправить через API</button>
+              <button class="btn" onclick="copyComposerText(${rows.indexOf(q)}, 'tab-buyers')">Скопировать ответ</button>
+            </div>
+            <div class="text-xs text-muted" id="review-status-tab-buyers-${rows.indexOf(q)}" style="margin-top:6px"></div>
+          </div>
+        </div>`;
+      });
+    }else{
+      html+=`<div class="comm-empty">
+        <div class="comm-empty-icon">💬</div>
+        <div>Вопросов от покупателей пока нет.</div>
+      </div>`;
+    }
+    box.innerHTML=html;
+    return;
+  }
   const rows=((PAYLOAD.review_booster||{}).rows)||[];
 
   let html=`<div class="alert-banner info" style="margin-bottom:10px">
@@ -867,6 +1479,68 @@ function renderBuyers(){
   </div>`;
 
   box.innerHTML=html;
+}
+
+function liveReviewItems(){
+  return (LIVE.reviews && LIVE.reviews.items) || [];
+}
+function toggleReviewComposer(idx, scope){
+  const wrap=document.getElementById(`review-compose-${scope}-${idx}`);
+  if(!wrap)return;
+  wrap.style.display=wrap.style.display==='none'?'block':'none';
+}
+function copyComposerText(idx, scope){
+  const el=document.getElementById(`review-text-${scope}-${idx}`);
+  if(!el)return;
+  copyToClipboard(el.value || '', 'Ответ скопирован');
+}
+async function syncReviewDraft(idx, scope){
+  const item=liveReviewItems()[idx];
+  const statusEl=document.getElementById(`review-status-${scope}-${idx}`);
+  const textEl=document.getElementById(`review-text-${scope}-${idx}`);
+  const wrap=document.getElementById(`review-compose-${scope}-${idx}`);
+  if(!item || !statusEl || !textEl || !wrap){
+    toast('Live reviews item не найден');
+    return;
+  }
+  statusEl.textContent='⏳ Генерирую черновик...';
+  wrap.style.display='block';
+  try{
+    const resp=await postJson('/api/reviews/generate',{item});
+    textEl.value=(resp.draft && resp.draft.text) || '';
+    const strategy=resp.draft?.strategy || 'unknown';
+    const provider=resp.draft?.provider || 'unknown';
+    const llmErr=resp.draft?.llm_error ? ` · fallback: ${resp.draft.llm_error}` : '';
+    statusEl.textContent=`✓ Черновик готов (${strategy}/${provider}${llmErr})`;
+  }catch(err){
+    statusEl.textContent='✗ '+err.message;
+  }
+}
+async function sendReviewReply(idx, scope){
+  const item=liveReviewItems()[idx];
+  const statusEl=document.getElementById(`review-status-${scope}-${idx}`);
+  const textEl=document.getElementById(`review-text-${scope}-${idx}`);
+  if(!item || !statusEl || !textEl){
+    toast('Reply form не найден');
+    return;
+  }
+  if(!apiToken){
+    statusEl.textContent='✗ Сначала сохраните MM Bearer токен во вкладке API';
+    return;
+  }
+  const text=(textEl.value||'').trim();
+  if(!text){
+    statusEl.textContent='✗ Ответ пустой';
+    return;
+  }
+  statusEl.textContent='⏳ Отправляю ответ...';
+  try{
+    await postJson('/api/reviews/send',{token:apiToken,item,text});
+    statusEl.textContent='✓ Ответ отправлен через API';
+    toast('Ответ отправлен');
+  }catch(err){
+    statusEl.textContent='✗ '+err.message;
+  }
 }
 
 // ── Blockers Tab ──────────────────────────────────────────────────────────────
@@ -1086,6 +1760,10 @@ async function initDashboard() {
 
     PAYLOAD = buildPayload(db);
     db.close();
+    msgEl.textContent = 'Проверяю live runtime API...';
+    await initLiveMode();
+    msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
+    await initAuxReports();
   } catch (err) {
     msgEl.textContent = '⚠ ' + err.message;
     msgEl.style.color = 'var(--color-coral)';
@@ -1100,6 +1778,9 @@ async function initDashboard() {
   renderKPIs();
   renderInsights();
   renderPlan();
+  renderQuickWins();
+  renderOps();
+  renderReports();
   renderReviews();
   renderApplied();
   renderROMI();
