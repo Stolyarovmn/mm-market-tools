@@ -8,12 +8,12 @@ from pathlib import Path
 from core.io_utils import load_json, write_json
 from core.market_analysis import classify_group
 from core.market_economics import load_cogs_override_rows
-from core.paths import COGS_OVERRIDES_PATH
+from core.paths import COGS_OVERRIDES_PATH, REPORTS_DIR
 
 
-DEFAULT_OFFICIAL_JSON = "/home/user/mm-market-tools/reports/official_period_analysis_2026-04-08.json"
-DEFAULT_BACKLOG_JSON = "/home/user/mm-market-tools/reports/cost_coverage_backlog_2026-04-09a.json"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_OFFICIAL_JSON = str(REPORTS_DIR / "official_period_analysis_2026-04-08.json")
+DEFAULT_BACKLOG_JSON = str(REPORTS_DIR / "cost_coverage_backlog_2026-04-09a.json")
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 DEFAULT_DATE = dt.date.today().isoformat()
 
 

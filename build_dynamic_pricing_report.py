@@ -10,7 +10,7 @@ from core.paths import DASHBOARD_DIR, REPORTS_DIR, ensure_dir, today_tag
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Build recommendation-first dynamic pricing report from market economics.")
-    parser.add_argument("--market-json", default="/home/user/mm-market-tools/data/dashboard/market_rescored_after_cogs_2026-04-09b.json")
+    parser.add_argument("--market-json", default=str(DASHBOARD_DIR / "market_rescored_after_cogs_2026-04-09b.json"))
     parser.add_argument("--report-dir", default=str(REPORTS_DIR))
     parser.add_argument("--dashboard-dir", default=str(DASHBOARD_DIR))
     parser.add_argument("--target-margin-pct", type=float, default=35.0)

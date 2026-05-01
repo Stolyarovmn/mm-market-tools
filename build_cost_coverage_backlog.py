@@ -5,10 +5,11 @@ from collections import defaultdict
 from pathlib import Path
 
 from core.io_utils import load_json, write_json
+from core.paths import NORMALIZED_DIR, REPORTS_DIR
 
 
-DEFAULT_INPUT_JSON = "/home/user/mm-market-tools/data/normalized/competitor_market_analysis_2026-04-09g.json"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_INPUT_JSON = str(NORMALIZED_DIR / "competitor_market_analysis_2026-04-09g.json")
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 DEFAULT_DATE = dt.date.today().isoformat()
 
 

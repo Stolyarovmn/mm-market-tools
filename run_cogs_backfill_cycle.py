@@ -13,9 +13,9 @@ from ingest_cogs_fill import merge_rows
 
 
 DEFAULT_DATE = dt.date.today().isoformat()
-DEFAULT_OFFICIAL_JSON = "/home/user/mm-market-tools/reports/official_period_analysis_2026-04-08.json"
-DEFAULT_BACKLOG_JSON = "/home/user/mm-market-tools/reports/cost_coverage_backlog_2026-04-09a.json"
-DEFAULT_MARKET_JSON = "/home/user/mm-market-tools/data/normalized/competitor_market_analysis_2026-04-09g.json"
+DEFAULT_OFFICIAL_JSON = str(REPORTS_DIR / "official_period_analysis_2026-04-08.json")
+DEFAULT_BACKLOG_JSON = str(REPORTS_DIR / "cost_coverage_backlog_2026-04-09a.json")
+DEFAULT_MARKET_JSON = str(NORMALIZED_DIR / "competitor_market_analysis_2026-04-09g.json")
 
 
 def parse_args():

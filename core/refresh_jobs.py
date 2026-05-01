@@ -87,7 +87,7 @@ JOB_DEFINITIONS = {
         "fields": [
             {"name": "category_id", "label": "Category ID", "type": "number", "default": "10162"},
             {"name": "page_size", "label": "Page size", "type": "number", "default": "50"},
-            {"name": "output_path", "label": "Output JSON", "type": "text", "default": "/home/user/mm_sellers_10162.json"},
+            {"name": "output_path", "label": "Output JSON", "type": "text", "default": str(REPORTS_DIR / "mm_sellers_10162.json")},
             {"name": "progress", "label": "Печатать прогресс", "type": "checkbox", "default": "true"},
         ],
     },
@@ -291,7 +291,7 @@ def build_job_command(job_key, form_data):
             "--page-size",
             str(form_data.get("page_size") or 50),
             "--output",
-            str(form_data.get("output_path") or "/home/user/mm_sellers_10162.json"),
+            str(form_data.get("output_path") or (REPORTS_DIR / "mm_sellers_10162.json")),
         ]
         if _bool(form_data.get("progress", "true")):
             command.append("--progress")
