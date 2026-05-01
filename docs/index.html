@@ -284,6 +284,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div class="tabs-wrapper">
   <div class="tab-pills">
     <button class="tab-btn active" data-tab="plan">План</button>
+    <button class="tab-btn" data-tab="quickwins">Быстрые победы</button>
     <button class="tab-btn" data-tab="ops">Операции</button>
     <button class="tab-btn" data-tab="reports">Отчёты</button>
     <button class="tab-btn" data-tab="reviews">Отзывы</button>
@@ -297,6 +298,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 </div>
 
 <div id="tab-plan" class="tab-content active"></div>
+<div id="tab-quickwins" class="tab-content"></div>
 <div id="tab-ops" class="tab-content"></div>
 <div id="tab-reports" class="tab-content"></div>
 <div id="tab-reviews" class="tab-content"></div>
@@ -319,6 +321,10 @@ let LIVE = {
   actionCenter: null,
   reviews: null,
   error: null,
+};
+let AUX_REPORTS = {
+  descriptionSeo: null,
+  descriptionSeoError: null,
 };
 
 // ── Globals ─────────────────────────────────────────────────────────────────
@@ -396,6 +402,30 @@ async function initLiveMode(){
       reviews: null,
       error: err.message || 'live mode unavailable',
     };
+  }
+}
+
+async function initAuxReports(){
+  try{
+    const indexResp = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/dashboard/index.json`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if(!indexResp.ok) throw new Error(`index.json unavailable (${indexResp.status})`);
+    const dashboardIndex = await indexResp.json();
+    const latest = dashboardIndex?.latest_by_kind?.description_seo_report;
+    if(!latest?.file_path) return;
+    const rawPath = latest.file_path.replace(/^data\/dashboard\//, '');
+    const reportResp = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/dashboard/${rawPath}`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if(!reportResp.ok) throw new Error(`description report unavailable (${reportResp.status})`);
+    AUX_REPORTS.descriptionSeo = await reportResp.json();
+    AUX_REPORTS.descriptionSeoError = null;
+  }catch(err){
+    AUX_REPORTS.descriptionSeo = null;
+    AUX_REPORTS.descriptionSeoError = err.message || 'description report unavailable';
   }
 }
 
@@ -547,6 +577,56 @@ function onApplyClick(e){
   const btn=e.currentTarget;
   btn.classList.add('done');btn.textContent='Отмечено ✓';btn.disabled=true;
   toast('Записано! Через 7 дней появится в A/B журнале.');
+}
+
+function renderDescriptionQuickWin(row){
+  const recommendations=(row.recommendations||[]).slice(0,3);
+  const productUrl=row.product_id?`https://megamarket.ru/catalogue/details/${row.product_id}/`:'#';
+  const score=Math.min(100, Number(row.description_score)||0).toFixed(0);
+  return `<div class="card action-card type-title_seo quickwin">
+    <div class="action-header">
+      <span class="type-pill title_seo">Описание</span>
+      <span class="text-xs text-muted">${esc(row.description_status||'needs_work')} · score ${score}/100</span>
+    </div>
+    <div class="action-title">${esc(row.title||row.key||'Карточка')}</div>
+    <div class="action-headline">Усилить описание и раскрыть ключевые слова из title</div>
+    <div class="action-detail mt-4">Символов в описании: <strong>${esc(String(row.description_chars ?? 0))}</strong>${row.description_gap_vs_group!=null?` · gap к медиане группы: <strong>${esc(String(row.description_gap_vs_group))}</strong>`:''}</div>
+    ${recommendations.length?`<div class="seo-compare" style="margin-top:10px">
+      ${recommendations.map((rec, idx)=>`<div class="seo-compare-row"><div class="seo-row-label ${idx===0?'candidate':'current'}">${idx===0?'Что сделать в первую очередь':'Следующий шаг'}</div><div class="seo-candidate-text" style="font-size:11px">${esc(rec)}</div></div>`).join('')}
+    </div>`:''}
+    ${row.product_id?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">SKU ${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
+  </div>`;
+}
+
+function renderQuickWins(){
+  const box=document.getElementById('tab-quickwins');
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const priceFixes=actions.filter(a=>a.action_type==='price_fix').slice(0,8);
+  const titleFixes=actions.filter(a=>a.action_type==='title_seo').slice(0,8);
+  const descriptionFixes=(((AUX_REPORTS.descriptionSeo||{}).actions||{}).fix_now||[]).slice(0,6);
+
+  box.innerHTML=`<div class="alert-banner ok" style="margin-bottom:10px">
+    Здесь собраны самые быстрые сценарии роста: сдвиг к психологическим ценам, правка title SEO и усиление описаний карточек.
+  </div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card ok"><div class="kpi-value">${priceFixes.length}</div><div class="kpi-label">Психологические цены</div></div>
+    <div class="kpi-card ok"><div class="kpi-value">${titleFixes.length}</div><div class="kpi-label">Title SEO fixes</div></div>
+    <div class="kpi-card ${descriptionFixes.length?'warn':''}"><div class="kpi-value">${descriptionFixes.length}</div><div class="kpi-label">Description SEO fixes</div></div>
+  </div>
+  <div class="section-label">Цена ниже психологического порога</div>
+  ${priceFixes.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Примеры вроде <strong>801 → 799</strong> уже приходят из daily payload и готовы к просмотру в основном UI.</div>${priceFixes.map(renderActionCard).join('')}`
+    : '<div class="card"><div class="text-sm text-muted">Сейчас нет price-fix кандидатов в текущем плане.</div></div>'}
+  <div class="section-label">SEO заголовков карточек</div>
+  ${titleFixes.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Эти карточки уже попали в quick wins по title SEO и готовы к правке в кабинете.</div>${titleFixes.map(renderActionCard).join('')}`
+    : '<div class="card"><div class="text-sm text-muted">Сейчас нет title SEO quick wins в текущем плане.</div></div>'}
+  <div class="section-label">SEO описаний карточек</div>
+  ${descriptionFixes.length
+    ? `<div class="text-xs text-muted" style="margin-bottom:8px">Описание подгружается из отдельного <code>description_seo_report</code>, но уже доступно в основном UI для просмотра и приоритизации.</div>${descriptionFixes.map(renderDescriptionQuickWin).join('')}`
+    : `<div class="card"><div class="text-sm text-muted">Description SEO quick wins пока не доступны.${AUX_REPORTS.descriptionSeoError?` ${esc(AUX_REPORTS.descriptionSeoError)}.`:''}</div></div>`}`;
+
+  attachPlanEvents(box, actions);
 }
 
 // ── Reviews Tab ───────────────────────────────────────────────────────────────
@@ -1546,6 +1626,8 @@ async function initDashboard() {
     db.close();
     msgEl.textContent = 'Проверяю live runtime API...';
     await initLiveMode();
+    msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
+    await initAuxReports();
   } catch (err) {
     msgEl.textContent = '⚠ ' + err.message;
     msgEl.style.color = 'var(--color-coral)';
@@ -1560,6 +1642,7 @@ async function initDashboard() {
   renderKPIs();
   renderInsights();
   renderPlan();
+  renderQuickWins();
   renderOps();
   renderReports();
   renderReviews();
