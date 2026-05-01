@@ -3,12 +3,14 @@ import argparse
 import json
 from pathlib import Path
 
+from core.paths import DASHBOARD_DIR
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke test for competitor market dashboard bundle.")
     parser.add_argument(
         "--dashboard-json",
-        default="/home/user/mm-market-tools/data/dashboard/competitor_market_analysis_2026-04-08d.json",
+        default=str(DASHBOARD_DIR / "competitor_market_analysis_2026-04-08d.json"),
     )
     return parser.parse_args()
 
