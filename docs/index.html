@@ -285,6 +285,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
   <div class="tab-pills">
     <button class="tab-btn active" data-tab="plan">План</button>
     <button class="tab-btn" data-tab="ops">Операции</button>
+    <button class="tab-btn" data-tab="reports">Отчёты</button>
     <button class="tab-btn" data-tab="reviews">Отзывы</button>
     <button class="tab-btn" data-tab="applied">A/B</button>
     <button class="tab-btn" data-tab="romi">ROMI</button>
@@ -297,6 +298,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 
 <div id="tab-plan" class="tab-content active"></div>
 <div id="tab-ops" class="tab-content"></div>
+<div id="tab-reports" class="tab-content"></div>
 <div id="tab-reviews" class="tab-content"></div>
 <div id="tab-applied" class="tab-content"></div>
 <div id="tab-romi" class="tab-content"></div>
@@ -734,6 +736,119 @@ function renderOps(){
       html+=`<div class="details-row"><span>${esc(ev.event_type||'event')} · ${esc(ev.title||ev.entity_key||'')}</span><strong>${shortDate(ev.created_at)}</strong></div>`;
     });
   }
+
+  box.innerHTML=html;
+}
+
+// ── Reports Tab ───────────────────────────────────────────────────────────────
+function reportAvailability(label, actionTypes){
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const meta=(PAYLOAD.plan||{}).metadata||{};
+  const sources=(meta.sources_used||[]).join(' | ');
+  const matchedActions=actions.filter(a=>actionTypes.includes(a.action_type));
+  const available=sources.includes(label);
+  if(available && matchedActions.length) return {state:'available', count:matchedActions.length};
+  if(available) return {state:'partial', count:0};
+  return {state:'missing', count:0};
+}
+
+function statusBadge(state, text){
+  const cls=state==='available'?'fresh':state==='partial'?'warn':'stale';
+  return `<span class="stale-badge ${cls}">⬤ ${text}</span>`;
+}
+
+function renderReportActionList(actions, emptyText){
+  if(!actions.length){
+    return `<div class="text-sm text-muted">${emptyText}</div>`;
+  }
+  return actions.slice(0,5).map(a=>`<div class="details-row"><span>${esc(a.title||a.group||a.entity_key||'Action')}</span><strong>${esc(a.headline||typeLabel(a.action_type))}</strong></div>`).join('');
+}
+
+function renderReports(){
+  const box=document.getElementById('tab-reports');
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const pricing=actions.filter(a=>['price_fix','price_strategy'].includes(a.action_type));
+  const content=actions.filter(a=>['title_seo','content_fix'].includes(a.action_type));
+  const storage=actions.filter(a=>a.action_type==='storage_cost');
+  const returns=actions.filter(a=>a.action_type==='return_investigate');
+  const meta=(PAYLOAD.plan||{}).metadata||{};
+  const sources=(meta.sources_used||[]);
+
+  const blocks=[
+    {
+      title:'Pricing / price trap / repricer',
+      desc:'Рыночные price actions, психологические пороги и recommendation-first pricing уже подмешиваются в основной payload.',
+      avail: reportAvailability('dynamic_pricing', ['price_fix','price_strategy']),
+      actions: pricing,
+      footer:'Следующий шаг: сделать отдельный drilldown/decision flow поверх уже доступных pricing cards.',
+    },
+    {
+      title:'Title SEO / marketing card audit',
+      desc:'Marketing/title слой уже даёт actionable items в основном UI, но пока живёт внутри общего плана, а не как отдельный manager-facing view.',
+      avail: reportAvailability('marketing_card_audit', ['title_seo','content_fix']),
+      actions: content,
+      footer:'Следующий шаг: отдельный shortlist для rewrite и связка с entity pages.',
+    },
+    {
+      title:'Paid storage / storage cost',
+      desc:'Storage layer уже попадает в план действий и виден в основном payload, но пока без отдельного detail-view.',
+      avail: reportAvailability('paid_storage_report', ['storage_cost']),
+      actions: storage,
+      footer:'Следующий шаг: отдельная таблица SKU по storage-cost и trace до исходного report bundle.',
+    },
+    {
+      title:'Returns / review booster',
+      desc:'Возвраты и review booster уже представлены и дополнительно вынесены в live reviews/reply flow.',
+      avail: sources.some(s=>s.includes('sales_return_report')) ? {state:'available', count:returns.length} : {state:'partial', count:returns.length},
+      actions: returns,
+      footer:'Следующий шаг: unified customer-communication view без split между tabs.',
+    },
+    {
+      title:'COGS workflow',
+      desc:'COGS backfill / zero-COGS / rescore cycle реализованы в коде, но ещё не стали отдельной UI-поверхностью в основном интерфейсе.',
+      avail: {state:'missing', count:0},
+      actions: [],
+      footer:'Сейчас это CLI/backend-first слой. Для полноценного переноса нужен отдельный bundle/view для registry, fill-state и rescore artifacts.',
+    },
+    {
+      title:'Waybill cost layer',
+      desc:'Waybill / logistics слой есть в коде и отчётах, но в текущий main payload не подмешивается как отдельный UI-блок.',
+      avail: {state:'missing', count:0},
+      actions: [],
+      footer:'Следующий шаг: добавить bundle в daily action plan / SQLite и затем вывести в основной UI.',
+    },
+  ];
+
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">
+    Это manager-facing слой по issue #43: показывает, какие функциональные блоки уже реально доступны в основном UI, какие доступны частично, а какие пока остаются CLI/backend-only.
+  </div>`;
+
+  html+=`<div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card ok"><div class="kpi-value">${pricing.length}</div><div class="kpi-label">Pricing actions в payload</div></div>
+    <div class="kpi-card ok"><div class="kpi-value">${content.length}</div><div class="kpi-label">Content/SEO actions</div></div>
+    <div class="kpi-card ${storage.length?'warn':'danger'}"><div class="kpi-value">${storage.length}</div><div class="kpi-label">Storage actions</div></div>
+    <div class="kpi-card ${returns.length?'ok':'warn'}"><div class="kpi-value">${returns.length}</div><div class="kpi-label">Returns actions</div></div>
+  </div>`;
+
+  blocks.forEach(block=>{
+    const badgeText=block.avail.state==='available'
+      ? `available${block.avail.count?` · ${block.avail.count}`:''}`
+      : block.avail.state==='partial'
+        ? 'partial'
+        : 'CLI/backend only';
+    html+=`<div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:6px">
+        <div>
+          <div class="action-title">${esc(block.title)}</div>
+          <div class="text-sm text-muted mt-4">${esc(block.desc)}</div>
+        </div>
+        <div style="flex-shrink:0">${statusBadge(block.avail.state, badgeText)}</div>
+      </div>
+      <div class="section-label" style="margin:10px 0 6px">Что уже видно в основном UI</div>
+      ${renderReportActionList(block.actions, 'Пока нет отдельного surfaced action list для этого блока.')}
+      <div class="alert-banner ${block.avail.state==='missing'?'warn':'info'}" style="margin-top:10px">${esc(block.footer)}</div>
+    </div>`;
+  });
 
   box.innerHTML=html;
 }
@@ -1446,6 +1561,7 @@ async function initDashboard() {
   renderInsights();
   renderPlan();
   renderOps();
+  renderReports();
   renderReviews();
   renderApplied();
   renderROMI();
