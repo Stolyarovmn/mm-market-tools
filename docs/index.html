@@ -262,9 +262,15 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 .toast.show{opacity:1;transform:translateY(0);}
 .text-sm{font-size:11px;}.text-xs{font-size:10px;}.text-muted{color:var(--color-text-secondary);}.text-tertiary{color:var(--color-text-tertiary);}.text-teal{color:var(--color-teal);}.text-amber{color:var(--color-amber);}.text-coral{color:var(--color-coral);}.text-primary{color:var(--color-text-primary);}.fw-600{font-weight:600;}.mt-4{margin-top:4px;}.mt-8{margin-top:8px;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
 </head>
 <body>
 
+<div id="db-loading" style="position:fixed;inset:0;background:var(--color-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px">
+  <div style="width:36px;height:36px;border:3px solid var(--color-border);border-top-color:var(--color-accent);border-radius:50%;animation:spin 0.8s linear infinite"></div>
+  <div style="font-size:13px;color:var(--color-text-secondary)" id="db-loading-msg">Загружаю данные...</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 <div class="header">
   <div class="header-top">
     <div class="header-title">Магнит Маркет · Командный центр</div>
@@ -301,10 +307,10 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div id="toast" class="toast"></div>
 
 <script>
-const PAYLOAD = {"plan":{"generated_at":"2026-04-22T06:53:53.999332+00:00","kpis":{"actions_in_plan":12,"quick_wins_count":6,"by_type_count":{"price_fix":3,"price_strategy":3,"title_seo":3,"return_investigate":2,"storage_cost":1},"potential_price_shift_rub":4.09,"zero_stock_in_top":0,"stockout_risk_in_top":0,"competitor_aware_in_top":8},"metadata":{"sources_used":["marketing_card_audit (24 → marketing_card_audit_2026-04-11.json)","dynamic_pricing (8 → dynamic_pricing_2026-04-11.json)","sales_return_report (2 → sales_return_report_2026-04-13.json)","paid_storage_report (10 → paid_storage_report_2026-04-13.json)","competitor_market_analysis (0 → market_rescored_after_cogs_2026-04-11.json)","weekly_operational_report (ctx → weekly_operational_report_2026-04-08.json)"],"sources_skipped":["price_trap_report"],"stock_context_source":"weekly_operational_report_2026-04-08.json","competitor_context_source":"market_rescored_after_cogs_2026-04-11.json","stock_annotated":2,"competitor_annotated":31},"insights":[{"severity":"info","message":"Сформировано 12 действий; из них быстрых побед: 6."},{"severity":"high","message":"Сначала закройте все price_fix — 5 минут, ломает психологический порог."},{"severity":"high","message":"Возвраты давят на рейтинг и ранжирование. Разберитесь сегодня."},{"severity":"warn","message":"Stock-контекст 14 дней давности. Цены/остатки могли сдвинуться."}],"actions":[{"rank":1,"action_type":"price_fix","title":"Детское Домино Половинки 'Животные и игрушки' 28 плашек","group":"Пазлы","headline":"Тест цены","detail":"цена 801.0 ₽ висит выше порога 799 ₽ на 2.0 ₽","current_value":801.0,"suggested_value":799,"priority_score":84.63,"compound_score":89.63,"quick_win":true,"entity_key":"WONDERS-ДОМИНО","product_id":30429,"meta":{"total_stock":27,"stockout_risk":false,"stale_stock":true,"market_median_price":null,"price_vs_market_pct":null}},{"rank":2,"action_type":"price_fix","title":"Настольная игра Baby Toys 'Азбука для самых маленьких' русский алфавит","group":"Книги и обучающие материалы","headline":"Тест цены","detail":"цена 400.5 ₽ висит выше порога 399 ₽ на 1.5 ₽; рыночный контекст: можно агрессивно входить","current_value":400.5,"suggested_value":399,"priority_score":68.31,"compound_score":88.31,"quick_win":true,"entity_key":"WONDERS-04270","product_id":950401,"meta":{"total_stock":null,"market_median_price":350.0,"price_vs_market_pct":14.43}},{"rank":3,"action_type":"price_fix","title":"Логическая пирамидка 'Учимся считать'","group":"Кубики, мозаика и пирамидки","headline":"Тест цены","detail":"цена 499.59 ₽ висит выше порога 499 ₽ на 0.59 ₽","current_value":499.59,"suggested_value":499,"priority_score":71.4,"compound_score":86.4,"quick_win":true,"entity_key":"WONDERS-ПСЧ3007","product_id":419169,"meta":{"total_stock":null,"stale_stock":true,"market_median_price":324.0,"price_vs_market_pct":54.19}},{"rank":4,"action_type":"price_strategy","title":"Прочее [200-499]","group":"Прочее","headline":"Ценовая стратегия: можно агрессивно входить","detail":"рынок оставляет запас маржи даже при цене чуть ниже среднего","current_value":301.49,"suggested_value":295.46,"priority_score":70.0,"compound_score":73.0,"quick_win":false,"entity_key":"group:Прочее:band:200-499","meta":{"market_median_price":220.0,"price_vs_market_pct":37.04}},{"rank":5,"action_type":"price_strategy","title":"Прочее [800-1199]","group":"Прочее","headline":"Ценовая стратегия: можно агрессивно входить","detail":"ВНИМАНИЕ: мы +364% над рынком — снижение на 20 ₽ не поможет, нужна ревизия закупки","current_value":1021.63,"suggested_value":1001.2,"priority_score":70.0,"compound_score":73.0,"quick_win":false,"entity_key":"group:Прочее:band:800-1199","meta":{"market_median_price":220.0,"price_vs_market_pct":364.38}},{"rank":6,"action_type":"price_strategy","title":"Антистрессы и сквиши [200-499]","group":"Антистрессы и сквиши","headline":"Ценовая стратегия: можно агрессивно входить","detail":"рынок оставляет запас маржи даже при цене чуть ниже среднего","current_value":349.24,"suggested_value":342.26,"priority_score":70.0,"compound_score":73.0,"quick_win":false,"entity_key":"group:Антистрессы и сквиши:band:200-499","meta":{"market_median_price":169.0,"price_vs_market_pct":106.65}},{"rank":7,"action_type":"title_seo","title":"Учимся рисовать тренажер по рисованию компактные развивающие игры в дорогу Bondibon","group":"Прочее","headline":"Переписать title","detail":"SEO: main_noun_late. Кандидат: 'Развивающая игра Bondibon — учимся рисовать (тренажёр для детей)'","current_value":499.0,"suggested_value":295.46,"priority_score":28.0,"compound_score":33.8,"quick_win":true,"entity_key":"WONDERS-ДОРИСУЙ-ОРАНЖ","product_id":38753,"meta":{"market_median_price":220.0,"price_vs_market_pct":126.82}},{"rank":8,"action_type":"title_seo","title":"'Найди отличия!' - компактная развивающая игра в дорогу Bondibon","group":"Прочее","headline":"Переписать title","detail":"SEO: main_noun_late. Кандидат: 'Развивающая игра в дорогу Bondibon «Найди отличия!»'","current_value":620.0,"suggested_value":569.0,"priority_score":28.0,"compound_score":33.8,"quick_win":true,"entity_key":"WONDERS-ОТЛИЧИЯ","product_id":38757,"meta":{"market_median_price":220.0,"price_vs_market_pct":181.82}},{"rank":9,"action_type":"title_seo","title":"Ксилофон","group":"Прочее","headline":"Переписать title","detail":"SEO: main_noun_unknown. Кандидат: 'Деревянный ксилофон развивающий для детей 3+ (WONDERS)'","current_value":380.0,"suggested_value":295.46,"priority_score":28.0,"compound_score":33.8,"quick_win":true,"entity_key":"WONDERS-КСЛФ1-ДЕРЕВОМ","product_id":326,"meta":{"market_median_price":220.0,"price_vs_market_pct":72.73}},{"rank":10,"action_type":"return_investigate","title":"2623485","headline":"Разобраться с возвратами (REGULAR)","detail":"SKU 2623485: 1 возврат, REGULAR. Найти паттерн → описание, размер, фото.","current_value":1.0,"priority_score":45.0,"compound_score":33.75,"quick_win":false,"entity_key":"return:2623485","product_id":"970356","meta":{}},{"rank":11,"action_type":"return_investigate","title":"7941901","headline":"Разобраться с возвратами (CANCELED)","detail":"SKU 7941901: 0 возвратов, CANCELED. Проверить паттерн.","current_value":0.0,"priority_score":40.0,"compound_score":25.0,"quick_win":false,"entity_key":"return:7941901","product_id":"2539424","meta":{"total_stock":33,"stale_stock":true}},{"rank":12,"action_type":"storage_cost","title":"Платное хранение","headline":"Сократить платное хранение","detail":"Сумма хранения: 0 ₽ (пока чисто). Варианты: распродажа, вывоз FBS, снижение FBO-остатка.","current_value":0.0,"priority_score":30.0,"compound_score":18.0,"quick_win":false,"entity_key":"storage:noname","meta":{}}]},"review_booster":{"generated_at":"2026-04-22T06:58:38.677096+00:00","kpis":{"responses_suggested":2,"high_priority_responses":0,"reason_coverage":2},"insights":[{"severity":"info","message":"2 шаблона готовы. Ответить сегодня = 5-10 мин + прямой сигнал площадке."}],"rows":[{"product_id":"970356","sku":"2623485","title":"2623485","return_reason_code":"REGULAR","reason_label":"Стандартный возврат","return_count":1,"template_response":"Здравствуйте! Спасибо, что поделились впечатлением. Мы зафиксировали возврат и изучаем, что могло пойти не так. Если остались вопросы по товару — напишите, мы поможем подобрать подходящую модель из ассортимента.","action_for_seller":"Проверить карточку: соответствует ли описание реальному товару. Частые REGULAR на одном SKU → пересмотреть фото/размеры.","priority":"medium"},{"product_id":"2539424","sku":"7941901","title":"7941901","return_reason_code":"UNKNOWN","reason_label":"Причина не указана","return_count":0,"template_response":"Здравствуйте! Спасибо, что выбрали наш магазин. Если у вас есть вопросы по товару или предложения — напишите, мы всегда открыты к обратной связи.","action_for_seller":"Если много UNKNOWN без пояснений — возможно клиенты просто закрывают окно возврата. Не паниковать.","priority":"medium"}]},"applied_actions":{"summary":{"total_entries":1,"pending_count":1,"measured_count":0},"entries":[{"id":"b1dea387a5fe","action_id":1,"entity_key":"WONDERS-ДОМИНО","product_id":30429,"title":"Детское Домино Половинки 'Животные и игрушки' 28 плашек","action_type":"price_fix","applied_at":"2026-04-22T06:56:24.391642+00:00","measurement_due_at":"2026-04-29T06:56:24.391642+00:00","status":"pending","baseline":{"current_value":801.0,"suggested_value":799,"total_stock":27}}]},"api_status":{"checked_at":"2026-04-22T07:14:00+00:00","shop_id":98,"token_status":"valid","token_expires_moscow":"2026-04-22T14:28:51+03:00","cubes":24,"existing_documents":34,"endpoints":[{"url":"seller-analytics.mm.ru/cubejs-api/v1/meta","method":"GET","status":"ok","note":"24 cubes, Sales cube present"},{"url":"seller-analytics.mm.ru/cubejs-api/v1/load","method":"GET","status":"ok","note":"revenue + orders за 7 дней"},{"url":"api.business.kazanexpress.ru/api/seller/documents/requests","method":"GET","status":"ok","note":"34 отчёта в истории"},{"url":"api.business.kazanexpress.ru/api/seller/documents/create","method":"POST","status":"fix","note":"400 validation-failed — фикс payload в 005"},{"url":"api.business.kazanexpress.ru/api/seller/category/tree","method":"GET","status":"ok","note":"используется для привязки"},{"url":"api.business.kazanexpress.ru/api/seller/shop/{id}/product/getProducts","method":"GET","status":"ok","note":"список товаров магазина"},{"url":"api.kazanexpress.ru/api/v2/product/{id}","method":"GET","status":"ok","note":"публичная карточка"},{"url":"web-api.mm.ru/v2/goods/search","method":"POST","status":"ok","note":"поиск конкурентов"},{"url":"web-api.mm.ru/v1/goods/filters","method":"POST","status":"ok","note":"фильтры категории"}],"gaps":[{"name":"Reviews/Rating API","status":"todo","note":"нет в Seller API. Workaround: парсинг публичной карточки"},{"name":"Search position / visibility","status":"todo","note":"ежедневный public search по ключевым запросам"},{"name":"Price history","status":"todo","note":"ежедневный snapshot getProducts → price_history.jsonl"},{"name":"Order-level details","status":"todo","note":"CubeJS только агрегаты; детали в SELLS_REPORT CSV"},{"name":"Promo/campaign participation","status":"todo","note":"нужен для Q8 (Promo Impact Tracker)"}]},"blockers":[{"id":"B-009","sev":"critical","title":"COGS не интегрирован в scoring","body":"Система советует снижать цены на товары где мы +54%/+182%/+364% над рынком. Без COGS невозможно отличить «разумное» от «убить маржу». Action 005: интегрировать waybill_cost_layer + фильтр price_vs_market>50% → hold."},{"id":"B-010","sev":"high","title":"Давность данных 11-14 дней","body":"stock_context=weekly_operational_report_2026-04-08 (14 дней), competitor=market_rescored_2026-04-11 (11 дней). Action 005: warn-flag если context>7 дней, triggered refresh, миграция на daily cubejs snapshot."},{"id":"B-011","sev":"high","title":"83% действий без stock-контекста","body":"stock_annotated=2 из 12. Вероятно product_id mismatch между bundles (str vs int, suffix). Action 005: трейсинг + нормализация ключей."},{"id":"B-012","sev":"med","title":"competitor_annotated counter=31 vs 12 действий","body":"Считает по группам, а не по SKU. Либо ошибка формулы, либо by design с неправильным именем. Action 005: проверить в _build_competitor_context()."},{"id":"B-002","sev":"resolved","title":"Ответы Максима получены","body":"Q1-Q9 заданы, ответы зафиксированы. Остался частично: точные GMV/маржа — но они добываются через API."},{"id":"B-007","sev":"resolved","title":"Stock validation встроен","body":"Daily Action Plan читает weekly_operational_report как контекст (bug-fix по kind ключу в 004)."},{"id":"B-008","sev":"high","title":"A/B measurement window 0-7 дней","body":"Applied Actions использует weekly_operational агрегат → измерение смещено. Action 005: daily cubejs pipeline, документировать offset."}],"iteration":{"number":"004","updated_at":"2026-04-22T07:15Z","status":"in_progress","uncertainty":0.48}};
+let PAYLOAD = {};
 
 // ── Globals ─────────────────────────────────────────────────────────────────
-let apiToken = '';
+let apiToken = localStorage.getItem('mm_api_token') || '';
 
 // ── Utils ────────────────────────────────────────────────────────────────────
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
@@ -722,7 +728,28 @@ function renderAPI(){
     </div>`;
   });
   html+=`<div class="alert-banner info" style="margin-top:10px">Полный отчёт: <code>deliverables/MAGNIT_API_NEEDS.md</code>. Refresh-token handler — задача 005.</div>`;
+
+  html+=`<div class="section-label" style="margin-top:16px">Обновление данных</div>
+  <div class="token-section">
+    <div class="text-xs text-muted" style="margin-bottom:8px">
+      GitHub PAT нужен один раз — сохраняется в localStorage браузера. Нужны права: <code>repo</code> + <code>workflow</code>.
+    </div>
+    <div class="token-row" style="margin-bottom:6px">
+      <input type="password" id="gh-pat-input" placeholder="GitHub PAT (ghp_...)..." style="flex:1;min-width:0">
+      <button class="btn" onclick="saveGhPat()">Сохранить PAT</button>
+    </div>
+    <div class="text-xs text-muted" id="gh-pat-status" style="margin-bottom:10px"></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <button class="btn primary" id="refresh-btn" onclick="triggerDataRefresh()">▶ Обновить данные</button>
+      <span class="text-xs" id="refresh-status" style="color:var(--color-text-secondary)"></span>
+    </div>
+    <div class="text-xs text-muted" style="margin-top:6px">
+      Запускает GitHub Actions с текущим MM токеном → скрипты генерируют данные → страница обновится через ~3 мин.
+    </div>
+  </div>`;
+
   box.innerHTML=html;
+  updateGhPatStatus();
 }
 
 function onTokenInput(val){
@@ -731,14 +758,63 @@ function onTokenInput(val){
 function onTokenSave(){
   const inp=document.getElementById('token-input');
   apiToken=inp.value;
-  document.getElementById('token-dot').className='token-dot'+(apiToken?'active':'');
-  if(apiToken){toast('Токен сохранён в памяти страницы');}
+  document.getElementById('token-dot').className='token-dot'+(apiToken?' active':'');
+  if(apiToken){
+    localStorage.setItem('mm_api_token', apiToken);
+    toast('Токен сохранён');
+  }
 }
 function onTokenClear(){
   apiToken='';
+  localStorage.removeItem('mm_api_token');
   document.getElementById('token-input').value='';
   document.getElementById('token-dot').className='token-dot';
   toast('Токен очищен');
+}
+function saveGhPat(){
+  const val=document.getElementById('gh-pat-input').value.trim();
+  if(!val){toast('Введи GitHub PAT');return;}
+  localStorage.setItem('mm_gh_pat',val);
+  document.getElementById('gh-pat-input').value='';
+  updateGhPatStatus();
+  toast('GitHub PAT сохранён');
+}
+function updateGhPatStatus(){
+  const pat=localStorage.getItem('mm_gh_pat')||'';
+  const el=document.getElementById('gh-pat-status');
+  if(!el)return;
+  el.textContent=pat?'PAT: '+pat.slice(0,4)+'...'+pat.slice(-4)+' (сохранён в localStorage)':'Не задан';
+}
+async function triggerDataRefresh(){
+  const pat=localStorage.getItem('mm_gh_pat');
+  if(!pat){toast('Сначала сохрани GitHub PAT');return;}
+  if(!apiToken){toast('Сначала сохрани MM Bearer токен');return;}
+  const btn=document.getElementById('refresh-btn');
+  const status=document.getElementById('refresh-status');
+  btn.disabled=true;
+  status.textContent='⏳ Запускаю workflow...';
+  try{
+    const resp=await fetch('https://api.github.com/repos/Stolyarovmn/mm-market-tools/actions/workflows/daily-plan.yml/dispatches',{
+      method:'POST',
+      headers:{
+        'Authorization':'Bearer '+pat,
+        'Accept':'application/vnd.github+json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({ref:'main',inputs:{ke_token:apiToken}})
+    });
+    if(resp.status===204){
+      status.textContent='✓ Запущено — данные обновятся через ~3 мин';
+      toast('Workflow запущен!');
+    } else {
+      const err=await resp.json().catch(()=>({}));
+      status.textContent='✗ Ошибка '+resp.status+': '+(err.message||'unknown');
+    }
+  }catch(e){
+    status.textContent='✗ '+e.message;
+  }finally{
+    btn.disabled=false;
+  }
 }
 function testEndpoint(i){
   const ep=(PAYLOAD.api_status||{}).endpoints||[];
@@ -906,19 +982,135 @@ function setupTabs(){
   });
 }
 
-// ── Init ──────────────────────────────────────────────────────────────────────
-renderHeader();
-renderKPIs();
-renderInsights();
-renderPlan();
-renderReviews();
-renderApplied();
-renderROMI();
-renderAPI();
-renderBuyers();
-renderBlockers();
-renderSources();
-setupTabs();
+// ── DB load from GitHub Releases ─────────────────────────────────────────────
+const REPO = 'Stolyarovmn/mm-market-tools';
+const DB_ASSET_NAME = 'data.db';
+
+function dbRows(db, sql) {
+  const res = db.exec(sql);
+  if (!res.length) return [];
+  const {columns, values} = res[0];
+  return values.map(row => Object.fromEntries(columns.map((c, i) => [c, row[i]])));
+}
+function dbRow(db, sql) { const r = dbRows(db, sql); return r[0] || null; }
+function parseJ(s) { try { return JSON.parse(s || 'null'); } catch { return null; } }
+
+function buildPayload(db) {
+  const kpis    = dbRow(db, 'SELECT * FROM plan_kpis') || {};
+  const iter    = dbRow(db, 'SELECT * FROM iteration') || {};
+  const actions = dbRows(db, 'SELECT * FROM actions ORDER BY rank');
+  const insights= dbRows(db, 'SELECT * FROM insights');
+  const reviews = dbRows(db, 'SELECT * FROM reviews');
+  const applied = dbRows(db, 'SELECT * FROM applied_actions');
+  const apiSt   = dbRow(db, 'SELECT * FROM api_status') || {};
+  const endpoints = dbRows(db, 'SELECT * FROM api_endpoints ORDER BY id');
+  const gaps    = dbRows(db, 'SELECT * FROM api_gaps ORDER BY id');
+  const blockers= dbRows(db, 'SELECT * FROM blockers');
+  const sources = dbRows(db, 'SELECT * FROM plan_sources');
+
+  return {
+    plan: {
+      generated_at: kpis.generated_at,
+      kpis: {
+        actions_in_plan: kpis.actions_in_plan,
+        quick_wins_count: kpis.quick_wins_count,
+        by_type_count: parseJ(kpis.by_type_count_json) || {},
+        potential_price_shift_rub: kpis.potential_price_shift_rub,
+        zero_stock_in_top: kpis.zero_stock_in_top,
+        stockout_risk_in_top: kpis.stockout_risk_in_top,
+        competitor_aware_in_top: kpis.competitor_aware_in_top,
+      },
+      metadata: {
+        sources_used: sources.map(s => s.label),
+        sources_skipped: parseJ(kpis.sources_skipped_json) || [],
+        stock_context_source: kpis.stock_context_source,
+        competitor_context_source: kpis.competitor_context_source,
+        stock_annotated: kpis.stock_annotated,
+        competitor_annotated: kpis.competitor_annotated,
+      },
+      insights: insights.filter(i => i.source === 'plan').map(i => ({severity: i.severity, message: i.message})),
+      actions: actions.map(a => ({
+        rank: a.rank, action_type: a.action_type, title: a.title, group: a.group_name,
+        headline: a.headline, detail: a.detail, current_value: a.current_value,
+        suggested_value: a.suggested_value, priority_score: a.priority_score,
+        compound_score: a.compound_score, quick_win: !!a.quick_win,
+        entity_key: a.entity_key, product_id: a.product_id,
+        meta: parseJ(a.meta_json) || {},
+      })),
+    },
+    review_booster: {
+      generated_at: kpis.rb_generated_at,
+      kpis: {
+        responses_suggested: kpis.rb_responses_suggested,
+        high_priority_responses: kpis.rb_high_priority_responses,
+        reason_coverage: kpis.rb_reason_coverage,
+      },
+      insights: insights.filter(i => i.source === 'review_booster').map(i => ({severity: i.severity, message: i.message})),
+      rows: reviews,
+    },
+    applied_actions: {
+      summary: {
+        total_entries: applied.length,
+        pending_count: applied.filter(a => a.status === 'pending').length,
+        measured_count: applied.filter(a => a.status === 'measured').length,
+      },
+      entries: applied.map(a => ({...a, baseline: parseJ(a.baseline_json) || {}})),
+    },
+    api_status: { ...apiSt, endpoints, gaps },
+    blockers,
+    iteration: iter,
+  };
+}
+
+async function initDashboard() {
+  const loadingEl = document.getElementById('db-loading');
+  const msgEl = document.getElementById('db-loading-msg');
+  try {
+    msgEl.textContent = 'Получаю список релизов...';
+    const releases = await fetch(
+      `https://api.github.com/repos/${REPO}/releases?per_page=20`,
+      { headers: { Accept: 'application/vnd.github+json' } }
+    ).then(r => r.json());
+
+    const rel = releases.find(r => r.assets && r.assets.some(a => a.name === DB_ASSET_NAME));
+    if (!rel) throw new Error('Релиз с data.db не найден. Запустите GitHub Actions для первого создания.');
+
+    const asset = rel.assets.find(a => a.name === DB_ASSET_NAME);
+    msgEl.textContent = `Загружаю data.db (${Math.round(asset.size/1024)}KB)...`;
+
+    const buf = await fetch(asset.browser_download_url).then(r => r.arrayBuffer());
+    msgEl.textContent = 'Инициализирую базу данных...';
+
+    const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+    const db = new SQL.Database(new Uint8Array(buf));
+
+    PAYLOAD = buildPayload(db);
+    db.close();
+  } catch (err) {
+    msgEl.textContent = '⚠ ' + err.message;
+    msgEl.style.color = 'var(--color-coral)';
+    document.getElementById('db-loading').style.background = 'rgba(0,0,0,0.7)';
+    await new Promise(r => setTimeout(r, 3000));
+  }
+
+  loadingEl.style.display = 'none';
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  renderHeader();
+  renderKPIs();
+  renderInsights();
+  renderPlan();
+  renderReviews();
+  renderApplied();
+  renderROMI();
+  renderAPI();
+  renderBuyers();
+  renderBlockers();
+  renderSources();
+  setupTabs();
+}
+
+initDashboard();
 </script>
 </body>
 </html>
