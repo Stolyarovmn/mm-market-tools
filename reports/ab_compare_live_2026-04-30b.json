@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-04-30T11:14:35.374919+00:00",
+  "variants": {
+    "A": {
+      "label": "A",
+      "product_id": 2529546,
+      "date_range": [
+        "2026-04-24",
+        "2026-04-30"
+      ],
+      "query": {
+        "measures": [
+          "Sales.items_sell_price",
+          "Sales.orders_number",
+          "Sales.item_sold_number"
+        ],
+        "dimensions": [
+          "CategoryHierarchy.category_l1_id",
+          "CategoryHierarchy.category_l2_id",
+          "CategoryHierarchy.category_l3_id",
+          "CategoryHierarchy.category_l4_id",
+          "CategoryHierarchy.category_l5_id",
+          "CategoryHierarchy.category_l6_id",
+          "Sales.product_id",
+          "Sales.sku_id"
+        ],
+        "timezone": "Europe/Moscow",
+        "timeDimensions": [
+          {
+            "dimension": "Sales.created_at",
+            "dateRange": [
+              "2026-04-24",
+              "2026-04-30"
+            ],
+            "granularity": "day"
+          }
+        ],
+        "filters": [
+          {
+            "member": "Sales.shop_id",
+            "operator": "equals",
+            "values": [
+              "98"
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "revenue": 538.0,
+        "orders": 2.0,
+        "sold_qty": 2.0,
+        "avg_price": 269.0
+      }
+    },
+    "B": {
+      "label": "B",
+      "product_id": 2529546,
+      "date_range": [
+        "2026-04-17",
+        "2026-04-23"
+      ],
+      "query": {
+        "measures": [
+          "Sales.items_sell_price",
+          "Sales.orders_number",
+          "Sales.item_sold_number"
+        ],
+        "dimensions": [
+          "CategoryHierarchy.category_l1_id",
+          "CategoryHierarchy.category_l2_id",
+          "CategoryHierarchy.category_l3_id",
+          "CategoryHierarchy.category_l4_id",
+          "CategoryHierarchy.category_l5_id",
+          "CategoryHierarchy.category_l6_id",
+          "Sales.product_id",
+          "Sales.sku_id"
+        ],
+        "timezone": "Europe/Moscow",
+        "timeDimensions": [
+          {
+            "dimension": "Sales.created_at",
+            "dateRange": [
+              "2026-04-17",
+              "2026-04-23"
+            ],
+            "granularity": "day"
+          }
+        ],
+        "filters": [
+          {
+            "member": "Sales.shop_id",
+            "operator": "equals",
+            "values": [
+              "98"
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "revenue": 269.0,
+        "orders": 1.0,
+        "sold_qty": 1.0,
+        "avg_price": 269.0
+      }
+    }
+  },
+  "comparison": {
+    "delta": {
+      "revenue": {
+        "absolute": 269.0,
+        "pct": 100.0
+      },
+      "orders": {
+        "absolute": 1.0,
+        "pct": 100.0
+      },
+      "sold_qty": {
+        "absolute": 1.0,
+        "pct": 100.0
+      },
+      "avg_price": {
+        "absolute": 0.0,
+        "pct": 0.0
+      }
+    },
+    "baseline": "B",
+    "current": "A"
+  }
+}
