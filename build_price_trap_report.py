@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 
 from core.io_utils import load_json, write_json
-from core.paths import REPORTS_DIR, ensure_dir, today_tag
+from core.paths import NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
 
 DEFAULT_THRESHOLDS = [99, 149, 199, 299, 399, 499, 799, 999, 1499, 1999]
@@ -15,7 +15,7 @@ def parse_args():
     )
     parser.add_argument(
         "--input-json",
-        default="/home/user/mm-market-tools/data/normalized/weekly_operational_report_2026-04-08.json",
+        default=str(NORMALIZED_DIR / "weekly_operational_report_2026-04-08.json"),
     )
     parser.add_argument("--report-dir", default=str(REPORTS_DIR))
     parser.add_argument("--report-prefix", default=f"price_trap_report_{today_tag()}")

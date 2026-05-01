@@ -3,13 +3,14 @@ import argparse
 from pathlib import Path
 
 from core.io_utils import load_json
+from core.paths import DASHBOARD_DIR
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke-test unified marketing card audit dashboard bundle.")
     parser.add_argument(
         "--dashboard-json",
-        default="/home/user/mm-market-tools/data/dashboard/marketing_card_audit_2026-04-10.json",
+        default=str(DASHBOARD_DIR / "marketing_card_audit_2026-04-10.json"),
     )
     return parser.parse_args()
 

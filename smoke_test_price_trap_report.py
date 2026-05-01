@@ -3,12 +3,14 @@ import argparse
 import json
 from pathlib import Path
 
+from core.paths import REPORTS_DIR
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke test for price trap marketing report.")
     parser.add_argument(
         "--report-json",
-        default="/home/user/mm-market-tools/reports/price_trap_report_2026-04-10.json",
+        default=str(REPORTS_DIR / "price_trap_report_2026-04-10.json"),
     )
     return parser.parse_args()
 
