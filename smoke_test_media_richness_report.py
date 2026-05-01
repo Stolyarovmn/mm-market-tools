@@ -5,6 +5,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parent
+
 
 def main():
     parser = argparse.ArgumentParser(description="Smoke test for media richness dashboard bundle.")
@@ -31,7 +33,7 @@ def main():
 
         cmd = [
             "python3",
-            "/home/user/mm-market-tools/build_media_richness_report.py",
+            str(PROJECT_ROOT / "build_media_richness_report.py"),
             "--input-json",
             str(input_json),
             "--cache-json",
