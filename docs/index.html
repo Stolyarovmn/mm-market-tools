@@ -522,6 +522,16 @@ function renderInsights(){
   document.getElementById('insights-box').innerHTML=ins.map(i=>`<div class="insight ${i.severity||'info'}">${esc(i.message||'')}</div>`).join('');
 }
 
+function formatRub(value){
+  const num=Number(value);
+  if(!Number.isFinite(num)) return `${value} ₽`;
+  const hasFraction=Math.abs(num % 1) > 1e-9;
+  return `${num.toLocaleString('ru-RU',{
+    minimumFractionDigits: hasFraction ? 2 : 0,
+    maximumFractionDigits: hasFraction ? 2 : 2,
+  })} ₽`;
+}
+
 // ── Plan Tab ──────────────────────────────────────────────────────────────────
 const TYPE_LABELS={price_fix:'Цена fix',price_strategy:'Стратегия',title_seo:'SEO',return_investigate:'Возвраты',storage_cost:'Хранение',content_fix:'Контент',market_opportunity:'Рынок'};
 function typeLabel(t){return TYPE_LABELS[t]||t;}
@@ -577,8 +587,8 @@ function renderActionCard(a){
   let priceHtml='';
   if(a.current_value!=null){
     priceHtml=`<div class="price-row">
-      <div class="price-item"><span class="price-item-label">Сейчас</span><span class="price-item-val ${a.suggested_value?'old':''}">${a.current_value} ₽</span></div>
-      ${a.suggested_value?`<div class="price-item"><span class="price-item-label">Цель</span><span class="price-item-val new">${a.suggested_value} ₽</span></div>`:''}
+      <div class="price-item"><span class="price-item-label">Сейчас</span><span class="price-item-val ${a.suggested_value?'old':''}">${formatRub(a.current_value)}</span></div>
+      ${a.suggested_value!=null?`<div class="price-item"><span class="price-item-label">Цель</span><span class="price-item-val new">${formatRub(a.suggested_value)}</span></div>`:''}
     </div>`;
   }
 
