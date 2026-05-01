@@ -63,7 +63,7 @@
   - привязку свежих артефактов к `data/dashboard/index.json`, если артефакт является dashboard bundle
   - быстрый переход из runner в основной dashboard по свежему report bundle
 - Добавлен research report по покрытию seller cabinet:
-  - [`reports/seller_cabinet_coverage_2026-04-11.md`](/home/user/mm-market-tools/reports/seller_cabinet_coverage_2026-04-11.md)
+  - [`reports/seller_cabinet_coverage_2026-04-11.md`](reports/seller_cabinet_coverage_2026-04-11.md)
   - внутри зафиксировано:
     - какие отчёты и данные есть в ЛК продавца;
     - что уже использует проект;

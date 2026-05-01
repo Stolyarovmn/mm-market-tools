@@ -131,7 +131,7 @@
 ### 2. Установка зависимостей
 
 ```bash
-cd /home/user/mm-market-tools
+cd /path/to/mm-market-tools
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -156,7 +156,7 @@ export MM_COMPETITOR_SHOP_ID=40319
 Пример для категории `Игрушки и игры`:
 
 ```bash
-python3 get_sellers.py --category-id 10162 --page-size 50 --progress --output /home/user/mm_sellers_10162.json
+python3 get_sellers.py --category-id 10162 --page-size 50 --progress --output reports/mm_sellers_10162.json
 ```
 
 Что делает скрипт:
@@ -496,8 +496,8 @@ python3 migrate_dashboard_schema.py
 Как открыть локально:
 
 ```bash
-cd /home/user/mm-market-tools
-bash /home/user/mm-market-tools/start_dashboard_ui.sh
+cd /path/to/mm-market-tools
+bash ./start_dashboard_ui.sh
 ```
 
 После этого открыть:
@@ -567,14 +567,14 @@ bash /home/user/mm-market-tools/start_dashboard_ui.sh
 Как открыть локально:
 
 ```bash
-cd /home/user/mm-market-tools
+cd /path/to/mm-market-tools
 python3 web_refresh_server.py --host 127.0.0.1 --port 8040
 ```
 
 Или короче:
 
 ```bash
-bash /home/user/mm-market-tools/start_refresh_ui.sh
+bash ./start_refresh_ui.sh
 ```
 
 После этого открыть:
@@ -863,8 +863,8 @@ python3 snapshot_shop.py --token "$KAZANEXPRESS_TOKEN"
 
 ```bash
 python3 analyze_time_window.py \
-  --start-snapshot /home/user/mm-market-tools/data/snapshots/shop_98_2026-04-01.json \
-  --end-snapshot /home/user/mm-market-tools/data/snapshots/shop_98_2026-04-08.json
+  --start-snapshot data/snapshots/shop_98_2026-04-01.json \
+  --end-snapshot data/snapshots/shop_98_2026-04-08.json
 ```
 
 Выходные файлы:
@@ -1265,11 +1265,11 @@ python3 smoke_test_pricing_pipeline.py
 
 ```bash
 python3 refresh_operational_dashboard.py \
-  --sells-report /home/user/mm-market-tools/data/raw_reports/sells-report.csv \
-  --left-out-report /home/user/mm-market-tools/data/raw_reports/left-out-report.csv \
-  --metadata-from /home/user/mm-market-tools/data/dashboard/weekly_operational_report_2026-04-08.json \
-  --normalized-output /home/user/mm-market-tools/data/normalized/weekly_operational_report_2026-04-08.json \
-  --dashboard-output /home/user/mm-market-tools/data/dashboard/weekly_operational_report_2026-04-08.json
+  --sells-report data/raw_reports/sells-report.csv \
+  --left-out-report data/raw_reports/left-out-report.csv \
+  --metadata-from data/dashboard/weekly_operational_report_2026-04-08.json \
+  --normalized-output data/normalized/weekly_operational_report_2026-04-08.json \
+  --dashboard-output data/dashboard/weekly_operational_report_2026-04-08.json
 ```
 
 ### `request_document_report.py`
@@ -1317,49 +1317,49 @@ python3 request_document_report.py \
 Собрать продавцов по категории:
 
 ```bash
-python3 /home/user/mm-market-tools/get_sellers.py --category-id 10162 --page-size 50 --progress --output /home/user/mm_sellers_10162.json
+python3 ./get_sellers.py --category-id 10162 --page-size 50 --progress --output reports/mm_sellers_10162.json
 ```
 
 Сравнить магазины:
 
 ```bash
-python3 /home/user/mm-market-tools/compare_shops.py --my-shop-id 98 --competitor-shop-id 40319
+python3 ./compare_shops.py --my-shop-id 98 --competitor-shop-id 40319
 ```
 
 Проанализировать остатки:
 
 ```bash
-python3 /home/user/mm-market-tools/analyze_products.py --shop-id 98
+python3 ./analyze_products.py --shop-id 98
 ```
 
 Сравнить карточки товаров:
 
 ```bash
-python3 /home/user/mm-market-tools/benchmark_product_cards.py --sample-size 5 --comparables 4
+python3 ./benchmark_product_cards.py --sample-size 5 --comparables 4
 ```
 
 Сравнить пересечения с top-N продавцов:
 
 ```bash
-python3 /home/user/mm-market-tools/compare_top_seller_overlaps.py --sample-size 40 --top-n 10 --min-similarity 0.5
+python3 ./compare_top_seller_overlaps.py --sample-size 40 --top-n 10 --min-similarity 0.5
 ```
 
 Сгруппировать ассортимент и сравнить группы:
 
 ```bash
-python3 /home/user/mm-market-tools/analyze_product_ideas.py --group-representatives 4 --min-similarity 0.22
+python3 ./analyze_product_ideas.py --group-representatives 4 --min-similarity 0.22
 ```
 
 Собрать итоговый план роста:
 
 ```bash
-python3 /home/user/mm-market-tools/build_growth_plan.py
+python3 ./build_growth_plan.py
 ```
 
 Посмотреть family-level слой по `ШК` и вариантам:
 
 ```bash
-python3 /home/user/mm-market-tools/analyze_variant_families.py \
+python3 ./analyze_variant_families.py \
   --sells-report /path/to/sells-report.csv \
   --left-out-report /path/to/left-out-report.csv
 ```
@@ -1367,21 +1367,21 @@ python3 /home/user/mm-market-tools/analyze_variant_families.py \
 Снять снапшот магазина:
 
 ```bash
-python3 /home/user/mm-market-tools/snapshot_shop.py --token "$KAZANEXPRESS_TOKEN"
+python3 ./snapshot_shop.py --token "$KAZANEXPRESS_TOKEN"
 ```
 
 Посчитать реальный спрос за окно:
 
 ```bash
-python3 /home/user/mm-market-tools/analyze_time_window.py \
-  --start-snapshot /home/user/mm-market-tools/data/snapshots/shop_98_2026-04-01.json \
-  --end-snapshot /home/user/mm-market-tools/data/snapshots/shop_98_2026-04-08.json
+python3 ./analyze_time_window.py \
+  --start-snapshot data/snapshots/shop_98_2026-04-01.json \
+  --end-snapshot data/snapshots/shop_98_2026-04-08.json
 ```
 
 Сделать CubeJS-запрос по окну времени:
 
 ```bash
-python3 /home/user/mm-market-tools/cubejs_query.py \
+python3 ./cubejs_query.py \
   --cookie "$MM_ANALYTICS_COOKIE" \
   --shop-id 98 \
   --measures Sales.seller_revenue_without_delivery_measure \
@@ -1392,7 +1392,7 @@ python3 /home/user/mm-market-tools/cubejs_query.py \
 Запросить seller CSV-отчёт:
 
 ```bash
-python3 /home/user/mm-market-tools/request_document_report.py \
+python3 ./request_document_report.py \
   --job-type SELLS_REPORT \
   --date-from 2026-04-02T00:00:00 \
   --date-to 2026-04-08T23:59:59 \
@@ -1403,7 +1403,7 @@ python3 /home/user/mm-market-tools/request_document_report.py \
 Проанализировать официальные seller CSV:
 
 ```bash
-python3 /home/user/mm-market-tools/analyze_official_reports.py \
+python3 ./analyze_official_reports.py \
   --sells-report /path/to/sells-report.csv \
   --left-out-report /path/to/left-out-report.csv
 ```
@@ -1411,7 +1411,7 @@ python3 /home/user/mm-market-tools/analyze_official_reports.py \
 Собрать weekly операционный отчёт целиком:
 
 ```bash
-python3 /home/user/mm-market-tools/weekly_operational_report.py \
+python3 ./weekly_operational_report.py \
   --token "$KAZANEXPRESS_TOKEN" \
   --window-days 7
 ```
@@ -1419,19 +1419,19 @@ python3 /home/user/mm-market-tools/weekly_operational_report.py \
 Получить листовые подкатегории:
 
 ```bash
-python3 /home/user/mm-market-tools/collect_sellers.py --category-id 10162
+python3 ./collect_sellers.py --category-id 10162
 ```
 
 Проверить новый token по ключевым endpoint'ам:
 
 ```bash
-python3 /home/user/mm-market-tools/validate_token_integrations.py --token "$KAZANEXPRESS_TOKEN"
+python3 ./validate_token_integrations.py --token "$KAZANEXPRESS_TOKEN"
 ```
 
 Пересобрать индекс dashboard-отчётов:
 
 ```bash
-python3 /home/user/mm-market-tools/build_dashboard_index.py
+python3 ./build_dashboard_index.py
 ```
 
 ## Known Issues
