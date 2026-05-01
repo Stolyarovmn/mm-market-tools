@@ -143,16 +143,6 @@
 
 Если `ISSUE` не взят в текущую итерацию, он не должен пропадать. Он обязан остаться либо здесь, либо в `CHANGELOG.md` под `Unreleased`.
 
-### Audit loop policy
-
-- Перед новой автономной итерацией обязательно читать:
-  - `auditor_logs/issues.md`
-  - `auditor_logs/disagreements*.md`
-  - project memory в `.codex/memories/`
-- `Gemini`/auditor остаётся внешним audit/research слоем, а не управляющим проекта.
-- Если есть расхождение с `ISSUE`, решение фиксируется в `disagreements*.md`.
-- Код в проекте пишет только Codex; внешний audit используется как второе мнение и контроль качества.
-
 ### Carry-forward from auditor
 
 - `ISSUE-001`
