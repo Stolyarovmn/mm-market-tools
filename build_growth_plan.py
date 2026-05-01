@@ -5,9 +5,11 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from core.paths import REPORTS_DIR
+
 
 DEFAULT_DATE = dt.date.today().isoformat()
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 
 
 def load_json(path):

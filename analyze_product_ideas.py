@@ -9,14 +9,15 @@ from pathlib import Path
 
 from core.http_client import build_mm_public_headers, create_session, request_json
 from core.market_analysis import classify_group, idea_fingerprint
+from core.paths import REPORTS_DIR
 
 
 SEARCH_URL = "https://web-api.mm.ru/v2/goods/search"
 PRODUCT_URL = "https://api.kazanexpress.ru/api/v2/product/{product_id}"
 DEFAULT_CATEGORY_ID = 10162
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
-DEFAULT_MY_PRODUCTS_CSV = "/home/user/mm-market-tools/reports/my_shop_top_products.csv"
-DEFAULT_TOP_SELLERS_JSON = "/home/user/mm_sellers_10162.json"
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
+DEFAULT_MY_PRODUCTS_CSV = str(REPORTS_DIR / "my_shop_top_products.csv")
+DEFAULT_TOP_SELLERS_JSON = str(REPORTS_DIR / "mm_sellers_10162.json")
 DEFAULT_DATE = dt.date.today().isoformat()
 DEFAULT_REAL_COMPETITORS = [16685, 40319, 28064, 16100, 17382, 36530]
 STOPWORDS = {

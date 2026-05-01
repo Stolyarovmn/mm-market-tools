@@ -10,11 +10,12 @@ from pathlib import Path
 
 from core.auth import bearer_headers, require_access_token
 from core.http_client import create_session, request_json
+from core.paths import SNAPSHOTS_DIR
 
 
 DEFAULT_TIMEOUT = 20
 DEFAULT_PAGE_SIZE = 100
-DEFAULT_SNAPSHOT_DIR = "/home/user/mm-market-tools/data/snapshots"
+DEFAULT_SNAPSHOT_DIR = str(SNAPSHOTS_DIR)
 
 def seller_headers(token):
     return bearer_headers(token)

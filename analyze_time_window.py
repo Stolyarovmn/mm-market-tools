@@ -6,9 +6,11 @@ import json
 import math
 from pathlib import Path
 
+from core.paths import REPORTS_DIR, SNAPSHOTS_DIR
 
-DEFAULT_SNAPSHOT_DIR = "/home/user/mm-market-tools/data/snapshots"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+
+DEFAULT_SNAPSHOT_DIR = str(SNAPSHOTS_DIR)
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 
 
 def load_snapshot(path):

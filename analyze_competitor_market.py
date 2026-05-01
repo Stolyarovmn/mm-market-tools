@@ -17,7 +17,7 @@ from core.market_analysis import (
 from core.market_dashboard import build_market_dashboard
 from core.market_economics import apply_market_margin_fit, load_cogs_override_rows, load_my_group_economics, merge_group_economics
 from core.io_utils import write_json
-from core.paths import COGS_OVERRIDES_PATH, DASHBOARD_DIR, NORMALIZED_DIR, ensure_dir
+from core.paths import COGS_OVERRIDES_PATH, DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir
 from core.market_crosstab import (
     calculate_hhi_by_band,
     build_group_price_band_crosstab,
@@ -30,11 +30,11 @@ from core.market_crosstab import (
 
 SEARCH_URL = "https://web-api.mm.ru/v2/goods/search"
 DEFAULT_CATEGORY_ID = 10162
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 DEFAULT_DATE = dt.date.today().isoformat()
-DEFAULT_TOP_SELLERS_JSON = "/home/user/mm_sellers_10162.json"
-DEFAULT_MY_PRODUCTS_CSV = "/home/user/mm-market-tools/reports/my_shop_top_products.csv"
-DEFAULT_OFFICIAL_REPORT_JSON = "/home/user/mm-market-tools/reports/official_period_analysis_2026-04-08.json"
+DEFAULT_TOP_SELLERS_JSON = str(REPORTS_DIR / "mm_sellers_10162.json")
+DEFAULT_MY_PRODUCTS_CSV = str(REPORTS_DIR / "my_shop_top_products.csv")
+DEFAULT_OFFICIAL_REPORT_JSON = str(REPORTS_DIR / "official_period_analysis_2026-04-08.json")
 DEFAULT_PRICE_BAND_BOUNDARIES = [50, 200, 500]  # Results in: 0-50, 50-200, 200-500, 500+
 
 def search_page(session, category_id, limit, offset):

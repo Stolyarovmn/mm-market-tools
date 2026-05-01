@@ -12,6 +12,7 @@ from pathlib import Path
 
 from core.auth import bearer_headers
 from core.http_client import build_mm_public_headers, create_session, request_json
+from core.paths import REPORTS_DIR
 
 
 MM_SEARCH_URL = "https://web-api.mm.ru/v2/goods/search"
@@ -20,8 +21,8 @@ SELLER_PRODUCTS_URL = (
     "https://api.business.kazanexpress.ru/api/seller/shop/{shop_id}/product/getProducts"
 )
 DEFAULT_CATEGORY_ID = 10162
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
-DEFAULT_MY_PRODUCTS_CSV = "/home/user/mm-market-tools/reports/my_shop_top_products.csv"
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
+DEFAULT_MY_PRODUCTS_CSV = str(REPORTS_DIR / "my_shop_top_products.csv")
 DEFAULT_REPORT_PREFIX = f"product_card_benchmark_{dt.date.today().isoformat()}"
 STOPWORDS = {
     "для",
