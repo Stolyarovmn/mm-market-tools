@@ -4,11 +4,12 @@ import json
 from pathlib import Path
 
 from core.dashboard_schema import DASHBOARD_SCHEMA_VERSION
+from core.paths import DASHBOARD_DIR
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Backfill schema_version into existing dashboard bundles.")
-    parser.add_argument("--dashboard-dir", default="/home/user/mm-market-tools/data/dashboard")
+    parser.add_argument("--dashboard-dir", default=str(DASHBOARD_DIR))
     return parser.parse_args()
 
 

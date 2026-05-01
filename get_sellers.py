@@ -7,6 +7,7 @@ import time
 from collections import Counter
 
 from core.http_client import build_mm_public_headers, create_session, request_json
+from core.paths import REPORTS_DIR
 
 
 ROOT_CATEGORIES_URL = "https://api.kazanexpress.ru/api/category/v2/root-categories"
@@ -385,7 +386,7 @@ def parse_args():
     parser.add_argument("--category-id", type=int, default=DEFAULT_CATEGORY_ID)
     parser.add_argument("--page-size", type=int, default=DEFAULT_PAGE_SIZE)
     parser.add_argument("--sleep", type=float, default=DEFAULT_SLEEP_SECONDS)
-    parser.add_argument("--output", default="/home/user/mm_sellers_10162.json")
+    parser.add_argument("--output", default=str(REPORTS_DIR / "mm_sellers_10162.json"))
     parser.add_argument("--progress", action="store_true")
     return parser.parse_args()
 
