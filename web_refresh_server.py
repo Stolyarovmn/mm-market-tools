@@ -188,6 +188,27 @@ class RefreshHandler(SimpleHTTPRequestHandler):
         self.send_response(HTTPStatus.NO_CONTENT)
         self.end_headers()
 
+    def _rewrite_static_path(self):
+        parsed = urlparse(self.path)
+        if parsed.path in {"/", "/index.html"}:
+            self.path = "/docs/index.html"
+            return True
+        if parsed.path == "/refresh.html":
+            self.path = "/ui/refresh.html"
+            return True
+        if parsed.path in {
+            "/styles.css",
+            "/app.js",
+            "/api.js",
+            "/components.js",
+            "/dashboard_views.js",
+            "/refresh.js",
+            "/state.js",
+        }:
+            self.path = f"/ui{parsed.path}"
+            return True
+        return False
+
     def _send_file(self, path):
         file_path = Path(path).resolve()
         project_root = PROJECT_ROOT.resolve()
@@ -208,22 +229,7 @@ class RefreshHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urlparse(self.path)
-        if parsed.path in {"/", "/index.html"}:
-            self.path = "/ui/index.html"
-            return super().do_GET()
-        if parsed.path == "/refresh.html":
-            self.path = "/ui/refresh.html"
-            return super().do_GET()
-        if parsed.path in {
-            "/styles.css",
-            "/app.js",
-            "/api.js",
-            "/components.js",
-            "/dashboard_views.js",
-            "/refresh.js",
-            "/state.js",
-        }:
-            self.path = f"/ui{parsed.path}"
+        if self._rewrite_static_path():
             return super().do_GET()
         if parsed.path == "/api/jobs":
             self._send_json({"jobs": list_jobs()})
@@ -259,6 +265,10 @@ class RefreshHandler(SimpleHTTPRequestHandler):
             self._send_json({"status": status, "log": self.job_store.read_log(job_id)})
             return
         return super().do_GET()
+
+    def do_HEAD(self):
+        self._rewrite_static_path()
+        return super().do_HEAD()
 
     def do_POST(self):
         parsed = urlparse(self.path)

@@ -284,6 +284,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div class="tabs-wrapper">
   <div class="tab-pills">
     <button class="tab-btn active" data-tab="plan">План</button>
+    <button class="tab-btn" data-tab="ops">Операции</button>
     <button class="tab-btn" data-tab="reviews">Отзывы</button>
     <button class="tab-btn" data-tab="applied">A/B</button>
     <button class="tab-btn" data-tab="romi">ROMI</button>
@@ -295,6 +296,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 </div>
 
 <div id="tab-plan" class="tab-content active"></div>
+<div id="tab-ops" class="tab-content"></div>
 <div id="tab-reviews" class="tab-content"></div>
 <div id="tab-applied" class="tab-content"></div>
 <div id="tab-romi" class="tab-content"></div>
@@ -308,6 +310,13 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 
 <script>
 let PAYLOAD = {};
+let LIVE = {
+  enabled: false,
+  jobs: [],
+  runs: [],
+  actionCenter: null,
+  error: null,
+};
 
 // ── Globals ─────────────────────────────────────────────────────────────────
 let apiToken = localStorage.getItem('mm_api_token') || '';
@@ -318,6 +327,50 @@ function copyToClipboard(text,label){if(navigator.clipboard&&navigator.clipboard
 function fbCopy(text,label){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(label||'Скопировано');}catch(e){toast('Не удалось скопировать');}document.body.removeChild(ta);}
 function esc(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function toggleHelp(id,btn){const el=document.getElementById(id);const isOpen=el.style.display!=='none';el.style.display=isOpen?'none':'block';btn.classList.toggle('open',!isOpen);}
+async function loadJsonMaybe(path){
+  const resp = await fetch(path, {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+  });
+  const contentType = resp.headers.get('content-type') || '';
+  if(!resp.ok || !contentType.includes('application/json')){
+    throw new Error(`${path} unavailable`);
+  }
+  return resp.json();
+}
+function shortDate(ts){
+  if(!ts) return '—';
+  try{
+    return new Date(ts).toLocaleString('ru-RU',{dateStyle:'short',timeStyle:'short'});
+  }catch{
+    return ts;
+  }
+}
+
+async function initLiveMode(){
+  try{
+    const [jobsPayload, runsPayload, actionPayload] = await Promise.all([
+      loadJsonMaybe('/api/jobs'),
+      loadJsonMaybe('/api/runs'),
+      loadJsonMaybe('/api/action-center'),
+    ]);
+    LIVE = {
+      enabled: true,
+      jobs: jobsPayload.jobs || [],
+      runs: runsPayload.runs || [],
+      actionCenter: actionPayload || null,
+      error: null,
+    };
+  }catch(err){
+    LIVE = {
+      enabled: false,
+      jobs: [],
+      runs: [],
+      actionCenter: null,
+      error: err.message || 'live mode unavailable',
+    };
+  }
+}
 
 // ── Tooltip system ────────────────────────────────────────────────────────────
 function pinTip(btn){
@@ -532,6 +585,98 @@ function renderApplied(){
   box.innerHTML=howItWorks+`<div class="text-xs text-muted" style="margin-bottom:8px">Всего: <strong>${summary.total_entries||0}</strong> · Pending: <strong class="text-amber">${summary.pending_count||0}</strong> · Измерено: <strong class="text-teal">${summary.measured_count||0}</strong></div>`+entriesHtml;
 }
 
+// ── Operations Tab ───────────────────────────────────────────────────────────
+function renderOps(){
+  const box=document.getElementById('tab-ops');
+  const ac=LIVE.actionCenter||{};
+  const jobs=LIVE.jobs||[];
+  const runs=LIVE.runs||[];
+
+  if(!LIVE.enabled){
+    box.innerHTML=`<div class="alert-banner warn" style="margin-bottom:10px">
+      Live operational mode сейчас недоступен. Этот экран открыт как Pages/read-only UI.
+      Для runtime-операций поднимите локальный backend через <code>web_refresh_server.py</code>, после чего этот же основной интерфейс автоматически подхватит <code>/api/jobs</code>, <code>/api/runs</code> и <code>/api/action-center</code>.
+    </div>
+    <div class="card">
+      <div class="fw-600" style="margin-bottom:6px">Что переезжает в первую волну</div>
+      <div class="text-sm text-muted">Action Center summary, последние job runs, список доступных jobs и переход к legacy screen <code>/refresh.html</code> для полного ручного запуска.</div>
+    </div>`;
+    return;
+  }
+
+  const recentRuns=(runs||[]).slice(0,4);
+  const recentActions=(ac.actions||[]).slice(0,5);
+  const recentEvents=(ac.events||[]).slice(0,5);
+
+  let html=`<div class="alert-banner ok" style="margin-bottom:10px">
+    Live operational mode активен. Основной UI читает локальный runtime API и показывает актуальные jobs, runs и Action Center без переключения на отдельный дашборд.
+  </div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card"><div class="kpi-value">${jobs.length}</div><div class="kpi-label">Jobs доступны</div></div>
+    <div class="kpi-card ${recentRuns.some(r=>r.state==='failed')?'danger':'ok'}"><div class="kpi-value">${recentRuns.length}</div><div class="kpi-label">Последние runs</div></div>
+    <div class="kpi-card ${ac.open_actions_count?'warn':'ok'}"><div class="kpi-value">${ac.open_actions_count||0}</div><div class="kpi-label">Открытых action items</div></div>
+    <div class="kpi-card"><div class="kpi-value">${ac.acknowledged_entities_count||0}</div><div class="kpi-label">Acknowledged entities</div></div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="action-btns">
+      <a class="btn primary" href="/refresh.html">Открыть legacy control room</a>
+      <button class="btn" onclick="location.reload()">Обновить live state</button>
+    </div>
+    <div class="text-xs text-muted mt-4">Legacy screen пока остаётся для полного ручного запуска job и подробного live-log, но основной UI уже показывает operational summary.</div>
+  </div>`;
+
+  html+=`<div class="section-label">Action Center</div>`;
+  if(recentActions.length){
+    recentActions.forEach(a=>{
+      html+=`<div class="card">
+        <div class="action-header">
+          <span class="type-pill ${a.status==='done'?'price_strategy':'return_investigate'}">${esc(a.status||'open')}</span>
+          <span class="text-xs text-muted">${esc(a.report_kind||'unknown')} · ${shortDate(a.updated_at)}</span>
+        </div>
+        <div class="action-title">${esc(a.title||a.entity_key||'Action')}</div>
+        <div class="action-detail mt-4">${esc(a.context||a.note||'Без дополнительного контекста')}</div>
+      </div>`;
+    });
+  }else{
+    html+=`<div class="card"><div class="text-sm text-muted">В Action Center пока нет action items.</div></div>`;
+  }
+
+  html+=`<div class="section-label">Последние runs</div>`;
+  if(recentRuns.length){
+    recentRuns.forEach(run=>{
+      html+=`<div class="source-card">
+        <div>
+          <div class="source-name">${esc(run.job_key||'job')}</div>
+          <div class="source-meta">Старт: ${shortDate(run.started_at)} · Финиш: ${shortDate(run.ended_at)} · Код: ${esc(String(run.return_code ?? 'н/д'))}</div>
+        </div>
+        <span class="stale-badge ${run.state==='failed'?'stale':run.state==='running'?'warn':'fresh'}">⬤ ${esc(run.state||'unknown')}</span>
+      </div>`;
+    });
+  }else{
+    html+=`<div class="card"><div class="text-sm text-muted">История запусков пока пуста.</div></div>`;
+  }
+
+  html+=`<div class="section-label">Jobs</div>`;
+  jobs.slice(0,6).forEach(job=>{
+    html+=`<div class="source-card">
+      <div>
+        <div class="source-name">${esc(job.title||job.job_key||'job')}</div>
+        <div class="source-meta">${esc(job.description||'Описание пока не заполнено')}</div>
+      </div>
+      <span class="stale-badge ${String(job.mode||'').toLowerCase()==='online'?'warn':'fresh'}">⬤ ${esc(job.mode||'unknown')}</span>
+    </div>`;
+  });
+
+  if(recentEvents.length){
+    html+=`<div class="section-label">Последние события</div>`;
+    recentEvents.forEach(ev=>{
+      html+=`<div class="details-row"><span>${esc(ev.event_type||'event')} · ${esc(ev.title||ev.entity_key||'')}</span><strong>${shortDate(ev.created_at)}</strong></div>`;
+    });
+  }
+
+  box.innerHTML=html;
+}
+
 // ── ROMI Tab ──────────────────────────────────────────────────────────────────
 function renderROMI(){
   const box=document.getElementById('tab-romi');
@@ -689,7 +834,10 @@ function renderAPI(){
     ?`<span style="color:var(--color-teal);font-weight:600">✓ Валиден до ${api.token_expires_moscow||'—'}</span>`
     :`<span style="color:var(--color-coral);font-weight:600">⚠ Требует обновления</span>`;
 
-  let html=`<div class="token-section">
+  let html=`${LIVE.enabled
+    ? `<div class="alert-banner ok" style="margin-bottom:10px">Локальный runtime API доступен. Токен можно проверять и использовать в live-режиме без перехода на отдельный экран.</div>`
+    : `<div class="alert-banner info" style="margin-bottom:10px">Сейчас открыт read-only Pages режим. Когда этот экран обслуживает локальный backend, здесь становится доступен live API-контур.</div>`
+  }<div class="token-section">
     <div class="section-label" style="margin-top:0">API Токен ${tip('Токен хранится только в памяти страницы — не сохраняется нигде. При перезагрузке нужно ввести снова.')}</div>
     <div class="token-row">
       <div class="token-dot" id="token-dot"></div>
@@ -749,6 +897,11 @@ function renderAPI(){
   </div>`;
 
   box.innerHTML=html;
+  const tokenInput=document.getElementById('token-input');
+  if(tokenInput && apiToken){
+    tokenInput.value=apiToken;
+    onTokenInput(apiToken);
+  }
   updateGhPatStatus();
 }
 
@@ -1086,6 +1239,8 @@ async function initDashboard() {
 
     PAYLOAD = buildPayload(db);
     db.close();
+    msgEl.textContent = 'Проверяю live runtime API...';
+    await initLiveMode();
   } catch (err) {
     msgEl.textContent = '⚠ ' + err.message;
     msgEl.style.color = 'var(--color-coral)';
@@ -1100,6 +1255,7 @@ async function initDashboard() {
   renderKPIs();
   renderInsights();
   renderPlan();
+  renderOps();
   renderReviews();
   renderApplied();
   renderROMI();
