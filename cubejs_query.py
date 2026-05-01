@@ -8,10 +8,11 @@ import urllib.parse
 from pathlib import Path
 
 from core.cubejs_api import flatten_results, run_cubejs_query
+from core.paths import REPORTS_DIR
 
 
 DEFAULT_BASE_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/load"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 
 
 def parse_date_range(value):

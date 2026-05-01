@@ -13,6 +13,7 @@ import requests
 
 from core.auth import bearer_headers
 from core.http_client import build_mm_public_headers, create_session, request_json
+from core.paths import REPORTS_DIR
 
 
 ROOT_CATEGORIES_URL = "https://api.kazanexpress.ru/api/category/v2/root-categories"
@@ -24,9 +25,9 @@ SELLER_PRODUCTS_URL = (
 )
 DEFAULT_CATEGORY_ID = 10162
 DEFAULT_MY_SHOP_ID = 98
-DEFAULT_TOP_SELLERS_JSON = "/home/user/mm_sellers_10162.json"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
-DEFAULT_MY_PRODUCTS_CSV = "/home/user/mm-market-tools/reports/my_shop_top_products.csv"
+DEFAULT_TOP_SELLERS_JSON = str(REPORTS_DIR / "mm_sellers_10162.json")
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
+DEFAULT_MY_PRODUCTS_CSV = str(REPORTS_DIR / "my_shop_top_products.csv")
 DEFAULT_SORT = {"type": "popularity", "order": "desc"}
 DEFAULT_PAGE_SIZE = 50
 DEFAULT_REPORT_PREFIX = f"top10_overlap_report_{dt.date.today().isoformat()}"

@@ -10,10 +10,11 @@ from core.auth import require_access_token
 from core.dates import parse_moscow_datetime, to_epoch_ms
 from core.documents_api import create_request, fetch_requests
 from core.http_client import create_session, download_bytes
+from core.paths import REPORTS_DIR
 
 
 DEFAULT_BASE_URL = "https://api.business.kazanexpress.ru/api/seller/documents"
-DEFAULT_REPORT_DIR = "/home/user/mm-market-tools/reports"
+DEFAULT_REPORT_DIR = str(REPORTS_DIR)
 
 
 def find_request(requests_payload, request_id):
