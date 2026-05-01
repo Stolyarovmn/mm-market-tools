@@ -1736,30 +1736,50 @@ function buildPayload(db) {
   };
 }
 
+async function loadPublishedPayload() {
+  const resp = await fetch('./data/daily_action_plan.json', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+  });
+  if (!resp.ok) {
+    throw new Error(`published daily_action_plan.json unavailable (${resp.status})`);
+  }
+  const payload = await resp.json();
+  if (!payload || !payload.plan || !payload.review_booster) {
+    throw new Error('published daily_action_plan.json has unexpected shape');
+  }
+  return payload;
+}
+
 async function initDashboard() {
   const loadingEl = document.getElementById('db-loading');
   const msgEl = document.getElementById('db-loading-msg');
   try {
-    msgEl.textContent = 'Получаю список релизов...';
-    const releases = await fetch(
-      `https://api.github.com/repos/${REPO}/releases?per_page=20`,
-      { headers: { Accept: 'application/vnd.github+json' } }
-    ).then(r => r.json());
+    msgEl.textContent = 'Загружаю опубликованный payload...';
+    try {
+      PAYLOAD = await loadPublishedPayload();
+    } catch (_payloadErr) {
+      msgEl.textContent = 'Получаю список релизов...';
+      const releases = await fetch(
+        `https://api.github.com/repos/${REPO}/releases?per_page=20`,
+        { headers: { Accept: 'application/vnd.github+json' } }
+      ).then(r => r.json());
 
-    const rel = releases.find(r => r.assets && r.assets.some(a => a.name === DB_ASSET_NAME));
-    if (!rel) throw new Error('Релиз с data.db не найден. Запустите GitHub Actions для первого создания.');
+      const rel = releases.find(r => r.assets && r.assets.some(a => a.name === DB_ASSET_NAME));
+      if (!rel) throw new Error('Релиз с data.db не найден. Запустите GitHub Actions для первого создания.');
 
-    const asset = rel.assets.find(a => a.name === DB_ASSET_NAME);
-    msgEl.textContent = `Загружаю data.db (${Math.round(asset.size/1024)}KB)...`;
+      const asset = rel.assets.find(a => a.name === DB_ASSET_NAME);
+      msgEl.textContent = `Загружаю data.db (${Math.round(asset.size/1024)}KB)...`;
 
-    const buf = await fetch(asset.browser_download_url).then(r => r.arrayBuffer());
-    msgEl.textContent = 'Инициализирую базу данных...';
+      const buf = await fetch(asset.browser_download_url).then(r => r.arrayBuffer());
+      msgEl.textContent = 'Инициализирую базу данных...';
 
-    const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
-    const db = new SQL.Database(new Uint8Array(buf));
+      const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+      const db = new SQL.Database(new Uint8Array(buf));
 
-    PAYLOAD = buildPayload(db);
-    db.close();
+      PAYLOAD = buildPayload(db);
+      db.close();
+    }
     msgEl.textContent = 'Проверяю live runtime API...';
     await initLiveMode();
     msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
