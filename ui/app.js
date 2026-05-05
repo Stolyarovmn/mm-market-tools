@@ -2158,8 +2158,15 @@ function renderFlowMap(items, cogsStore) {
       const openBtn = el("button", "theme-toggle compact-button", "Открыть в UI");
       openBtn.type = "button";
       openBtn.addEventListener("click", async () => {
-        await activateReport(flow.reportFile);
-        document.getElementById("report-select")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        openBtn.disabled = true;
+        openBtn.textContent = "Загрузка…";
+        try {
+          await activateReport(flow.reportFile);
+          document.getElementById("report-select")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        } finally {
+          openBtn.disabled = false;
+          openBtn.textContent = "Перейти к UI";
+        }
       });
       actions.append(openBtn);
     }
