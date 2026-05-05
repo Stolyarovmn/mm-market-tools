@@ -6,6 +6,7 @@ import {
   loadEntityHistoryIndex,
   loadActionCenter,
   loadDashboardIndex,
+  loadLocalCogsStore,
   saveActionView,
   toggleActionItem,
   updateActionItem,
@@ -50,6 +51,9 @@ let entityHistoryIndex = null;
 let selectedEntityKey = null;
 let selectedActionFilter = getStoredActionFilter();
 let currentEntityRows = [];
+let dashboardItems = [];
+let dashboardSelects = [];
+let cogsOverrideStore = null;
 const DASHBOARD_INDEX_POLL_MS = 15000;
 
 function formatMoney(value) {
@@ -1741,6 +1745,156 @@ function refreshJobUrl(reportKind) {
   return jobKey ? `${base}?job=${encodeURIComponent(jobKey)}` : base;
 }
 
+function runnerJobUrl(jobKey) {
+  const base = refreshUiUrl();
+  return jobKey ? `${base}?job=${encodeURIComponent(jobKey)}` : base;
+}
+
+function findLatestReportByKind(items, kind) {
+  return (items || []).find((item) => item.report_kind === kind) || null;
+}
+
+function findLatestReportByName(items, pattern) {
+  return (items || []).find((item) => String(item.file_name || "").includes(pattern)) || null;
+}
+
+async function activateReport(fileName) {
+  const item = dashboardItems.find((entry) => entry.file_name === fileName);
+  if (!item) return;
+  setStoredReportSelection(item.file_name);
+  dashboardSelects.forEach((targetSelect) => {
+    targetSelect.value = item.file_name;
+  });
+  await renderDashboard(item);
+}
+
+function renderFlowMap(items, cogsStore) {
+  const root = document.getElementById("flow-map-grid");
+  if (!root) return;
+  root.innerHTML = "";
+
+  const pricing = findLatestReportByKind(items, "dynamic_pricing");
+  const marketing = findLatestReportByKind(items, "marketing_card_audit");
+  const paidStorage = findLatestReportByKind(items, "paid_storage_report");
+  const waybill = findLatestReportByKind(items, "waybill_cost_layer");
+  const rescoredMarket = findLatestReportByName(items, "market_rescored_after_cogs");
+  const cogsSummary = cogsStore?.summary || {};
+  const cogsRows = cogsStore?.items || [];
+
+  const flows = [
+    {
+      title: "Pricing",
+      state: pricing ? "available" : "runner",
+      badge: pricing ? "Доступно" : "Runner only",
+      summary: pricing
+        ? "Отдельный report/view уже есть в основном UI."
+        : "Отчёт ещё не попал в dashboard index, но job уже заведён в runner.",
+      meta: [
+        pricing ? `Последний артефакт: ${reportOptionLabel(pricing)}` : "Артефакт в основном UI пока не найден.",
+        "Режим: read-only report + локальный rebuild через refresh runner.",
+      ],
+      reportFile: pricing?.file_name,
+      jobKey: "dynamic_pricing",
+    },
+    {
+      title: "Marketing audit",
+      state: marketing ? "available" : "runner",
+      badge: marketing ? "Доступно" : "Runner only",
+      summary: marketing
+        ? "Price trap, title SEO и рыночный контекст уже сведены в единый экран."
+        : "Unified marketing surface ещё не найден в dashboard index.",
+      meta: [
+        marketing ? `Последний артефакт: ${reportOptionLabel(marketing)}` : "Артефакт в основном UI пока не найден.",
+        "Режим: read-only report + локальный rebuild через refresh runner.",
+      ],
+      reportFile: marketing?.file_name,
+      jobKey: "marketing_card_audit",
+    },
+    {
+      title: "Paid storage",
+      state: paidStorage ? "available" : "runner",
+      badge: paidStorage ? "Доступно" : "Runner only",
+      summary: paidStorage
+        ? "Крупные начисления и строки без identity уже читаются в основном UI."
+        : "В основном UI ещё нет текущего paid storage bundle.",
+      meta: [
+        paidStorage ? `Последний артефакт: ${reportOptionLabel(paidStorage)}` : "Артефакт в основном UI пока не найден.",
+        "Режим: read-only report, сам seller-documents refresh остаётся runner-driven.",
+      ],
+      reportFile: paidStorage?.file_name,
+      jobKey: "paid_storage_report",
+    },
+    {
+      title: "Waybill / historical COGS",
+      state: waybill ? "available" : "runner",
+      badge: waybill ? "Доступно" : "Runner only",
+      summary: waybill
+        ? "Batch-cost и historical COGS слой уже вынесены в основной интерфейс."
+        : "Waybill слой ещё не найден в dashboard index.",
+      meta: [
+        waybill ? `Последний артефакт: ${reportOptionLabel(waybill)}` : "Артефакт в основном UI пока не найден.",
+        "Режим: read-only report + interactive rebuild через runner job.",
+      ],
+      reportFile: waybill?.file_name,
+      jobKey: "waybill_cost_layer",
+    },
+    {
+      title: "Zero COGS cycle",
+      state: cogsRows.length || rescoredMarket ? "partial" : "runner",
+      badge: cogsRows.length || rescoredMarket ? "Partial" : "Runner only",
+      summary: cogsRows.length
+        ? "Локальное хранилище overrides уже заполнено, но inline fill/edit в основном UI пока нет."
+        : "Цикл registry -> fill -> rescore уже существует, но запускается через refresh runner.",
+      meta: [
+        cogsStore?.generated_at
+          ? `Локальный store: ${formatDateTime(cogsStore.generated_at)} · rows ${formatNumber(cogsSummary.items_total || cogsRows.length)} · imported ${formatNumber(cogsSummary.fill_rows_imported || 0)}`
+          : "Локальный store COGS пока не найден или ещё не был собран.",
+        rescoredMarket
+          ? `Связанный артефакт: ${reportOptionLabel(rescoredMarket)}`
+          : "Rescored market bundle после COGS пока не найден в dashboard index.",
+        "Режим: partial. Артефакты видны, но сам fill/rescore цикл пока runner-driven.",
+      ],
+      reportFile: rescoredMarket?.file_name,
+      jobKey: "cogs_backfill_cycle",
+    },
+  ];
+
+  flows.forEach((flow) => {
+    const card = el("article", "list-card flow-card");
+    const header = el("div", "flow-card-header");
+    const headingWrap = el("div", "");
+    headingWrap.append(el("h3", "flow-card-title", flow.title));
+    headingWrap.append(el("p", "flow-card-subtitle", flow.summary));
+    header.append(headingWrap);
+    header.append(el("span", `badge badge-${flow.state === "available" ? "available" : flow.state === "partial" ? "partial" : "runner"}`, flow.badge));
+    card.append(header);
+
+    const meta = el("div", "flow-card-meta");
+    flow.meta.forEach((line) => meta.append(el("p", "", line)));
+    card.append(meta);
+
+    const actions = el("div", "flow-card-actions");
+    if (flow.reportFile) {
+      const openBtn = el("button", "theme-toggle compact-button", "Открыть в UI");
+      openBtn.type = "button";
+      openBtn.addEventListener("click", async () => {
+        await activateReport(flow.reportFile);
+        document.getElementById("report-select")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      actions.append(openBtn);
+    }
+    if (flow.jobKey) {
+      const runnerLink = document.createElement("a");
+      runnerLink.className = "theme-toggle compact-button";
+      runnerLink.href = runnerJobUrl(flow.jobKey);
+      runnerLink.textContent = flow.jobKey === "cogs_backfill_cycle" ? "Открыть COGS cycle" : "Открыть runner";
+      actions.append(runnerLink);
+    }
+    card.append(actions);
+    root.append(card);
+  });
+}
+
 function clearNode(id) {
   const node = document.getElementById(id);
   if (node) {
@@ -2321,11 +2475,15 @@ async function init() {
   document.getElementById("refresh-link-bottom")?.setAttribute("href", refreshUiUrl());
   const index = await loadDashboardIndex();
   entityHistoryIndex = await loadEntityHistoryIndex().catch(() => ({ entities: [] }));
+  cogsOverrideStore = await loadLocalCogsStore().catch(() => null);
   const select = document.getElementById("report-select");
   const selectBottom = document.getElementById("report-select-bottom");
   let items = index.items || [];
   const selects = [select, selectBottom].filter(Boolean);
+  dashboardItems = items;
+  dashboardSelects = selects;
   populateReportSelects(selects, items);
+  renderFlowMap(items, cogsOverrideStore);
 
   const storedFile = getStoredReportSelection();
   const initial = items.find((item) => item.file_name === storedFile) || index.latest || items[0];
@@ -2360,8 +2518,10 @@ async function init() {
       const nextSignature = nextItems.map((item) => item.file_name).join("|");
       if (nextSignature === currentSignature) return;
       items = nextItems;
+      dashboardItems = nextItems;
       const currentValue = selects[0]?.value || "";
       populateReportSelects(selects, nextItems);
+      renderFlowMap(nextItems, cogsOverrideStore);
       const fallbackValue = nextItems.some((item) => item.file_name === currentValue)
         ? currentValue
         : (nextIndex.latest?.file_name || nextItems[0]?.file_name || "");
