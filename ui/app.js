@@ -2295,13 +2295,30 @@ function starsHtml(rating) {
   return "★".repeat(n) + "☆".repeat(5 - n);
 }
 
+function getReplyLifecycleStatus(item) {
+  if (item.has_answer) return "sent";
+  if (!item.id || !["review", "question"].includes(item.kind)) return "unsupported";
+  return "draft";
+}
+
+function replyStatusMeta(status) {
+  const labels = {
+    draft: { text: "draft", note: "Черновик можно править и генерировать заново до ручного approve." },
+    approved: { text: "approved", note: "Текст вручную подтверждён и готов к отправке в Seller API." },
+    sent: { text: "sent", note: "Ответ уже отправлен. Карточка остаётся read-only как подтверждение результата." },
+    unsupported: { text: "unsupported", note: "Для этой записи send-flow недоступен: нет корректного идентификатора или тип записи не поддержан." },
+  };
+  return labels[status] || labels.draft;
+}
+
 function renderReviewCard(item) {
   const card = el("div", "review-card");
   card.dataset.kind = item.kind;
   if (item.rating != null) card.dataset.rating = String(item.rating);
+  let replyStatus = getReplyLifecycleStatus(item);
 
   const header = el("div", "review-header");
-  const title = el("h3", "", item.product_title || item.kind === "question" ? "Вопрос" : "Отзыв");
+  const title = el("h3", "", item.product_title || (item.kind === "question" ? "Вопрос" : "Отзыв"));
   header.append(title);
   if (item.rating != null) {
     const stars = el("span", "review-stars", starsHtml(item.rating));
@@ -2311,27 +2328,82 @@ function renderReviewCard(item) {
   const badge = el("span", `badge badge-${item.kind === "question" ? "offline" : "online"}`,
     item.kind === "question" ? "Вопрос" : "Отзыв");
   header.append(badge);
+  const statusBadge = el("span", "", "");
+  const note = el("p", "reply-note", "");
+  const syncStatus = () => {
+    const metaInfo = replyStatusMeta(replyStatus);
+    statusBadge.className = `reply-status-badge reply-status-${replyStatus}`;
+    statusBadge.textContent = metaInfo.text;
+    note.textContent = metaInfo.note;
+  };
+  syncStatus();
+  header.append(statusBadge);
   card.append(header);
 
   const meta = el("div", "review-meta",
-    `${item.author || "Покупатель"} · ${String(item.created_at || "").slice(0, 10) || "дата н/д"} · ID ${item.id}`);
+    `${item.author || "Покупатель"} · ${String(item.created_at || "").slice(0, 10) || "дата н/д"} · ID ${item.id}${item.has_answer ? " · has_answer" : ""}`);
   card.append(meta);
 
   const text = el("p", "review-text", item.text || "(текст отсутствует)");
   card.append(text);
 
-  // Reply area
+  const existing = el("div", "reply-existing");
+  existing.append(el("span", "reply-existing-label", "Существующий ответ"));
+  const existingText = el("div", "", item.answer_text || "");
+  existing.append(existingText);
+  existing.hidden = !item.answer_text;
+  card.append(existing);
+
   const textarea = document.createElement("textarea");
   textarea.className = "reply-editor";
   textarea.placeholder = "Черновик ответа появится здесь после нажатия «Сгенерировать»…";
+  if (item.answer_text) {
+    textarea.value = item.answer_text;
+  }
   card.append(textarea);
 
   const actions = el("div", "reply-actions");
   const strategyLabel = el("span", "reply-strategy", "");
-
+  const approveBtn = el("button", "theme-toggle compact-button", "✓ Approve");
+  approveBtn.type = "button";
   const genBtn = el("button", "theme-toggle compact-button", "✦ Сгенерировать");
   genBtn.type = "button";
+  const sendBtn = el("button", "theme-toggle compact-button", "↑ Отправить");
+  sendBtn.type = "button";
+  const sentBadge = el("span", "reply-sent-badge", "✓ Отправлено");
+
+  const syncButtons = () => {
+    const hasDraft = Boolean(textarea.value.trim());
+    const isLocked = replyStatus === "sent" || replyStatus === "unsupported";
+    textarea.disabled = isLocked;
+    genBtn.disabled = isLocked;
+    approveBtn.disabled = isLocked || !hasDraft;
+    sendBtn.disabled = isLocked || replyStatus !== "approved" || !hasDraft;
+    approveBtn.textContent = replyStatus === "approved" ? "✓ Approved" : "✓ Approve";
+    sentBadge.hidden = replyStatus !== "sent";
+  };
+
+  textarea.addEventListener("input", () => {
+    if (replyStatus === "approved") {
+      replyStatus = "draft";
+      syncStatus();
+    }
+    syncButtons();
+  });
+
+  approveBtn.addEventListener("click", () => {
+    if (replyStatus === "unsupported" || replyStatus === "sent") return;
+    if (!textarea.value.trim()) {
+      alert("Черновик пуст.");
+      return;
+    }
+    replyStatus = "approved";
+    syncStatus();
+    syncButtons();
+  });
+
   genBtn.addEventListener("click", async () => {
+    if (replyStatus === "unsupported" || replyStatus === "sent") return;
     genBtn.disabled = true;
     genBtn.textContent = "Генерирую…";
     strategyLabel.textContent = "";
@@ -2347,22 +2419,30 @@ function renderReviewCard(item) {
       const strat = data.draft?.strategy || "";
       const prov = data.draft?.provider || "";
       strategyLabel.textContent = strat === "llm" ? `LLM: ${prov}` : strat === "template_fallback" ? `шаблон (LLM: ${data.draft?.llm_error || "не настроен"})` : "шаблон";
+      replyStatus = "draft";
+      syncStatus();
+      syncButtons();
     } catch (e) {
       strategyLabel.textContent = `Ошибка: ${e.message}`;
     } finally {
       genBtn.disabled = false;
       genBtn.textContent = "✦ Сгенерировать";
+      syncButtons();
     }
   });
 
-  const sendBtn = el("button", "theme-toggle compact-button", "↑ Отправить");
-  sendBtn.type = "button";
   sendBtn.addEventListener("click", async () => {
+    if (replyStatus === "unsupported" || replyStatus === "sent") return;
     const text = textarea.value.trim();
     if (!text) { alert("Черновик пуст."); return; }
+    if (replyStatus !== "approved") {
+      alert("Сначала подтверди черновик через Approve.");
+      return;
+    }
     const token = reviewsToken || (window.prompt("Access token для отправки ответа:") || "").trim();
     if (!token) { alert("Токен не задан."); return; }
     reviewsToken = token;
+    approveBtn.disabled = true;
     sendBtn.disabled = true;
     sendBtn.textContent = "Отправляю…";
     try {
@@ -2373,18 +2453,24 @@ function renderReviewCard(item) {
       });
       const data = await resp.json();
       if (!resp.ok) throw new Error(data.error || `HTTP ${resp.status}`);
-      const badge = el("span", "reply-sent-badge", "✓ Отправлено");
-      actions.append(badge);
-      sendBtn.disabled = true;
-      card.style.opacity = "0.6";
+      item.has_answer = true;
+      item.answer_text = text;
+      existingText.textContent = text;
+      existing.hidden = false;
+      replyStatus = "sent";
+      syncStatus();
+      syncButtons();
+      strategyLabel.textContent = data.status === "ok" ? "Seller API: sent" : strategyLabel.textContent;
     } catch (e) {
       alert(`Ошибка отправки: ${e.message}`);
-      sendBtn.disabled = false;
+      syncButtons();
       sendBtn.textContent = "↑ Отправить";
     }
   });
 
-  actions.append(genBtn, sendBtn, strategyLabel);
+  syncButtons();
+  actions.append(genBtn, approveBtn, sendBtn, sentBadge, strategyLabel);
+  card.append(note);
   card.append(actions);
   return card;
 }
