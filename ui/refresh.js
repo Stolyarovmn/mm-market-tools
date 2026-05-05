@@ -727,7 +727,13 @@ async function refreshActiveRun() {
     log.textContent = "Нет активного запуска.";
     return;
   }
-  const payload = await loadJson(`/api/run?job_id=${encodeURIComponent(activeJobId)}`);
+  let payload;
+  try {
+    payload = await loadJson(`/api/run?job_id=${encodeURIComponent(activeJobId)}`);
+  } catch (e) {
+    log.textContent = `Ошибка поллинга: ${e.message}`;
+    return;
+  }
   renderRunMeta(payload.status);
   await renderResultSummary(payload.status);
   log.textContent = payload.log || "Лог пока пуст.";
