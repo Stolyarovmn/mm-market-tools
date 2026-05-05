@@ -2851,7 +2851,14 @@ async function init() {
   decorateStaticPanelInfos();
   document.getElementById("refresh-link-top")?.setAttribute("href", refreshUiUrl());
   document.getElementById("refresh-link-bottom")?.setAttribute("href", refreshUiUrl());
-  const index = await loadDashboardIndex();
+  let index;
+  try {
+    index = await loadDashboardIndex();
+  } catch (e) {
+    const _initMetaGrid = document.getElementById("meta-grid");
+    if (_initMetaGrid) _initMetaGrid.innerHTML = `<p class="empty-state">Не удалось загрузить индекс отчётов: ${e.message}. Запустите <code>build_dashboard_index.py</code>.</p>`;
+    return;
+  }
   entityHistoryIndex = await loadEntityHistoryIndex().catch(() => ({ entities: [] }));
   cogsOverrideStore = await loadLocalCogsStore().catch(() => null);
   const select = document.getElementById("report-select");
