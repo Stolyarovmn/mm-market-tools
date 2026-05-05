@@ -2373,7 +2373,15 @@ async function renderDashboard(item) {
     link.title = jobTitle;
     link.style.display = "";
   });
-  const rawPayload = await loadJson(`../data/dashboard/${item.file_name}`);
+  const _dashMetaGrid = document.getElementById("meta-grid");
+  if (_dashMetaGrid) _dashMetaGrid.innerHTML = '<p class="empty-state">Загрузка отчёта…</p>';
+  let rawPayload;
+  try {
+    rawPayload = await loadJson(`../data/dashboard/${item.file_name}`);
+  } catch (e) {
+    if (_dashMetaGrid) _dashMetaGrid.innerHTML = `<p class="empty-state">Не удалось загрузить отчёт: ${e.message}</p>`;
+    return;
+  }
   const payload = item.report_kind === "cubejs_period_compare" ? normalizeCubejsComparePayload(rawPayload) : rawPayload;
   currentEntityRows = buildEntityNavigationRows(payload);
   const isCompare = item.report_kind === "cubejs_period_compare";
