@@ -49,6 +49,10 @@ export async function loadEntityHistoryIndex() {
   return fetchJson(ENTITY_HISTORY_INDEX_URL);
 }
 
+export async function loadLocalCogsStore() {
+  return fetchJson("../data/local/cogs_overrides.json");
+}
+
 export async function loadActionCenter() {
   return fetchJsonWithFallback(actionCenterUrl("/api/action-center"));
 }

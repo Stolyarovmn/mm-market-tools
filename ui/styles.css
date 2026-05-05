@@ -593,6 +593,56 @@ select,
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
+.flow-card {
+  display: grid;
+  gap: 12px;
+}
+
+.flow-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.flow-card-title {
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.flow-card-subtitle,
+.flow-card-meta {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.flow-card-meta {
+  display: grid;
+  gap: 6px;
+}
+
+.flow-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge-available {
+  color: var(--good);
+  background: color-mix(in srgb, var(--good) 16%, transparent);
+}
+
+.badge-partial {
+  color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 18%, transparent);
+}
+
+.badge-runner {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .insights-grid {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
