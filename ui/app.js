@@ -2789,7 +2789,9 @@ function renderBuyerReviewsToolbar() {
 async function loadBuyerReviews() {
   const root = document.getElementById("buyer-reviews-list");
   if (!root) return;
-  root.innerHTML = "";
+  root.innerHTML = '<p class="empty-state">Загрузка отзывов…</p>';
+  const reloadBtn = document.querySelector("#buyer-reviews-wrap .compact-button");
+  if (reloadBtn) { reloadBtn.disabled = true; reloadBtn.textContent = "Загрузка…"; }
   try {
     const resp = await fetch("/api/reviews");
     const data = await resp.json();
@@ -2808,6 +2810,8 @@ async function loadBuyerReviews() {
     items.forEach((item) => root.append(renderReviewCard(item)));
   } catch {
     root.append(el("p", "empty-state", "Refresh runner недоступен. Запусти web_refresh_server.py, чтобы загрузить отзывы."));
+  } finally {
+    if (reloadBtn) { reloadBtn.disabled = false; reloadBtn.textContent = "↻ Обновить список"; }
   }
 }
 
