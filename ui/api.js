@@ -104,3 +104,31 @@ export async function saveActionView(payload) {
     body: JSON.stringify(payload),
   });
 }
+
+export async function loadRunnerJobs() {
+  return fetchJsonWithFallback(actionCenterUrl("/api/jobs"));
+}
+
+export async function loadRunnerRuns() {
+  return fetchJsonWithFallback(actionCenterUrl("/api/runs"));
+}
+
+export async function loadRunnerRun(jobId) {
+  return fetchJsonWithFallback(actionCenterUrl(`/api/run?job_id=${encodeURIComponent(jobId)}`));
+}
+
+export async function startRunnerJob(jobKey, formData = {}) {
+  return fetchJsonWithFallback(actionCenterUrl("/api/run"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ job_key: jobKey, form_data: formData }),
+  });
+}
+
+export async function validateRunnerToken(token) {
+  return fetchJsonWithFallback(actionCenterUrl("/api/token-health"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token }),
+  });
+}

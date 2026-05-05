@@ -7,18 +7,25 @@ import {
   loadActionCenter,
   loadDashboardIndex,
   loadLocalCogsStore,
+  loadRunnerJobs,
+  loadRunnerRun,
+  loadRunnerRuns,
   saveActionView,
+  startRunnerJob,
   toggleActionItem,
   updateActionItem,
+  validateRunnerToken,
 } from "./api.js";
 import {
   getStoredActionFilter,
   getStoredActionOwner,
   getStoredReportSelection,
+  getStoredRefreshToken,
   initThemeToggle,
   setStoredActionFilter,
   setStoredActionOwner,
   setStoredReportSelection,
+  setStoredRefreshToken,
 } from "./state.js";
 import {
   REPORT_KIND_LABELS,
@@ -55,6 +62,20 @@ let dashboardItems = [];
 let dashboardSelects = [];
 let cogsOverrideStore = null;
 const DASHBOARD_INDEX_POLL_MS = 15000;
+const RUNNER_STATUS_POLL_MS = 15000;
+const SAFE_RUNNER_JOB_KEYS = [
+  "validate_token",
+  "weekly_operational",
+  "paid_storage_report",
+  "sales_return_report",
+  "buyer_reviews",
+  "dashboard_rebuild",
+];
+let runnerJobs = [];
+let runnerRuns = [];
+let runnerActiveJobId = null;
+let runnerSharedToken = getStoredRefreshToken();
+let runnerTokenHealth = null;
 
 function formatMoney(value) {
   return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(value || 0);
@@ -1529,6 +1550,265 @@ function renderActionCenter() {
   statusRoot.append(lifecycleCard);
 }
 
+function safeRunnerJobs() {
+  return SAFE_RUNNER_JOB_KEYS
+    .map((jobKey) => runnerJobs.find((job) => job.job_key === jobKey))
+    .filter(Boolean);
+}
+
+function buildRunnerFormData(job) {
+  const formData = {};
+  let requiresToken = false;
+  for (const field of job.fields || []) {
+    if (field.name === "token") {
+      requiresToken = true;
+      continue;
+    }
+    if (field.default !== undefined && field.default !== "") {
+      formData[field.name] = field.default;
+      continue;
+    }
+    if (field.required) {
+      throw new Error(`Job ${job.job_key} требует поле ${field.label || field.name}. Для кастомного запуска открой полный runner.`);
+    }
+  }
+  if (requiresToken) {
+    const token = String(runnerSharedToken || "").trim();
+    if (!token) {
+      throw new Error("Для этого online job нужен access token. Задай его в toolbar runtime-операций.");
+    }
+    formData.token = token;
+  }
+  return formData;
+}
+
+function formatRunnerDate(value) {
+  return value ? formatDateTime(value) : "РЅ/Рґ";
+}
+
+function renderRuntimeOpsToolbar() {
+  const root = document.getElementById("runtime-ops-toolbar");
+  if (!root) return;
+  root.innerHTML = "";
+  const wrap = el("div", "inline-form");
+  const tokenInput = document.createElement("input");
+  tokenInput.type = "password";
+  tokenInput.className = "inline-input";
+  tokenInput.placeholder = "Access token для online jobs";
+  tokenInput.value = runnerSharedToken || "";
+  tokenInput.autocomplete = "off";
+  tokenInput.style.minWidth = "280px";
+  tokenInput.addEventListener("input", () => {
+    runnerSharedToken = tokenInput.value.trim();
+    setStoredRefreshToken(runnerSharedToken);
+  });
+  const validateBtn = el("button", "theme-toggle compact-button", "Проверить токен");
+  validateBtn.type = "button";
+  validateBtn.addEventListener("click", async () => {
+    const token = String(tokenInput.value || "").trim();
+    if (!token) {
+      alert("Сначала задай access token.");
+      return;
+    }
+    validateBtn.disabled = true;
+    try {
+      runnerTokenHealth = await validateRunnerToken(token);
+      runnerSharedToken = token;
+      setStoredRefreshToken(token);
+      renderRuntimeOps();
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      validateBtn.disabled = false;
+    }
+  });
+  const reloadBtn = el("button", "theme-toggle compact-button", "Обновить runtime");
+  reloadBtn.type = "button";
+  reloadBtn.addEventListener("click", async () => {
+    reloadBtn.disabled = true;
+    try {
+      await refreshRuntimeOps();
+    } finally {
+      reloadBtn.disabled = false;
+    }
+  });
+  const openRunner = document.createElement("a");
+  openRunner.className = "theme-toggle compact-button";
+  openRunner.href = refreshUiUrl();
+  openRunner.textContent = "Полный runner";
+  wrap.append(tokenInput, validateBtn, reloadBtn, openRunner);
+  root.append(wrap);
+}
+
+function renderRuntimeStatusCard(activeRun) {
+  const root = document.getElementById("runtime-ops-status-panel");
+  if (!root) return;
+  root.innerHTML = "";
+  const card = el("div", "list-card");
+  appendHeadingWithInfo(card, "h3", "Runtime state", "Показывает, жив ли embedded runner-контур в основном UI, какой job активен и можно ли запускать следующий safe/manual сценарий без перехода в legacy refresh screen.");
+  const latestRun = activeRun?.status || runnerRuns[0] || null;
+  const tokenLine = runnerSharedToken
+    ? (runnerTokenHealth?.token_health?.status === "valid" ? "Токен проверен и выглядит валидным." : "Токен задан, но не проверен в этой сессии.")
+    : "Токен не задан. Offline job можно запускать и без него.";
+  card.append(el("p", "", tokenLine));
+  card.append(el("p", "", `Safe jobs в main UI: ${formatNumber(safeRunnerJobs().length)}`));
+  card.append(el("p", "", `Последних запусков в истории: ${formatNumber(runnerRuns.length)}`));
+  if (latestRun) {
+    card.append(el("p", "", `Текущий фокус: ${latestRun.job_key} · ${latestRun.state || "unknown"}`));
+    card.append(el("p", "", `Старт: ${formatRunnerDate(latestRun.started_at)} · Завершение: ${formatRunnerDate(latestRun.ended_at)}`));
+    if (latestRun.progress_hint) {
+      card.append(el("p", "", `Progress: ${latestRun.progress_hint}`));
+    }
+    const jump = document.createElement("a");
+    jump.className = "theme-toggle compact-button";
+    jump.href = runnerJobUrl(latestRun.job_key);
+    jump.textContent = "Открыть в full runner";
+    card.append(jump);
+  } else {
+    card.append(el("p", "empty-state", "История запусков пока пуста."));
+  }
+  root.append(card);
+}
+
+function renderRuntimeJobsCard() {
+  const root = document.getElementById("runtime-ops-jobs-panel");
+  if (!root) return;
+  root.innerHTML = "";
+  const card = el("div", "list-card");
+  appendHeadingWithInfo(card, "h3", "Safe/manual jobs", "Первая волна переноса: только jobs с понятным manual workflow и дефолтными параметрами. Сложные кастомные сценарии по-прежнему доступны через full runner.");
+  const jobs = safeRunnerJobs();
+  if (!jobs.length) {
+    card.append(el("p", "empty-state", "Runner API недоступен или safe jobs ещё не загружены."));
+    root.append(card);
+    return;
+  }
+  const list = el("ul", "compact-list");
+  jobs.forEach((job) => {
+    const item = el("li");
+    const content = el("div", "list-item-main");
+    const defaults = (job.fields || [])
+      .filter((field) => field.name !== "token" && field.default !== undefined && field.default !== "")
+      .slice(0, 3)
+      .map((field) => `${field.label || field.name}: ${field.default}`)
+      .join(" В· ");
+    content.append(el("strong", "", job.title || job.job_key));
+    content.append(el("span", "", `${job.mode || "unknown"}${defaults ? ` В· ${defaults}` : ""}`));
+    item.append(content);
+    const controls = el("div", "entity-actions");
+    controls.append(
+      createActionButton("Запустить", "secondary", async () => {
+        const formData = buildRunnerFormData(job);
+        if (formData.token) {
+          runnerTokenHealth = await validateRunnerToken(formData.token);
+        }
+        const payload = await startRunnerJob(job.job_key, formData);
+        runnerActiveJobId = payload.status?.job_id || null;
+        await refreshRuntimeOps();
+      }),
+    );
+    const fullRunnerLink = document.createElement("a");
+    fullRunnerLink.className = "theme-toggle compact-button";
+    fullRunnerLink.href = runnerJobUrl(job.job_key);
+    fullRunnerLink.textContent = "Параметры";
+    controls.append(fullRunnerLink);
+    item.append(controls);
+    list.append(item);
+  });
+  card.append(list);
+  root.append(card);
+}
+
+function renderRuntimeRunsCard(activeRun) {
+  const root = document.getElementById("runtime-ops-runs-panel");
+  if (!root) return;
+  root.innerHTML = "";
+  const card = el("div", "list-card");
+  appendHeadingWithInfo(card, "h3", "Последние run'ы", "Показывает короткую runtime-историю прямо в основном UI: что запускалось последним, чем закончилось и куда перейти за полным логом.");
+  if (activeRun?.log) {
+    const pre = document.createElement("pre");
+    pre.className = "log-panel";
+    pre.textContent = activeRun.log.slice(-1200) || "Лог пуст.";
+    card.append(pre);
+  }
+  if (!runnerRuns.length) {
+    card.append(el("p", "empty-state", "Запусков пока нет."));
+    root.append(card);
+    return;
+  }
+  const list = el("ul", "compact-list");
+  runnerRuns.slice(0, 6).forEach((run) => {
+    const item = el("li");
+    const content = el("div", "list-item-main");
+    content.append(el("strong", "", `${run.job_key} · ${run.state || "unknown"}`));
+    content.append(el("span", "", `${formatRunnerDate(run.started_at)}${run.return_code !== null && run.return_code !== undefined ? ` В· code ${run.return_code}` : ""}`));
+    item.append(content);
+    const controls = el("div", "entity-actions");
+    controls.append(
+      createActionButton("Фокус", "secondary", async () => {
+        runnerActiveJobId = run.job_id;
+        await refreshRuntimeOps();
+      }),
+    );
+    const link = document.createElement("a");
+    link.className = "theme-toggle compact-button";
+    link.href = runnerJobUrl(run.job_key);
+    link.textContent = "Runner";
+    controls.append(link);
+    item.append(controls);
+    list.append(item);
+  });
+  card.append(list);
+  root.append(card);
+}
+
+function renderRuntimeOpsUnavailable(error) {
+  renderRuntimeOpsToolbar();
+  const targets = [
+    document.getElementById("runtime-ops-status-panel"),
+    document.getElementById("runtime-ops-jobs-panel"),
+    document.getElementById("runtime-ops-runs-panel"),
+  ];
+  targets.forEach((root) => {
+    if (!root) return;
+    root.innerHTML = "";
+  });
+  const card = el("div", "list-card");
+  card.append(el("h3", "", "Runner недоступен"));
+  card.append(el("p", "", error.message));
+  const link = document.createElement("a");
+  link.className = "theme-toggle compact-button";
+  link.href = refreshUiUrl();
+  link.textContent = "Открыть legacy runner";
+  card.append(link);
+  targets[0]?.append(card);
+}
+
+function renderRuntimeOps(activeRun = null) {
+  renderRuntimeOpsToolbar();
+  renderRuntimeStatusCard(activeRun);
+  renderRuntimeJobsCard();
+  renderRuntimeRunsCard(activeRun);
+}
+
+async function refreshRuntimeOps() {
+  try {
+    const [jobsPayload, runsPayload] = await Promise.all([
+      loadRunnerJobs(),
+      loadRunnerRuns(),
+    ]);
+    runnerJobs = jobsPayload.jobs || [];
+    runnerRuns = runsPayload.runs || [];
+    if (!runnerActiveJobId || !runnerRuns.some((run) => run.job_id === runnerActiveJobId)) {
+      runnerActiveJobId = runnerRuns[0]?.job_id || null;
+    }
+    const activePayload = runnerActiveJobId
+      ? await loadRunnerRun(runnerActiveJobId).catch(() => null)
+      : null;
+    renderRuntimeOps(activePayload);
+  } catch (error) {
+    renderRuntimeOpsUnavailable(error);
+  }
+}
 function renderTables(payload) {
   const tables = payload.tables || {};
   const currentRows = (tables.current_winners || []).length ? (tables.current_winners || []) : (tables.soft_signal_products || []);
