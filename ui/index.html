@@ -43,6 +43,14 @@
     .reply-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
     .reply-strategy { font-size: .72rem; color: var(--color-text-muted, #888); }
     .reply-sent-badge { font-size: .8rem; color: var(--color-good, #4caf50); font-weight: 600; }
+    .reply-status-badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .reply-status-draft { background: var(--color-warn-soft, rgba(240,165,0,.12)); color: var(--color-warn, #f0a500); }
+    .reply-status-approved { background: var(--color-accent-soft, rgba(107,138,253,.15)); color: var(--color-accent, #6b8afd); }
+    .reply-status-sent { background: rgba(76,175,80,.12); color: var(--color-good, #4caf50); }
+    .reply-status-unsupported { background: rgba(229,57,53,.12); color: var(--color-bad, #e53935); }
+    .reply-note { margin-top: 8px; font-size: .78rem; color: var(--color-text-muted, #888); line-height: 1.45; }
+    .reply-existing { margin: 10px 0 12px; padding: 10px 12px; border-radius: 8px; background: var(--color-bg, #fafafa); border: 1px solid var(--color-border, #e0e0e0); }
+    .reply-existing-label { display: block; margin-bottom: 6px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--color-text-muted, #888); }
   </style>
 </head>
 <body>
@@ -226,3 +234,4 @@
   <script type="module" src="/ui/app.js"></script>
 </body>
 </html>
+

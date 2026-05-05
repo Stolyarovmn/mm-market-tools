@@ -65,30 +65,30 @@ function formatNumber(value) {
 }
 
 function formatPercent(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "н/д";
+  if (value === null || value === undefined || Number.isNaN(value)) return "РЅ/Рґ";
   return `${value > 0 ? "+" : ""}${value}%`;
 }
 
 function formatShare(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "н/д";
+  if (value === null || value === undefined || Number.isNaN(value)) return "РЅ/Рґ";
   return `${Number(value).toFixed(1)}%`;
 }
 
 function formatWindow(window) {
-  if (!window || !window.date_from || !window.date_to) return "нет окна";
+  if (!window || !window.date_from || !window.date_to) return "РЅРµС‚ РѕРєРЅР°";
   return `${window.date_from.slice(0, 10)} -> ${window.date_to.slice(0, 10)}`;
 }
 
 function detectSourceMode(sourceValue) {
   const raw = String(sourceValue || "");
-  if (!raw) return "н/д";
-  if (raw.startsWith("/")) return "локальные seller CSV";
+  if (!raw) return "РЅ/Рґ";
+  if (raw.startsWith("/")) return "Р»РѕРєР°Р»СЊРЅС‹Рµ seller CSV";
   if (raw.startsWith("http://") || raw.startsWith("https://")) return "seller CSV URL";
   return "seller CSV";
 }
 
 function formatDateTime(value) {
-  if (!value) return "н/д";
+  if (!value) return "РЅ/Рґ";
   try {
     return new Date(value).toLocaleString("ru-RU");
   } catch (_) {
@@ -99,57 +99,57 @@ function formatDateTime(value) {
 function formatEntityType(value) {
   const labels = {
     sku: "SKU",
-    family: "семейство",
-    seller: "продавец",
-    market_segment: "рыночный сегмент",
-    unknown: "сущность",
+    family: "СЃРµРјРµР№СЃС‚РІРѕ",
+    seller: "РїСЂРѕРґР°РІРµС†",
+    market_segment: "СЂС‹РЅРѕС‡РЅС‹Р№ СЃРµРіРјРµРЅС‚",
+    unknown: "СЃСѓС‰РЅРѕСЃС‚СЊ",
   };
-  return labels[value] || value || "сущность";
+  return labels[value] || value || "СЃСѓС‰РЅРѕСЃС‚СЊ";
 }
 
 function formatActionStatus(value) {
   const labels = {
-    open: "новая",
-    in_progress: "в работе",
-    blocked: "блокер",
-    done: "завершена",
+    open: "РЅРѕРІР°СЏ",
+    in_progress: "РІ СЂР°Р±РѕС‚Рµ",
+    blocked: "Р±Р»РѕРєРµСЂ",
+    done: "Р·Р°РІРµСЂС€РµРЅР°",
   };
-  return labels[value] || value || "новая";
+  return labels[value] || value || "РЅРѕРІР°СЏ";
 }
 
 function formatModeLabel(value) {
   const labels = {
-    reused: "загружено из архива",
-    created: "запрошено через API",
-    downloaded: "скачано из seller-отчёта",
-    online: "онлайн-запуск",
-    offline: "локальная пересборка",
-    "seller analytics": "аналитика продавца",
+    reused: "Р·Р°РіСЂСѓР¶РµРЅРѕ РёР· Р°СЂС…РёРІР°",
+    created: "Р·Р°РїСЂРѕС€РµРЅРѕ С‡РµСЂРµР· API",
+    downloaded: "СЃРєР°С‡Р°РЅРѕ РёР· seller-РѕС‚С‡С‘С‚Р°",
+    online: "РѕРЅР»Р°Р№РЅ-Р·Р°РїСѓСЃРє",
+    offline: "Р»РѕРєР°Р»СЊРЅР°СЏ РїРµСЂРµСЃР±РѕСЂРєР°",
+    "seller analytics": "Р°РЅР°Р»РёС‚РёРєР° РїСЂРѕРґР°РІС†Р°",
   };
-  return labels[value] || value || "н/д";
+  return labels[value] || value || "РЅ/Рґ";
 }
 
 function describeSourceInfo(label, sourceValue, modeValue = "") {
   const source = String(sourceValue || "");
   const mode = String(modeValue || "");
   if (!source) {
-    return `${label}: источник не указан в metadata этого bundle.`;
+    return `${label}: РёСЃС‚РѕС‡РЅРёРє РЅРµ СѓРєР°Р·Р°РЅ РІ metadata СЌС‚РѕРіРѕ bundle.`;
   }
   if (mode === "reused") {
-    return `${label}: данные взяты из уже существующего seller-отчёта, который был создан раньше и повторно использован без нового запроса в MM API.`;
+    return `${label}: РґР°РЅРЅС‹Рµ РІР·СЏС‚С‹ РёР· СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ seller-РѕС‚С‡С‘С‚Р°, РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» СЃРѕР·РґР°РЅ СЂР°РЅСЊС€Рµ Рё РїРѕРІС‚РѕСЂРЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅ Р±РµР· РЅРѕРІРѕРіРѕ Р·Р°РїСЂРѕСЃР° РІ MM API.`;
   }
   if (source.startsWith("/")) {
-    return `${label}: данные считаны из локально сохранённого файла, который был выпущен предыдущим pipeline или ручной выгрузкой seller-отчёта.`;
+    return `${label}: РґР°РЅРЅС‹Рµ СЃС‡РёС‚Р°РЅС‹ РёР· Р»РѕРєР°Р»СЊРЅРѕ СЃРѕС…СЂР°РЅС‘РЅРЅРѕРіРѕ С„Р°Р№Р»Р°, РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» РІС‹РїСѓС‰РµРЅ РїСЂРµРґС‹РґСѓС‰РёРј pipeline РёР»Рё СЂСѓС‡РЅРѕР№ РІС‹РіСЂСѓР·РєРѕР№ seller-РѕС‚С‡С‘С‚Р°.`;
   }
   if (source.startsWith("http://") || source.startsWith("https://")) {
-    return `${label}: данные были получены по сетевому URL seller-контурa и затем сохранены локально для повторного анализа.`;
+    return `${label}: РґР°РЅРЅС‹Рµ Р±С‹Р»Рё РїРѕР»СѓС‡РµРЅС‹ РїРѕ СЃРµС‚РµРІРѕРјСѓ URL seller-РєРѕРЅС‚СѓСЂa Рё Р·Р°С‚РµРј СЃРѕС…СЂР°РЅРµРЅС‹ Р»РѕРєР°Р»СЊРЅРѕ РґР»СЏ РїРѕРІС‚РѕСЂРЅРѕРіРѕ Р°РЅР°Р»РёР·Р°.`;
   }
-  return `${label}: источник передан как идентификатор или краткое имя внутри pipeline.`;
+  return `${label}: РёСЃС‚РѕС‡РЅРёРє РїРµСЂРµРґР°РЅ РєР°Рє РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РёР»Рё РєСЂР°С‚РєРѕРµ РёРјСЏ РІРЅСѓС‚СЂРё pipeline.`;
 }
 
 function summarizeSource(sourceValue) {
   const raw = String(sourceValue || "");
-  if (!raw) return "н/д";
+  if (!raw) return "РЅ/Рґ";
   try {
     if (raw.startsWith("http://") || raw.startsWith("https://")) {
       const url = new URL(raw);
@@ -172,46 +172,46 @@ function getPrimarySku(row) {
 
 function metricLabel(key) {
   const labels = {
-    total_skus: "SKU всего",
-    sold_skus: "SKU с продажами",
-    revenue_total: "Выручка net",
-    gross_profit_total: "Валовая прибыль",
-    stockout_risk_count: "Риск OOS",
-    stale_stock_count: "Залежавшиеся",
-    observed_seller_count: "Продавцов",
-    observed_group_count: "Групп",
-    observed_price_bands: "Ценовых коридоров",
-    observed_idea_clusters: "Кластеров идей",
+    total_skus: "SKU РІСЃРµРіРѕ",
+    sold_skus: "SKU СЃ РїСЂРѕРґР°Р¶Р°РјРё",
+    revenue_total: "Р’С‹СЂСѓС‡РєР° net",
+    gross_profit_total: "Р’Р°Р»РѕРІР°СЏ РїСЂРёР±С‹Р»СЊ",
+    stockout_risk_count: "Р РёСЃРє OOS",
+    stale_stock_count: "Р—Р°Р»РµР¶Р°РІС€РёРµСЃСЏ",
+    observed_seller_count: "РџСЂРѕРґР°РІС†РѕРІ",
+    observed_group_count: "Р“СЂСѓРїРї",
+    observed_price_bands: "Р¦РµРЅРѕРІС‹С… РєРѕСЂРёРґРѕСЂРѕРІ",
+    observed_idea_clusters: "РљР»Р°СЃС‚РµСЂРѕРІ РёРґРµР№",
     overall_dominance_hhi: "HHI",
-    novelty_proxy_index: "Индекс новизны",
-    blind_spot_windows_count: "Слепых зон",
-    entry_ready_windows_count: "Готовых окон входа",
-    test_entry_windows_count: "Окон для теста",
-    avoid_windows_count: "Окон no-go",
-    priced_windows_count: "Окон с ценовой рекомендацией",
-    aggressive_price_windows_count: "Агрессивный вход",
-    market_price_windows_count: "Цена по рынку",
-    test_price_windows_count: "Осторожный тест",
-    do_not_discount_windows_count: "Не демпинговать",
-    priority_cards_count: "Карточек в приоритете",
-    price_trap_cards_count: "Ценовых ловушек",
-    seo_needs_work_count: "Название требует работы",
-    seo_priority_fix_count: "Критичных названий",
-    market_supported_cards_count: "Карточек с рыночным контекстом",
-    double_fix_count: "Двойных проблем",
-    media_needs_work_count: "Медиа требует работы",
-    photo_gap_count: "Отставание по фото",
-    spec_gap_count: "Отставание по характеристикам",
-    with_video_count: "Карточек с видео",
-    description_needs_work_count: "Описание требует работы",
-    thin_content_count: "Тонкое описание",
-    description_gap_count: "Описание слабее группы",
-    storage_rows_count: "Строк в отчёте",
-    rows_with_amount_count: "Строк с суммой",
-    rows_without_identity_count: "Строк без идентификации",
-    total_amount: "Сумма начислений",
-    penalty_total: "Штрафы и удержания",
-    avg_amount_per_row: "Средняя сумма на строку",
+    novelty_proxy_index: "РРЅРґРµРєСЃ РЅРѕРІРёР·РЅС‹",
+    blind_spot_windows_count: "РЎР»РµРїС‹С… Р·РѕРЅ",
+    entry_ready_windows_count: "Р“РѕС‚РѕРІС‹С… РѕРєРѕРЅ РІС…РѕРґР°",
+    test_entry_windows_count: "РћРєРѕРЅ РґР»СЏ С‚РµСЃС‚Р°",
+    avoid_windows_count: "РћРєРѕРЅ no-go",
+    priced_windows_count: "РћРєРѕРЅ СЃ С†РµРЅРѕРІРѕР№ СЂРµРєРѕРјРµРЅРґР°С†РёРµР№",
+    aggressive_price_windows_count: "РђРіСЂРµСЃСЃРёРІРЅС‹Р№ РІС…РѕРґ",
+    market_price_windows_count: "Р¦РµРЅР° РїРѕ СЂС‹РЅРєСѓ",
+    test_price_windows_count: "РћСЃС‚РѕСЂРѕР¶РЅС‹Р№ С‚РµСЃС‚",
+    do_not_discount_windows_count: "РќРµ РґРµРјРїРёРЅРіРѕРІР°С‚СЊ",
+    priority_cards_count: "РљР°СЂС‚РѕС‡РµРє РІ РїСЂРёРѕСЂРёС‚РµС‚Рµ",
+    price_trap_cards_count: "Р¦РµРЅРѕРІС‹С… Р»РѕРІСѓС€РµРє",
+    seo_needs_work_count: "РќР°Р·РІР°РЅРёРµ С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹",
+    seo_priority_fix_count: "РљСЂРёС‚РёС‡РЅС‹С… РЅР°Р·РІР°РЅРёР№",
+    market_supported_cards_count: "РљР°СЂС‚РѕС‡РµРє СЃ СЂС‹РЅРѕС‡РЅС‹Рј РєРѕРЅС‚РµРєСЃС‚РѕРј",
+    double_fix_count: "Р”РІРѕР№РЅС‹С… РїСЂРѕР±Р»РµРј",
+    media_needs_work_count: "РњРµРґРёР° С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹",
+    photo_gap_count: "РћС‚СЃС‚Р°РІР°РЅРёРµ РїРѕ С„РѕС‚Рѕ",
+    spec_gap_count: "РћС‚СЃС‚Р°РІР°РЅРёРµ РїРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј",
+    with_video_count: "РљР°СЂС‚РѕС‡РµРє СЃ РІРёРґРµРѕ",
+    description_needs_work_count: "РћРїРёСЃР°РЅРёРµ С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹",
+    thin_content_count: "РўРѕРЅРєРѕРµ РѕРїРёСЃР°РЅРёРµ",
+    description_gap_count: "РћРїРёСЃР°РЅРёРµ СЃР»Р°Р±РµРµ РіСЂСѓРїРїС‹",
+    storage_rows_count: "РЎС‚СЂРѕРє РІ РѕС‚С‡С‘С‚Рµ",
+    rows_with_amount_count: "РЎС‚СЂРѕРє СЃ СЃСѓРјРјРѕР№",
+    rows_without_identity_count: "РЎС‚СЂРѕРє Р±РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё",
+    total_amount: "РЎСѓРјРјР° РЅР°С‡РёСЃР»РµРЅРёР№",
+    penalty_total: "РЁС‚СЂР°С„С‹ Рё СѓРґРµСЂР¶Р°РЅРёСЏ",
+    avg_amount_per_row: "РЎСЂРµРґРЅСЏСЏ СЃСѓРјРјР° РЅР° СЃС‚СЂРѕРєСѓ",
   };
   return labels[key] || key;
 }
@@ -234,64 +234,64 @@ function renderMeta(payload) {
   const leftSource = sources.left_out_report || sources.left_out_csv || "";
   const sellsMode = documents.sells_mode || (hasOfficialSources ? detectSourceMode(sellsSource) : "seller analytics");
   const leftMode = documents.left_out_mode || (hasOfficialSources ? detectSourceMode(leftSource) : "seller analytics");
-  const snapshotInfo = ["Срез данных", formatDateTime(currentDashboardItem?.generated_at), "Когда был сформирован именно этот bundle и от какой точки времени нужно читать его выводы."];
+  const snapshotInfo = ["РЎСЂРµР· РґР°РЅРЅС‹С…", formatDateTime(currentDashboardItem?.generated_at), "РљРѕРіРґР° Р±С‹Р» СЃС„РѕСЂРјРёСЂРѕРІР°РЅ РёРјРµРЅРЅРѕ СЌС‚РѕС‚ bundle Рё РѕС‚ РєР°РєРѕР№ С‚РѕС‡РєРё РІСЂРµРјРµРЅРё РЅСѓР¶РЅРѕ С‡РёС‚Р°С‚СЊ РµРіРѕ РІС‹РІРѕРґС‹."];
   const items = marketScope.category_id
     ? [
         snapshotInfo,
-        ["Категория", marketScope.category_id],
-        ["Сканировано страниц", marketScope.pages ?? "н/д"],
-        ["Товаров на страницу", marketScope.page_size ?? "н/д"],
-        ["Режим", "рыночная выборка"],
-        ["Источник", "публичный market API", "Данные собраны из публичного каталога Магнит Маркета, а не из личного кабинета продавца."],
+        ["РљР°С‚РµРіРѕСЂРёСЏ", marketScope.category_id],
+        ["РЎРєР°РЅРёСЂРѕРІР°РЅРѕ СЃС‚СЂР°РЅРёС†", marketScope.pages ?? "РЅ/Рґ"],
+        ["РўРѕРІР°СЂРѕРІ РЅР° СЃС‚СЂР°РЅРёС†Сѓ", marketScope.page_size ?? "РЅ/Рґ"],
+        ["Р РµР¶РёРј", "СЂС‹РЅРѕС‡РЅР°СЏ РІС‹Р±РѕСЂРєР°"],
+        ["РСЃС‚РѕС‡РЅРёРє", "РїСѓР±Р»РёС‡РЅС‹Р№ market API", "Р”Р°РЅРЅС‹Рµ СЃРѕР±СЂР°РЅС‹ РёР· РїСѓР±Р»РёС‡РЅРѕРіРѕ РєР°С‚Р°Р»РѕРіР° РњР°РіРЅРёС‚ РњР°СЂРєРµС‚Р°, Р° РЅРµ РёР· Р»РёС‡РЅРѕРіРѕ РєР°Р±РёРЅРµС‚Р° РїСЂРѕРґР°РІС†Р°."],
       ]
     : pricing.mode
     ? [
         snapshotInfo,
-        ["Режим", formatModeLabel(pricing.mode), pricing.mode ? `Режим ценового слоя: ${formatModeLabel(pricing.mode)}.` : null],
-        ["Целевая маржа", pricing.target_margin_pct != null ? `${pricing.target_margin_pct}%` : "н/д", "Целевая маржа, относительно которой подбирались безопасные ценовые решения."],
-        ["Источник рынка", summarizeSource(pricing.generated_from), describeSourceInfo("Источник рынка", pricing.generated_from, pricing.mode)],
-        ["Окно", formatWindow(window), window.date_from && window.date_to ? `${window.date_from} -> ${window.date_to}` : null],
+        ["Р РµР¶РёРј", formatModeLabel(pricing.mode), pricing.mode ? `Р РµР¶РёРј С†РµРЅРѕРІРѕРіРѕ СЃР»РѕСЏ: ${formatModeLabel(pricing.mode)}.` : null],
+        ["Р¦РµР»РµРІР°СЏ РјР°СЂР¶Р°", pricing.target_margin_pct != null ? `${pricing.target_margin_pct}%` : "РЅ/Рґ", "Р¦РµР»РµРІР°СЏ РјР°СЂР¶Р°, РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РєРѕС‚РѕСЂРѕР№ РїРѕРґР±РёСЂР°Р»РёСЃСЊ Р±РµР·РѕРїР°СЃРЅС‹Рµ С†РµРЅРѕРІС‹Рµ СЂРµС€РµРЅРёСЏ."],
+        ["РСЃС‚РѕС‡РЅРёРє СЂС‹РЅРєР°", summarizeSource(pricing.generated_from), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє СЂС‹РЅРєР°", pricing.generated_from, pricing.mode)],
+        ["РћРєРЅРѕ", formatWindow(window), window.date_from && window.date_to ? `${window.date_from} -> ${window.date_to}` : null],
       ]
     : metadata.marketing_audit
     ? [
         snapshotInfo,
-        ["Режим", "маркетинговый аудит", "Единый управленческий слой, который сводит ценовой анализ, ценовые ловушки и SEO названий по карточкам."],
-        ["Источник ценового слоя", summarizeSource(metadata.marketing_audit.pricing_json), describeSourceInfo("Источник ценового слоя", metadata.marketing_audit.pricing_json)],
-        ["Источник price trap", summarizeSource(metadata.marketing_audit.price_trap_json), describeSourceInfo("Источник price trap", metadata.marketing_audit.price_trap_json)],
-        ["Источник title SEO", summarizeSource(metadata.marketing_audit.title_seo_json), describeSourceInfo("Источник title SEO", metadata.marketing_audit.title_seo_json)],
-        ["Источник normalized", summarizeSource(metadata.marketing_audit.normalized_json), describeSourceInfo("Источник normalized", metadata.marketing_audit.normalized_json)],
+        ["Р РµР¶РёРј", "РјР°СЂРєРµС‚РёРЅРіРѕРІС‹Р№ Р°СѓРґРёС‚", "Р•РґРёРЅС‹Р№ СѓРїСЂР°РІР»РµРЅС‡РµСЃРєРёР№ СЃР»РѕР№, РєРѕС‚РѕСЂС‹Р№ СЃРІРѕРґРёС‚ С†РµРЅРѕРІРѕР№ Р°РЅР°Р»РёР·, С†РµРЅРѕРІС‹Рµ Р»РѕРІСѓС€РєРё Рё SEO РЅР°Р·РІР°РЅРёР№ РїРѕ РєР°СЂС‚РѕС‡РєР°Рј."],
+        ["РСЃС‚РѕС‡РЅРёРє С†РµРЅРѕРІРѕРіРѕ СЃР»РѕСЏ", summarizeSource(metadata.marketing_audit.pricing_json), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє С†РµРЅРѕРІРѕРіРѕ СЃР»РѕСЏ", metadata.marketing_audit.pricing_json)],
+        ["РСЃС‚РѕС‡РЅРёРє price trap", summarizeSource(metadata.marketing_audit.price_trap_json), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє price trap", metadata.marketing_audit.price_trap_json)],
+        ["РСЃС‚РѕС‡РЅРёРє title SEO", summarizeSource(metadata.marketing_audit.title_seo_json), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє title SEO", metadata.marketing_audit.title_seo_json)],
+        ["РСЃС‚РѕС‡РЅРёРє normalized", summarizeSource(metadata.marketing_audit.normalized_json), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє normalized", metadata.marketing_audit.normalized_json)],
       ]
     : metadata.content_audit
     ? [
         snapshotInfo,
-        ["Режим", "контент-аудит", "Слой проверки медиа или описаний карточки относительно группы и минимального quality bar."],
-        ["Источник входа", summarizeSource(metadata.content_audit.input_json), describeSourceInfo("Источник входа", metadata.content_audit.input_json)],
-        ["Кэш карточек", summarizeSource(metadata.content_audit.cache_json), describeSourceInfo("Кэш карточек", metadata.content_audit.cache_json)],
-        ["Сеть", metadata.content_audit.cache_only ? "только кэш" : "кэш + публичный API", metadata.content_audit.cache_only ? "Сеть не использовалась: аудит построен только по локальному кэшу карточек." : "Аудит использовал локальный кэш и при необходимости публичный product API."],
+        ["Р РµР¶РёРј", "РєРѕРЅС‚РµРЅС‚-Р°СѓРґРёС‚", "РЎР»РѕР№ РїСЂРѕРІРµСЂРєРё РјРµРґРёР° РёР»Рё РѕРїРёСЃР°РЅРёР№ РєР°СЂС‚РѕС‡РєРё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РіСЂСѓРїРїС‹ Рё РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ quality bar."],
+        ["РСЃС‚РѕС‡РЅРёРє РІС…РѕРґР°", summarizeSource(metadata.content_audit.input_json), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє РІС…РѕРґР°", metadata.content_audit.input_json)],
+        ["РљСЌС€ РєР°СЂС‚РѕС‡РµРє", summarizeSource(metadata.content_audit.cache_json), describeSourceInfo("РљСЌС€ РєР°СЂС‚РѕС‡РµРє", metadata.content_audit.cache_json)],
+        ["РЎРµС‚СЊ", metadata.content_audit.cache_only ? "С‚РѕР»СЊРєРѕ РєСЌС€" : "РєСЌС€ + РїСѓР±Р»РёС‡РЅС‹Р№ API", metadata.content_audit.cache_only ? "РЎРµС‚СЊ РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°Р»Р°СЃСЊ: Р°СѓРґРёС‚ РїРѕСЃС‚СЂРѕРµРЅ С‚РѕР»СЊРєРѕ РїРѕ Р»РѕРєР°Р»СЊРЅРѕРјСѓ РєСЌС€Сѓ РєР°СЂС‚РѕС‡РµРє." : "РђСѓРґРёС‚ РёСЃРїРѕР»СЊР·РѕРІР°Р» Р»РѕРєР°Р»СЊРЅС‹Р№ РєСЌС€ Рё РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РїСѓР±Р»РёС‡РЅС‹Р№ product API."],
       ]
     : metadata.paid_storage
     ? [
         snapshotInfo,
-        ["Режим", formatModeLabel(documents.paid_storage_mode || metadata.paid_storage.mode || "reused"), "Берётся последний completed PAID_STORAGE_REPORT из seller documents и разворачивается в manager-facing экран затрат."],
-        ["Источник файла", summarizeSource(metadata.paid_storage.xlsx_path || documents.paid_storage_file_name), describeSourceInfo("Источник файла", metadata.paid_storage.xlsx_path || documents.paid_storage_file_name, documents.paid_storage_mode)],
-        ["Лист XLSX", metadata.paid_storage.sheet_name || "н/д", "Первый лист, который удалось прочитать из XLSX-отчёта."],
-        ["Главная колонка суммы", metadata.paid_storage.amount_header || "н/д", "Эвристически выбранная основная денежная колонка, по которой отсортированы крупнейшие начисления."],
-        ["Запрос seller documents", documents.paid_storage_request_id || "н/д", "Request ID из seller documents, если отчёт был подтянут online, а не передан локальным файлом."],
+        ["Р РµР¶РёРј", formatModeLabel(documents.paid_storage_mode || metadata.paid_storage.mode || "reused"), "Р‘РµСЂС‘С‚СЃСЏ РїРѕСЃР»РµРґРЅРёР№ completed PAID_STORAGE_REPORT РёР· seller documents Рё СЂР°Р·РІРѕСЂР°С‡РёРІР°РµС‚СЃСЏ РІ manager-facing СЌРєСЂР°РЅ Р·Р°С‚СЂР°С‚."],
+        ["РСЃС‚РѕС‡РЅРёРє С„Р°Р№Р»Р°", summarizeSource(metadata.paid_storage.xlsx_path || documents.paid_storage_file_name), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє С„Р°Р№Р»Р°", metadata.paid_storage.xlsx_path || documents.paid_storage_file_name, documents.paid_storage_mode)],
+        ["Р›РёСЃС‚ XLSX", metadata.paid_storage.sheet_name || "РЅ/Рґ", "РџРµСЂРІС‹Р№ Р»РёСЃС‚, РєРѕС‚РѕСЂС‹Р№ СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ РёР· XLSX-РѕС‚С‡С‘С‚Р°."],
+        ["Р“Р»Р°РІРЅР°СЏ РєРѕР»РѕРЅРєР° СЃСѓРјРјС‹", metadata.paid_storage.amount_header || "РЅ/Рґ", "Р­РІСЂРёСЃС‚РёС‡РµСЃРєРё РІС‹Р±СЂР°РЅРЅР°СЏ РѕСЃРЅРѕРІРЅР°СЏ РґРµРЅРµР¶РЅР°СЏ РєРѕР»РѕРЅРєР°, РїРѕ РєРѕС‚РѕСЂРѕР№ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РєСЂСѓРїРЅРµР№С€РёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ."],
+        ["Р—Р°РїСЂРѕСЃ seller documents", documents.paid_storage_request_id || "РЅ/Рґ", "Request ID РёР· seller documents, РµСЃР»Рё РѕС‚С‡С‘С‚ Р±С‹Р» РїРѕРґС‚СЏРЅСѓС‚ online, Р° РЅРµ РїРµСЂРµРґР°РЅ Р»РѕРєР°Р»СЊРЅС‹Рј С„Р°Р№Р»РѕРј."],
       ]
     : (() => {
         const baseItems = [
           snapshotInfo,
-          ["Окно", formatWindow(window), window.date_from && window.date_to ? `Данные отчёта покрывают период ${window.date_from} -> ${window.date_to}.` : "У этого bundle нет явного окна дат в metadata."],
-          ["Дней", window.window_days ?? "н/д", null],
-          ["Режим", formatModeLabel(sellsMode), sellsMode ? `Как были получены данные продаж: ${formatModeLabel(sellsMode)}.` : null],
-          ["Источник продаж", summarizeSource(sellsSource), describeSourceInfo("Источник продаж", sellsSource, documents.sells_mode)],
-          ["Источник остатков", summarizeSource(leftSource), describeSourceInfo("Источник остатков", leftSource, documents.left_out_mode)],
+          ["РћРєРЅРѕ", formatWindow(window), window.date_from && window.date_to ? `Р”Р°РЅРЅС‹Рµ РѕС‚С‡С‘С‚Р° РїРѕРєСЂС‹РІР°СЋС‚ РїРµСЂРёРѕРґ ${window.date_from} -> ${window.date_to}.` : "РЈ СЌС‚РѕРіРѕ bundle РЅРµС‚ СЏРІРЅРѕРіРѕ РѕРєРЅР° РґР°С‚ РІ metadata."],
+          ["Р”РЅРµР№", window.window_days ?? "РЅ/Рґ", null],
+          ["Р РµР¶РёРј", formatModeLabel(sellsMode), sellsMode ? `РљР°Рє Р±С‹Р»Рё РїРѕР»СѓС‡РµРЅС‹ РґР°РЅРЅС‹Рµ РїСЂРѕРґР°Р¶: ${formatModeLabel(sellsMode)}.` : null],
+          ["РСЃС‚РѕС‡РЅРёРє РїСЂРѕРґР°Р¶", summarizeSource(sellsSource), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє РїСЂРѕРґР°Р¶", sellsSource, documents.sells_mode)],
+          ["РСЃС‚РѕС‡РЅРёРє РѕСЃС‚Р°С‚РєРѕРІ", summarizeSource(leftSource), describeSourceInfo("РСЃС‚РѕС‡РЅРёРє РѕСЃС‚Р°С‚РєРѕРІ", leftSource, documents.left_out_mode)],
         ];
         if (documents.sells_request_id) {
-          baseItems.push(["Запрос продаж", documents.sells_request_id, null]);
+          baseItems.push(["Р—Р°РїСЂРѕСЃ РїСЂРѕРґР°Р¶", documents.sells_request_id, null]);
         }
         if (documents.left_out_request_id) {
-          baseItems.push(["Запрос остатков", documents.left_out_request_id, null]);
+          baseItems.push(["Р—Р°РїСЂРѕСЃ РѕСЃС‚Р°С‚РєРѕРІ", documents.left_out_request_id, null]);
         }
         return baseItems;
       })();
@@ -312,11 +312,11 @@ function getDisplayTitle(row) {
     row.group ||
     row.idea_cluster ||
     row.key ||
-    "Без названия"
+    "Р‘РµР· РЅР°Р·РІР°РЅРёСЏ"
   );
   const sku = getPrimarySku(row);
   if (sku && title && !String(title).includes(String(sku))) {
-    return `${sku} · ${title}`;
+    return `${sku} В· ${title}`;
   }
   return title;
 }
@@ -337,19 +337,19 @@ function pickEntityValue(latest, history, fallbackRow, keys, emptyValues = ["", 
 
 function decorateStaticPanelInfos() {
   const definitions = [
-    ["#kpi-panel .panel-header h2", "Ключевые показатели это верхний числовой слой отчёта. Их задача не заменить весь анализ, а быстро показать масштаб проблемы, выборки и денег до перехода к действиям."],
-    ["#priority-panel .panel-header h2", "Этот блок отвечает на вопрос: что делать первым. Он не перечисляет всё подряд, а поднимает решения, которые сейчас важнее остальных."],
-    ["#change-panel .panel-header h2", "Сравнение с предыдущим отчётом того же типа. Здесь важно смотреть не только на рост, но и на то, за какой период и из какой выборки этот рост получен."],
-    ["#insights-panel .panel-header h2", "Автоматические выводы это интерпретации поверх данных. Они должны помогать читать отчёт быстрее, но не подменяют ручную проверку управленческого решения."],
-    ["#compare-panel .panel-header h2", "Этот блок нужен для длинной истории и сезонности. Его читают отдельно от коротких operational-окон."],
-    ["#actions-panel .panel-header h2", "Здесь собраны прикладные очереди действий. Это рабочий слой, из которого менеджер берёт задачи в работу, а не просто читает цифры."],
-    ["#action-center-panel .panel-header h2", "Центр действий это ручной слой поверх автоматических сигналов. Здесь менеджер сохраняет short-list, фиксирует задачу и ведёт статус до завершения."],
-    ["#manager-queues-panel .panel-header h2", "Это агрегированные очереди по статусам, ответственным и сохранённым представлениям. Они нужны, чтобы видеть bottleneck ежедневного цикла, а не только отдельные задачи."],
-    ["#entity-detail-panel .panel-header h2", "Детальная карточка сущности нужна для drilldown: посмотреть текущий сигнал, историю появления в отчётах и ручной follow-up по этой позиции."],
-    ["#charts-panel .panel-header h2", "Распределения помогают увидеть структуру окна: где концентрируется результат, где длинный хвост и где шум. Это вспомогательный слой, а не приоритет сам по себе."],
-    ["#trend-panel .panel-header h2", "История по месяцам нужна для накопления seasonality и сравнения длинных периодов. Этот блок полезен только если временной ряд уже достаточно длинный."],
-    ["#meta-panel .panel-header h2", "Сводка отчёта показывает период, режим получения данных и происхождение источников. С неё надо начинать чтение любого отчёта, чтобы не путать окна и типы данных."],
-    [".utility-panel .panel-header h2", "Навигация это вспомогательный сервисный блок: быстро перейти к другому отчёту, refresh runner или вернуться вверх страницы."],
+    ["#kpi-panel .panel-header h2", "РљР»СЋС‡РµРІС‹Рµ РїРѕРєР°Р·Р°С‚РµР»Рё СЌС‚Рѕ РІРµСЂС…РЅРёР№ С‡РёСЃР»РѕРІРѕР№ СЃР»РѕР№ РѕС‚С‡С‘С‚Р°. РС… Р·Р°РґР°С‡Р° РЅРµ Р·Р°РјРµРЅРёС‚СЊ РІРµСЃСЊ Р°РЅР°Р»РёР·, Р° Р±С‹СЃС‚СЂРѕ РїРѕРєР°Р·Р°С‚СЊ РјР°СЃС€С‚Р°Р± РїСЂРѕР±Р»РµРјС‹, РІС‹Р±РѕСЂРєРё Рё РґРµРЅРµРі РґРѕ РїРµСЂРµС…РѕРґР° Рє РґРµР№СЃС‚РІРёСЏРј."],
+    ["#priority-panel .panel-header h2", "Р­С‚РѕС‚ Р±Р»РѕРє РѕС‚РІРµС‡Р°РµС‚ РЅР° РІРѕРїСЂРѕСЃ: С‡С‚Рѕ РґРµР»Р°С‚СЊ РїРµСЂРІС‹Рј. РћРЅ РЅРµ РїРµСЂРµС‡РёСЃР»СЏРµС‚ РІСЃС‘ РїРѕРґСЂСЏРґ, Р° РїРѕРґРЅРёРјР°РµС‚ СЂРµС€РµРЅРёСЏ, РєРѕС‚РѕСЂС‹Рµ СЃРµР№С‡Р°СЃ РІР°Р¶РЅРµРµ РѕСЃС‚Р°Р»СЊРЅС‹С…."],
+    ["#change-panel .panel-header h2", "РЎСЂР°РІРЅРµРЅРёРµ СЃ РїСЂРµРґС‹РґСѓС‰РёРј РѕС‚С‡С‘С‚РѕРј С‚РѕРіРѕ Р¶Рµ С‚РёРїР°. Р—РґРµСЃСЊ РІР°Р¶РЅРѕ СЃРјРѕС‚СЂРµС‚СЊ РЅРµ С‚РѕР»СЊРєРѕ РЅР° СЂРѕСЃС‚, РЅРѕ Рё РЅР° С‚Рѕ, Р·Р° РєР°РєРѕР№ РїРµСЂРёРѕРґ Рё РёР· РєР°РєРѕР№ РІС‹Р±РѕСЂРєРё СЌС‚РѕС‚ СЂРѕСЃС‚ РїРѕР»СѓС‡РµРЅ."],
+    ["#insights-panel .panel-header h2", "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ РІС‹РІРѕРґС‹ СЌС‚Рѕ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёРё РїРѕРІРµСЂС… РґР°РЅРЅС‹С…. РћРЅРё РґРѕР»Р¶РЅС‹ РїРѕРјРѕРіР°С‚СЊ С‡РёС‚Р°С‚СЊ РѕС‚С‡С‘С‚ Р±С‹СЃС‚СЂРµРµ, РЅРѕ РЅРµ РїРѕРґРјРµРЅСЏСЋС‚ СЂСѓС‡РЅСѓСЋ РїСЂРѕРІРµСЂРєСѓ СѓРїСЂР°РІР»РµРЅС‡РµСЃРєРѕРіРѕ СЂРµС€РµРЅРёСЏ."],
+    ["#compare-panel .panel-header h2", "Р­С‚РѕС‚ Р±Р»РѕРє РЅСѓР¶РµРЅ РґР»СЏ РґР»РёРЅРЅРѕР№ РёСЃС‚РѕСЂРёРё Рё СЃРµР·РѕРЅРЅРѕСЃС‚Рё. Р•РіРѕ С‡РёС‚Р°СЋС‚ РѕС‚РґРµР»СЊРЅРѕ РѕС‚ РєРѕСЂРѕС‚РєРёС… operational-РѕРєРѕРЅ."],
+    ["#actions-panel .panel-header h2", "Р—РґРµСЃСЊ СЃРѕР±СЂР°РЅС‹ РїСЂРёРєР»Р°РґРЅС‹Рµ РѕС‡РµСЂРµРґРё РґРµР№СЃС‚РІРёР№. Р­С‚Рѕ СЂР°Р±РѕС‡РёР№ СЃР»РѕР№, РёР· РєРѕС‚РѕСЂРѕРіРѕ РјРµРЅРµРґР¶РµСЂ Р±РµСЂС‘С‚ Р·Р°РґР°С‡Рё РІ СЂР°Р±РѕС‚Сѓ, Р° РЅРµ РїСЂРѕСЃС‚Рѕ С‡РёС‚Р°РµС‚ С†РёС„СЂС‹."],
+    ["#action-center-panel .panel-header h2", "Р¦РµРЅС‚СЂ РґРµР№СЃС‚РІРёР№ СЌС‚Рѕ СЂСѓС‡РЅРѕР№ СЃР»РѕР№ РїРѕРІРµСЂС… Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёС… СЃРёРіРЅР°Р»РѕРІ. Р—РґРµСЃСЊ РјРµРЅРµРґР¶РµСЂ СЃРѕС…СЂР°РЅСЏРµС‚ short-list, С„РёРєСЃРёСЂСѓРµС‚ Р·Р°РґР°С‡Сѓ Рё РІРµРґС‘С‚ СЃС‚Р°С‚СѓСЃ РґРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ."],
+    ["#manager-queues-panel .panel-header h2", "Р­С‚Рѕ Р°РіСЂРµРіРёСЂРѕРІР°РЅРЅС‹Рµ РѕС‡РµСЂРµРґРё РїРѕ СЃС‚Р°С‚СѓСЃР°Рј, РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Рј Рё СЃРѕС…СЂР°РЅС‘РЅРЅС‹Рј РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏРј. РћРЅРё РЅСѓР¶РЅС‹, С‡С‚РѕР±С‹ РІРёРґРµС‚СЊ bottleneck РµР¶РµРґРЅРµРІРЅРѕРіРѕ С†РёРєР»Р°, Р° РЅРµ С‚РѕР»СЊРєРѕ РѕС‚РґРµР»СЊРЅС‹Рµ Р·Р°РґР°С‡Рё."],
+    ["#entity-detail-panel .panel-header h2", "Р”РµС‚Р°Р»СЊРЅР°СЏ РєР°СЂС‚РѕС‡РєР° СЃСѓС‰РЅРѕСЃС‚Рё РЅСѓР¶РЅР° РґР»СЏ drilldown: РїРѕСЃРјРѕС‚СЂРµС‚СЊ С‚РµРєСѓС‰РёР№ СЃРёРіРЅР°Р», РёСЃС‚РѕСЂРёСЋ РїРѕСЏРІР»РµРЅРёСЏ РІ РѕС‚С‡С‘С‚Р°С… Рё СЂСѓС‡РЅРѕР№ follow-up РїРѕ СЌС‚РѕР№ РїРѕР·РёС†РёРё."],
+    ["#charts-panel .panel-header h2", "Р Р°СЃРїСЂРµРґРµР»РµРЅРёСЏ РїРѕРјРѕРіР°СЋС‚ СѓРІРёРґРµС‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ РѕРєРЅР°: РіРґРµ РєРѕРЅС†РµРЅС‚СЂРёСЂСѓРµС‚СЃСЏ СЂРµР·СѓР»СЊС‚Р°С‚, РіРґРµ РґР»РёРЅРЅС‹Р№ С…РІРѕСЃС‚ Рё РіРґРµ С€СѓРј. Р­С‚Рѕ РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ СЃР»РѕР№, Р° РЅРµ РїСЂРёРѕСЂРёС‚РµС‚ СЃР°Рј РїРѕ СЃРµР±Рµ."],
+    ["#trend-panel .panel-header h2", "РСЃС‚РѕСЂРёСЏ РїРѕ РјРµСЃСЏС†Р°Рј РЅСѓР¶РЅР° РґР»СЏ РЅР°РєРѕРїР»РµРЅРёСЏ seasonality Рё СЃСЂР°РІРЅРµРЅРёСЏ РґР»РёРЅРЅС‹С… РїРµСЂРёРѕРґРѕРІ. Р­С‚РѕС‚ Р±Р»РѕРє РїРѕР»РµР·РµРЅ С‚РѕР»СЊРєРѕ РµСЃР»Рё РІСЂРµРјРµРЅРЅРѕР№ СЂСЏРґ СѓР¶Рµ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР»РёРЅРЅС‹Р№."],
+    ["#meta-panel .panel-header h2", "РЎРІРѕРґРєР° РѕС‚С‡С‘С‚Р° РїРѕРєР°Р·С‹РІР°РµС‚ РїРµСЂРёРѕРґ, СЂРµР¶РёРј РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… Рё РїСЂРѕРёСЃС…РѕР¶РґРµРЅРёРµ РёСЃС‚РѕС‡РЅРёРєРѕРІ. РЎ РЅРµС‘ РЅР°РґРѕ РЅР°С‡РёРЅР°С‚СЊ С‡С‚РµРЅРёРµ Р»СЋР±РѕРіРѕ РѕС‚С‡С‘С‚Р°, С‡С‚РѕР±С‹ РЅРµ РїСѓС‚Р°С‚СЊ РѕРєРЅР° Рё С‚РёРїС‹ РґР°РЅРЅС‹С…."],
+    [".utility-panel .panel-header h2", "РќР°РІРёРіР°С†РёСЏ СЌС‚Рѕ РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ СЃРµСЂРІРёСЃРЅС‹Р№ Р±Р»РѕРє: Р±С‹СЃС‚СЂРѕ РїРµСЂРµР№С‚Рё Рє РґСЂСѓРіРѕРјСѓ РѕС‚С‡С‘С‚Сѓ, refresh runner РёР»Рё РІРµСЂРЅСѓС‚СЊСЃСЏ РІРІРµСЂС… СЃС‚СЂР°РЅРёС†С‹."],
   ];
   definitions.forEach(([selector, text]) => {
     const heading = document.querySelector(selector);
@@ -393,12 +393,12 @@ function renderKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["SKU всего", formatNumber(kpis.total_skus), "Сколько строк или SKU попало в текущее окно отчёта. Это размер наблюдаемой выборки."],
-    ["SKU с продажами", formatNumber(kpis.sold_skus), "Сколько SKU реально имели продажи в выбранном периоде. Это один из главных индикаторов живости ассортимента сейчас."],
-    ["Выручка net", formatMoney(kpis.revenue_total), "Выручка за окно после вычета комиссии маркетплейса. Используйте для оценки реального денежного потока по периоду."],
-    ["Валовая прибыль", formatMoney(kpis.gross_profit_total), "Net revenue минус себестоимость. Это ориентир, какие товары и окна реально зарабатывают деньги, а не только крутят оборот."],
-    ["Риск OOS", formatNumber(kpis.stockout_risk_count), "Сколько SKU имеют риск закончиться по текущему среднесуточному темпу. Высокое значение требует приоритизации закупки."],
-    ["Залежавшиеся", formatNumber(kpis.stale_stock_count), "Сколько SKU лежат без движения в текущем окне. Это кандидаты на чистку, пересборку оффера или уценку."],
+    ["SKU РІСЃРµРіРѕ", formatNumber(kpis.total_skus), "РЎРєРѕР»СЊРєРѕ СЃС‚СЂРѕРє РёР»Рё SKU РїРѕРїР°Р»Рѕ РІ С‚РµРєСѓС‰РµРµ РѕРєРЅРѕ РѕС‚С‡С‘С‚Р°. Р­С‚Рѕ СЂР°Р·РјРµСЂ РЅР°Р±Р»СЋРґР°РµРјРѕР№ РІС‹Р±РѕСЂРєРё."],
+    ["SKU СЃ РїСЂРѕРґР°Р¶Р°РјРё", formatNumber(kpis.sold_skus), "РЎРєРѕР»СЊРєРѕ SKU СЂРµР°Р»СЊРЅРѕ РёРјРµР»Рё РїСЂРѕРґР°Р¶Рё РІ РІС‹Р±СЂР°РЅРЅРѕРј РїРµСЂРёРѕРґРµ. Р­С‚Рѕ РѕРґРёРЅ РёР· РіР»Р°РІРЅС‹С… РёРЅРґРёРєР°С‚РѕСЂРѕРІ Р¶РёРІРѕСЃС‚Рё Р°СЃСЃРѕСЂС‚РёРјРµРЅС‚Р° СЃРµР№С‡Р°СЃ."],
+    ["Р’С‹СЂСѓС‡РєР° net", formatMoney(kpis.revenue_total), "Р’С‹СЂСѓС‡РєР° Р·Р° РѕРєРЅРѕ РїРѕСЃР»Рµ РІС‹С‡РµС‚Р° РєРѕРјРёСЃСЃРёРё РјР°СЂРєРµС‚РїР»РµР№СЃР°. РСЃРїРѕР»СЊР·СѓР№С‚Рµ РґР»СЏ РѕС†РµРЅРєРё СЂРµР°Р»СЊРЅРѕРіРѕ РґРµРЅРµР¶РЅРѕРіРѕ РїРѕС‚РѕРєР° РїРѕ РїРµСЂРёРѕРґСѓ."],
+    ["Р’Р°Р»РѕРІР°СЏ РїСЂРёР±С‹Р»СЊ", formatMoney(kpis.gross_profit_total), "Net revenue РјРёРЅСѓСЃ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊ. Р­С‚Рѕ РѕСЂРёРµРЅС‚РёСЂ, РєР°РєРёРµ С‚РѕРІР°СЂС‹ Рё РѕРєРЅР° СЂРµР°Р»СЊРЅРѕ Р·Р°СЂР°Р±Р°С‚С‹РІР°СЋС‚ РґРµРЅСЊРіРё, Р° РЅРµ С‚РѕР»СЊРєРѕ РєСЂСѓС‚СЏС‚ РѕР±РѕСЂРѕС‚."],
+    ["Р РёСЃРє OOS", formatNumber(kpis.stockout_risk_count), "РЎРєРѕР»СЊРєРѕ SKU РёРјРµСЋС‚ СЂРёСЃРє Р·Р°РєРѕРЅС‡РёС‚СЊСЃСЏ РїРѕ С‚РµРєСѓС‰РµРјСѓ СЃСЂРµРґРЅРµСЃСѓС‚РѕС‡РЅРѕРјСѓ С‚РµРјРїСѓ. Р’С‹СЃРѕРєРѕРµ Р·РЅР°С‡РµРЅРёРµ С‚СЂРµР±СѓРµС‚ РїСЂРёРѕСЂРёС‚РёР·Р°С†РёРё Р·Р°РєСѓРїРєРё."],
+    ["Р—Р°Р»РµР¶Р°РІС€РёРµСЃСЏ", formatNumber(kpis.stale_stock_count), "РЎРєРѕР»СЊРєРѕ SKU Р»РµР¶Р°С‚ Р±РµР· РґРІРёР¶РµРЅРёСЏ РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ. Р­С‚Рѕ РєР°РЅРґРёРґР°С‚С‹ РЅР° С‡РёСЃС‚РєСѓ, РїРµСЂРµСЃР±РѕСЂРєСѓ РѕС„С„РµСЂР° РёР»Рё СѓС†РµРЅРєСѓ."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -416,12 +416,12 @@ function renderContentAuditKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Карточек в аудите", formatNumber(kpis.total_skus), "Сколько карточек попало в текущий контент-аудит."],
-    ["С продажами", formatNumber(kpis.sold_skus), "Сколько карточек из выборки имели продажи в текущем операционном контексте."],
-    ["В приоритете", formatNumber(kpis.priority_cards_count), "Сколько карточек требуют самого раннего внимания по этому слою аудита."],
-    [kpis.media_needs_work_count !== undefined ? "Медиа требует работы" : "Описание требует работы", formatNumber(kpis.media_needs_work_count ?? kpis.description_needs_work_count), "Общий слой карточек со средним, но не критичным уровнем проблем."],
-    [kpis.photo_gap_count !== undefined ? "Отставание по фото" : "Тонкое описание", formatNumber(kpis.photo_gap_count ?? kpis.thin_content_count), kpis.photo_gap_count !== undefined ? "Gap здесь означает отставание от своей группы: насколько карточке не хватает фото до типичного уровня похожих товаров." : "Сколько карточек имеют слишком короткое описание."],
-    [kpis.spec_gap_count !== undefined ? "Отставание по характеристикам" : "Отставание от группы", formatNumber(kpis.spec_gap_count ?? kpis.description_gap_count), kpis.spec_gap_count !== undefined ? "Gap здесь означает отставание от своей группы: насколько карточке не хватает характеристик относительно похожих товаров." : "Gap здесь означает отставание от медианы своей группы по объёму описания."],
+    ["РљР°СЂС‚РѕС‡РµРє РІ Р°СѓРґРёС‚Рµ", formatNumber(kpis.total_skus), "РЎРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РµРє РїРѕРїР°Р»Рѕ РІ С‚РµРєСѓС‰РёР№ РєРѕРЅС‚РµРЅС‚-Р°СѓРґРёС‚."],
+    ["РЎ РїСЂРѕРґР°Р¶Р°РјРё", formatNumber(kpis.sold_skus), "РЎРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РµРє РёР· РІС‹Р±РѕСЂРєРё РёРјРµР»Рё РїСЂРѕРґР°Р¶Рё РІ С‚РµРєСѓС‰РµРј РѕРїРµСЂР°С†РёРѕРЅРЅРѕРј РєРѕРЅС‚РµРєСЃС‚Рµ."],
+    ["Р’ РїСЂРёРѕСЂРёС‚РµС‚Рµ", formatNumber(kpis.priority_cards_count), "РЎРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РµРє С‚СЂРµР±СѓСЋС‚ СЃР°РјРѕРіРѕ СЂР°РЅРЅРµРіРѕ РІРЅРёРјР°РЅРёСЏ РїРѕ СЌС‚РѕРјСѓ СЃР»РѕСЋ Р°СѓРґРёС‚Р°."],
+    [kpis.media_needs_work_count !== undefined ? "РњРµРґРёР° С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹" : "РћРїРёСЃР°РЅРёРµ С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹", formatNumber(kpis.media_needs_work_count ?? kpis.description_needs_work_count), "РћР±С‰РёР№ СЃР»РѕР№ РєР°СЂС‚РѕС‡РµРє СЃРѕ СЃСЂРµРґРЅРёРј, РЅРѕ РЅРµ РєСЂРёС‚РёС‡РЅС‹Рј СѓСЂРѕРІРЅРµРј РїСЂРѕР±Р»РµРј."],
+    [kpis.photo_gap_count !== undefined ? "РћС‚СЃС‚Р°РІР°РЅРёРµ РїРѕ С„РѕС‚Рѕ" : "РўРѕРЅРєРѕРµ РѕРїРёСЃР°РЅРёРµ", formatNumber(kpis.photo_gap_count ?? kpis.thin_content_count), kpis.photo_gap_count !== undefined ? "Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚ РѕС‚СЃС‚Р°РІР°РЅРёРµ РѕС‚ СЃРІРѕРµР№ РіСЂСѓРїРїС‹: РЅР°СЃРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РєРµ РЅРµ С…РІР°С‚Р°РµС‚ С„РѕС‚Рѕ РґРѕ С‚РёРїРёС‡РЅРѕРіРѕ СѓСЂРѕРІРЅСЏ РїРѕС…РѕР¶РёС… С‚РѕРІР°СЂРѕРІ." : "РЎРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РµРє РёРјРµСЋС‚ СЃР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ."],
+    [kpis.spec_gap_count !== undefined ? "РћС‚СЃС‚Р°РІР°РЅРёРµ РїРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј" : "РћС‚СЃС‚Р°РІР°РЅРёРµ РѕС‚ РіСЂСѓРїРїС‹", formatNumber(kpis.spec_gap_count ?? kpis.description_gap_count), kpis.spec_gap_count !== undefined ? "Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚ РѕС‚СЃС‚Р°РІР°РЅРёРµ РѕС‚ СЃРІРѕРµР№ РіСЂСѓРїРїС‹: РЅР°СЃРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РєРµ РЅРµ С…РІР°С‚Р°РµС‚ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РїРѕС…РѕР¶РёС… С‚РѕРІР°СЂРѕРІ." : "Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚ РѕС‚СЃС‚Р°РІР°РЅРёРµ РѕС‚ РјРµРґРёР°РЅС‹ СЃРІРѕРµР№ РіСЂСѓРїРїС‹ РїРѕ РѕР±СЉС‘РјСѓ РѕРїРёСЃР°РЅРёСЏ."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -439,17 +439,17 @@ function renderMarketKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Товаров в выборке", formatNumber(kpis.total_skus), "Сколько товаров удалось наблюдать в текущем рыночном проходе. Это не весь рынок, а текущая выборка."],
-    ["Продавцов", formatNumber(kpis.observed_seller_count ?? kpis.stockout_risk_count), "Сколько продавцов встретилось в наблюдаемой выборке категории."],
-    ["Групп", formatNumber(kpis.observed_group_count ?? kpis.stale_stock_count), "Сколько товарных групп реально проявились в наблюдаемой выборке."],
-    ["Ценовых коридоров", formatNumber(kpis.observed_price_bands), "Сколько ценовых диапазонов занято товарами с продажами в текущем market scan."],
-    ["Кластеры идей", formatNumber(kpis.observed_idea_clusters), "Сколько повторяющихся товарных идей удалось выделить эвристически. Полезно для поиска направлений расширения."],
-    ["HHI концентрации", kpis.overall_dominance_hhi ?? "н/д", "HHI показывает, насколько рынок собран у немногих продавцов. Ниже 1500 обычно легче заходить, выше 2500 рынок уже плотный и концентрированный."],
-    ["Индекс новизны", kpis.novelty_proxy_index ?? "н/д", "Это прокси, а не реальный возраст карточек. Он строится по связке orders/reviews у лидеров и показывает, насколько в категории ещё могут быстро расти новые карточки."],
-    ["Доля «Прочее»", formatShare(kpis.other_group_share_pct), "Чем ниже доля «Прочее», тем точнее market-классификатор и тем надёжнее выводы по нишам."],
-    ["Покрытие экономики", `${formatShare(kpis.economics_coverage_windows_pct)} окон`, "На какой доле окон входа система уже может сопоставить рыночную цену с вашей себестоимостью. Низкое покрытие означает: рынок виден, но выводы по прибыли ещё неполные."],
-    ["Целевая маржа", kpis.target_margin_pct != null ? `${kpis.target_margin_pct}%` : "н/д", "Порог маржи, относительно которого оценивается, насколько рыночная цена вообще совместима с вашей экономикой."],
-    ["Слепые зоны", formatNumber(kpis.blind_spot_windows_count), "Сколько окон входа выглядят интересными по спросу, но ещё не покрыты вашими cost-данными. Это список того, где нельзя принимать решение вслепую."],
+    ["РўРѕРІР°СЂРѕРІ РІ РІС‹Р±РѕСЂРєРµ", formatNumber(kpis.total_skus), "РЎРєРѕР»СЊРєРѕ С‚РѕРІР°СЂРѕРІ СѓРґР°Р»РѕСЃСЊ РЅР°Р±Р»СЋРґР°С‚СЊ РІ С‚РµРєСѓС‰РµРј СЂС‹РЅРѕС‡РЅРѕРј РїСЂРѕС…РѕРґРµ. Р­С‚Рѕ РЅРµ РІРµСЃСЊ СЂС‹РЅРѕРє, Р° С‚РµРєСѓС‰Р°СЏ РІС‹Р±РѕСЂРєР°."],
+    ["РџСЂРѕРґР°РІС†РѕРІ", formatNumber(kpis.observed_seller_count ?? kpis.stockout_risk_count), "РЎРєРѕР»СЊРєРѕ РїСЂРѕРґР°РІС†РѕРІ РІСЃС‚СЂРµС‚РёР»РѕСЃСЊ РІ РЅР°Р±Р»СЋРґР°РµРјРѕР№ РІС‹Р±РѕСЂРєРµ РєР°С‚РµРіРѕСЂРёРё."],
+    ["Р“СЂСѓРїРї", formatNumber(kpis.observed_group_count ?? kpis.stale_stock_count), "РЎРєРѕР»СЊРєРѕ С‚РѕРІР°СЂРЅС‹С… РіСЂСѓРїРї СЂРµР°Р»СЊРЅРѕ РїСЂРѕСЏРІРёР»РёСЃСЊ РІ РЅР°Р±Р»СЋРґР°РµРјРѕР№ РІС‹Р±РѕСЂРєРµ."],
+    ["Р¦РµРЅРѕРІС‹С… РєРѕСЂРёРґРѕСЂРѕРІ", formatNumber(kpis.observed_price_bands), "РЎРєРѕР»СЊРєРѕ С†РµРЅРѕРІС‹С… РґРёР°РїР°Р·РѕРЅРѕРІ Р·Р°РЅСЏС‚Рѕ С‚РѕРІР°СЂР°РјРё СЃ РїСЂРѕРґР°Р¶Р°РјРё РІ С‚РµРєСѓС‰РµРј market scan."],
+    ["РљР»Р°СЃС‚РµСЂС‹ РёРґРµР№", formatNumber(kpis.observed_idea_clusters), "РЎРєРѕР»СЊРєРѕ РїРѕРІС‚РѕСЂСЏСЋС‰РёС…СЃСЏ С‚РѕРІР°СЂРЅС‹С… РёРґРµР№ СѓРґР°Р»РѕСЃСЊ РІС‹РґРµР»РёС‚СЊ СЌРІСЂРёСЃС‚РёС‡РµСЃРєРё. РџРѕР»РµР·РЅРѕ РґР»СЏ РїРѕРёСЃРєР° РЅР°РїСЂР°РІР»РµРЅРёР№ СЂР°СЃС€РёСЂРµРЅРёСЏ."],
+    ["HHI РєРѕРЅС†РµРЅС‚СЂР°С†РёРё", kpis.overall_dominance_hhi ?? "РЅ/Рґ", "HHI РїРѕРєР°Р·С‹РІР°РµС‚, РЅР°СЃРєРѕР»СЊРєРѕ СЂС‹РЅРѕРє СЃРѕР±СЂР°РЅ Сѓ РЅРµРјРЅРѕРіРёС… РїСЂРѕРґР°РІС†РѕРІ. РќРёР¶Рµ 1500 РѕР±С‹С‡РЅРѕ Р»РµРіС‡Рµ Р·Р°С…РѕРґРёС‚СЊ, РІС‹С€Рµ 2500 СЂС‹РЅРѕРє СѓР¶Рµ РїР»РѕС‚РЅС‹Р№ Рё РєРѕРЅС†РµРЅС‚СЂРёСЂРѕРІР°РЅРЅС‹Р№."],
+    ["РРЅРґРµРєСЃ РЅРѕРІРёР·РЅС‹", kpis.novelty_proxy_index ?? "РЅ/Рґ", "Р­С‚Рѕ РїСЂРѕРєСЃРё, Р° РЅРµ СЂРµР°Р»СЊРЅС‹Р№ РІРѕР·СЂР°СЃС‚ РєР°СЂС‚РѕС‡РµРє. РћРЅ СЃС‚СЂРѕРёС‚СЃСЏ РїРѕ СЃРІСЏР·РєРµ orders/reviews Сѓ Р»РёРґРµСЂРѕРІ Рё РїРѕРєР°Р·С‹РІР°РµС‚, РЅР°СЃРєРѕР»СЊРєРѕ РІ РєР°С‚РµРіРѕСЂРёРё РµС‰С‘ РјРѕРіСѓС‚ Р±С‹СЃС‚СЂРѕ СЂР°СЃС‚Рё РЅРѕРІС‹Рµ РєР°СЂС‚РѕС‡РєРё."],
+    ["Р”РѕР»СЏ В«РџСЂРѕС‡РµРµВ»", formatShare(kpis.other_group_share_pct), "Р§РµРј РЅРёР¶Рµ РґРѕР»СЏ В«РџСЂРѕС‡РµРµВ», С‚РµРј С‚РѕС‡РЅРµРµ market-РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂ Рё С‚РµРј РЅР°РґС‘Р¶РЅРµРµ РІС‹РІРѕРґС‹ РїРѕ РЅРёС€Р°Рј."],
+    ["РџРѕРєСЂС‹С‚РёРµ СЌРєРѕРЅРѕРјРёРєРё", `${formatShare(kpis.economics_coverage_windows_pct)} РѕРєРѕРЅ`, "РќР° РєР°РєРѕР№ РґРѕР»Рµ РѕРєРѕРЅ РІС…РѕРґР° СЃРёСЃС‚РµРјР° СѓР¶Рµ РјРѕР¶РµС‚ СЃРѕРїРѕСЃС‚Р°РІРёС‚СЊ СЂС‹РЅРѕС‡РЅСѓСЋ С†РµРЅСѓ СЃ РІР°С€РµР№ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊСЋ. РќРёР·РєРѕРµ РїРѕРєСЂС‹С‚РёРµ РѕР·РЅР°С‡Р°РµС‚: СЂС‹РЅРѕРє РІРёРґРµРЅ, РЅРѕ РІС‹РІРѕРґС‹ РїРѕ РїСЂРёР±С‹Р»Рё РµС‰С‘ РЅРµРїРѕР»РЅС‹Рµ."],
+    ["Р¦РµР»РµРІР°СЏ РјР°СЂР¶Р°", kpis.target_margin_pct != null ? `${kpis.target_margin_pct}%` : "РЅ/Рґ", "РџРѕСЂРѕРі РјР°СЂР¶Рё, РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РєРѕС‚РѕСЂРѕРіРѕ РѕС†РµРЅРёРІР°РµС‚СЃСЏ, РЅР°СЃРєРѕР»СЊРєРѕ СЂС‹РЅРѕС‡РЅР°СЏ С†РµРЅР° РІРѕРѕР±С‰Рµ СЃРѕРІРјРµСЃС‚РёРјР° СЃ РІР°С€РµР№ СЌРєРѕРЅРѕРјРёРєРѕР№."],
+    ["РЎР»РµРїС‹Рµ Р·РѕРЅС‹", formatNumber(kpis.blind_spot_windows_count), "РЎРєРѕР»СЊРєРѕ РѕРєРѕРЅ РІС…РѕРґР° РІС‹РіР»СЏРґСЏС‚ РёРЅС‚РµСЂРµСЃРЅС‹РјРё РїРѕ СЃРїСЂРѕСЃСѓ, РЅРѕ РµС‰С‘ РЅРµ РїРѕРєСЂС‹С‚С‹ РІР°С€РёРјРё cost-РґР°РЅРЅС‹РјРё. Р­С‚Рѕ СЃРїРёСЃРѕРє С‚РѕРіРѕ, РіРґРµ РЅРµР»СЊР·СЏ РїСЂРёРЅРёРјР°С‚СЊ СЂРµС€РµРЅРёРµ РІСЃР»РµРїСѓСЋ."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -470,11 +470,11 @@ function renderCompareKpis(rawPayload) {
   const series = rawPayload.series_monthly || [];
   const historyWindow = rawPayload.history_window || {};
   const items = [
-    ["Выручка за 365 дней", formatMoney(metrics.revenue_total || 0), "Главная выручка за текущее trailing-year окно."],
-    ["Заказы за 365 дней", formatNumber(metrics.orders_total || 0), "Сколько заказов накопилось в текущем trailing-year окне."],
-    ["Проданные единицы", formatNumber(metrics.items_sold_total || 0), "Сколько единиц товара продано за последние 365 дней."],
-    ["Заполнено месяцев", formatNumber(series.length), "Сколько месяцев в monthly series уже содержат данные. Чем больше, тем надёжнее сезонные выводы."],
-    ["Глубина истории", `${formatNumber(historyWindow.history_years || 0)} г.`, "На какую глубину уже запрашивается long-range история в CubeJS."],
+    ["Р’С‹СЂСѓС‡РєР° Р·Р° 365 РґРЅРµР№", formatMoney(metrics.revenue_total || 0), "Р“Р»Р°РІРЅР°СЏ РІС‹СЂСѓС‡РєР° Р·Р° С‚РµРєСѓС‰РµРµ trailing-year РѕРєРЅРѕ."],
+    ["Р—Р°РєР°Р·С‹ Р·Р° 365 РґРЅРµР№", formatNumber(metrics.orders_total || 0), "РЎРєРѕР»СЊРєРѕ Р·Р°РєР°Р·РѕРІ РЅР°РєРѕРїРёР»РѕСЃСЊ РІ С‚РµРєСѓС‰РµРј trailing-year РѕРєРЅРµ."],
+    ["РџСЂРѕРґР°РЅРЅС‹Рµ РµРґРёРЅРёС†С‹", formatNumber(metrics.items_sold_total || 0), "РЎРєРѕР»СЊРєРѕ РµРґРёРЅРёС† С‚РѕРІР°СЂР° РїСЂРѕРґР°РЅРѕ Р·Р° РїРѕСЃР»РµРґРЅРёРµ 365 РґРЅРµР№."],
+    ["Р—Р°РїРѕР»РЅРµРЅРѕ РјРµСЃСЏС†РµРІ", formatNumber(series.length), "РЎРєРѕР»СЊРєРѕ РјРµСЃСЏС†РµРІ РІ monthly series СѓР¶Рµ СЃРѕРґРµСЂР¶Р°С‚ РґР°РЅРЅС‹Рµ. Р§РµРј Р±РѕР»СЊС€Рµ, С‚РµРј РЅР°РґС‘Р¶РЅРµРµ СЃРµР·РѕРЅРЅС‹Рµ РІС‹РІРѕРґС‹."],
+    ["Р“Р»СѓР±РёРЅР° РёСЃС‚РѕСЂРёРё", `${formatNumber(historyWindow.history_years || 0)} Рі.`, "РќР° РєР°РєСѓСЋ РіР»СѓР±РёРЅСѓ СѓР¶Рµ Р·Р°РїСЂР°С€РёРІР°РµС‚СЃСЏ long-range РёСЃС‚РѕСЂРёСЏ РІ CubeJS."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -492,12 +492,12 @@ function renderPricingKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Окон с рекомендацией", formatNumber(kpis.priced_windows_count), "Сколько сочетаний группа + ценовой коридор уже получили ценовую рекомендацию."],
-    ["Агрессивный вход", formatNumber(kpis.aggressive_price_windows_count), "Окна, где можно держаться чуть ниже рынка и всё ещё удерживать целевую маржу."],
-    ["Цена по рынку", formatNumber(kpis.market_price_windows_count), "Окна, где средняя цена рынка уже совместима с вашей экономикой."],
-    ["Осторожный тест", formatNumber(kpis.test_price_windows_count), "Окна, где вход возможен, но цена должна быть аккуратнее средней по рынку."],
-    ["Не демпинговать", formatNumber(kpis.do_not_discount_windows_count), "Окна, где для целевой маржи нужна цена выше текущего рынка."],
-    ["Средний margin fit", kpis.avg_margin_fit_pct == null ? "н/д" : `${kpis.avg_margin_fit_pct}%`, "Средняя оценка совместимости рыночной цены с вашей экономикой по окнам, где уже хватает данных."],
+    ["РћРєРѕРЅ СЃ СЂРµРєРѕРјРµРЅРґР°С†РёРµР№", formatNumber(kpis.priced_windows_count), "РЎРєРѕР»СЊРєРѕ СЃРѕС‡РµС‚Р°РЅРёР№ РіСЂСѓРїРїР° + С†РµРЅРѕРІРѕР№ РєРѕСЂРёРґРѕСЂ СѓР¶Рµ РїРѕР»СѓС‡РёР»Рё С†РµРЅРѕРІСѓСЋ СЂРµРєРѕРјРµРЅРґР°С†РёСЋ."],
+    ["РђРіСЂРµСЃСЃРёРІРЅС‹Р№ РІС…РѕРґ", formatNumber(kpis.aggressive_price_windows_count), "РћРєРЅР°, РіРґРµ РјРѕР¶РЅРѕ РґРµСЂР¶Р°С‚СЊСЃСЏ С‡СѓС‚СЊ РЅРёР¶Рµ СЂС‹РЅРєР° Рё РІСЃС‘ РµС‰С‘ СѓРґРµСЂР¶РёРІР°С‚СЊ С†РµР»РµРІСѓСЋ РјР°СЂР¶Сѓ."],
+    ["Р¦РµРЅР° РїРѕ СЂС‹РЅРєСѓ", formatNumber(kpis.market_price_windows_count), "РћРєРЅР°, РіРґРµ СЃСЂРµРґРЅСЏСЏ С†РµРЅР° СЂС‹РЅРєР° СѓР¶Рµ СЃРѕРІРјРµСЃС‚РёРјР° СЃ РІР°С€РµР№ СЌРєРѕРЅРѕРјРёРєРѕР№."],
+    ["РћСЃС‚РѕСЂРѕР¶РЅС‹Р№ С‚РµСЃС‚", formatNumber(kpis.test_price_windows_count), "РћРєРЅР°, РіРґРµ РІС…РѕРґ РІРѕР·РјРѕР¶РµРЅ, РЅРѕ С†РµРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ Р°РєРєСѓСЂР°С‚РЅРµРµ СЃСЂРµРґРЅРµР№ РїРѕ СЂС‹РЅРєСѓ."],
+    ["РќРµ РґРµРјРїРёРЅРіРѕРІР°С‚СЊ", formatNumber(kpis.do_not_discount_windows_count), "РћРєРЅР°, РіРґРµ РґР»СЏ С†РµР»РµРІРѕР№ РјР°СЂР¶Рё РЅСѓР¶РЅР° С†РµРЅР° РІС‹С€Рµ С‚РµРєСѓС‰РµРіРѕ СЂС‹РЅРєР°."],
+    ["РЎСЂРµРґРЅРёР№ margin fit", kpis.avg_margin_fit_pct == null ? "РЅ/Рґ" : `${kpis.avg_margin_fit_pct}%`, "РЎСЂРµРґРЅСЏСЏ РѕС†РµРЅРєР° СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЂС‹РЅРѕС‡РЅРѕР№ С†РµРЅС‹ СЃ РІР°С€РµР№ СЌРєРѕРЅРѕРјРёРєРѕР№ РїРѕ РѕРєРЅР°Рј, РіРґРµ СѓР¶Рµ С…РІР°С‚Р°РµС‚ РґР°РЅРЅС‹С…."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -515,12 +515,12 @@ function renderSalesReturnKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Возвратов в окне", formatNumber(kpis.total_returns_count || 0), "Сумма возвратов по основной мере SalesReturn в выбранном окне."],
-    ["Причин возврата", formatNumber(kpis.unique_return_reasons_count || 0), "Сколько разных причин возврата уже видно в текущем окне."],
-    ["Строк без причины", formatNumber(kpis.rows_without_reason_count || 0), "Строки, где причина возврата не пришла или не была распознана."],
-    ["Без идентификации", formatNumber(kpis.rows_without_identity_count || 0), "Строки, где возврат нельзя уверенно привязать к SKU или товару."],
-    ["Доля главной причины", formatPercent(kpis.top_reason_share_pct || 0), "Какая доля всех возвратов приходится на самую частую причину. Чем выше значение, тем проще найти первый узкий сценарий для исправления."],
-    ["Среднее на строку", formatNumber(kpis.avg_returns_per_row || 0), "Среднее число возвратов на одну строку отчёта. Это ориентир на плотность проблемы, а не целевой KPI."],
+    ["Р’РѕР·РІСЂР°С‚РѕРІ РІ РѕРєРЅРµ", formatNumber(kpis.total_returns_count || 0), "РЎСѓРјРјР° РІРѕР·РІСЂР°С‚РѕРІ РїРѕ РѕСЃРЅРѕРІРЅРѕР№ РјРµСЂРµ SalesReturn РІ РІС‹Р±СЂР°РЅРЅРѕРј РѕРєРЅРµ."],
+    ["РџСЂРёС‡РёРЅ РІРѕР·РІСЂР°С‚Р°", formatNumber(kpis.unique_return_reasons_count || 0), "РЎРєРѕР»СЊРєРѕ СЂР°Р·РЅС‹С… РїСЂРёС‡РёРЅ РІРѕР·РІСЂР°С‚Р° СѓР¶Рµ РІРёРґРЅРѕ РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ."],
+    ["РЎС‚СЂРѕРє Р±РµР· РїСЂРёС‡РёРЅС‹", formatNumber(kpis.rows_without_reason_count || 0), "РЎС‚СЂРѕРєРё, РіРґРµ РїСЂРёС‡РёРЅР° РІРѕР·РІСЂР°С‚Р° РЅРµ РїСЂРёС€Р»Р° РёР»Рё РЅРµ Р±С‹Р»Р° СЂР°СЃРїРѕР·РЅР°РЅР°."],
+    ["Р‘РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё", formatNumber(kpis.rows_without_identity_count || 0), "РЎС‚СЂРѕРєРё, РіРґРµ РІРѕР·РІСЂР°С‚ РЅРµР»СЊР·СЏ СѓРІРµСЂРµРЅРЅРѕ РїСЂРёРІСЏР·Р°С‚СЊ Рє SKU РёР»Рё С‚РѕРІР°СЂСѓ."],
+    ["Р”РѕР»СЏ РіР»Р°РІРЅРѕР№ РїСЂРёС‡РёРЅС‹", formatPercent(kpis.top_reason_share_pct || 0), "РљР°РєР°СЏ РґРѕР»СЏ РІСЃРµС… РІРѕР·РІСЂР°С‚РѕРІ РїСЂРёС…РѕРґРёС‚СЃСЏ РЅР° СЃР°РјСѓСЋ С‡Р°СЃС‚СѓСЋ РїСЂРёС‡РёРЅСѓ. Р§РµРј РІС‹С€Рµ Р·РЅР°С‡РµРЅРёРµ, С‚РµРј РїСЂРѕС‰Рµ РЅР°Р№С‚Рё РїРµСЂРІС‹Р№ СѓР·РєРёР№ СЃС†РµРЅР°СЂРёР№ РґР»СЏ РёСЃРїСЂР°РІР»РµРЅРёСЏ."],
+    ["РЎСЂРµРґРЅРµРµ РЅР° СЃС‚СЂРѕРєСѓ", formatNumber(kpis.avg_returns_per_row || 0), "РЎСЂРµРґРЅРµРµ С‡РёСЃР»Рѕ РІРѕР·РІСЂР°С‚РѕРІ РЅР° РѕРґРЅСѓ СЃС‚СЂРѕРєСѓ РѕС‚С‡С‘С‚Р°. Р­С‚Рѕ РѕСЂРёРµРЅС‚РёСЂ РЅР° РїР»РѕС‚РЅРѕСЃС‚СЊ РїСЂРѕР±Р»РµРјС‹, Р° РЅРµ С†РµР»РµРІРѕР№ KPI."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -538,12 +538,12 @@ function renderWaybillKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Строк накладной", formatNumber(kpis.waybill_rows_count || 0), "Сколько batch-строк удалось нормализовать из накладной или синтетического файла."],
-    ["Identity с cost-историей", formatNumber(kpis.historical_cogs_items_count || 0), "Сколько товаров уже получили исторический слой себестоимости по barcode / sku / product_id."],
-    ["Суммарный batch-cost", formatMoney(kpis.total_amount || 0), "Сумма себестоимости по всем нормализованным строкам текущей накладной."],
-    ["Всего единиц в поставке", formatNumber(kpis.total_quantity_supplied || 0), "Сколько единиц товара пришло в текущем batch-layer."],
-    ["Без идентификации", formatNumber(kpis.rows_without_identity_count || 0), "Строки, где не хватило barcode / sku / product_id для нормальной cost-связки."],
-    ["Средняя unit cost", formatMoney(kpis.avg_amount_per_row || 0), "Средняя себестоимость одной единицы по строкам с распознанным cost-полем."],
+    ["РЎС‚СЂРѕРє РЅР°РєР»Р°РґРЅРѕР№", formatNumber(kpis.waybill_rows_count || 0), "РЎРєРѕР»СЊРєРѕ batch-СЃС‚СЂРѕРє СѓРґР°Р»РѕСЃСЊ РЅРѕСЂРјР°Р»РёР·РѕРІР°С‚СЊ РёР· РЅР°РєР»Р°РґРЅРѕР№ РёР»Рё СЃРёРЅС‚РµС‚РёС‡РµСЃРєРѕРіРѕ С„Р°Р№Р»Р°."],
+    ["Identity СЃ cost-РёСЃС‚РѕСЂРёРµР№", formatNumber(kpis.historical_cogs_items_count || 0), "РЎРєРѕР»СЊРєРѕ С‚РѕРІР°СЂРѕРІ СѓР¶Рµ РїРѕР»СѓС‡РёР»Рё РёСЃС‚РѕСЂРёС‡РµСЃРєРёР№ СЃР»РѕР№ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё РїРѕ barcode / sku / product_id."],
+    ["РЎСѓРјРјР°СЂРЅС‹Р№ batch-cost", formatMoney(kpis.total_amount || 0), "РЎСѓРјРјР° СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё РїРѕ РІСЃРµРј РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅС‹Рј СЃС‚СЂРѕРєР°Рј С‚РµРєСѓС‰РµР№ РЅР°РєР»Р°РґРЅРѕР№."],
+    ["Р’СЃРµРіРѕ РµРґРёРЅРёС† РІ РїРѕСЃС‚Р°РІРєРµ", formatNumber(kpis.total_quantity_supplied || 0), "РЎРєРѕР»СЊРєРѕ РµРґРёРЅРёС† С‚РѕРІР°СЂР° РїСЂРёС€Р»Рѕ РІ С‚РµРєСѓС‰РµРј batch-layer."],
+    ["Р‘РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё", formatNumber(kpis.rows_without_identity_count || 0), "РЎС‚СЂРѕРєРё, РіРґРµ РЅРµ С…РІР°С‚РёР»Рѕ barcode / sku / product_id РґР»СЏ РЅРѕСЂРјР°Р»СЊРЅРѕР№ cost-СЃРІСЏР·РєРё."],
+    ["РЎСЂРµРґРЅСЏСЏ unit cost", formatMoney(kpis.avg_amount_per_row || 0), "РЎСЂРµРґРЅСЏСЏ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊ РѕРґРЅРѕР№ РµРґРёРЅРёС†С‹ РїРѕ СЃС‚СЂРѕРєР°Рј СЃ СЂР°СЃРїРѕР·РЅР°РЅРЅС‹Рј cost-РїРѕР»РµРј."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -561,12 +561,12 @@ function renderPaidStorageKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Строк в отчёте", formatNumber(kpis.storage_rows_count ?? kpis.total_skus), "Сколько строк удалось прочитать из актуального XLSX отчёта по платному хранению и услугам."],
-    ["Строк с суммой", formatNumber(kpis.rows_with_amount_count ?? kpis.sold_skus), "Сколько строк содержат явное числовое начисление и участвуют в суммарном платном слое."],
-    ["Сумма начислений", formatMoney(kpis.total_amount ?? kpis.revenue_total), "Сумма по основной денежной колонке, которую система выбрала как главный слой начислений."],
-    ["Штрафы и удержания", formatMoney(kpis.penalty_total || 0), "Сумма колонок, где заголовок похож на удержание, штраф или пеню. Это отдельный слой проверки, а не обычное хранение."],
-    ["Без идентификации", formatNumber(kpis.rows_without_identity_count ?? kpis.stockout_risk_count), "Строки, где не удалось вытащить внятный SKU, артикул или понятное название. Такие начисления хуже объясняются менеджеру."],
-    ["Средняя сумма на строку", formatMoney(kpis.avg_amount_per_row || 0), "Среднее начисление на одну строку с суммой. Это быстрый ориентир на плотность затрат, а не целевой KPI сам по себе."],
+    ["РЎС‚СЂРѕРє РІ РѕС‚С‡С‘С‚Рµ", formatNumber(kpis.storage_rows_count ?? kpis.total_skus), "РЎРєРѕР»СЊРєРѕ СЃС‚СЂРѕРє СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ РёР· Р°РєС‚СѓР°Р»СЊРЅРѕРіРѕ XLSX РѕС‚С‡С‘С‚Р° РїРѕ РїР»Р°С‚РЅРѕРјСѓ С…СЂР°РЅРµРЅРёСЋ Рё СѓСЃР»СѓРіР°Рј."],
+    ["РЎС‚СЂРѕРє СЃ СЃСѓРјРјРѕР№", formatNumber(kpis.rows_with_amount_count ?? kpis.sold_skus), "РЎРєРѕР»СЊРєРѕ СЃС‚СЂРѕРє СЃРѕРґРµСЂР¶Р°С‚ СЏРІРЅРѕРµ С‡РёСЃР»РѕРІРѕРµ РЅР°С‡РёСЃР»РµРЅРёРµ Рё СѓС‡Р°СЃС‚РІСѓСЋС‚ РІ СЃСѓРјРјР°СЂРЅРѕРј РїР»Р°С‚РЅРѕРј СЃР»РѕРµ."],
+    ["РЎСѓРјРјР° РЅР°С‡РёСЃР»РµРЅРёР№", formatMoney(kpis.total_amount ?? kpis.revenue_total), "РЎСѓРјРјР° РїРѕ РѕСЃРЅРѕРІРЅРѕР№ РґРµРЅРµР¶РЅРѕР№ РєРѕР»РѕРЅРєРµ, РєРѕС‚РѕСЂСѓСЋ СЃРёСЃС‚РµРјР° РІС‹Р±СЂР°Р»Р° РєР°Рє РіР»Р°РІРЅС‹Р№ СЃР»РѕР№ РЅР°С‡РёСЃР»РµРЅРёР№."],
+    ["РЁС‚СЂР°С„С‹ Рё СѓРґРµСЂР¶Р°РЅРёСЏ", formatMoney(kpis.penalty_total || 0), "РЎСѓРјРјР° РєРѕР»РѕРЅРѕРє, РіРґРµ Р·Р°РіРѕР»РѕРІРѕРє РїРѕС…РѕР¶ РЅР° СѓРґРµСЂР¶Р°РЅРёРµ, С€С‚СЂР°С„ РёР»Рё РїРµРЅСЋ. Р­С‚Рѕ РѕС‚РґРµР»СЊРЅС‹Р№ СЃР»РѕР№ РїСЂРѕРІРµСЂРєРё, Р° РЅРµ РѕР±С‹С‡РЅРѕРµ С…СЂР°РЅРµРЅРёРµ."],
+    ["Р‘РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё", formatNumber(kpis.rows_without_identity_count ?? kpis.stockout_risk_count), "РЎС‚СЂРѕРєРё, РіРґРµ РЅРµ СѓРґР°Р»РѕСЃСЊ РІС‹С‚Р°С‰РёС‚СЊ РІРЅСЏС‚РЅС‹Р№ SKU, Р°СЂС‚РёРєСѓР» РёР»Рё РїРѕРЅСЏС‚РЅРѕРµ РЅР°Р·РІР°РЅРёРµ. РўР°РєРёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ С…СѓР¶Рµ РѕР±СЉСЏСЃРЅСЏСЋС‚СЃСЏ РјРµРЅРµРґР¶РµСЂСѓ."],
+    ["РЎСЂРµРґРЅСЏСЏ СЃСѓРјРјР° РЅР° СЃС‚СЂРѕРєСѓ", formatMoney(kpis.avg_amount_per_row || 0), "РЎСЂРµРґРЅРµРµ РЅР°С‡РёСЃР»РµРЅРёРµ РЅР° РѕРґРЅСѓ СЃС‚СЂРѕРєСѓ СЃ СЃСѓРјРјРѕР№. Р­С‚Рѕ Р±С‹СЃС‚СЂС‹Р№ РѕСЂРёРµРЅС‚РёСЂ РЅР° РїР»РѕС‚РЅРѕСЃС‚СЊ Р·Р°С‚СЂР°С‚, Р° РЅРµ С†РµР»РµРІРѕР№ KPI СЃР°Рј РїРѕ СЃРµР±Рµ."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -584,12 +584,12 @@ function renderMarketingKpis(payload) {
   root.innerHTML = "";
   const kpis = payload.kpis || {};
   const items = [
-    ["Карточек в приоритете", formatNumber(kpis.priority_cards_count), "Сколько карточек попало в единый manager-facing маркетинговый аудит."],
-    ["Ценовых ловушек", formatNumber(kpis.price_trap_cards_count), "Карточки, где цена висит чуть выше психологического порога."],
-    ["Название требует работы", formatNumber(kpis.seo_needs_work_count), "Карточки со слабым SEO-сигналом по названию."],
-    ["Критичных названий", formatNumber(kpis.seo_priority_fix_count), "Наиболее проблемные названия, которые стоит править первыми."],
-    ["Карточек с рыночным контекстом", formatNumber(kpis.market_supported_cards_count), "Карточки, попавшие в группы и ценовые коридоры, где ценовой слой уже даёт рыночный контекст."],
-    ["Двойных проблем", formatNumber(kpis.double_fix_count), "Карточки, где одновременно видны и слабый title, и ценовой trap."],
+    ["РљР°СЂС‚РѕС‡РµРє РІ РїСЂРёРѕСЂРёС‚РµС‚Рµ", formatNumber(kpis.priority_cards_count), "РЎРєРѕР»СЊРєРѕ РєР°СЂС‚РѕС‡РµРє РїРѕРїР°Р»Рѕ РІ РµРґРёРЅС‹Р№ manager-facing РјР°СЂРєРµС‚РёРЅРіРѕРІС‹Р№ Р°СѓРґРёС‚."],
+    ["Р¦РµРЅРѕРІС‹С… Р»РѕРІСѓС€РµРє", formatNumber(kpis.price_trap_cards_count), "РљР°СЂС‚РѕС‡РєРё, РіРґРµ С†РµРЅР° РІРёСЃРёС‚ С‡СѓС‚СЊ РІС‹С€Рµ РїСЃРёС…РѕР»РѕРіРёС‡РµСЃРєРѕРіРѕ РїРѕСЂРѕРіР°."],
+    ["РќР°Р·РІР°РЅРёРµ С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹", formatNumber(kpis.seo_needs_work_count), "РљР°СЂС‚РѕС‡РєРё СЃРѕ СЃР»Р°Р±С‹Рј SEO-СЃРёРіРЅР°Р»РѕРј РїРѕ РЅР°Р·РІР°РЅРёСЋ."],
+    ["РљСЂРёС‚РёС‡РЅС‹С… РЅР°Р·РІР°РЅРёР№", formatNumber(kpis.seo_priority_fix_count), "РќР°РёР±РѕР»РµРµ РїСЂРѕР±Р»РµРјРЅС‹Рµ РЅР°Р·РІР°РЅРёСЏ, РєРѕС‚РѕСЂС‹Рµ СЃС‚РѕРёС‚ РїСЂР°РІРёС‚СЊ РїРµСЂРІС‹РјРё."],
+    ["РљР°СЂС‚РѕС‡РµРє СЃ СЂС‹РЅРѕС‡РЅС‹Рј РєРѕРЅС‚РµРєСЃС‚РѕРј", formatNumber(kpis.market_supported_cards_count), "РљР°СЂС‚РѕС‡РєРё, РїРѕРїР°РІС€РёРµ РІ РіСЂСѓРїРїС‹ Рё С†РµРЅРѕРІС‹Рµ РєРѕСЂРёРґРѕСЂС‹, РіРґРµ С†РµРЅРѕРІРѕР№ СЃР»РѕР№ СѓР¶Рµ РґР°С‘С‚ СЂС‹РЅРѕС‡РЅС‹Р№ РєРѕРЅС‚РµРєСЃС‚."],
+    ["Р”РІРѕР№РЅС‹С… РїСЂРѕР±Р»РµРј", formatNumber(kpis.double_fix_count), "РљР°СЂС‚РѕС‡РєРё, РіРґРµ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ РІРёРґРЅС‹ Рё СЃР»Р°Р±С‹Р№ title, Рё С†РµРЅРѕРІРѕР№ trap."],
   ];
   items.forEach(([label, value, info]) => {
     const card = el("div", "kpi-card");
@@ -626,92 +626,92 @@ function renderPriorityCards(item, payload, rawPayload) {
     const actions = payload.actions || {};
     cards.push(
       {
-        title: "Зайти в нишу",
+        title: "Р—Р°Р№С‚Рё РІ РЅРёС€Сѓ",
         value: formatNumber((actions.enter_now_segments || []).length),
-        subtitle: "Окон, где спрос и экономика уже выглядят рабочими",
+        subtitle: "РћРєРѕРЅ, РіРґРµ СЃРїСЂРѕСЃ Рё СЌРєРѕРЅРѕРјРёРєР° СѓР¶Рµ РІС‹РіР»СЏРґСЏС‚ СЂР°Р±РѕС‡РёРјРё",
         tone: (actions.enter_now_segments || []).length > 0 ? "good" : "warn",
       },
       {
-        title: "Тестировать",
+        title: "РўРµСЃС‚РёСЂРѕРІР°С‚СЊ",
         value: formatNumber((actions.test_entry_segments || []).length),
-        subtitle: "Окон, где уже можно делать точечные гипотезы",
+        subtitle: "РћРєРѕРЅ, РіРґРµ СѓР¶Рµ РјРѕР¶РЅРѕ РґРµР»Р°С‚СЊ С‚РѕС‡РµС‡РЅС‹Рµ РіРёРїРѕС‚РµР·С‹",
         tone: (actions.test_entry_segments || []).length > 0 ? "good" : "neutral",
       },
       {
-        title: "Добирать cost-данные",
+        title: "Р”РѕР±РёСЂР°С‚СЊ cost-РґР°РЅРЅС‹Рµ",
         value: formatNumber((actions.blind_spots || []).length),
-        subtitle: "Слепых зон, где решение нельзя принимать вслепую",
+        subtitle: "РЎР»РµРїС‹С… Р·РѕРЅ, РіРґРµ СЂРµС€РµРЅРёРµ РЅРµР»СЊР·СЏ РїСЂРёРЅРёРјР°С‚СЊ РІСЃР»РµРїСѓСЋ",
         tone: (actions.blind_spots || []).length > 0 ? "warn" : "good",
       },
       {
-        title: "Не лезть / менять закупку",
+        title: "РќРµ Р»РµР·С‚СЊ / РјРµРЅСЏС‚СЊ Р·Р°РєСѓРїРєСѓ",
         value: formatNumber((actions.sourcing_or_avoid_segments || []).length),
-        subtitle: "Перегретых или экономически слабых окон",
+        subtitle: "РџРµСЂРµРіСЂРµС‚С‹С… РёР»Рё СЌРєРѕРЅРѕРјРёС‡РµСЃРєРё СЃР»Р°Р±С‹С… РѕРєРѕРЅ",
         tone: (actions.sourcing_or_avoid_segments || []).length > 0 ? "bad" : "good",
       },
     );
-    title.textContent = "Главные Рыночные Решения";
-    subtitle.textContent = "Сначала выбери, куда входить, что тестировать и где экономика уже плохая.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ Р С‹РЅРѕС‡РЅС‹Рµ Р РµС€РµРЅРёСЏ";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРё, РєСѓРґР° РІС…РѕРґРёС‚СЊ, С‡С‚Рѕ С‚РµСЃС‚РёСЂРѕРІР°С‚СЊ Рё РіРґРµ СЌРєРѕРЅРѕРјРёРєР° СѓР¶Рµ РїР»РѕС…Р°СЏ.";
   } else if (item.report_kind === "dynamic_pricing") {
     const actions = payload.actions || {};
     cards.push(
       {
-        title: "Входить агрессивно",
+        title: "Р’С…РѕРґРёС‚СЊ Р°РіСЂРµСЃСЃРёРІРЅРѕ",
         value: formatNumber((actions.aggressive_price || []).length),
-        subtitle: "Окна, где можно идти чуть ниже рынка и не ломать маржу",
+        subtitle: "РћРєРЅР°, РіРґРµ РјРѕР¶РЅРѕ РёРґС‚Рё С‡СѓС‚СЊ РЅРёР¶Рµ СЂС‹РЅРєР° Рё РЅРµ Р»РѕРјР°С‚СЊ РјР°СЂР¶Сѓ",
         tone: (actions.aggressive_price || []).length > 0 ? "good" : "neutral",
       },
       {
-        title: "Цена по рынку",
+        title: "Р¦РµРЅР° РїРѕ СЂС‹РЅРєСѓ",
         value: formatNumber((actions.price_at_market || []).length),
-        subtitle: "Окна, где средняя рыночная цена уже безопасна",
+        subtitle: "РћРєРЅР°, РіРґРµ СЃСЂРµРґРЅСЏСЏ СЂС‹РЅРѕС‡РЅР°СЏ С†РµРЅР° СѓР¶Рµ Р±РµР·РѕРїР°СЃРЅР°",
         tone: (actions.price_at_market || []).length > 0 ? "good" : "neutral",
       },
       {
-        title: "Тестировать осторожно",
+        title: "РўРµСЃС‚РёСЂРѕРІР°С‚СЊ РѕСЃС‚РѕСЂРѕР¶РЅРѕ",
         value: formatNumber((actions.test_carefully || []).length),
-        subtitle: "Окна, где цена должна быть выше рынка или оффер сильнее",
+        subtitle: "РћРєРЅР°, РіРґРµ С†РµРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІС‹С€Рµ СЂС‹РЅРєР° РёР»Рё РѕС„С„РµСЂ СЃРёР»СЊРЅРµРµ",
         tone: (actions.test_carefully || []).length > 0 ? "warn" : "neutral",
       },
       {
-        title: "Не демпинговать",
+        title: "РќРµ РґРµРјРїРёРЅРіРѕРІР°С‚СЊ",
         value: formatNumber((actions.protect_margin || []).length),
-        subtitle: "Окна, где демпинг ломает целевую маржу",
+        subtitle: "РћРєРЅР°, РіРґРµ РґРµРјРїРёРЅРі Р»РѕРјР°РµС‚ С†РµР»РµРІСѓСЋ РјР°СЂР¶Сѓ",
         tone: (actions.protect_margin || []).length > 0 ? "bad" : "good",
       },
     );
-    title.textContent = "Главные Решения По Ценам";
-    subtitle.textContent = "Сначала раздели окна на агрессивный вход, цену по рынку, осторожный тест и no-discount.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ Р РµС€РµРЅРёСЏ РџРѕ Р¦РµРЅР°Рј";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° СЂР°Р·РґРµР»Рё РѕРєРЅР° РЅР° Р°РіСЂРµСЃСЃРёРІРЅС‹Р№ РІС…РѕРґ, С†РµРЅСѓ РїРѕ СЂС‹РЅРєСѓ, РѕСЃС‚РѕСЂРѕР¶РЅС‹Р№ С‚РµСЃС‚ Рё no-discount.";
   } else if (item.report_kind === "marketing_card_audit") {
     const actions = payload.actions || {};
     cards.push(
       {
-        title: "Исправить сейчас",
+        title: "РСЃРїСЂР°РІРёС‚СЊ СЃРµР№С‡Р°СЃ",
         value: formatNumber((actions.fix_now || []).length),
-        subtitle: "Карточки с двойной проблемой: цена и title",
+        subtitle: "РљР°СЂС‚РѕС‡РєРё СЃ РґРІРѕР№РЅРѕР№ РїСЂРѕР±Р»РµРјРѕР№: С†РµРЅР° Рё title",
         tone: (actions.fix_now || []).length > 0 ? "warn" : "good",
       },
       {
-        title: "Тест цены",
+        title: "РўРµСЃС‚ С†РµРЅС‹",
         value: formatNumber((actions.price_tests || []).length),
-        subtitle: "Карточки рядом с сильными ценовыми порогами",
+        subtitle: "РљР°СЂС‚РѕС‡РєРё СЂСЏРґРѕРј СЃ СЃРёР»СЊРЅС‹РјРё С†РµРЅРѕРІС‹РјРё РїРѕСЂРѕРіР°РјРё",
         tone: (actions.price_tests || []).length > 0 ? "good" : "neutral",
       },
       {
-        title: "Переписать title",
+        title: "РџРµСЂРµРїРёСЃР°С‚СЊ title",
         value: formatNumber((actions.title_fixes || []).length),
-        subtitle: "Карточки со слабым поисковым сигналом",
+        subtitle: "РљР°СЂС‚РѕС‡РєРё СЃРѕ СЃР»Р°Р±С‹Рј РїРѕРёСЃРєРѕРІС‹Рј СЃРёРіРЅР°Р»РѕРј",
         tone: (actions.title_fixes || []).length > 0 ? "warn" : "neutral",
       },
       {
-        title: "Рынок поддерживает",
+        title: "Р С‹РЅРѕРє РїРѕРґРґРµСЂР¶РёРІР°РµС‚",
         value: formatNumber((actions.market_supported || []).length),
-        subtitle: "Карточки в окнах с рабочим pricing context",
+        subtitle: "РљР°СЂС‚РѕС‡РєРё РІ РѕРєРЅР°С… СЃ СЂР°Р±РѕС‡РёРј pricing context",
         tone: (actions.market_supported || []).length > 0 ? "good" : "neutral",
       },
     );
-    title.textContent = "Главные Решения По Карточкам";
-    subtitle.textContent = "Сначала выбери, где чинить цену, где переписывать title и где рынок уже поддерживает тест.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ Р РµС€РµРЅРёСЏ РџРѕ РљР°СЂС‚РѕС‡РєР°Рј";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРё, РіРґРµ С‡РёРЅРёС‚СЊ С†РµРЅСѓ, РіРґРµ РїРµСЂРµРїРёСЃС‹РІР°С‚СЊ title Рё РіРґРµ СЂС‹РЅРѕРє СѓР¶Рµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ С‚РµСЃС‚.";
   } else if (item.report_kind === "cubejs_period_compare") {
     const periods = rawPayload.periods || {};
     const current = (periods.current_trailing_year || {}).metrics || {};
@@ -723,123 +723,123 @@ function renderPriorityCards(item, payload, rawPayload) {
       {
         title: "Trailing year",
         value: formatMoney(current.revenue_total || 0),
-        subtitle: "Главная база выручки за последние 365 дней",
+        subtitle: "Р“Р»Р°РІРЅР°СЏ Р±Р°Р·Р° РІС‹СЂСѓС‡РєРё Р·Р° РїРѕСЃР»РµРґРЅРёРµ 365 РґРЅРµР№",
         tone: "good",
       },
       {
-        title: "YoY готовность",
-        value: previous.revenue_total ? "есть база" : "недостаточно",
-        subtitle: "Можно ли уже честно читать год-к-году",
+        title: "YoY РіРѕС‚РѕРІРЅРѕСЃС‚СЊ",
+        value: previous.revenue_total ? "РµСЃС‚СЊ Р±Р°Р·Р°" : "РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ",
+        subtitle: "РњРѕР¶РЅРѕ Р»Рё СѓР¶Рµ С‡РµСЃС‚РЅРѕ С‡РёС‚Р°С‚СЊ РіРѕРґ-Рє-РіРѕРґСѓ",
         tone: previous.revenue_total ? "good" : "warn",
       },
       {
-        title: "YTD база",
+        title: "YTD Р±Р°Р·Р°",
         value: formatMoney(ytd.revenue_total || 0),
-        subtitle: previousYtd.revenue_total ? "Есть и прошлый YTD" : "Предыдущий YTD ещё пустой",
+        subtitle: previousYtd.revenue_total ? "Р•СЃС‚СЊ Рё РїСЂРѕС€Р»С‹Р№ YTD" : "РџСЂРµРґС‹РґСѓС‰РёР№ YTD РµС‰С‘ РїСѓСЃС‚РѕР№",
         tone: previousYtd.revenue_total ? "good" : "warn",
       },
       {
-        title: "Месяцев истории",
+        title: "РњРµСЃСЏС†РµРІ РёСЃС‚РѕСЂРёРё",
         value: formatNumber(seriesMonths),
-        subtitle: "Для seasonality и YoY желательно 12-18 ненулевых месяцев",
+        subtitle: "Р”Р»СЏ seasonality Рё YoY Р¶РµР»Р°С‚РµР»СЊРЅРѕ 12-18 РЅРµРЅСѓР»РµРІС‹С… РјРµСЃСЏС†РµРІ",
         tone: seriesMonths >= 12 ? "good" : "warn",
       },
     );
-    title.textContent = "Главные Сигналы Истории";
-    subtitle.textContent = "Сначала смотри зрелость временного ряда, а уже потом делай выводы о динамике.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ РЎРёРіРЅР°Р»С‹ РСЃС‚РѕСЂРёРё";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° СЃРјРѕС‚СЂРё Р·СЂРµР»РѕСЃС‚СЊ РІСЂРµРјРµРЅРЅРѕРіРѕ СЂСЏРґР°, Р° СѓР¶Рµ РїРѕС‚РѕРј РґРµР»Р°Р№ РІС‹РІРѕРґС‹ Рѕ РґРёРЅР°РјРёРєРµ.";
   } else if (item.report_kind === "paid_storage_report") {
     const actions = payload.actions || {};
     const kpis = payload.kpis || {};
     cards.push(
       {
-        title: "Крупные начисления",
+        title: "РљСЂСѓРїРЅС‹Рµ РЅР°С‡РёСЃР»РµРЅРёСЏ",
         value: formatNumber((actions.reorder_now || []).length),
-        subtitle: "Строки, которые нужно разбирать первыми",
+        subtitle: "РЎС‚СЂРѕРєРё, РєРѕС‚РѕСЂС‹Рµ РЅСѓР¶РЅРѕ СЂР°Р·Р±РёСЂР°С‚СЊ РїРµСЂРІС‹РјРё",
         tone: (actions.reorder_now || []).length > 0 ? "warn" : "neutral",
       },
       {
-        title: "Без идентификации",
+        title: "Р‘РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё",
         value: formatNumber(kpis.rows_without_identity_count || 0),
-        subtitle: "Строки без понятного SKU или названия",
+        subtitle: "РЎС‚СЂРѕРєРё Р±РµР· РїРѕРЅСЏС‚РЅРѕРіРѕ SKU РёР»Рё РЅР°Р·РІР°РЅРёСЏ",
         tone: (kpis.rows_without_identity_count || 0) > 0 ? "warn" : "good",
       },
       {
-        title: "Сумма начислений",
+        title: "РЎСѓРјРјР° РЅР°С‡РёСЃР»РµРЅРёР№",
         value: formatMoney(kpis.total_amount || 0),
-        subtitle: "Главный денежный слой текущего файла",
+        subtitle: "Р“Р»Р°РІРЅС‹Р№ РґРµРЅРµР¶РЅС‹Р№ СЃР»РѕР№ С‚РµРєСѓС‰РµРіРѕ С„Р°Р№Р»Р°",
         tone: "good",
       },
       {
-        title: "Удержания",
+        title: "РЈРґРµСЂР¶Р°РЅРёСЏ",
         value: formatMoney(kpis.penalty_total || 0),
-        subtitle: "Похожие на штрафы и удержания колонки",
+        subtitle: "РџРѕС…РѕР¶РёРµ РЅР° С€С‚СЂР°С„С‹ Рё СѓРґРµСЂР¶Р°РЅРёСЏ РєРѕР»РѕРЅРєРё",
         tone: (kpis.penalty_total || 0) > 0 ? "warn" : "neutral",
       },
     );
-    title.textContent = "Главные Решения По Платному Слою";
-    subtitle.textContent = "Сначала разбери крупнейшие начисления и строки без идентификации, потом уходи в расшифровку колонок.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ Р РµС€РµРЅРёСЏ РџРѕ РџР»Р°С‚РЅРѕРјСѓ РЎР»РѕСЋ";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° СЂР°Р·Р±РµСЂРё РєСЂСѓРїРЅРµР№С€РёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ Рё СЃС‚СЂРѕРєРё Р±РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё, РїРѕС‚РѕРј СѓС…РѕРґРё РІ СЂР°СЃС€РёС„СЂРѕРІРєСѓ РєРѕР»РѕРЅРѕРє.";
   } else if (item.report_kind === "sales_return_report") {
     const actions = payload.actions || {};
     const kpis = payload.kpis || {};
     cards.push(
       {
-        title: "Возвратов в окне",
+        title: "Р’РѕР·РІСЂР°С‚РѕРІ РІ РѕРєРЅРµ",
         value: formatNumber(kpis.total_returns_count || 0),
-        subtitle: "Сумма возвратов по основной мере CubeJS",
+        subtitle: "РЎСѓРјРјР° РІРѕР·РІСЂР°С‚РѕРІ РїРѕ РѕСЃРЅРѕРІРЅРѕР№ РјРµСЂРµ CubeJS",
         tone: (kpis.total_returns_count || 0) > 0 ? "warn" : "neutral",
       },
       {
-        title: "Причин возврата",
+        title: "РџСЂРёС‡РёРЅ РІРѕР·РІСЂР°С‚Р°",
         value: formatNumber(kpis.unique_return_reasons_count || 0),
-        subtitle: "Сколько разных причин видно в текущем окне",
+        subtitle: "РЎРєРѕР»СЊРєРѕ СЂР°Р·РЅС‹С… РїСЂРёС‡РёРЅ РІРёРґРЅРѕ РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ",
         tone: (kpis.unique_return_reasons_count || 0) > 0 ? "good" : "neutral",
       },
       {
-        title: "Главная причина",
+        title: "Р“Р»Р°РІРЅР°СЏ РїСЂРёС‡РёРЅР°",
         value: formatPercent(kpis.top_reason_share_pct || 0),
-        subtitle: "Доля возвратов, которую даёт самая частая причина",
+        subtitle: "Р”РѕР»СЏ РІРѕР·РІСЂР°С‚РѕРІ, РєРѕС‚РѕСЂСѓСЋ РґР°С‘С‚ СЃР°РјР°СЏ С‡Р°СЃС‚Р°СЏ РїСЂРёС‡РёРЅР°",
         tone: (kpis.top_reason_share_pct || 0) >= 40 ? "warn" : "good",
       },
       {
-        title: "Без идентификации",
+        title: "Р‘РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё",
         value: formatNumber(kpis.rows_without_identity_count || 0),
-        subtitle: "Строки, где возврат не удалось уверенно привязать к товару",
+        subtitle: "РЎС‚СЂРѕРєРё, РіРґРµ РІРѕР·РІСЂР°С‚ РЅРµ СѓРґР°Р»РѕСЃСЊ СѓРІРµСЂРµРЅРЅРѕ РїСЂРёРІСЏР·Р°С‚СЊ Рє С‚РѕРІР°СЂСѓ",
         tone: (kpis.rows_without_identity_count || 0) > 0 ? "warn" : "good",
       },
     );
-    title.textContent = "Главные Решения По Возвратам";
-    subtitle.textContent = "Сначала разбери доминирующую причину и самые тяжёлые SKU, потом уходи в хвост и пробелы данных.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ Р РµС€РµРЅРёСЏ РџРѕ Р’РѕР·РІСЂР°С‚Р°Рј";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° СЂР°Р·Р±РµСЂРё РґРѕРјРёРЅРёСЂСѓСЋС‰СѓСЋ РїСЂРёС‡РёРЅСѓ Рё СЃР°РјС‹Рµ С‚СЏР¶С‘Р»С‹Рµ SKU, РїРѕС‚РѕРј СѓС…РѕРґРё РІ С…РІРѕСЃС‚ Рё РїСЂРѕР±РµР»С‹ РґР°РЅРЅС‹С….";
   } else {
     const actions = payload.actions || {};
     const kpis = payload.kpis || {};
     cards.push(
       {
-        title: "Заказать",
+        title: "Р—Р°РєР°Р·Р°С‚СЊ",
         value: formatNumber((actions.reorder_now || []).length),
-        subtitle: "SKU, которые уже проходят жёсткий порог на дозакупку",
+        subtitle: "SKU, РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ РїСЂРѕС…РѕРґСЏС‚ Р¶С‘СЃС‚РєРёР№ РїРѕСЂРѕРі РЅР° РґРѕР·Р°РєСѓРїРєСѓ",
         tone: (actions.reorder_now || []).length > 0 ? "good" : "neutral",
       },
       {
-        title: "Снизить цену / чистить",
+        title: "РЎРЅРёР·РёС‚СЊ С†РµРЅСѓ / С‡РёСЃС‚РёС‚СЊ",
         value: formatNumber((actions.markdown_candidates || []).length),
-        subtitle: "Кандидаты на уценку и расчистку хвоста",
+        subtitle: "РљР°РЅРґРёРґР°С‚С‹ РЅР° СѓС†РµРЅРєСѓ Рё СЂР°СЃС‡РёСЃС‚РєСѓ С…РІРѕСЃС‚Р°",
         tone: (actions.markdown_candidates || []).length > 0 ? "warn" : "good",
       },
       {
-        title: "Беречь",
+        title: "Р‘РµСЂРµС‡СЊ",
         value: formatNumber((actions.protect_winners || []).length || (actions.watchlist_signals || []).length),
-        subtitle: (actions.protect_winners || []).length ? "Победители по прибыли" : "Живые сигналы для ручного контроля",
+        subtitle: (actions.protect_winners || []).length ? "РџРѕР±РµРґРёС‚РµР»Рё РїРѕ РїСЂРёР±С‹Р»Рё" : "Р–РёРІС‹Рµ СЃРёРіРЅР°Р»С‹ РґР»СЏ СЂСѓС‡РЅРѕРіРѕ РєРѕРЅС‚СЂРѕР»СЏ",
         tone: (actions.protect_winners || []).length > 0 ? "good" : "neutral",
       },
       {
-        title: "Потери из-за OOS",
+        title: "РџРѕС‚РµСЂРё РёР·-Р·Р° OOS",
         value: formatNumber(kpis.estimated_lost_units_oos_total || 0),
-        subtitle: "Proxy-оценка потерянных единиц из-за отсутствия в наличии",
+        subtitle: "Proxy-РѕС†РµРЅРєР° РїРѕС‚РµСЂСЏРЅРЅС‹С… РµРґРёРЅРёС† РёР·-Р·Р° РѕС‚СЃСѓС‚СЃС‚РІРёСЏ РІ РЅР°Р»РёС‡РёРё",
         tone: (kpis.estimated_lost_units_oos_total || 0) > 0 ? "warn" : "good",
       },
     );
-    title.textContent = "Главные Операционные Действия";
-    subtitle.textContent = "Сначала реши, что заказывать, что чистить и где магазин уже теряет спрос из-за отсутствия товара.";
+    title.textContent = "Р“Р»Р°РІРЅС‹Рµ РћРїРµСЂР°С†РёРѕРЅРЅС‹Рµ Р”РµР№СЃС‚РІРёСЏ";
+    subtitle.textContent = "РЎРЅР°С‡Р°Р»Р° СЂРµС€Рё, С‡С‚Рѕ Р·Р°РєР°Р·С‹РІР°С‚СЊ, С‡С‚Рѕ С‡РёСЃС‚РёС‚СЊ Рё РіРґРµ РјР°РіР°Р·РёРЅ СѓР¶Рµ С‚РµСЂСЏРµС‚ СЃРїСЂРѕСЃ РёР·-Р·Р° РѕС‚СЃСѓС‚СЃС‚РІРёСЏ С‚РѕРІР°СЂР°.";
   }
   cards.forEach((row) => {
     const card = el("div", "compare-card priority-card");
@@ -853,12 +853,12 @@ function renderPriorityCards(item, payload, rawPayload) {
 
 function renderActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Заказать сейчас", subtitle: "SKU с риском нехватки", rows: (actions.reorder_now || []).slice(0, 8), formatter: (row) => `остаток ${row.total_stock}, покрытие ${row.stock_cover_days ?? "∞"} дн., среднесуточно ${row.avg_daily_sales_official}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Кандидаты на уценку", subtitle: "Товары без движения", rows: (actions.markdown_candidates || []).slice(0, 8), formatter: (row) => `остаток ${row.total_stock}, стоимость ${formatMoney(row.stock_value_sale)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "Р—Р°РєР°Р·Р°С‚СЊ СЃРµР№С‡Р°СЃ", subtitle: "SKU СЃ СЂРёСЃРєРѕРј РЅРµС…РІР°С‚РєРё", rows: (actions.reorder_now || []).slice(0, 8), formatter: (row) => `РѕСЃС‚Р°С‚РѕРє ${row.total_stock}, РїРѕРєСЂС‹С‚РёРµ ${row.stock_cover_days ?? "в€ћ"} РґРЅ., СЃСЂРµРґРЅРµСЃСѓС‚РѕС‡РЅРѕ ${row.avg_daily_sales_official}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "РљР°РЅРґРёРґР°С‚С‹ РЅР° СѓС†РµРЅРєСѓ", subtitle: "РўРѕРІР°СЂС‹ Р±РµР· РґРІРёР¶РµРЅРёСЏ", rows: (actions.markdown_candidates || []).slice(0, 8), formatter: (row) => `РѕСЃС‚Р°С‚РѕРє ${row.total_stock}, СЃС‚РѕРёРјРѕСЃС‚СЊ ${formatMoney(row.stock_value_sale)}`, getDisplayTitle, createEntityActionButtons });
   const protectRows = (actions.protect_winners || []).length ? (actions.protect_winners || []) : (actions.watchlist_signals || []);
-  const protectTitle = (actions.protect_winners || []).length ? "Беречь победителей" : "Смотреть сигналы";
-  const protectSubtitle = (actions.protect_winners || []).length ? "Лидеры по текущей прибыли" : "Пока не победители, но уже живые позиции";
-  renderActionCard({ root: document.getElementById("action-protect"), title: protectTitle, subtitle: protectSubtitle, rows: protectRows.slice(0, 8), formatter: (row) => `прибыль ${formatMoney(row.gross_profit)}, продано ${row.units_sold}`, getDisplayTitle, createEntityActionButtons });
+  const protectTitle = (actions.protect_winners || []).length ? "Р‘РµСЂРµС‡СЊ РїРѕР±РµРґРёС‚РµР»РµР№" : "РЎРјРѕС‚СЂРµС‚СЊ СЃРёРіРЅР°Р»С‹";
+  const protectSubtitle = (actions.protect_winners || []).length ? "Р›РёРґРµСЂС‹ РїРѕ С‚РµРєСѓС‰РµР№ РїСЂРёР±С‹Р»Рё" : "РџРѕРєР° РЅРµ РїРѕР±РµРґРёС‚РµР»Рё, РЅРѕ СѓР¶Рµ Р¶РёРІС‹Рµ РїРѕР·РёС†РёРё";
+  renderActionCard({ root: document.getElementById("action-protect"), title: protectTitle, subtitle: protectSubtitle, rows: protectRows.slice(0, 8), formatter: (row) => `РїСЂРёР±С‹Р»СЊ ${formatMoney(row.gross_profit)}, РїСЂРѕРґР°РЅРѕ ${row.units_sold}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderMarketActions(payload) {
@@ -868,58 +868,58 @@ function renderMarketActions(payload) {
   const noGoRows = (actions.sourcing_or_avoid_segments || []).length
     ? actions.sourcing_or_avoid_segments
     : ((actions.weak_margin_segments || []).length ? actions.weak_margin_segments : (actions.too_hot_segments || []));
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Входить первым", subtitle: "Окна, где спрос, структура рынка и экономика уже выглядят рабочими", rows: enterRows.slice(0, 8), formatter: (row) => `${row.group} / ${row.price_band}, score ${row.entry_window_score}, решение ${row.entry_strategy_label || "н/д"}, margin fit ${row.market_margin_fit_pct ?? "н/д"}%`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Тестировать точечно", subtitle: "Окна, где вход возможен, но уже нужен контроль экономики или сильный оффер", rows: testRows.slice(0, 8), formatter: (row) => `${row.group} / ${row.price_band}, решение ${row.entry_strategy_label || "н/д"}, HHI ${row.dominance_hhi ?? "н/д"}, margin fit ${row.market_margin_fit_pct ?? "н/д"}%`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Не входить или менять закупку", subtitle: "Окна, где сегмент перегрет или рыночная цена не бьётся с вашей целевой маржой", rows: noGoRows.slice(0, 8), formatter: (row) => `${row.group} / ${row.price_band}, решение ${row.entry_strategy_label || "н/д"}, margin fit ${row.market_margin_fit_pct ?? "н/д"}%, HHI ${row.dominance_hhi ?? "н/д"}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "Р’С…РѕРґРёС‚СЊ РїРµСЂРІС‹Рј", subtitle: "РћРєРЅР°, РіРґРµ СЃРїСЂРѕСЃ, СЃС‚СЂСѓРєС‚СѓСЂР° СЂС‹РЅРєР° Рё СЌРєРѕРЅРѕРјРёРєР° СѓР¶Рµ РІС‹РіР»СЏРґСЏС‚ СЂР°Р±РѕС‡РёРјРё", rows: enterRows.slice(0, 8), formatter: (row) => `${row.group} / ${row.price_band}, score ${row.entry_window_score}, СЂРµС€РµРЅРёРµ ${row.entry_strategy_label || "РЅ/Рґ"}, margin fit ${row.market_margin_fit_pct ?? "РЅ/Рґ"}%`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "РўРµСЃС‚РёСЂРѕРІР°С‚СЊ С‚РѕС‡РµС‡РЅРѕ", subtitle: "РћРєРЅР°, РіРґРµ РІС…РѕРґ РІРѕР·РјРѕР¶РµРЅ, РЅРѕ СѓР¶Рµ РЅСѓР¶РµРЅ РєРѕРЅС‚СЂРѕР»СЊ СЌРєРѕРЅРѕРјРёРєРё РёР»Рё СЃРёР»СЊРЅС‹Р№ РѕС„С„РµСЂ", rows: testRows.slice(0, 8), formatter: (row) => `${row.group} / ${row.price_band}, СЂРµС€РµРЅРёРµ ${row.entry_strategy_label || "РЅ/Рґ"}, HHI ${row.dominance_hhi ?? "РЅ/Рґ"}, margin fit ${row.market_margin_fit_pct ?? "РЅ/Рґ"}%`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "РќРµ РІС…РѕРґРёС‚СЊ РёР»Рё РјРµРЅСЏС‚СЊ Р·Р°РєСѓРїРєСѓ", subtitle: "РћРєРЅР°, РіРґРµ СЃРµРіРјРµРЅС‚ РїРµСЂРµРіСЂРµС‚ РёР»Рё СЂС‹РЅРѕС‡РЅР°СЏ С†РµРЅР° РЅРµ Р±СЊС‘С‚СЃСЏ СЃ РІР°С€РµР№ С†РµР»РµРІРѕР№ РјР°СЂР¶РѕР№", rows: noGoRows.slice(0, 8), formatter: (row) => `${row.group} / ${row.price_band}, СЂРµС€РµРЅРёРµ ${row.entry_strategy_label || "РЅ/Рґ"}, margin fit ${row.market_margin_fit_pct ?? "РЅ/Рґ"}%, HHI ${row.dominance_hhi ?? "РЅ/Рґ"}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderPricingActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Агрессивно входить", subtitle: "Окна, где можно держаться чуть ниже рынка и всё ещё сохранять целевую маржу", rows: (actions.aggressive_price || []).slice(0, 8), formatter: (row) => `${row.group || "н/д"} / ${row.price_band || "н/д"}, рынок ${formatMoney(row.avg_market_price)}, безопасно от ${formatMoney(row.min_safe_price)}, рекомендация ${formatMoney(row.suggested_price)}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Цена по рынку / осторожный тест", subtitle: "Окна, где можно держаться рынка или проверять более осторожный price point", rows: [...(actions.price_at_market || []), ...(actions.test_carefully || [])].slice(0, 8), formatter: (row) => `${row.group || "н/д"} / ${row.price_band || "н/д"}, ярлык ${row.pricing_label || "н/д"}, рынок ${formatMoney(row.avg_market_price)}, рекомендация ${formatMoney(row.suggested_price)}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Беречь маржу", subtitle: "Окна, где нельзя демпинговать, иначе целевая маржа разрушается", rows: (actions.protect_margin || []).slice(0, 8), formatter: (row) => `${row.group || "н/д"} / ${row.price_band || "н/д"}, безопасно не ниже ${formatMoney(row.min_safe_price)}, рынок ${formatMoney(row.avg_market_price)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "РђРіСЂРµСЃСЃРёРІРЅРѕ РІС…РѕРґРёС‚СЊ", subtitle: "РћРєРЅР°, РіРґРµ РјРѕР¶РЅРѕ РґРµСЂР¶Р°С‚СЊСЃСЏ С‡СѓС‚СЊ РЅРёР¶Рµ СЂС‹РЅРєР° Рё РІСЃС‘ РµС‰С‘ СЃРѕС…СЂР°РЅСЏС‚СЊ С†РµР»РµРІСѓСЋ РјР°СЂР¶Сѓ", rows: (actions.aggressive_price || []).slice(0, 8), formatter: (row) => `${row.group || "РЅ/Рґ"} / ${row.price_band || "РЅ/Рґ"}, СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}, Р±РµР·РѕРїР°СЃРЅРѕ РѕС‚ ${formatMoney(row.min_safe_price)}, СЂРµРєРѕРјРµРЅРґР°С†РёСЏ ${formatMoney(row.suggested_price)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "Р¦РµРЅР° РїРѕ СЂС‹РЅРєСѓ / РѕСЃС‚РѕСЂРѕР¶РЅС‹Р№ С‚РµСЃС‚", subtitle: "РћРєРЅР°, РіРґРµ РјРѕР¶РЅРѕ РґРµСЂР¶Р°С‚СЊСЃСЏ СЂС‹РЅРєР° РёР»Рё РїСЂРѕРІРµСЂСЏС‚СЊ Р±РѕР»РµРµ РѕСЃС‚РѕСЂРѕР¶РЅС‹Р№ price point", rows: [...(actions.price_at_market || []), ...(actions.test_carefully || [])].slice(0, 8), formatter: (row) => `${row.group || "РЅ/Рґ"} / ${row.price_band || "РЅ/Рґ"}, СЏСЂР»С‹Рє ${row.pricing_label || "РЅ/Рґ"}, СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}, СЂРµРєРѕРјРµРЅРґР°С†РёСЏ ${formatMoney(row.suggested_price)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "Р‘РµСЂРµС‡СЊ РјР°СЂР¶Сѓ", subtitle: "РћРєРЅР°, РіРґРµ РЅРµР»СЊР·СЏ РґРµРјРїРёРЅРіРѕРІР°С‚СЊ, РёРЅР°С‡Рµ С†РµР»РµРІР°СЏ РјР°СЂР¶Р° СЂР°Р·СЂСѓС€Р°РµС‚СЃСЏ", rows: (actions.protect_margin || []).slice(0, 8), formatter: (row) => `${row.group || "РЅ/Рґ"} / ${row.price_band || "РЅ/Рґ"}, Р±РµР·РѕРїР°СЃРЅРѕ РЅРµ РЅРёР¶Рµ ${formatMoney(row.min_safe_price)}, СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderMarketingActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Исправить сейчас", subtitle: "Карточки, где одновременно слабый title и неудачный ценовой point", rows: (actions.fix_now || []).slice(0, 8), formatter: (row) => `${row.group || "н/д"} / ${row.price_band || "н/д"}, ${row.action_reason || "н/д"}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Тест цены", subtitle: "Карточки рядом с психологическими порогами", rows: (actions.price_tests || []).slice(0, 8), formatter: (row) => `цена ${formatMoney(row.sale_price)}, порог ${formatMoney(row.threshold || 0)}, тест ${formatMoney(row.suggested_threshold_price || row.sale_price)}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Переписать title", subtitle: "Карточки, где контент даёт слабый поисковый сигнал", rows: (actions.title_fixes || []).slice(0, 8), formatter: (row) => `SEO ${row.seo_status || "н/д"} / ${row.seo_score ?? "н/д"}, issues: ${(row.seo_issues || []).join(", ") || "н/д"}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "РСЃРїСЂР°РІРёС‚СЊ СЃРµР№С‡Р°СЃ", subtitle: "РљР°СЂС‚РѕС‡РєРё, РіРґРµ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ СЃР»Р°Р±С‹Р№ title Рё РЅРµСѓРґР°С‡РЅС‹Р№ С†РµРЅРѕРІРѕР№ point", rows: (actions.fix_now || []).slice(0, 8), formatter: (row) => `${row.group || "РЅ/Рґ"} / ${row.price_band || "РЅ/Рґ"}, ${row.action_reason || "РЅ/Рґ"}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "РўРµСЃС‚ С†РµРЅС‹", subtitle: "РљР°СЂС‚РѕС‡РєРё СЂСЏРґРѕРј СЃ РїСЃРёС…РѕР»РѕРіРёС‡РµСЃРєРёРјРё РїРѕСЂРѕРіР°РјРё", rows: (actions.price_tests || []).slice(0, 8), formatter: (row) => `С†РµРЅР° ${formatMoney(row.sale_price)}, РїРѕСЂРѕРі ${formatMoney(row.threshold || 0)}, С‚РµСЃС‚ ${formatMoney(row.suggested_threshold_price || row.sale_price)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "РџРµСЂРµРїРёСЃР°С‚СЊ title", subtitle: "РљР°СЂС‚РѕС‡РєРё, РіРґРµ РєРѕРЅС‚РµРЅС‚ РґР°С‘С‚ СЃР»Р°Р±С‹Р№ РїРѕРёСЃРєРѕРІС‹Р№ СЃРёРіРЅР°Р»", rows: (actions.title_fixes || []).slice(0, 8), formatter: (row) => `SEO ${row.seo_status || "РЅ/Рґ"} / ${row.seo_score ?? "РЅ/Рґ"}, issues: ${(row.seo_issues || []).join(", ") || "РЅ/Рґ"}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderMediaActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Срочно усилить медиа", subtitle: "Карточки с самым явным отставанием по фото или характеристикам относительно своей группы", rows: (actions.fix_now || []).slice(0, 8), formatter: (row) => `media ${row.media_status || "н/д"} / ${row.media_score ?? "н/д"}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Визуальные отставания", subtitle: "Gap здесь означает разницу с типичным уровнем своей группы", rows: (actions.visual_gaps || []).slice(0, 8), formatter: (row) => `отставание по фото ${row.photo_gap_vs_group ?? 0}, по характеристикам ${row.spec_gap_vs_group ?? 0}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Сильные примеры", subtitle: "Внутренние ориентиры по карточкам", rows: (actions.strong_examples || []).slice(0, 8), formatter: (row) => `фото ${row.photo_count}, spec ${row.spec_count}, видео ${row.video_count}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "РЎСЂРѕС‡РЅРѕ СѓСЃРёР»РёС‚СЊ РјРµРґРёР°", subtitle: "РљР°СЂС‚РѕС‡РєРё СЃ СЃР°РјС‹Рј СЏРІРЅС‹Рј РѕС‚СЃС‚Р°РІР°РЅРёРµРј РїРѕ С„РѕС‚Рѕ РёР»Рё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЃРІРѕРµР№ РіСЂСѓРїРїС‹", rows: (actions.fix_now || []).slice(0, 8), formatter: (row) => `media ${row.media_status || "РЅ/Рґ"} / ${row.media_score ?? "РЅ/Рґ"}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "Р’РёР·СѓР°Р»СЊРЅС‹Рµ РѕС‚СЃС‚Р°РІР°РЅРёСЏ", subtitle: "Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚ СЂР°Р·РЅРёС†Сѓ СЃ С‚РёРїРёС‡РЅС‹Рј СѓСЂРѕРІРЅРµРј СЃРІРѕРµР№ РіСЂСѓРїРїС‹", rows: (actions.visual_gaps || []).slice(0, 8), formatter: (row) => `РѕС‚СЃС‚Р°РІР°РЅРёРµ РїРѕ С„РѕС‚Рѕ ${row.photo_gap_vs_group ?? 0}, РїРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј ${row.spec_gap_vs_group ?? 0}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "РЎРёР»СЊРЅС‹Рµ РїСЂРёРјРµСЂС‹", subtitle: "Р’РЅСѓС‚СЂРµРЅРЅРёРµ РѕСЂРёРµРЅС‚РёСЂС‹ РїРѕ РєР°СЂС‚РѕС‡РєР°Рј", rows: (actions.strong_examples || []).slice(0, 8), formatter: (row) => `С„РѕС‚Рѕ ${row.photo_count}, spec ${row.spec_count}, РІРёРґРµРѕ ${row.video_count}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderDescriptionActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Срочно переписать описание", subtitle: "Карточки с наиболее слабым description-layer", rows: (actions.fix_now || []).slice(0, 8), formatter: (row) => `description ${row.description_status || "н/д"} / ${row.description_score ?? "н/д"}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Тонкие описания", subtitle: "Слишком короткие описания", rows: (actions.thin_content || []).slice(0, 8), formatter: (row) => `${row.description_chars ?? 0} симв., coverage ${row.title_term_coverage_pct ?? "н/д"}%`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Сильные примеры", subtitle: "Внутренние ориентиры по описаниям", rows: (actions.strong_examples || []).slice(0, 8), formatter: (row) => `${row.description_chars ?? 0} симв., coverage ${row.title_term_coverage_pct ?? "н/д"}%`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "РЎСЂРѕС‡РЅРѕ РїРµСЂРµРїРёСЃР°С‚СЊ РѕРїРёСЃР°РЅРёРµ", subtitle: "РљР°СЂС‚РѕС‡РєРё СЃ РЅР°РёР±РѕР»РµРµ СЃР»Р°Р±С‹Рј description-layer", rows: (actions.fix_now || []).slice(0, 8), formatter: (row) => `description ${row.description_status || "РЅ/Рґ"} / ${row.description_score ?? "РЅ/Рґ"}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "РўРѕРЅРєРёРµ РѕРїРёСЃР°РЅРёСЏ", subtitle: "РЎР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРёРµ РѕРїРёСЃР°РЅРёСЏ", rows: (actions.thin_content || []).slice(0, 8), formatter: (row) => `${row.description_chars ?? 0} СЃРёРјРІ., coverage ${row.title_term_coverage_pct ?? "РЅ/Рґ"}%`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "РЎРёР»СЊРЅС‹Рµ РїСЂРёРјРµСЂС‹", subtitle: "Р’РЅСѓС‚СЂРµРЅРЅРёРµ РѕСЂРёРµРЅС‚РёСЂС‹ РїРѕ РѕРїРёСЃР°РЅРёСЏРј", rows: (actions.strong_examples || []).slice(0, 8), formatter: (row) => `${row.description_chars ?? 0} СЃРёРјРІ., coverage ${row.title_term_coverage_pct ?? "РЅ/Рґ"}%`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderSalesReturnActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Разобрать сейчас", subtitle: "SKU и причины, где возвраты концентрируются сильнее всего", rows: (actions.investigate_now || []).slice(0, 8), formatter: (row) => `${row.reason || "Без причины"} · возвратов ${formatNumber(row.return_count || 0)}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Очаги по причинам", subtitle: "Причины возврата, которые уже формируют основную массу проблемы", rows: (actions.reason_hotspots || []).slice(0, 8), formatter: (row) => `возвратов ${formatNumber(row.return_count || 0)}${row.amount_value ? ` · сумма ${formatMoney(row.amount_value)}` : ""}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Пробелы данных", subtitle: "Строки без уверенной привязки к товару", rows: (actions.identity_gaps || []).slice(0, 8), formatter: (row) => `${row.reason || "Без причины"} · возвратов ${formatNumber(row.return_count || 0)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "Р Р°Р·РѕР±СЂР°С‚СЊ СЃРµР№С‡Р°СЃ", subtitle: "SKU Рё РїСЂРёС‡РёРЅС‹, РіРґРµ РІРѕР·РІСЂР°С‚С‹ РєРѕРЅС†РµРЅС‚СЂРёСЂСѓСЋС‚СЃСЏ СЃРёР»СЊРЅРµРµ РІСЃРµРіРѕ", rows: (actions.investigate_now || []).slice(0, 8), formatter: (row) => `${row.reason || "Р‘РµР· РїСЂРёС‡РёРЅС‹"} В· РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "РћС‡Р°РіРё РїРѕ РїСЂРёС‡РёРЅР°Рј", subtitle: "РџСЂРёС‡РёРЅС‹ РІРѕР·РІСЂР°С‚Р°, РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ С„РѕСЂРјРёСЂСѓСЋС‚ РѕСЃРЅРѕРІРЅСѓСЋ РјР°СЃСЃСѓ РїСЂРѕР±Р»РµРјС‹", rows: (actions.reason_hotspots || []).slice(0, 8), formatter: (row) => `РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}${row.amount_value ? ` В· СЃСѓРјРјР° ${formatMoney(row.amount_value)}` : ""}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "РџСЂРѕР±РµР»С‹ РґР°РЅРЅС‹С…", subtitle: "РЎС‚СЂРѕРєРё Р±РµР· СѓРІРµСЂРµРЅРЅРѕР№ РїСЂРёРІСЏР·РєРё Рє С‚РѕРІР°СЂСѓ", rows: (actions.identity_gaps || []).slice(0, 8), formatter: (row) => `${row.reason || "Р‘РµР· РїСЂРёС‡РёРЅС‹"} В· РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderWaybillActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Последние и дорогие партии", subtitle: "Batch-строки, которые первыми влияют на cost-layer и требуют сверки", rows: (actions.reorder_now || []).slice(0, 8), formatter: (row) => `batch ${formatMoney(row.batch_cogs_total || 0)} · qty ${formatNumber(row.quantity_supplied || 0)} · unit ${formatMoney(row.unit_cogs || 0)}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Волатильность себестоимости", subtitle: "Identity, где себестоимость уже менялась между партиями", rows: (actions.markdown_candidates || []).slice(0, 8), formatter: (row) => `latest ${formatMoney(row.latest_unit_cogs || 0)} · avg ${formatMoney(row.avg_unit_cogs || 0)} · batches ${formatNumber(row.batch_count || 0)}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Крупнейшие batch-cost строки", subtitle: "Самые тяжёлые по сумме строки текущего слоя накладных", rows: (actions.protect_winners || []).slice(0, 8), formatter: (row) => `batch ${formatMoney(row.batch_cogs_total || 0)} · qty ${formatNumber(row.quantity_supplied || 0)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "РџРѕСЃР»РµРґРЅРёРµ Рё РґРѕСЂРѕРіРёРµ РїР°СЂС‚РёРё", subtitle: "Batch-СЃС‚СЂРѕРєРё, РєРѕС‚РѕСЂС‹Рµ РїРµСЂРІС‹РјРё РІР»РёСЏСЋС‚ РЅР° cost-layer Рё С‚СЂРµР±СѓСЋС‚ СЃРІРµСЂРєРё", rows: (actions.reorder_now || []).slice(0, 8), formatter: (row) => `batch ${formatMoney(row.batch_cogs_total || 0)} В· qty ${formatNumber(row.quantity_supplied || 0)} В· unit ${formatMoney(row.unit_cogs || 0)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "Р’РѕР»Р°С‚РёР»СЊРЅРѕСЃС‚СЊ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё", subtitle: "Identity, РіРґРµ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊ СѓР¶Рµ РјРµРЅСЏР»Р°СЃСЊ РјРµР¶РґСѓ РїР°СЂС‚РёСЏРјРё", rows: (actions.markdown_candidates || []).slice(0, 8), formatter: (row) => `latest ${formatMoney(row.latest_unit_cogs || 0)} В· avg ${formatMoney(row.avg_unit_cogs || 0)} В· batches ${formatNumber(row.batch_count || 0)}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "РљСЂСѓРїРЅРµР№С€РёРµ batch-cost СЃС‚СЂРѕРєРё", subtitle: "РЎР°РјС‹Рµ С‚СЏР¶С‘Р»С‹Рµ РїРѕ СЃСѓРјРјРµ СЃС‚СЂРѕРєРё С‚РµРєСѓС‰РµРіРѕ СЃР»РѕСЏ РЅР°РєР»Р°РґРЅС‹С…", rows: (actions.protect_winners || []).slice(0, 8), formatter: (row) => `batch ${formatMoney(row.batch_cogs_total || 0)} В· qty ${formatNumber(row.quantity_supplied || 0)}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function renderPaidStorageActions(payload) {
   const actions = payload.actions || {};
-  renderActionCard({ root: document.getElementById("action-reorder"), title: "Крупнейшие начисления", subtitle: "Строки, где накопился наибольший платный слой", rows: (actions.reorder_now || []).slice(0, 8), formatter: (row) => `${row.amount_label || "сумма"} ${formatMoney(row.amount || 0)}${row.identity ? ` · ${row.identity}` : ""}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-markdown"), title: "Проверить вручную", subtitle: "Строки без явного SKU или понятной идентификации", rows: (actions.markdown_candidates || []).slice(0, 8), formatter: (row) => `${row.amount_label || "сумма"} ${formatMoney(row.amount || 0)} · identity ${row.identity || "н/д"}`, getDisplayTitle, createEntityActionButtons });
-  renderActionCard({ root: document.getElementById("action-protect"), title: "Высокие начисления", subtitle: "Строки, где сумма уже явно выше основного массива", rows: (actions.protect_winners || []).slice(0, 8), formatter: (row) => `${row.amount_label || "сумма"} ${formatMoney(row.amount || 0)}${row.identity ? ` · ${row.identity}` : ""}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-reorder"), title: "РљСЂСѓРїРЅРµР№С€РёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ", subtitle: "РЎС‚СЂРѕРєРё, РіРґРµ РЅР°РєРѕРїРёР»СЃСЏ РЅР°РёР±РѕР»СЊС€РёР№ РїР»Р°С‚РЅС‹Р№ СЃР»РѕР№", rows: (actions.reorder_now || []).slice(0, 8), formatter: (row) => `${row.amount_label || "СЃСѓРјРјР°"} ${formatMoney(row.amount || 0)}${row.identity ? ` В· ${row.identity}` : ""}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-markdown"), title: "РџСЂРѕРІРµСЂРёС‚СЊ РІСЂСѓС‡РЅСѓСЋ", subtitle: "РЎС‚СЂРѕРєРё Р±РµР· СЏРІРЅРѕРіРѕ SKU РёР»Рё РїРѕРЅСЏС‚РЅРѕР№ РёРґРµРЅС‚РёС„РёРєР°С†РёРё", rows: (actions.markdown_candidates || []).slice(0, 8), formatter: (row) => `${row.amount_label || "СЃСѓРјРјР°"} ${formatMoney(row.amount || 0)} В· identity ${row.identity || "РЅ/Рґ"}`, getDisplayTitle, createEntityActionButtons });
+  renderActionCard({ root: document.getElementById("action-protect"), title: "Р’С‹СЃРѕРєРёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ", subtitle: "РЎС‚СЂРѕРєРё, РіРґРµ СЃСѓРјРјР° СѓР¶Рµ СЏРІРЅРѕ РІС‹С€Рµ РѕСЃРЅРѕРІРЅРѕРіРѕ РјР°СЃСЃРёРІР°", rows: (actions.protect_winners || []).slice(0, 8), formatter: (row) => `${row.amount_label || "СЃСѓРјРјР°"} ${formatMoney(row.amount || 0)}${row.identity ? ` В· ${row.identity}` : ""}`, getDisplayTitle, createEntityActionButtons });
 }
 
 function buildEntityPayload(row, context) {
@@ -970,7 +970,7 @@ function createActionButton(label, className, onClick) {
 function createEntityActionButtons(row, context) {
   const wrap = el("div", "entity-actions");
   wrap.append(
-    createActionButton("Детали", "secondary", async () => {
+    createActionButton("Р”РµС‚Р°Р»Рё", "secondary", async () => {
       const payload = buildEntityPayload(row, context);
       selectedEntityKey = payload.entity_key;
       renderEntityDetail(row);
@@ -982,14 +982,14 @@ function createEntityActionButtons(row, context) {
         panel.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }),
-    createActionButton("В список", "secondary", async () => {
+    createActionButton("Р’ СЃРїРёСЃРѕРє", "secondary", async () => {
       const payload = buildEntityPayload(row, context);
       await addWatchlistItem(payload);
       await refreshActionCenter();
     }),
-    createActionButton("Задача", "primary", async () => {
-      const note = window.prompt("Короткая задача или заметка", "") || "";
-      const owner = window.prompt("Ответственный по задаче", getStoredActionOwner()) || "";
+    createActionButton("Р—Р°РґР°С‡Р°", "primary", async () => {
+      const note = window.prompt("РљРѕСЂРѕС‚РєР°СЏ Р·Р°РґР°С‡Р° РёР»Рё Р·Р°РјРµС‚РєР°", "") || "";
+      const owner = window.prompt("РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№ РїРѕ Р·Р°РґР°С‡Рµ", getStoredActionOwner()) || "";
       setStoredActionOwner(owner.trim());
       const payload = { ...buildEntityPayload(row, context), note, owner: owner.trim(), status: "open" };
       await addActionItem(payload);
@@ -1037,7 +1037,7 @@ function filterActionRows(rows) {
 function summarizeActionOwners(rows) {
   const buckets = new Map();
   rows.forEach((row) => {
-    const owner = row.owner || "без ответственного";
+    const owner = row.owner || "Р±РµР· РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕРіРѕ";
     const current = buckets.get(owner) || { owner, open: 0, in_progress: 0, blocked: 0, done: 0, total: 0 };
     current.total += 1;
     const status = row.status || "open";
@@ -1054,10 +1054,10 @@ function summarizeActionStatuses(rows) {
     counts[status] = (counts[status] || 0) + 1;
   });
   return [
-    { key: "Новые", value: counts.open },
-    { key: "В работе", value: counts.in_progress },
-    { key: "Блокеры", value: counts.blocked },
-    { key: "Готово", value: counts.done },
+    { key: "РќРѕРІС‹Рµ", value: counts.open },
+    { key: "Р’ СЂР°Р±РѕС‚Рµ", value: counts.in_progress },
+    { key: "Р‘Р»РѕРєРµСЂС‹", value: counts.blocked },
+    { key: "Р“РѕС‚РѕРІРѕ", value: counts.done },
   ];
 }
 
@@ -1068,7 +1068,7 @@ function renderActionCenterToolbar() {
   const wrap = el("div", "inline-form");
   const ownerInput = el("input", "inline-input");
   ownerInput.type = "text";
-  ownerInput.placeholder = "Мой ответственный";
+  ownerInput.placeholder = "РњРѕР№ РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№";
   ownerInput.value = getStoredActionOwner();
   ownerInput.addEventListener("change", () => {
     setStoredActionOwner(ownerInput.value.trim());
@@ -1076,12 +1076,12 @@ function renderActionCenterToolbar() {
   });
   const filterSelect = el("select", "inline-select");
   [
-    ["all", "Все задачи"],
-    ["open", "Новые"],
-    ["in_progress", "В работе"],
-    ["blocked", "Блокеры"],
-    ["done", "Готово"],
-    ["mine", "Только мои"],
+    ["all", "Р’СЃРµ Р·Р°РґР°С‡Рё"],
+    ["open", "РќРѕРІС‹Рµ"],
+    ["in_progress", "Р’ СЂР°Р±РѕС‚Рµ"],
+    ["blocked", "Р‘Р»РѕРєРµСЂС‹"],
+    ["done", "Р“РѕС‚РѕРІРѕ"],
+    ["mine", "РўРѕР»СЊРєРѕ РјРѕРё"],
   ].forEach(([value, label]) => {
     const option = el("option", "", label);
     option.value = value;
@@ -1093,8 +1093,8 @@ function renderActionCenterToolbar() {
     setStoredActionFilter(selectedActionFilter);
     renderActionCenter();
   });
-  const saveButton = createActionButton("Сохранить представление", "secondary", async () => {
-    const name = window.prompt("Название сохранённого представления", "") || "";
+  const saveButton = createActionButton("РЎРѕС…СЂР°РЅРёС‚СЊ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ", "secondary", async () => {
+    const name = window.prompt("РќР°Р·РІР°РЅРёРµ СЃРѕС…СЂР°РЅС‘РЅРЅРѕРіРѕ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ", "") || "";
     if (!name.trim()) return;
     await saveActionView({
       name: name.trim(),
@@ -1104,7 +1104,7 @@ function renderActionCenterToolbar() {
   });
   wrap.append(ownerInput, filterSelect, saveButton);
   root.append(wrap);
-  root.append(el("p", "job-card-text", "Рабочий цикл сейчас такой: выбрал сущность в отчёте → добавил в список наблюдения или создал задачу → вручную перевёл статус → при фактическом завершении закрыл задачу."));
+  root.append(el("p", "job-card-text", "Р Р°Р±РѕС‡РёР№ С†РёРєР» СЃРµР№С‡Р°СЃ С‚Р°РєРѕР№: РІС‹Р±СЂР°Р» СЃСѓС‰РЅРѕСЃС‚СЊ РІ РѕС‚С‡С‘С‚Рµ в†’ РґРѕР±Р°РІРёР» РІ СЃРїРёСЃРѕРє РЅР°Р±Р»СЋРґРµРЅРёСЏ РёР»Рё СЃРѕР·РґР°Р» Р·Р°РґР°С‡Сѓ в†’ РІСЂСѓС‡РЅСѓСЋ РїРµСЂРµРІС‘Р» СЃС‚Р°С‚СѓСЃ в†’ РїСЂРё С„Р°РєС‚РёС‡РµСЃРєРѕРј Р·Р°РІРµСЂС€РµРЅРёРё Р·Р°РєСЂС‹Р» Р·Р°РґР°С‡Сѓ."));
 }
 
 function renderManagerQueues() {
@@ -1119,28 +1119,28 @@ function renderManagerQueues() {
   const allActions = actionCenterState.actions || [];
 
   const statusCard = el("div", "list-card");
-  appendHeadingWithInfo(statusCard, "h3", "Очередь по статусам", "Показывает, где узкое место цикла: новые задачи, активная работа, блокеры или уже закрытые элементы.");
+  appendHeadingWithInfo(statusCard, "h3", "РћС‡РµСЂРµРґСЊ РїРѕ СЃС‚Р°С‚СѓСЃР°Рј", "РџРѕРєР°Р·С‹РІР°РµС‚, РіРґРµ СѓР·РєРѕРµ РјРµСЃС‚Рѕ С†РёРєР»Р°: РЅРѕРІС‹Рµ Р·Р°РґР°С‡Рё, Р°РєС‚РёРІРЅР°СЏ СЂР°Р±РѕС‚Р°, Р±Р»РѕРєРµСЂС‹ РёР»Рё СѓР¶Рµ Р·Р°РєСЂС‹С‚С‹Рµ СЌР»РµРјРµРЅС‚С‹.");
   const statusList = el("ul", "compact-list");
   summarizeActionStatuses(allActions).forEach((row) => {
     const item = el("li");
     item.append(el("strong", "", row.key));
-    item.append(el("span", "", `${formatNumber(row.value)} задач`));
+    item.append(el("span", "", `${formatNumber(row.value)} Р·Р°РґР°С‡`));
     statusList.append(item);
   });
   statusCard.append(statusList);
   statusRoot.append(statusCard);
 
   const ownerCard = el("div", "list-card");
-  appendHeadingWithInfo(ownerCard, "h3", "Очередь по ответственным", "Показывает нагрузку и блокеры по ответственным. Даже в single-user режиме это полезно как задел под manager workflow.");
+  appendHeadingWithInfo(ownerCard, "h3", "РћС‡РµСЂРµРґСЊ РїРѕ РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Рј", "РџРѕРєР°Р·С‹РІР°РµС‚ РЅР°РіСЂСѓР·РєСѓ Рё Р±Р»РѕРєРµСЂС‹ РїРѕ РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Рј. Р”Р°Р¶Рµ РІ single-user СЂРµР¶РёРјРµ СЌС‚Рѕ РїРѕР»РµР·РЅРѕ РєР°Рє Р·Р°РґРµР» РїРѕРґ manager workflow.");
   const ownerRows = summarizeActionOwners(allActions);
   if (!ownerRows.length) {
-    ownerCard.append(el("p", "empty-state", "Назначенных ответственных пока нет."));
+    ownerCard.append(el("p", "empty-state", "РќР°Р·РЅР°С‡РµРЅРЅС‹С… РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹С… РїРѕРєР° РЅРµС‚."));
   } else {
     const ownerList = el("ul", "compact-list");
     ownerRows.slice(0, 8).forEach((row) => {
       const item = el("li");
       item.append(el("strong", "", row.owner));
-      item.append(el("span", "", `новые ${row.open}, в работе ${row.in_progress}, блокеры ${row.blocked}, завершено ${row.done}`));
+      item.append(el("span", "", `РЅРѕРІС‹Рµ ${row.open}, РІ СЂР°Р±РѕС‚Рµ ${row.in_progress}, Р±Р»РѕРєРµСЂС‹ ${row.blocked}, Р·Р°РІРµСЂС€РµРЅРѕ ${row.done}`));
       ownerList.append(item);
     });
     ownerCard.append(ownerList);
@@ -1148,19 +1148,19 @@ function renderManagerQueues() {
   ownerRoot.append(ownerCard);
 
   const viewCard = el("div", "list-card");
-  appendHeadingWithInfo(viewCard, "h3", "Сохранённые представления", "Сохранённые управленческие очереди. Это быстрые режимы работы для ежедневного follow-up.");
+  appendHeadingWithInfo(viewCard, "h3", "РЎРѕС…СЂР°РЅС‘РЅРЅС‹Рµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ", "РЎРѕС…СЂР°РЅС‘РЅРЅС‹Рµ СѓРїСЂР°РІР»РµРЅС‡РµСЃРєРёРµ РѕС‡РµСЂРµРґРё. Р­С‚Рѕ Р±С‹СЃС‚СЂС‹Рµ СЂРµР¶РёРјС‹ СЂР°Р±РѕС‚С‹ РґР»СЏ РµР¶РµРґРЅРµРІРЅРѕРіРѕ follow-up.");
   const savedViews = actionCenterState.saved_views || [];
   if (!savedViews.length) {
-    viewCard.append(el("p", "empty-state", "Сохранённых представлений пока нет."));
+    viewCard.append(el("p", "empty-state", "РЎРѕС…СЂР°РЅС‘РЅРЅС‹С… РїСЂРµРґСЃС‚Р°РІР»РµРЅРёР№ РїРѕРєР° РЅРµС‚."));
   } else {
     const viewList = el("ul", "compact-list");
     savedViews.slice(0, 8).forEach((row) => {
       const item = el("li");
       const content = el("div", "list-item-main");
       content.append(el("strong", "", row.name));
-      content.append(el("span", "", `фильтр ${row.filters?.filter || "all"}${row.filters?.owner ? ` · ответственный ${row.filters.owner}` : ""}`));
+      content.append(el("span", "", `С„РёР»СЊС‚СЂ ${row.filters?.filter || "all"}${row.filters?.owner ? ` В· РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№ ${row.filters.owner}` : ""}`));
       item.append(content);
-      const jump = createActionButton("Открыть", "secondary", async () => {
+      const jump = createActionButton("РћС‚РєСЂС‹С‚СЊ", "secondary", async () => {
         selectedActionFilter = row.filters?.filter || "all";
         setStoredActionFilter(selectedActionFilter);
         if (row.filters?.owner !== undefined) {
@@ -1182,14 +1182,14 @@ function renderManagerQueues() {
 
 function formatEventType(eventType) {
   const labels = {
-    watchlist_added: "Добавлено в список",
-    watchlist_updated: "Обновлён список",
-    action_added: "Создана задача",
-    action_updated: "Обновлена задача",
-    action_toggled: "Изменён статус задачи",
-    acknowledged: "Подтверждён разбор",
+    watchlist_added: "Р”РѕР±Р°РІР»РµРЅРѕ РІ СЃРїРёСЃРѕРє",
+    watchlist_updated: "РћР±РЅРѕРІР»С‘РЅ СЃРїРёСЃРѕРє",
+    action_added: "РЎРѕР·РґР°РЅР° Р·Р°РґР°С‡Р°",
+    action_updated: "РћР±РЅРѕРІР»РµРЅР° Р·Р°РґР°С‡Р°",
+    action_toggled: "РР·РјРµРЅС‘РЅ СЃС‚Р°С‚СѓСЃ Р·Р°РґР°С‡Рё",
+    acknowledged: "РџРѕРґС‚РІРµСЂР¶РґС‘РЅ СЂР°Р·Р±РѕСЂ",
   };
-  return labels[eventType] || eventType || "Событие";
+  return labels[eventType] || eventType || "РЎРѕР±С‹С‚РёРµ";
 }
 
 function renderHistorySparkline(history) {
@@ -1201,7 +1201,7 @@ function renderHistorySparkline(history) {
     const bar = el("div", "entity-spark-bar");
     const pct = Math.max(10, Math.round((score / max) * 100));
     bar.style.height = `${pct}%`;
-    bar.title = `${history[i]?.report_name?.slice(0, 20) || "отчёт"}: score ${score}`;
+    bar.title = `${history[i]?.report_name?.slice(0, 20) || "РѕС‚С‡С‘С‚"}: score ${score}`;
     wrap.append(bar);
   });
   return wrap;
@@ -1217,7 +1217,7 @@ function renderEntityDetail(fallbackRow = null) {
   if (!root) return;
   root.innerHTML = "";
   if (!selectedEntityKey) {
-    root.append(el("p", "empty-state", "Выбери «Детали» у строки отчёта, чтобы открыть историю сущности и её ручной статус."));
+    root.append(el("p", "empty-state", "Р’С‹Р±РµСЂРё В«Р”РµС‚Р°Р»РёВ» Сѓ СЃС‚СЂРѕРєРё РѕС‚С‡С‘С‚Р°, С‡С‚РѕР±С‹ РѕС‚РєСЂС‹С‚СЊ РёСЃС‚РѕСЂРёСЋ СЃСѓС‰РЅРѕСЃС‚Рё Рё РµС‘ СЂСѓС‡РЅРѕР№ СЃС‚Р°С‚СѓСЃ."));
     return;
   }
   const entity = findEntityHistory(selectedEntityKey);
@@ -1239,13 +1239,13 @@ function renderEntityDetail(fallbackRow = null) {
     if (!prevEntity && !nextEntity) return null;
     const navRow = el("div", "entity-actions");
     if (prevEntity) {
-      navRow.append(createActionButton("← Предыдущая", "secondary", async () => {
+      navRow.append(createActionButton("в†ђ РџСЂРµРґС‹РґСѓС‰Р°СЏ", "secondary", async () => {
         selectedEntityKey = prevEntity.entity_key;
         renderEntityDetail(prevEntity.row);
       }));
     }
     if (nextEntity) {
-      navRow.append(createActionButton("Следующая →", "secondary", async () => {
+      navRow.append(createActionButton("РЎР»РµРґСѓСЋС‰Р°СЏ в†’", "secondary", async () => {
         selectedEntityKey = nextEntity.entity_key;
         renderEntityDetail(nextEntity.row);
       }));
@@ -1262,19 +1262,19 @@ function renderEntityDetail(fallbackRow = null) {
   titleRow.append(titleEl);
   if (navIndex >= 0) {
     const pos = el("span", "entity-position-badge", `${navIndex + 1} / ${currentEntityRows.length}`);
-    pos.title = "Позиция в текущем списке сущностей";
+    pos.title = "РџРѕР·РёС†РёСЏ РІ С‚РµРєСѓС‰РµРј СЃРїРёСЃРєРµ СЃСѓС‰РЅРѕСЃС‚РµР№";
     titleRow.append(pos);
   }
   const crossKindCount = countCrossReportKinds(history);
   if (crossKindCount > 1) {
-    const badge = el("span", "entity-cross-badge", `${crossKindCount} отчёта`);
-    badge.title = `Сущность встречалась в ${crossKindCount} разных типах отчётов`;
+    const badge = el("span", "entity-cross-badge", `${crossKindCount} РѕС‚С‡С‘С‚Р°`);
+    badge.title = `РЎСѓС‰РЅРѕСЃС‚СЊ РІСЃС‚СЂРµС‡Р°Р»Р°СЃСЊ РІ ${crossKindCount} СЂР°Р·РЅС‹С… С‚РёРїР°С… РѕС‚С‡С‘С‚РѕРІ`;
     titleRow.append(badge);
   }
   card1.append(titleRow);
 
-  // (i) info icon via appendHeadingWithInfo — attach as sub-note
-  const infoNote = el("p", "entity-info-note", "Текущий срез по сущности: latest marketing signal плюс ручной follow-up.");
+  // (i) info icon via appendHeadingWithInfo вЂ” attach as sub-note
+  const infoNote = el("p", "entity-info-note", "РўРµРєСѓС‰РёР№ СЃСЂРµР· РїРѕ СЃСѓС‰РЅРѕСЃС‚Рё: latest marketing signal РїР»СЋСЃ СЂСѓС‡РЅРѕР№ follow-up.");
   card1.append(infoNote);
 
   const topNavigator = renderEntityNavigator();
@@ -1283,21 +1283,21 @@ function renderEntityDetail(fallbackRow = null) {
   }
 
   // Core fields
-  card1.append(el("p", "", `Тип: ${latest.group ? "карточка / SKU" : "сущность"}`));
+  card1.append(el("p", "", `РўРёРї: ${latest.group ? "РєР°СЂС‚РѕС‡РєР° / SKU" : "СЃСѓС‰РЅРѕСЃС‚СЊ"}`));
   if (resolvedSku) {
     card1.append(el("p", "", `SKU: ${resolvedSku}`));
   }
-  card1.append(el("p", "", `Последний сигнал: ${resolvedActionLabel || "н/д"}`));
-  card1.append(el("p", "", `Группа / коридор: ${resolvedGroup || "н/д"} / ${resolvedPriceBand || "н/д"}`));
-  card1.append(el("p", "", `Ценовая ловушка: ${resolvedPriceTrap ? "да" : "нет"} · SEO: ${resolvedSeoStatus || "н/д"} · Ценовой статус: ${resolvedPricingLabel || "н/д"}`));
+  card1.append(el("p", "", `РџРѕСЃР»РµРґРЅРёР№ СЃРёРіРЅР°Р»: ${resolvedActionLabel || "РЅ/Рґ"}`));
+  card1.append(el("p", "", `Р“СЂСѓРїРїР° / РєРѕСЂРёРґРѕСЂ: ${resolvedGroup || "РЅ/Рґ"} / ${resolvedPriceBand || "РЅ/Рґ"}`));
+  card1.append(el("p", "", `Р¦РµРЅРѕРІР°СЏ Р»РѕРІСѓС€РєР°: ${resolvedPriceTrap ? "РґР°" : "РЅРµС‚"} В· SEO: ${resolvedSeoStatus || "РЅ/Рґ"} В· Р¦РµРЅРѕРІРѕР№ СЃС‚Р°С‚СѓСЃ: ${resolvedPricingLabel || "РЅ/Рґ"}`));
   if (!resolvedActionLabel || !resolvedGroup || !resolvedPricingLabel) {
-    card1.append(el("p", "job-card-text", "Часть полей берётся из накопленной истории. Если в текущем срезе пусто, панель пытается восстановить последнее осмысленное значение."));
+    card1.append(el("p", "job-card-text", "Р§Р°СЃС‚СЊ РїРѕР»РµР№ Р±РµСЂС‘С‚СЃСЏ РёР· РЅР°РєРѕРїР»РµРЅРЅРѕР№ РёСЃС‚РѕСЂРёРё. Р•СЃР»Рё РІ С‚РµРєСѓС‰РµРј СЃСЂРµР·Рµ РїСѓСЃС‚Рѕ, РїР°РЅРµР»СЊ РїС‹С‚Р°РµС‚СЃСЏ РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ РїРѕСЃР»РµРґРЅРµРµ РѕСЃРјС‹СЃР»РµРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ."));
   }
 
   // History sparkline
   if (history.length > 1) {
     const sparkRow = el("div", "entity-spark-row");
-    sparkRow.append(el("span", "entity-spark-label", "История score:"));
+    sparkRow.append(el("span", "entity-spark-label", "РСЃС‚РѕСЂРёСЏ score:"));
     sparkRow.append(renderHistorySparkline(history));
     const latest_score = history[0]?.priority_score;
     if (latest_score != null) {
@@ -1309,24 +1309,24 @@ function renderEntityDetail(fallbackRow = null) {
   summaryGrid.append(card1);
 
   const card2 = el("div", "list-card");
-  appendHeadingWithInfo(card2, "h3", "Ручной статус", "Показывает, что менеджер уже сделал по этой сущности: watchlist, открытые и закрытые задачи.");
-  card2.append(el("p", "", `В списке наблюдения: ${status.watch ? "да" : "нет"}`));
-  card2.append(el("p", "", `Открытых задач: ${formatNumber(status.openCount)}`));
-  card2.append(el("p", "", `Закрытых задач: ${formatNumber(status.doneCount)}`));
+  appendHeadingWithInfo(card2, "h3", "Р СѓС‡РЅРѕР№ СЃС‚Р°С‚СѓСЃ", "РџРѕРєР°Р·С‹РІР°РµС‚, С‡С‚Рѕ РјРµРЅРµРґР¶РµСЂ СѓР¶Рµ СЃРґРµР»Р°Р» РїРѕ СЌС‚РѕР№ СЃСѓС‰РЅРѕСЃС‚Рё: watchlist, РѕС‚РєСЂС‹С‚С‹Рµ Рё Р·Р°РєСЂС‹С‚С‹Рµ Р·Р°РґР°С‡Рё.");
+  card2.append(el("p", "", `Р’ СЃРїРёСЃРєРµ РЅР°Р±Р»СЋРґРµРЅРёСЏ: ${status.watch ? "РґР°" : "РЅРµС‚"}`));
+  card2.append(el("p", "", `РћС‚РєСЂС‹С‚С‹С… Р·Р°РґР°С‡: ${formatNumber(status.openCount)}`));
+  card2.append(el("p", "", `Р—Р°РєСЂС‹С‚С‹С… Р·Р°РґР°С‡: ${formatNumber(status.doneCount)}`));
   if (status.watch?.context) {
-    card2.append(el("p", "", `Контекст watchlist: ${status.watch.context}`));
+    card2.append(el("p", "", `РљРѕРЅС‚РµРєСЃС‚ watchlist: ${status.watch.context}`));
   }
   if (status.acknowledgement?.acknowledged_at) {
-    card2.append(el("p", "", `Подтверждено: ${String(status.acknowledgement.acknowledged_at).slice(0, 19).replace("T", " ")}`));
+    card2.append(el("p", "", `РџРѕРґС‚РІРµСЂР¶РґРµРЅРѕ: ${String(status.acknowledgement.acknowledged_at).slice(0, 19).replace("T", " ")}`));
   }
   if (status.acknowledgement?.note) {
-    card2.append(el("p", "", `Комментарий разбора: ${status.acknowledgement.note}`));
+    card2.append(el("p", "", `РљРѕРјРјРµРЅС‚Р°СЂРёР№ СЂР°Р·Р±РѕСЂР°: ${status.acknowledgement.note}`));
   }
   if (status.actions[0]?.note) {
-    card2.append(el("p", "", `Последняя заметка: ${status.actions[0].note}`));
+    card2.append(el("p", "", `РџРѕСЃР»РµРґРЅСЏСЏ Р·Р°РјРµС‚РєР°: ${status.actions[0].note}`));
   }
-  const ackButton = createActionButton("Подтвердить разбор", "primary", async () => {
-    const note = window.prompt("Короткий комментарий по разбору карточки", status.acknowledgement?.note || "") || "";
+  const ackButton = createActionButton("РџРѕРґС‚РІРµСЂРґРёС‚СЊ СЂР°Р·Р±РѕСЂ", "primary", async () => {
+    const note = window.prompt("РљРѕСЂРѕС‚РєРёР№ РєРѕРјРјРµРЅС‚Р°СЂРёР№ РїРѕ СЂР°Р·Р±РѕСЂСѓ РєР°СЂС‚РѕС‡РєРё", status.acknowledgement?.note || "") || "";
     await acknowledgeEntity({
       entity_key: selectedEntityKey,
       title: effectiveTitle,
@@ -1344,21 +1344,21 @@ function renderEntityDetail(fallbackRow = null) {
   // Keyboard hint (show only when there are neighbours)
   if (navIndex >= 0 && currentEntityRows.length > 1) {
     const hint = el("p", "entity-key-hint");
-    hint.innerHTML = `Навигация: <kbd>←</kbd><kbd>→</kbd> — пред./след. сущность &nbsp;·&nbsp; <kbd>Esc</kbd> — закрыть`;
+    hint.innerHTML = `РќР°РІРёРіР°С†РёСЏ: <kbd>в†ђ</kbd><kbd>в†’</kbd> вЂ” РїСЂРµРґ./СЃР»РµРґ. СЃСѓС‰РЅРѕСЃС‚СЊ &nbsp;В·&nbsp; <kbd>Esc</kbd> вЂ” Р·Р°РєСЂС‹С‚СЊ`;
     root.append(hint);
   }
 
   const historyCard = el("div", "list-card");
-  appendHeadingWithInfo(historyCard, "h3", "История сигналов", "Это лента появления сущности в отчётах. Она нужна, чтобы понять: сигнал новый, повторяющийся или устойчивый. По ней решают, усиливать карточку, ставить follow-up или считать шумом.");
+  appendHeadingWithInfo(historyCard, "h3", "РСЃС‚РѕСЂРёСЏ СЃРёРіРЅР°Р»РѕРІ", "Р­С‚Рѕ Р»РµРЅС‚Р° РїРѕСЏРІР»РµРЅРёСЏ СЃСѓС‰РЅРѕСЃС‚Рё РІ РѕС‚С‡С‘С‚Р°С…. РћРЅР° РЅСѓР¶РЅР°, С‡С‚РѕР±С‹ РїРѕРЅСЏС‚СЊ: СЃРёРіРЅР°Р» РЅРѕРІС‹Р№, РїРѕРІС‚РѕСЂСЏСЋС‰РёР№СЃСЏ РёР»Рё СѓСЃС‚РѕР№С‡РёРІС‹Р№. РџРѕ РЅРµР№ СЂРµС€Р°СЋС‚, СѓСЃРёР»РёРІР°С‚СЊ РєР°СЂС‚РѕС‡РєСѓ, СЃС‚Р°РІРёС‚СЊ follow-up РёР»Рё СЃС‡РёС‚Р°С‚СЊ С€СѓРјРѕРј.");
   if (!history.length) {
-    historyCard.append(el("p", "empty-state", "История по этой сущности пока не накоплена."));
+    historyCard.append(el("p", "empty-state", "РСЃС‚РѕСЂРёСЏ РїРѕ СЌС‚РѕР№ СЃСѓС‰РЅРѕСЃС‚Рё РїРѕРєР° РЅРµ РЅР°РєРѕРїР»РµРЅР°."));
   } else {
     const list = el("div", "entity-history-list");
     history.slice(0, 8).forEach((row) => {
       const item = el("div", "history-row");
-      item.append(el("strong", "", `${row.report_name} · ${String(row.generated_at || "н/д").slice(0, 10)}`));
-      item.append(el("span", "", `${row.action_label || "н/д"} · score ${row.priority_score ?? "н/д"} · ${row.group || "н/д"} / ${row.price_band || "н/д"}`));
-      item.append(el("span", "", `ценовая ловушка: ${row.price_trap ? "да" : "нет"} · SEO: ${row.seo_status || "н/д"} · ценовой статус: ${row.pricing_label || "н/д"}`));
+      item.append(el("strong", "", `${row.report_name} В· ${String(row.generated_at || "РЅ/Рґ").slice(0, 10)}`));
+      item.append(el("span", "", `${row.action_label || "РЅ/Рґ"} В· score ${row.priority_score ?? "РЅ/Рґ"} В· ${row.group || "РЅ/Рґ"} / ${row.price_band || "РЅ/Рґ"}`));
+      item.append(el("span", "", `С†РµРЅРѕРІР°СЏ Р»РѕРІСѓС€РєР°: ${row.price_trap ? "РґР°" : "РЅРµС‚"} В· SEO: ${row.seo_status || "РЅ/Рґ"} В· С†РµРЅРѕРІРѕР№ СЃС‚Р°С‚СѓСЃ: ${row.pricing_label || "РЅ/Рґ"}`));
       list.append(item);
     });
     historyCard.append(list);
@@ -1366,17 +1366,17 @@ function renderEntityDetail(fallbackRow = null) {
   root.append(historyCard);
 
   const decisionCard = el("div", "list-card");
-  appendHeadingWithInfo(decisionCard, "h3", "История управленческих решений", "Журнал ручных действий по сущности: watchlist, задачи, переключение статуса и подтверждение разбора.");
+  appendHeadingWithInfo(decisionCard, "h3", "РСЃС‚РѕСЂРёСЏ СѓРїСЂР°РІР»РµРЅС‡РµСЃРєРёС… СЂРµС€РµРЅРёР№", "Р–СѓСЂРЅР°Р» СЂСѓС‡РЅС‹С… РґРµР№СЃС‚РІРёР№ РїРѕ СЃСѓС‰РЅРѕСЃС‚Рё: watchlist, Р·Р°РґР°С‡Рё, РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЃС‚Р°С‚СѓСЃР° Рё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂР°Р·Р±РѕСЂР°.");
   if (!status.events.length) {
-    decisionCard.append(el("p", "empty-state", "По этой сущности ещё нет ручной истории решений."));
+    decisionCard.append(el("p", "empty-state", "РџРѕ СЌС‚РѕР№ СЃСѓС‰РЅРѕСЃС‚Рё РµС‰С‘ РЅРµС‚ СЂСѓС‡РЅРѕР№ РёСЃС‚РѕСЂРёРё СЂРµС€РµРЅРёР№."));
   } else {
     const list = el("div", "entity-history-list");
     status.events.slice(0, 12).forEach((row) => {
       const item = el("div", "history-row");
-      item.append(el("strong", "", `${formatEventType(row.event_type)} · ${String(row.created_at || "н/д").slice(0, 19).replace("T", " ")}`));
-      item.append(el("span", "", `${row.context || "без контекста"}${row.status ? ` · статус ${row.status}` : ""}`));
+      item.append(el("strong", "", `${formatEventType(row.event_type)} В· ${String(row.created_at || "РЅ/Рґ").slice(0, 19).replace("T", " ")}`));
+      item.append(el("span", "", `${row.context || "Р±РµР· РєРѕРЅС‚РµРєСЃС‚Р°"}${row.status ? ` В· СЃС‚Р°С‚СѓСЃ ${row.status}` : ""}`));
       if (row.note) {
-        item.append(el("span", "", `Комментарий: ${row.note}`));
+        item.append(el("span", "", `РљРѕРјРјРµРЅС‚Р°СЂРёР№: ${row.note}`));
       }
       list.append(item);
     });
@@ -1388,8 +1388,8 @@ function renderEntityDetail(fallbackRow = null) {
   if (bottomNavigator) {
     const navCard = el("div", "list-card");
     navCard.classList.add("detail-nav-card");
-    appendHeadingWithInfo(navCard, "h3", "Навигация по сущностям", "Нижняя навигация нужна, чтобы можно было идти по соседним SKU без возврата к верхней части detail-panel.");
-    navCard.append(el("p", "", "Используй эти кнопки, если уже прочитал историю и хочешь сразу перейти к следующей позиции."));
+    appendHeadingWithInfo(navCard, "h3", "РќР°РІРёРіР°С†РёСЏ РїРѕ СЃСѓС‰РЅРѕСЃС‚СЏРј", "РќРёР¶РЅСЏСЏ РЅР°РІРёРіР°С†РёСЏ РЅСѓР¶РЅР°, С‡С‚РѕР±С‹ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ РёРґС‚Рё РїРѕ СЃРѕСЃРµРґРЅРёРј SKU Р±РµР· РІРѕР·РІСЂР°С‚Р° Рє РІРµСЂС…РЅРµР№ С‡Р°СЃС‚Рё detail-panel.");
+    navCard.append(el("p", "", "РСЃРїРѕР»СЊР·СѓР№ СЌС‚Рё РєРЅРѕРїРєРё, РµСЃР»Рё СѓР¶Рµ РїСЂРѕС‡РёС‚Р°Р» РёСЃС‚РѕСЂРёСЋ Рё С…РѕС‡РµС€СЊ СЃСЂР°Р·Сѓ РїРµСЂРµР№С‚Рё Рє СЃР»РµРґСѓСЋС‰РµР№ РїРѕР·РёС†РёРё."));
     navCard.append(bottomNavigator);
     root.append(navCard);
   }
@@ -1401,18 +1401,18 @@ function renderChangeSummary(item) {
   const change = item.change_from_previous;
   if (!change || !(change.summary || []).length) {
     const card = el("div", "insight-card");
-    card.append(el("h3", "", "Сравнение пока недоступно"));
-    card.append(el("p", "", change ? "Предыдущий отчёт найден, но заметных числовых изменений не зафиксировано." : "Для этого типа отчёта ещё нет предыдущего bundle для сравнения."));
+    card.append(el("h3", "", "РЎСЂР°РІРЅРµРЅРёРµ РїРѕРєР° РЅРµРґРѕСЃС‚СѓРїРЅРѕ"));
+    card.append(el("p", "", change ? "РџСЂРµРґС‹РґСѓС‰РёР№ РѕС‚С‡С‘С‚ РЅР°Р№РґРµРЅ, РЅРѕ Р·Р°РјРµС‚РЅС‹С… С‡РёСЃР»РѕРІС‹С… РёР·РјРµРЅРµРЅРёР№ РЅРµ Р·Р°С„РёРєСЃРёСЂРѕРІР°РЅРѕ." : "Р”Р»СЏ СЌС‚РѕРіРѕ С‚РёРїР° РѕС‚С‡С‘С‚Р° РµС‰С‘ РЅРµС‚ РїСЂРµРґС‹РґСѓС‰РµРіРѕ bundle РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ."));
     root.append(card);
     return;
   }
   (change.summary || []).forEach((row) => {
     const card = el("div", "insight-card");
-    const deltaPct = row.delta_pct === null || row.delta_pct === undefined ? "н/д" : formatPercent(row.delta_pct);
+    const deltaPct = row.delta_pct === null || row.delta_pct === undefined ? "РЅ/Рґ" : formatPercent(row.delta_pct);
     const deltaRaw = row.delta > 0 ? `+${formatNumber(row.delta)}` : formatNumber(row.delta);
     card.dataset.tone = row.delta > 0 ? "good" : "warn";
     card.append(el("h3", "", metricLabel(row.key)));
-    card.append(el("p", "", `Сейчас ${formatNumber(row.current)}, раньше ${formatNumber(row.previous)}. Изменение: ${deltaRaw}, ${deltaPct}.`));
+    card.append(el("p", "", `РЎРµР№С‡Р°СЃ ${formatNumber(row.current)}, СЂР°РЅСЊС€Рµ ${formatNumber(row.previous)}. РР·РјРµРЅРµРЅРёРµ: ${deltaRaw}, ${deltaPct}.`));
     root.append(card);
   });
 }
@@ -1429,24 +1429,24 @@ function renderActionCenter() {
   if (!actionCenterState) {
     [watchRoot, actionsRoot, statusRoot].forEach((root) => {
       const card = el("div", "list-card");
-      card.append(el("h3", "", "Центр действий недоступен"));
-      card.append(el("p", "", "Запусти `web_refresh_server.py`, чтобы включить сохранение watchlist и ручных задач."));
+      card.append(el("h3", "", "Р¦РµРЅС‚СЂ РґРµР№СЃС‚РІРёР№ РЅРµРґРѕСЃС‚СѓРїРµРЅ"));
+      card.append(el("p", "", "Р—Р°РїСѓСЃС‚Рё `web_refresh_server.py`, С‡С‚РѕР±С‹ РІРєР»СЋС‡РёС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёРµ watchlist Рё СЂСѓС‡РЅС‹С… Р·Р°РґР°С‡."));
       root.append(card);
     });
     return;
   }
 
   const watchCard = el("div", "list-card");
-  appendHeadingWithInfo(watchCard, "h3", "Список наблюдения", "Сюда попадают сущности, к которым нужно вернуться: SKU, семейства, продавцы, ниши. Это не автоматическое действие, а ручной short-list менеджера.");
+  appendHeadingWithInfo(watchCard, "h3", "РЎРїРёСЃРѕРє РЅР°Р±Р»СЋРґРµРЅРёСЏ", "РЎСЋРґР° РїРѕРїР°РґР°СЋС‚ СЃСѓС‰РЅРѕСЃС‚Рё, Рє РєРѕС‚РѕСЂС‹Рј РЅСѓР¶РЅРѕ РІРµСЂРЅСѓС‚СЊСЃСЏ: SKU, СЃРµРјРµР№СЃС‚РІР°, РїСЂРѕРґР°РІС†С‹, РЅРёС€Рё. Р­С‚Рѕ РЅРµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РґРµР№СЃС‚РІРёРµ, Р° СЂСѓС‡РЅРѕР№ short-list РјРµРЅРµРґР¶РµСЂР°.");
   const watchRows = actionCenterState.watchlists || [];
   if (!watchRows.length) {
-    watchCard.append(el("p", "empty-state", "Список наблюдения пока пуст."));
+    watchCard.append(el("p", "empty-state", "РЎРїРёСЃРѕРє РЅР°Р±Р»СЋРґРµРЅРёСЏ РїРѕРєР° РїСѓСЃС‚."));
   } else {
     const list = el("ul", "compact-list");
     watchRows.slice(0, 8).forEach((row) => {
       const item = el("li");
       item.append(el("strong", "", row.title));
-      item.append(el("span", "", `${formatEntityType(row.entity_type)}, ${row.context || "без контекста"}`));
+      item.append(el("span", "", `${formatEntityType(row.entity_type)}, ${row.context || "Р±РµР· РєРѕРЅС‚РµРєСЃС‚Р°"}`));
       list.append(item);
     });
     watchCard.append(list);
@@ -1454,29 +1454,29 @@ function renderActionCenter() {
   watchRoot.append(watchCard);
 
   const actionCard = el("div", "list-card");
-  appendHeadingWithInfo(actionCard, "h3", "Ручные задачи", "Минимальный action-center: фиксирует решения менеджера поверх автоматических сигналов.");
+  appendHeadingWithInfo(actionCard, "h3", "Р СѓС‡РЅС‹Рµ Р·Р°РґР°С‡Рё", "РњРёРЅРёРјР°Р»СЊРЅС‹Р№ action-center: С„РёРєСЃРёСЂСѓРµС‚ СЂРµС€РµРЅРёСЏ РјРµРЅРµРґР¶РµСЂР° РїРѕРІРµСЂС… Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёС… СЃРёРіРЅР°Р»РѕРІ.");
   const actionRows = filterActionRows(actionCenterState.actions || []);
   if (!actionRows.length) {
-    actionCard.append(el("p", "empty-state", "Ручных задач пока нет."));
+    actionCard.append(el("p", "empty-state", "Р СѓС‡РЅС‹С… Р·Р°РґР°С‡ РїРѕРєР° РЅРµС‚."));
   } else {
     const list = el("ul", "compact-list");
     actionRows.slice(0, 8).forEach((row) => {
       const item = el("li");
       const content = el("div", "list-item-main");
       content.append(el("strong", "", row.title));
-      content.append(el("span", "", `${formatActionStatus(row.status || "open")}${row.owner ? ` · ответственный ${row.owner}` : ""}${row.note ? ` · ${row.note}` : ""}`));
+      content.append(el("span", "", `${formatActionStatus(row.status || "open")}${row.owner ? ` В· РѕС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№ ${row.owner}` : ""}${row.note ? ` В· ${row.note}` : ""}`));
       item.append(content);
       const controls = el("div", "entity-actions");
       controls.append(
-        createActionButton("В работу", "secondary", async () => {
+        createActionButton("Р’ СЂР°Р±РѕС‚Сѓ", "secondary", async () => {
           await updateActionItem({ id: row.id, status: "in_progress" });
           await refreshActionCenter();
         }),
-        createActionButton("Блокер", "secondary", async () => {
+        createActionButton("Р‘Р»РѕРєРµСЂ", "secondary", async () => {
           await updateActionItem({ id: row.id, status: "blocked" });
           await refreshActionCenter();
         }),
-        createActionButton(row.status === "done" ? "Открыть" : "Готово", "secondary", async () => {
+        createActionButton(row.status === "done" ? "РћС‚РєСЂС‹С‚СЊ" : "Р“РѕС‚РѕРІРѕ", "secondary", async () => {
           if (row.status === "done") {
             await toggleActionItem(row.id);
           } else {
@@ -1493,15 +1493,15 @@ function renderActionCenter() {
   actionsRoot.append(actionCard);
 
   const statusCard = el("div", "list-card");
-  appendHeadingWithInfo(statusCard, "h3", "Состояние", "Показывает, жив ли local action-center, сколько уже накоплено ручных сущностей и насколько активно используется manager loop.");
-  statusCard.append(el("p", "", `В списке наблюдения: ${formatNumber((actionCenterState.watchlists || []).length)}`));
-  statusCard.append(el("p", "", `Открытых задач: ${formatNumber(actionCenterState.open_actions_count || 0)}`));
-  statusCard.append(el("p", "", `Закрытых задач: ${formatNumber(actionCenterState.done_actions_count || 0)}`));
-  statusCard.append(el("p", "", `Подтверждённых сущностей: ${formatNumber(actionCenterState.acknowledged_entities_count || 0)}`));
-  statusCard.append(el("p", "", `Событий в журнале: ${formatNumber(actionCenterState.event_count || 0)}`));
-  statusCard.append(el("p", "", `Сохранённых представлений: ${formatNumber((actionCenterState.saved_views || []).length)}`));
-  statusCard.append(el("p", "", `Версия схемы: ${actionCenterState.schema_version || "н/д"}`));
-  statusCard.append(el("p", "", "Статусы задач пока меняются вручную: новая → в работе → блокер/завершена. Автоматического закрытия, retry-счётчиков и SLA пока нет."));
+  appendHeadingWithInfo(statusCard, "h3", "РЎРѕСЃС‚РѕСЏРЅРёРµ", "РџРѕРєР°Р·С‹РІР°РµС‚, Р¶РёРІ Р»Рё local action-center, СЃРєРѕР»СЊРєРѕ СѓР¶Рµ РЅР°РєРѕРїР»РµРЅРѕ СЂСѓС‡РЅС‹С… СЃСѓС‰РЅРѕСЃС‚РµР№ Рё РЅР°СЃРєРѕР»СЊРєРѕ Р°РєС‚РёРІРЅРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ manager loop.");
+  statusCard.append(el("p", "", `Р’ СЃРїРёСЃРєРµ РЅР°Р±Р»СЋРґРµРЅРёСЏ: ${formatNumber((actionCenterState.watchlists || []).length)}`));
+  statusCard.append(el("p", "", `РћС‚РєСЂС‹С‚С‹С… Р·Р°РґР°С‡: ${formatNumber(actionCenterState.open_actions_count || 0)}`));
+  statusCard.append(el("p", "", `Р—Р°РєСЂС‹С‚С‹С… Р·Р°РґР°С‡: ${formatNumber(actionCenterState.done_actions_count || 0)}`));
+  statusCard.append(el("p", "", `РџРѕРґС‚РІРµСЂР¶РґС‘РЅРЅС‹С… СЃСѓС‰РЅРѕСЃС‚РµР№: ${formatNumber(actionCenterState.acknowledged_entities_count || 0)}`));
+  statusCard.append(el("p", "", `РЎРѕР±С‹С‚РёР№ РІ Р¶СѓСЂРЅР°Р»Рµ: ${formatNumber(actionCenterState.event_count || 0)}`));
+  statusCard.append(el("p", "", `РЎРѕС…СЂР°РЅС‘РЅРЅС‹С… РїСЂРµРґСЃС‚Р°РІР»РµРЅРёР№: ${formatNumber((actionCenterState.saved_views || []).length)}`));
+  statusCard.append(el("p", "", `Р’РµСЂСЃРёСЏ СЃС…РµРјС‹: ${actionCenterState.schema_version || "РЅ/Рґ"}`));
+  statusCard.append(el("p", "", "РЎС‚Р°С‚СѓСЃС‹ Р·Р°РґР°С‡ РїРѕРєР° РјРµРЅСЏСЋС‚СЃСЏ РІСЂСѓС‡РЅСѓСЋ: РЅРѕРІР°СЏ в†’ РІ СЂР°Р±РѕС‚Рµ в†’ Р±Р»РѕРєРµСЂ/Р·Р°РІРµСЂС€РµРЅР°. РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ Р·Р°РєСЂС‹С‚РёСЏ, retry-СЃС‡С‘С‚С‡РёРєРѕРІ Рё SLA РїРѕРєР° РЅРµС‚."));
   if ((actionCenterState.saved_views || []).length) {
     const savedList = el("div", "saved-view-list");
     actionCenterState.saved_views.slice(0, 8).forEach((row) => {
@@ -1520,42 +1520,42 @@ function renderActionCenter() {
   statusRoot.append(statusCard);
 
   const lifecycleCard = el("div", "list-card");
-  appendHeadingWithInfo(lifecycleCard, "h3", "Жизненный цикл задач", "Пока это ручной workflow. Система не закрывает задачу сама и не делает retry без решения менеджера.");
-  lifecycleCard.append(el("p", "", "1. Новая: задача создана из сигнала или вручную и ещё не взята в работу."));
-  lifecycleCard.append(el("p", "", "2. В работе: менеджер подтвердил, что задача реально исполняется."));
-  lifecycleCard.append(el("p", "", "3. Блокер: есть внешняя причина, почему шаг нельзя закрыть сейчас."));
-  lifecycleCard.append(el("p", "", "4. Завершена: менеджер вручную подтвердил, что шаг выполнен и можно закрывать контур."));
-  lifecycleCard.append(el("p", "", "Пока нет auto-close, SLA, таймеров и счётчиков попыток. Это отдельный product-слой, который ещё не внедрён."));
+  appendHeadingWithInfo(lifecycleCard, "h3", "Р–РёР·РЅРµРЅРЅС‹Р№ С†РёРєР» Р·Р°РґР°С‡", "РџРѕРєР° СЌС‚Рѕ СЂСѓС‡РЅРѕР№ workflow. РЎРёСЃС‚РµРјР° РЅРµ Р·Р°РєСЂС‹РІР°РµС‚ Р·Р°РґР°С‡Сѓ СЃР°РјР° Рё РЅРµ РґРµР»Р°РµС‚ retry Р±РµР· СЂРµС€РµРЅРёСЏ РјРµРЅРµРґР¶РµСЂР°.");
+  lifecycleCard.append(el("p", "", "1. РќРѕРІР°СЏ: Р·Р°РґР°С‡Р° СЃРѕР·РґР°РЅР° РёР· СЃРёРіРЅР°Р»Р° РёР»Рё РІСЂСѓС‡РЅСѓСЋ Рё РµС‰С‘ РЅРµ РІР·СЏС‚Р° РІ СЂР°Р±РѕС‚Сѓ."));
+  lifecycleCard.append(el("p", "", "2. Р’ СЂР°Р±РѕС‚Рµ: РјРµРЅРµРґР¶РµСЂ РїРѕРґС‚РІРµСЂРґРёР», С‡С‚Рѕ Р·Р°РґР°С‡Р° СЂРµР°Р»СЊРЅРѕ РёСЃРїРѕР»РЅСЏРµС‚СЃСЏ."));
+  lifecycleCard.append(el("p", "", "3. Р‘Р»РѕРєРµСЂ: РµСЃС‚СЊ РІРЅРµС€РЅСЏСЏ РїСЂРёС‡РёРЅР°, РїРѕС‡РµРјСѓ С€Р°Рі РЅРµР»СЊР·СЏ Р·Р°РєСЂС‹С‚СЊ СЃРµР№С‡Р°СЃ."));
+  lifecycleCard.append(el("p", "", "4. Р—Р°РІРµСЂС€РµРЅР°: РјРµРЅРµРґР¶РµСЂ РІСЂСѓС‡РЅСѓСЋ РїРѕРґС‚РІРµСЂРґРёР», С‡С‚Рѕ С€Р°Рі РІС‹РїРѕР»РЅРµРЅ Рё РјРѕР¶РЅРѕ Р·Р°РєСЂС‹РІР°С‚СЊ РєРѕРЅС‚СѓСЂ."));
+  lifecycleCard.append(el("p", "", "РџРѕРєР° РЅРµС‚ auto-close, SLA, С‚Р°Р№РјРµСЂРѕРІ Рё СЃС‡С‘С‚С‡РёРєРѕРІ РїРѕРїС‹С‚РѕРє. Р­С‚Рѕ РѕС‚РґРµР»СЊРЅС‹Р№ product-СЃР»РѕР№, РєРѕС‚РѕСЂС‹Р№ РµС‰С‘ РЅРµ РІРЅРµРґСЂС‘РЅ."));
   statusRoot.append(lifecycleCard);
 }
 
 function renderTables(payload) {
   const tables = payload.tables || {};
   const currentRows = (tables.current_winners || []).length ? (tables.current_winners || []) : (tables.soft_signal_products || []);
-  const currentTitle = (tables.current_winners || []).length ? "Что продаётся сейчас" : "Слабые, но живые сигналы";
+  const currentTitle = (tables.current_winners || []).length ? "Р§С‚Рѕ РїСЂРѕРґР°С‘С‚СЃСЏ СЃРµР№С‡Р°СЃ" : "РЎР»Р°Р±С‹Рµ, РЅРѕ Р¶РёРІС‹Рµ СЃРёРіРЅР°Р»С‹";
   const currentInfo = (tables.current_winners || []).length
-    ? "Это товары с осмысленным текущим сигналом в окне, а не исторические хиты. Используйте их как список того, что реально живо сейчас."
-    : "Строгих победителей в окне нет, но здесь видны товары с продажами, которые уже подают сигнал. Это список для наблюдения и осторожного усиления.";
-  renderTableCard({ root: document.getElementById("table-winners"), title: currentTitle, rows: currentRows, formatter: (row) => `продано ${row.units_sold}, выручка ${formatMoney(row.net_revenue)}, ABC ${row.abc_revenue}`, infoText: currentInfo, getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Лидеры по прибыли", rows: tables.profit_leaders || [], formatter: (row) => `прибыль ${formatMoney(row.gross_profit)}, маржа ${row.profit_margin_pct}%`, infoText: "Показывает товары, которые приносят больше всего валовой прибыли в текущем окне. Это приоритет для защиты наличия и качества карточки.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Риск закончиться", rows: tables.stockout_risk || [], formatter: (row) => `остаток ${row.total_stock}, покрытие ${row.stock_cover_days ?? "∞"} дн.`, infoText: "Список позиций, где остаток короткий относительно текущего темпа продаж. Смотрите сюда для приоритета закупки.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Лежит без движения", rows: tables.stale_stock || [], formatter: (row) => `остаток ${row.total_stock}, стоимость ${formatMoney(row.stock_value_sale)}`, infoText: "Позиции без движения в текущем окне. Это кандидаты на чистку, уценку, пересборку карточки или отключение.", getDisplayTitle, createEntityActionButtons });
+    ? "Р­С‚Рѕ С‚РѕРІР°СЂС‹ СЃ РѕСЃРјС‹СЃР»РµРЅРЅС‹Рј С‚РµРєСѓС‰РёРј СЃРёРіРЅР°Р»РѕРј РІ РѕРєРЅРµ, Р° РЅРµ РёСЃС‚РѕСЂРёС‡РµСЃРєРёРµ С…РёС‚С‹. РСЃРїРѕР»СЊР·СѓР№С‚Рµ РёС… РєР°Рє СЃРїРёСЃРѕРє С‚РѕРіРѕ, С‡С‚Рѕ СЂРµР°Р»СЊРЅРѕ Р¶РёРІРѕ СЃРµР№С‡Р°СЃ."
+    : "РЎС‚СЂРѕРіРёС… РїРѕР±РµРґРёС‚РµР»РµР№ РІ РѕРєРЅРµ РЅРµС‚, РЅРѕ Р·РґРµСЃСЊ РІРёРґРЅС‹ С‚РѕРІР°СЂС‹ СЃ РїСЂРѕРґР°Р¶Р°РјРё, РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ РїРѕРґР°СЋС‚ СЃРёРіРЅР°Р». Р­С‚Рѕ СЃРїРёСЃРѕРє РґР»СЏ РЅР°Р±Р»СЋРґРµРЅРёСЏ Рё РѕСЃС‚РѕСЂРѕР¶РЅРѕРіРѕ СѓСЃРёР»РµРЅРёСЏ.";
+  renderTableCard({ root: document.getElementById("table-winners"), title: currentTitle, rows: currentRows, formatter: (row) => `РїСЂРѕРґР°РЅРѕ ${row.units_sold}, РІС‹СЂСѓС‡РєР° ${formatMoney(row.net_revenue)}, ABC ${row.abc_revenue}`, infoText: currentInfo, getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "Р›РёРґРµСЂС‹ РїРѕ РїСЂРёР±С‹Р»Рё", rows: tables.profit_leaders || [], formatter: (row) => `РїСЂРёР±С‹Р»СЊ ${formatMoney(row.gross_profit)}, РјР°СЂР¶Р° ${row.profit_margin_pct}%`, infoText: "РџРѕРєР°Р·С‹РІР°РµС‚ С‚РѕРІР°СЂС‹, РєРѕС‚РѕСЂС‹Рµ РїСЂРёРЅРѕСЃСЏС‚ Р±РѕР»СЊС€Рµ РІСЃРµРіРѕ РІР°Р»РѕРІРѕР№ РїСЂРёР±С‹Р»Рё РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ. Р­С‚Рѕ РїСЂРёРѕСЂРёС‚РµС‚ РґР»СЏ Р·Р°С‰РёС‚С‹ РЅР°Р»РёС‡РёСЏ Рё РєР°С‡РµСЃС‚РІР° РєР°СЂС‚РѕС‡РєРё.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "Р РёСЃРє Р·Р°РєРѕРЅС‡РёС‚СЊСЃСЏ", rows: tables.stockout_risk || [], formatter: (row) => `РѕСЃС‚Р°С‚РѕРє ${row.total_stock}, РїРѕРєСЂС‹С‚РёРµ ${row.stock_cover_days ?? "в€ћ"} РґРЅ.`, infoText: "РЎРїРёСЃРѕРє РїРѕР·РёС†РёР№, РіРґРµ РѕСЃС‚Р°С‚РѕРє РєРѕСЂРѕС‚РєРёР№ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С‚РµРєСѓС‰РµРіРѕ С‚РµРјРїР° РїСЂРѕРґР°Р¶. РЎРјРѕС‚СЂРёС‚Рµ СЃСЋРґР° РґР»СЏ РїСЂРёРѕСЂРёС‚РµС‚Р° Р·Р°РєСѓРїРєРё.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "Р›РµР¶РёС‚ Р±РµР· РґРІРёР¶РµРЅРёСЏ", rows: tables.stale_stock || [], formatter: (row) => `РѕСЃС‚Р°С‚РѕРє ${row.total_stock}, СЃС‚РѕРёРјРѕСЃС‚СЊ ${formatMoney(row.stock_value_sale)}`, infoText: "РџРѕР·РёС†РёРё Р±РµР· РґРІРёР¶РµРЅРёСЏ РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ. Р­С‚Рѕ РєР°РЅРґРёРґР°С‚С‹ РЅР° С‡РёСЃС‚РєСѓ, СѓС†РµРЅРєСѓ, РїРµСЂРµСЃР±РѕСЂРєСѓ РєР°СЂС‚РѕС‡РєРё РёР»Рё РѕС‚РєР»СЋС‡РµРЅРёРµ.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderFamilyTables(payload) {
   const families = payload.family_tables || {};
   const familyCurrentRows = (families.family_current_winners || []).length ? (families.family_current_winners || []) : (families.family_soft_signal_products || []);
-  const familyCurrentTitle = (families.family_current_winners || []).length ? "Семейства, которые продаются" : "Семейства с ранним сигналом";
+  const familyCurrentTitle = (families.family_current_winners || []).length ? "РЎРµРјРµР№СЃС‚РІР°, РєРѕС‚РѕСЂС‹Рµ РїСЂРѕРґР°СЋС‚СЃСЏ" : "РЎРµРјРµР№СЃС‚РІР° СЃ СЂР°РЅРЅРёРј СЃРёРіРЅР°Р»РѕРј";
   const familyCurrentInfo = (families.family_current_winners || []).length
-    ? "Семейства помогают смотреть на карточку целиком, если в ней несколько ШК или вариантов. Это полезно там, где одна строка CSV вводит в заблуждение."
-    : "Строгих семей-победителей в окне нет. Здесь видны карточки, у которых уже есть первые продажи на уровне семейства, но сигнал ещё слабый.";
-  renderTableCard({ root: document.getElementById("family-winners"), title: familyCurrentTitle, rows: familyCurrentRows, formatter: (row) => `вариантов ${row.variant_count}, продано ${row.sold_units_sum}, выручка ${formatMoney(row.net_revenue_sum)}`, infoText: familyCurrentInfo, getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("family-reorder"), title: "Семейства на дозакупку", rows: families.family_reorder_now || [], formatter: (row) => `вариантов ${row.variant_count}, остаток ${row.stock_units_sum}, покрытие ${row.stock_cover_days ?? "∞"} дн.`, infoText: "Показывает карточки, где проблема уже не в одном SKU, а на уровне всего семейства товара.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("family-variants"), title: "Крупные карточки с вариантами", rows: families.largest_multi_variant_families || [], formatter: (row) => `вариантов ${row.variant_count}, ШК ${row.barcode_count}, остаток ${row.stock_units_sum}`, infoText: "Сюда смотрят, когда нужно понять: карточка в целом жива или продажи и остатки размазаны по вариантам.", getDisplayTitle, createEntityActionButtons });
+    ? "РЎРµРјРµР№СЃС‚РІР° РїРѕРјРѕРіР°СЋС‚ СЃРјРѕС‚СЂРµС‚СЊ РЅР° РєР°СЂС‚РѕС‡РєСѓ С†РµР»РёРєРѕРј, РµСЃР»Рё РІ РЅРµР№ РЅРµСЃРєРѕР»СЊРєРѕ РЁРљ РёР»Рё РІР°СЂРёР°РЅС‚РѕРІ. Р­С‚Рѕ РїРѕР»РµР·РЅРѕ С‚Р°Рј, РіРґРµ РѕРґРЅР° СЃС‚СЂРѕРєР° CSV РІРІРѕРґРёС‚ РІ Р·Р°Р±Р»СѓР¶РґРµРЅРёРµ."
+    : "РЎС‚СЂРѕРіРёС… СЃРµРјРµР№-РїРѕР±РµРґРёС‚РµР»РµР№ РІ РѕРєРЅРµ РЅРµС‚. Р—РґРµСЃСЊ РІРёРґРЅС‹ РєР°СЂС‚РѕС‡РєРё, Сѓ РєРѕС‚РѕСЂС‹С… СѓР¶Рµ РµСЃС‚СЊ РїРµСЂРІС‹Рµ РїСЂРѕРґР°Р¶Рё РЅР° СѓСЂРѕРІРЅРµ СЃРµРјРµР№СЃС‚РІР°, РЅРѕ СЃРёРіРЅР°Р» РµС‰С‘ СЃР»Р°Р±С‹Р№.";
+  renderTableCard({ root: document.getElementById("family-winners"), title: familyCurrentTitle, rows: familyCurrentRows, formatter: (row) => `РІР°СЂРёР°РЅС‚РѕРІ ${row.variant_count}, РїСЂРѕРґР°РЅРѕ ${row.sold_units_sum}, РІС‹СЂСѓС‡РєР° ${formatMoney(row.net_revenue_sum)}`, infoText: familyCurrentInfo, getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("family-reorder"), title: "РЎРµРјРµР№СЃС‚РІР° РЅР° РґРѕР·Р°РєСѓРїРєСѓ", rows: families.family_reorder_now || [], formatter: (row) => `РІР°СЂРёР°РЅС‚РѕРІ ${row.variant_count}, РѕСЃС‚Р°С‚РѕРє ${row.stock_units_sum}, РїРѕРєСЂС‹С‚РёРµ ${row.stock_cover_days ?? "в€ћ"} РґРЅ.`, infoText: "РџРѕРєР°Р·С‹РІР°РµС‚ РєР°СЂС‚РѕС‡РєРё, РіРґРµ РїСЂРѕР±Р»РµРјР° СѓР¶Рµ РЅРµ РІ РѕРґРЅРѕРј SKU, Р° РЅР° СѓСЂРѕРІРЅРµ РІСЃРµРіРѕ СЃРµРјРµР№СЃС‚РІР° С‚РѕРІР°СЂР°.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("family-variants"), title: "РљСЂСѓРїРЅС‹Рµ РєР°СЂС‚РѕС‡РєРё СЃ РІР°СЂРёР°РЅС‚Р°РјРё", rows: families.largest_multi_variant_families || [], formatter: (row) => `РІР°СЂРёР°РЅС‚РѕРІ ${row.variant_count}, РЁРљ ${row.barcode_count}, РѕСЃС‚Р°С‚РѕРє ${row.stock_units_sum}`, infoText: "РЎСЋРґР° СЃРјРѕС‚СЂСЏС‚, РєРѕРіРґР° РЅСѓР¶РЅРѕ РїРѕРЅСЏС‚СЊ: РєР°СЂС‚РѕС‡РєР° РІ С†РµР»РѕРј Р¶РёРІР° РёР»Рё РїСЂРѕРґР°Р¶Рё Рё РѕСЃС‚Р°С‚РєРё СЂР°Р·РјР°Р·Р°РЅС‹ РїРѕ РІР°СЂРёР°РЅС‚Р°Рј.", getDisplayTitle, createEntityActionButtons });
 }
 
 function getAbcHelpText(metricLabel) {
-  return `ABC по ${metricLabel} делит ассортимент на три слоя: A — ядро, которое даёт основную долю результата; B — поддерживающий средний слой; C — длинный хвост. Практически это читается так: A держать в наличии и контролировать ежедневно, B оптимизировать и масштабировать выборочно, C чистить, перерабатывать оффер или выводить.`;
+  return `ABC РїРѕ ${metricLabel} РґРµР»РёС‚ Р°СЃСЃРѕСЂС‚РёРјРµРЅС‚ РЅР° С‚СЂРё СЃР»РѕСЏ: A вЂ” СЏРґСЂРѕ, РєРѕС‚РѕСЂРѕРµ РґР°С‘С‚ РѕСЃРЅРѕРІРЅСѓСЋ РґРѕР»СЋ СЂРµР·СѓР»СЊС‚Р°С‚Р°; B вЂ” РїРѕРґРґРµСЂР¶РёРІР°СЋС‰РёР№ СЃСЂРµРґРЅРёР№ СЃР»РѕР№; C вЂ” РґР»РёРЅРЅС‹Р№ С…РІРѕСЃС‚. РџСЂР°РєС‚РёС‡РµСЃРєРё СЌС‚Рѕ С‡РёС‚Р°РµС‚СЃСЏ С‚Р°Рє: A РґРµСЂР¶Р°С‚СЊ РІ РЅР°Р»РёС‡РёРё Рё РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊ РµР¶РµРґРЅРµРІРЅРѕ, B РѕРїС‚РёРјРёР·РёСЂРѕРІР°С‚СЊ Рё РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°С‚СЊ РІС‹Р±РѕСЂРѕС‡РЅРѕ, C С‡РёСЃС‚РёС‚СЊ, РїРµСЂРµСЂР°Р±Р°С‚С‹РІР°С‚СЊ РѕС„С„РµСЂ РёР»Рё РІС‹РІРѕРґРёС‚СЊ.`;
 }
 
 function summarizeAbc(countsRows, valuesRows) {
@@ -1580,7 +1580,7 @@ function renderAbcInterpretationCard(title, metricLabel, countsRows, valuesRows,
   const card = el("div", "chart-card abc-card");
   appendHeadingWithInfo(card, "h3", title, getAbcHelpText(metricLabel));
   const summaryRows = summarizeAbc(countsRows, valuesRows);
-  const explainer = el("p", "abc-explainer", "Не просто шкала: смотрите, какую долю результата даёт каждая зона и как распределён ассортимент.");
+  const explainer = el("p", "abc-explainer", "РќРµ РїСЂРѕСЃС‚Рѕ С€РєР°Р»Р°: СЃРјРѕС‚СЂРёС‚Рµ, РєР°РєСѓСЋ РґРѕР»СЋ СЂРµР·СѓР»СЊС‚Р°С‚Р° РґР°С‘С‚ РєР°Р¶РґР°СЏ Р·РѕРЅР° Рё РєР°Рє СЂР°СЃРїСЂРµРґРµР»С‘РЅ Р°СЃСЃРѕСЂС‚РёРјРµРЅС‚.");
   card.append(explainer);
   const grid = el("div", "abc-grid");
   summaryRows.forEach((row) => {
@@ -1592,29 +1592,29 @@ function renderAbcInterpretationCard(title, metricLabel, countsRows, valuesRows,
   });
   card.append(grid);
   const notes = el("div", "abc-notes");
-  notes.append(el("p", "", "A: держать в наличии, контролировать фото, рейтинг и цену, не терять наличие."));
-  notes.append(el("p", "", "B: кандидаты на развитие и тесты продвижения, если экономика уже нормальная."));
-  notes.append(el("p", "", "C: длинный хвост. Сюда смотрят для чистки, уценки, переработки карточки или вывода."));
+  notes.append(el("p", "", "A: РґРµСЂР¶Р°С‚СЊ РІ РЅР°Р»РёС‡РёРё, РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊ С„РѕС‚Рѕ, СЂРµР№С‚РёРЅРі Рё С†РµРЅСѓ, РЅРµ С‚РµСЂСЏС‚СЊ РЅР°Р»РёС‡РёРµ."));
+  notes.append(el("p", "", "B: РєР°РЅРґРёРґР°С‚С‹ РЅР° СЂР°Р·РІРёС‚РёРµ Рё С‚РµСЃС‚С‹ РїСЂРѕРґРІРёР¶РµРЅРёСЏ, РµСЃР»Рё СЌРєРѕРЅРѕРјРёРєР° СѓР¶Рµ РЅРѕСЂРјР°Р»СЊРЅР°СЏ."));
+  notes.append(el("p", "", "C: РґР»РёРЅРЅС‹Р№ С…РІРѕСЃС‚. РЎСЋРґР° СЃРјРѕС‚СЂСЏС‚ РґР»СЏ С‡РёСЃС‚РєРё, СѓС†РµРЅРєРё, РїРµСЂРµСЂР°Р±РѕС‚РєРё РєР°СЂС‚РѕС‡РєРё РёР»Рё РІС‹РІРѕРґР°."));
   card.append(notes);
   return card;
 }
 
 function renderAbcExamplesCard(title, metricLabel, examplesByBucket, formatter) {
   const card = el("div", "chart-card abc-card");
-  appendHeadingWithInfo(card, "h3", title, `Показывает конкретные SKU внутри зон A/B/C по метрике "${metricLabel}". Это уже рабочий список для действий, а не только агрегированная шкала.`);
+  appendHeadingWithInfo(card, "h3", title, `РџРѕРєР°Р·С‹РІР°РµС‚ РєРѕРЅРєСЂРµС‚РЅС‹Рµ SKU РІРЅСѓС‚СЂРё Р·РѕРЅ A/B/C РїРѕ РјРµС‚СЂРёРєРµ "${metricLabel}". Р­С‚Рѕ СѓР¶Рµ СЂР°Р±РѕС‡РёР№ СЃРїРёСЃРѕРє РґР»СЏ РґРµР№СЃС‚РІРёР№, Р° РЅРµ С‚РѕР»СЊРєРѕ Р°РіСЂРµРіРёСЂРѕРІР°РЅРЅР°СЏ С€РєР°Р»Р°.`);
   const buckets = examplesByBucket || {};
   const zones = ["A", "B", "C"];
   const anyRows = zones.some((zone) => (buckets[zone] || []).length);
   if (!anyRows) {
-    card.append(el("p", "empty-state", "Нет данных для этого блока."));
+    card.append(el("p", "empty-state", "РќРµС‚ РґР°РЅРЅС‹С… РґР»СЏ СЌС‚РѕРіРѕ Р±Р»РѕРєР°."));
     return card;
   }
   zones.forEach((zone) => {
     const rows = buckets[zone] || [];
     const section = el("div", "abc-example-zone");
-    section.append(el("strong", "", `Зона ${zone}`));
+    section.append(el("strong", "", `Р—РѕРЅР° ${zone}`));
     if (!rows.length) {
-      section.append(el("p", "empty-state", "Нет SKU в этой зоне."));
+      section.append(el("p", "empty-state", "РќРµС‚ SKU РІ СЌС‚РѕР№ Р·РѕРЅРµ."));
       card.append(section);
       return;
     }
@@ -1622,7 +1622,7 @@ function renderAbcExamplesCard(title, metricLabel, examplesByBucket, formatter) 
     rows.forEach((row) => {
       const item = el("li");
       item.append(el("strong", "", getDisplayTitle(row)));
-      item.append(el("span", "", `${metricLabel}: ${formatter(metricLabel === "прибыль" ? row.gross_profit : row.net_revenue)}, продано ${formatNumber(row.units_sold)}`));
+      item.append(el("span", "", `${metricLabel}: ${formatter(metricLabel === "РїСЂРёР±С‹Р»СЊ" ? row.gross_profit : row.net_revenue)}, РїСЂРѕРґР°РЅРѕ ${formatNumber(row.units_sold)}`));
       list.append(item);
     });
     section.append(list);
@@ -1635,80 +1635,80 @@ function renderCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderAbcInterpretationCard("ABC по выручке", "выручка", charts.abc_revenue_counts || [], charts.revenue_by_abc || [], formatMoney));
-  root.append(renderAbcInterpretationCard("ABC по прибыли", "прибыль", charts.abc_profit_counts || [], charts.profit_by_abc || [], formatMoney));
-  root.append(renderAbcExamplesCard("Какие SKU входят в ABC по выручке", "выручка", charts.abc_revenue_examples || {}, formatMoney));
-  root.append(renderAbcExamplesCard("Какие SKU входят в ABC по прибыли", "прибыль", charts.abc_profit_examples || {}, formatMoney));
-  root.append(renderBarChart("Статусы", charts.status_counts || [], formatNumber, "Показывает, сколько SKU сейчас находится в каждом operational-статусе. Это не история, а снимок текущего окна."));
-  root.append(renderBarChart("Выручка по ABC", charts.revenue_by_abc || [], formatMoney, "Сколько выручки приносит каждая зона A/B/C. Полезно, чтобы не путать число SKU с реальным вкладом в деньги."));
+  root.append(renderAbcInterpretationCard("ABC РїРѕ РІС‹СЂСѓС‡РєРµ", "РІС‹СЂСѓС‡РєР°", charts.abc_revenue_counts || [], charts.revenue_by_abc || [], formatMoney));
+  root.append(renderAbcInterpretationCard("ABC РїРѕ РїСЂРёР±С‹Р»Рё", "РїСЂРёР±С‹Р»СЊ", charts.abc_profit_counts || [], charts.profit_by_abc || [], formatMoney));
+  root.append(renderAbcExamplesCard("РљР°РєРёРµ SKU РІС…РѕРґСЏС‚ РІ ABC РїРѕ РІС‹СЂСѓС‡РєРµ", "РІС‹СЂСѓС‡РєР°", charts.abc_revenue_examples || {}, formatMoney));
+  root.append(renderAbcExamplesCard("РљР°РєРёРµ SKU РІС…РѕРґСЏС‚ РІ ABC РїРѕ РїСЂРёР±С‹Р»Рё", "РїСЂРёР±С‹Р»СЊ", charts.abc_profit_examples || {}, formatMoney));
+  root.append(renderBarChart("РЎС‚Р°С‚СѓСЃС‹", charts.status_counts || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, СЃРєРѕР»СЊРєРѕ SKU СЃРµР№С‡Р°СЃ РЅР°С…РѕРґРёС‚СЃСЏ РІ РєР°Р¶РґРѕРј operational-СЃС‚Р°С‚СѓСЃРµ. Р­С‚Рѕ РЅРµ РёСЃС‚РѕСЂРёСЏ, Р° СЃРЅРёРјРѕРє С‚РµРєСѓС‰РµРіРѕ РѕРєРЅР°."));
+  root.append(renderBarChart("Р’С‹СЂСѓС‡РєР° РїРѕ ABC", charts.revenue_by_abc || [], formatMoney, "РЎРєРѕР»СЊРєРѕ РІС‹СЂСѓС‡РєРё РїСЂРёРЅРѕСЃРёС‚ РєР°Р¶РґР°СЏ Р·РѕРЅР° A/B/C. РџРѕР»РµР·РЅРѕ, С‡С‚РѕР±С‹ РЅРµ РїСѓС‚Р°С‚СЊ С‡РёСЃР»Рѕ SKU СЃ СЂРµР°Р»СЊРЅС‹Рј РІРєР»Р°РґРѕРј РІ РґРµРЅСЊРіРё."));
 }
 
 function renderMarketCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Заказы по ценовым коридорам", charts.price_bands || [], formatNumber, "Показывает, в каких ценовых диапазонах сосредоточен спрос в наблюдаемом рынке за выбранный срез."));
-  root.append(renderBarChart("Заказы по группам", charts.group_orders || [], formatNumber, "Показывает, какие товарные группы собирают больше всего видимых заказов в текущем рыночном срезе."));
+  root.append(renderBarChart("Р—Р°РєР°Р·С‹ РїРѕ С†РµРЅРѕРІС‹Рј РєРѕСЂРёРґРѕСЂР°Рј", charts.price_bands || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, РІ РєР°РєРёС… С†РµРЅРѕРІС‹С… РґРёР°РїР°Р·РѕРЅР°С… СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅ СЃРїСЂРѕСЃ РІ РЅР°Р±Р»СЋРґР°РµРјРѕРј СЂС‹РЅРєРµ Р·Р° РІС‹Р±СЂР°РЅРЅС‹Р№ СЃСЂРµР·."));
+  root.append(renderBarChart("Р—Р°РєР°Р·С‹ РїРѕ РіСЂСѓРїРїР°Рј", charts.group_orders || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, РєР°РєРёРµ С‚РѕРІР°СЂРЅС‹Рµ РіСЂСѓРїРїС‹ СЃРѕР±РёСЂР°СЋС‚ Р±РѕР»СЊС€Рµ РІСЃРµРіРѕ РІРёРґРёРјС‹С… Р·Р°РєР°Р·РѕРІ РІ С‚РµРєСѓС‰РµРј СЂС‹РЅРѕС‡РЅРѕРј СЃСЂРµР·Рµ."));
 }
 
 function renderPricingCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Структура pricing-рекомендаций", charts.pricing_labels || [], formatNumber, "Как распределяются ценовые решения: держать цену, тестировать, входить агрессивнее или не демпинговать."));
-  root.append(renderBarChart("Средняя цена рынка по окнам", charts.avg_market_price_by_band || [], formatMoney, "Средняя рыночная цена по каждому ценовому коридору. Это опорный слой, а не готовая цена для авто-применения."));
+  root.append(renderBarChart("РЎС‚СЂСѓРєС‚СѓСЂР° pricing-СЂРµРєРѕРјРµРЅРґР°С†РёР№", charts.pricing_labels || [], formatNumber, "РљР°Рє СЂР°СЃРїСЂРµРґРµР»СЏСЋС‚СЃСЏ С†РµРЅРѕРІС‹Рµ СЂРµС€РµРЅРёСЏ: РґРµСЂР¶Р°С‚СЊ С†РµРЅСѓ, С‚РµСЃС‚РёСЂРѕРІР°С‚СЊ, РІС…РѕРґРёС‚СЊ Р°РіСЂРµСЃСЃРёРІРЅРµРµ РёР»Рё РЅРµ РґРµРјРїРёРЅРіРѕРІР°С‚СЊ."));
+  root.append(renderBarChart("РЎСЂРµРґРЅСЏСЏ С†РµРЅР° СЂС‹РЅРєР° РїРѕ РѕРєРЅР°Рј", charts.avg_market_price_by_band || [], formatMoney, "РЎСЂРµРґРЅСЏСЏ СЂС‹РЅРѕС‡РЅР°СЏ С†РµРЅР° РїРѕ РєР°Р¶РґРѕРјСѓ С†РµРЅРѕРІРѕРјСѓ РєРѕСЂРёРґРѕСЂСѓ. Р­С‚Рѕ РѕРїРѕСЂРЅС‹Р№ СЃР»РѕР№, Р° РЅРµ РіРѕС‚РѕРІР°СЏ С†РµРЅР° РґР»СЏ Р°РІС‚Рѕ-РїСЂРёРјРµРЅРµРЅРёСЏ."));
 }
 
 function renderMarketingCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Типы маркетинговых действий", charts.priority_buckets || [], formatNumber, "Показывает, какие действия чаще всего требуются сейчас: цена, title, фото, описание или комбинированный fix."));
-  root.append(renderBarChart("Статусы title SEO", charts.seo_status_counts || [], formatNumber, "Показывает распределение title по качеству: норм, требует работы или критичный priority fix."));
-  root.append(renderBarChart("Типы проблем", charts.issue_type_counts || [], formatNumber, "Агрегирует, что именно чаще всего ломает карточки в этом отчёте."));
+  root.append(renderBarChart("РўРёРїС‹ РјР°СЂРєРµС‚РёРЅРіРѕРІС‹С… РґРµР№СЃС‚РІРёР№", charts.priority_buckets || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, РєР°РєРёРµ РґРµР№СЃС‚РІРёСЏ С‡Р°С‰Рµ РІСЃРµРіРѕ С‚СЂРµР±СѓСЋС‚СЃСЏ СЃРµР№С‡Р°СЃ: С†РµРЅР°, title, С„РѕС‚Рѕ, РѕРїРёСЃР°РЅРёРµ РёР»Рё РєРѕРјР±РёРЅРёСЂРѕРІР°РЅРЅС‹Р№ fix."));
+  root.append(renderBarChart("РЎС‚Р°С‚СѓСЃС‹ title SEO", charts.seo_status_counts || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ title РїРѕ РєР°С‡РµСЃС‚РІСѓ: РЅРѕСЂРј, С‚СЂРµР±СѓРµС‚ СЂР°Р±РѕС‚С‹ РёР»Рё РєСЂРёС‚РёС‡РЅС‹Р№ priority fix."));
+  root.append(renderBarChart("РўРёРїС‹ РїСЂРѕР±Р»РµРј", charts.issue_type_counts || [], formatNumber, "РђРіСЂРµРіРёСЂСѓРµС‚, С‡С‚Рѕ РёРјРµРЅРЅРѕ С‡Р°С‰Рµ РІСЃРµРіРѕ Р»РѕРјР°РµС‚ РєР°СЂС‚РѕС‡РєРё РІ СЌС‚РѕРј РѕС‚С‡С‘С‚Рµ."));
 }
 
 function renderMediaCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Статусы media-аудита", charts.media_status_counts || [], formatNumber, "Сводка по качеству медиа: где карточки уже нормальные, а где фото или характеристики отстают от группы."));
-  root.append(renderBarChart("Фото по корзинам", charts.photo_bucket_counts || [], formatNumber, "Распределение по числу фото. Полезно, когда нужно быстро понять, упираемся ли мы в бедные карточки."));
-  root.append(renderBarChart("Плотность характеристик", charts.spec_bucket_counts || [], formatNumber, "Показывает, насколько полно заполнены характеристики. Чем больше пустот, тем хуже карточка держится в сравнении."));
+  root.append(renderBarChart("РЎС‚Р°С‚СѓСЃС‹ media-Р°СѓРґРёС‚Р°", charts.media_status_counts || [], formatNumber, "РЎРІРѕРґРєР° РїРѕ РєР°С‡РµСЃС‚РІСѓ РјРµРґРёР°: РіРґРµ РєР°СЂС‚РѕС‡РєРё СѓР¶Рµ РЅРѕСЂРјР°Р»СЊРЅС‹Рµ, Р° РіРґРµ С„РѕС‚Рѕ РёР»Рё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё РѕС‚СЃС‚Р°СЋС‚ РѕС‚ РіСЂСѓРїРїС‹."));
+  root.append(renderBarChart("Р¤РѕС‚Рѕ РїРѕ РєРѕСЂР·РёРЅР°Рј", charts.photo_bucket_counts || [], formatNumber, "Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РїРѕ С‡РёСЃР»Сѓ С„РѕС‚Рѕ. РџРѕР»РµР·РЅРѕ, РєРѕРіРґР° РЅСѓР¶РЅРѕ Р±С‹СЃС‚СЂРѕ РїРѕРЅСЏС‚СЊ, СѓРїРёСЂР°РµРјСЃСЏ Р»Рё РјС‹ РІ Р±РµРґРЅС‹Рµ РєР°СЂС‚РѕС‡РєРё."));
+  root.append(renderBarChart("РџР»РѕС‚РЅРѕСЃС‚СЊ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє", charts.spec_bucket_counts || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, РЅР°СЃРєРѕР»СЊРєРѕ РїРѕР»РЅРѕ Р·Р°РїРѕР»РЅРµРЅС‹ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё. Р§РµРј Р±РѕР»СЊС€Рµ РїСѓСЃС‚РѕС‚, С‚РµРј С…СѓР¶Рµ РєР°СЂС‚РѕС‡РєР° РґРµСЂР¶РёС‚СЃСЏ РІ СЃСЂР°РІРЅРµРЅРёРё."));
 }
 
 function renderDescriptionCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Статусы description-аудита", charts.description_status_counts || [], formatNumber, "Сводка по качеству описаний: где описания уже достаточные, а где они слишком слабые для карточки."));
-  root.append(renderBarChart("Длина описаний", charts.description_length_counts || [], formatNumber, "Распределение по длине описаний. Это помогает быстро увидеть слой тонкого контента."));
-  root.append(renderBarChart("Покрытие title-термов", charts.title_term_coverage_counts || [], formatNumber, "Показывает, насколько описание поддерживает ключевые слова из title, а не расходится с ним."));
+  root.append(renderBarChart("РЎС‚Р°С‚СѓСЃС‹ description-Р°СѓРґРёС‚Р°", charts.description_status_counts || [], formatNumber, "РЎРІРѕРґРєР° РїРѕ РєР°С‡РµСЃС‚РІСѓ РѕРїРёСЃР°РЅРёР№: РіРґРµ РѕРїРёСЃР°РЅРёСЏ СѓР¶Рµ РґРѕСЃС‚Р°С‚РѕС‡РЅС‹Рµ, Р° РіРґРµ РѕРЅРё СЃР»РёС€РєРѕРј СЃР»Р°Р±С‹Рµ РґР»СЏ РєР°СЂС‚РѕС‡РєРё."));
+  root.append(renderBarChart("Р”Р»РёРЅР° РѕРїРёСЃР°РЅРёР№", charts.description_length_counts || [], formatNumber, "Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РїРѕ РґР»РёРЅРµ РѕРїРёСЃР°РЅРёР№. Р­С‚Рѕ РїРѕРјРѕРіР°РµС‚ Р±С‹СЃС‚СЂРѕ СѓРІРёРґРµС‚СЊ СЃР»РѕР№ С‚РѕРЅРєРѕРіРѕ РєРѕРЅС‚РµРЅС‚Р°."));
+  root.append(renderBarChart("РџРѕРєСЂС‹С‚РёРµ title-С‚РµСЂРјРѕРІ", charts.title_term_coverage_counts || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, РЅР°СЃРєРѕР»СЊРєРѕ РѕРїРёСЃР°РЅРёРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° РёР· title, Р° РЅРµ СЂР°СЃС…РѕРґРёС‚СЃСЏ СЃ РЅРёРј."));
 }
 
 function renderSalesReturnCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Главные причины возврата", charts.reason_distribution || [], formatNumber, "Показывает, какие причины уже дают основную массу возвратов. Если одна причина доминирует, её нужно чинить раньше длинного хвоста."));
-  root.append(renderBarChart("Дневная динамика возвратов", charts.daily_returns || [], formatNumber, "Динамика возвратов по дням внутри окна. Полезна, чтобы отделять системную проблему от единичного всплеска."));
+  root.append(renderBarChart("Р“Р»Р°РІРЅС‹Рµ РїСЂРёС‡РёРЅС‹ РІРѕР·РІСЂР°С‚Р°", charts.reason_distribution || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚, РєР°РєРёРµ РїСЂРёС‡РёРЅС‹ СѓР¶Рµ РґР°СЋС‚ РѕСЃРЅРѕРІРЅСѓСЋ РјР°СЃСЃСѓ РІРѕР·РІСЂР°С‚РѕРІ. Р•СЃР»Рё РѕРґРЅР° РїСЂРёС‡РёРЅР° РґРѕРјРёРЅРёСЂСѓРµС‚, РµС‘ РЅСѓР¶РЅРѕ С‡РёРЅРёС‚СЊ СЂР°РЅСЊС€Рµ РґР»РёРЅРЅРѕРіРѕ С…РІРѕСЃС‚Р°."));
+  root.append(renderBarChart("Р”РЅРµРІРЅР°СЏ РґРёРЅР°РјРёРєР° РІРѕР·РІСЂР°С‚РѕРІ", charts.daily_returns || [], formatNumber, "Р”РёРЅР°РјРёРєР° РІРѕР·РІСЂР°С‚РѕРІ РїРѕ РґРЅСЏРј РІРЅСѓС‚СЂРё РѕРєРЅР°. РџРѕР»РµР·РЅР°, С‡С‚РѕР±С‹ РѕС‚РґРµР»СЏС‚СЊ СЃРёСЃС‚РµРјРЅСѓСЋ РїСЂРѕР±Р»РµРјСѓ РѕС‚ РµРґРёРЅРёС‡РЅРѕРіРѕ РІСЃРїР»РµСЃРєР°."));
 }
 
 function renderWaybillCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Концентрация batch-cost", charts.cost_distribution || [], formatMoney, "Показывает, сколько себестоимости сосредоточено в верхних строках партии, а сколько размазано по хвосту."));
-  root.append(renderBarChart("Покрытие cost-layer", charts.numeric_columns || [], formatNumber, "Быстрый срез по тому, насколько слой накладных уже пригоден для построения historical COGS."));
-  root.append(renderBarChart("Единицы по датам поставки", charts.daily_returns || [], formatNumber, "Показывает распределение поставленных единиц по датам партий. Это база для чтения batch-history."));
+  root.append(renderBarChart("РљРѕРЅС†РµРЅС‚СЂР°С†РёСЏ batch-cost", charts.cost_distribution || [], formatMoney, "РџРѕРєР°Р·С‹РІР°РµС‚, СЃРєРѕР»СЊРєРѕ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅРѕ РІ РІРµСЂС…РЅРёС… СЃС‚СЂРѕРєР°С… РїР°СЂС‚РёРё, Р° СЃРєРѕР»СЊРєРѕ СЂР°Р·РјР°Р·Р°РЅРѕ РїРѕ С…РІРѕСЃС‚Сѓ."));
+  root.append(renderBarChart("РџРѕРєСЂС‹С‚РёРµ cost-layer", charts.numeric_columns || [], formatNumber, "Р‘С‹СЃС‚СЂС‹Р№ СЃСЂРµР· РїРѕ С‚РѕРјСѓ, РЅР°СЃРєРѕР»СЊРєРѕ СЃР»РѕР№ РЅР°РєР»Р°РґРЅС‹С… СѓР¶Рµ РїСЂРёРіРѕРґРµРЅ РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ historical COGS."));
+  root.append(renderBarChart("Р•РґРёРЅРёС†С‹ РїРѕ РґР°С‚Р°Рј РїРѕСЃС‚Р°РІРєРё", charts.daily_returns || [], formatNumber, "РџРѕРєР°Р·С‹РІР°РµС‚ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ РїРѕСЃС‚Р°РІР»РµРЅРЅС‹С… РµРґРёРЅРёС† РїРѕ РґР°С‚Р°Рј РїР°СЂС‚РёР№. Р­С‚Рѕ Р±Р°Р·Р° РґР»СЏ С‡С‚РµРЅРёСЏ batch-history."));
 }
 
 function renderPaidStorageCharts(payload) {
   const root = document.getElementById("chart-grid");
   root.innerHTML = "";
   const charts = payload.charts || {};
-  root.append(renderBarChart("Концентрация начислений", charts.cost_distribution || [], formatMoney, "Показывает, какая доля платного слоя приходится на крупнейшие строки, а какая размазана по хвосту."));
-  root.append(renderBarChart("Крупнейшие numeric-колонки", charts.numeric_columns || [], formatMoney, "Помогает понять, какие числовые колонки в XLSX реально формируют основную массу начислений."));
+  root.append(renderBarChart("РљРѕРЅС†РµРЅС‚СЂР°С†РёСЏ РЅР°С‡РёСЃР»РµРЅРёР№", charts.cost_distribution || [], formatMoney, "РџРѕРєР°Р·С‹РІР°РµС‚, РєР°РєР°СЏ РґРѕР»СЏ РїР»Р°С‚РЅРѕРіРѕ СЃР»РѕСЏ РїСЂРёС…РѕРґРёС‚СЃСЏ РЅР° РєСЂСѓРїРЅРµР№С€РёРµ СЃС‚СЂРѕРєРё, Р° РєР°РєР°СЏ СЂР°Р·РјР°Р·Р°РЅР° РїРѕ С…РІРѕСЃС‚Сѓ."));
+  root.append(renderBarChart("РљСЂСѓРїРЅРµР№С€РёРµ numeric-РєРѕР»РѕРЅРєРё", charts.numeric_columns || [], formatMoney, "РџРѕРјРѕРіР°РµС‚ РїРѕРЅСЏС‚СЊ, РєР°РєРёРµ С‡РёСЃР»РѕРІС‹Рµ РєРѕР»РѕРЅРєРё РІ XLSX СЂРµР°Р»СЊРЅРѕ С„РѕСЂРјРёСЂСѓСЋС‚ РѕСЃРЅРѕРІРЅСѓСЋ РјР°СЃСЃСѓ РЅР°С‡РёСЃР»РµРЅРёР№."));
 }
 
 function showSection(id, visible) {
@@ -1785,13 +1785,13 @@ function renderFlowMap(items, cogsStore) {
     {
       title: "Pricing",
       state: pricing ? "available" : "runner",
-      badge: pricing ? "Доступно" : "Runner only",
+      badge: pricing ? "Р”РѕСЃС‚СѓРїРЅРѕ" : "Runner only",
       summary: pricing
-        ? "Отдельный report/view уже есть в основном UI."
-        : "Отчёт ещё не попал в dashboard index, но job уже заведён в runner.",
+        ? "РћС‚РґРµР»СЊРЅС‹Р№ report/view СѓР¶Рµ РµСЃС‚СЊ РІ РѕСЃРЅРѕРІРЅРѕРј UI."
+        : "РћС‚С‡С‘С‚ РµС‰С‘ РЅРµ РїРѕРїР°Р» РІ dashboard index, РЅРѕ job СѓР¶Рµ Р·Р°РІРµРґС‘РЅ РІ runner.",
       meta: [
-        pricing ? `Последний артефакт: ${reportOptionLabel(pricing)}` : "Артефакт в основном UI пока не найден.",
-        "Режим: read-only report + локальный rebuild через refresh runner.",
+        pricing ? `РџРѕСЃР»РµРґРЅРёР№ Р°СЂС‚РµС„Р°РєС‚: ${reportOptionLabel(pricing)}` : "РђСЂС‚РµС„Р°РєС‚ РІ РѕСЃРЅРѕРІРЅРѕРј UI РїРѕРєР° РЅРµ РЅР°Р№РґРµРЅ.",
+        "Р РµР¶РёРј: read-only report + Р»РѕРєР°Р»СЊРЅС‹Р№ rebuild С‡РµСЂРµР· refresh runner.",
       ],
       reportFile: pricing?.file_name,
       jobKey: "dynamic_pricing",
@@ -1799,13 +1799,13 @@ function renderFlowMap(items, cogsStore) {
     {
       title: "Marketing audit",
       state: marketing ? "available" : "runner",
-      badge: marketing ? "Доступно" : "Runner only",
+      badge: marketing ? "Р”РѕСЃС‚СѓРїРЅРѕ" : "Runner only",
       summary: marketing
-        ? "Price trap, title SEO и рыночный контекст уже сведены в единый экран."
-        : "Unified marketing surface ещё не найден в dashboard index.",
+        ? "Price trap, title SEO Рё СЂС‹РЅРѕС‡РЅС‹Р№ РєРѕРЅС‚РµРєСЃС‚ СѓР¶Рµ СЃРІРµРґРµРЅС‹ РІ РµРґРёРЅС‹Р№ СЌРєСЂР°РЅ."
+        : "Unified marketing surface РµС‰С‘ РЅРµ РЅР°Р№РґРµРЅ РІ dashboard index.",
       meta: [
-        marketing ? `Последний артефакт: ${reportOptionLabel(marketing)}` : "Артефакт в основном UI пока не найден.",
-        "Режим: read-only report + локальный rebuild через refresh runner.",
+        marketing ? `РџРѕСЃР»РµРґРЅРёР№ Р°СЂС‚РµС„Р°РєС‚: ${reportOptionLabel(marketing)}` : "РђСЂС‚РµС„Р°РєС‚ РІ РѕСЃРЅРѕРІРЅРѕРј UI РїРѕРєР° РЅРµ РЅР°Р№РґРµРЅ.",
+        "Р РµР¶РёРј: read-only report + Р»РѕРєР°Р»СЊРЅС‹Р№ rebuild С‡РµСЂРµР· refresh runner.",
       ],
       reportFile: marketing?.file_name,
       jobKey: "marketing_card_audit",
@@ -1813,13 +1813,13 @@ function renderFlowMap(items, cogsStore) {
     {
       title: "Paid storage",
       state: paidStorage ? "available" : "runner",
-      badge: paidStorage ? "Доступно" : "Runner only",
+      badge: paidStorage ? "Р”РѕСЃС‚СѓРїРЅРѕ" : "Runner only",
       summary: paidStorage
-        ? "Крупные начисления и строки без identity уже читаются в основном UI."
-        : "В основном UI ещё нет текущего paid storage bundle.",
+        ? "РљСЂСѓРїРЅС‹Рµ РЅР°С‡РёСЃР»РµРЅРёСЏ Рё СЃС‚СЂРѕРєРё Р±РµР· identity СѓР¶Рµ С‡РёС‚Р°СЋС‚СЃСЏ РІ РѕСЃРЅРѕРІРЅРѕРј UI."
+        : "Р’ РѕСЃРЅРѕРІРЅРѕРј UI РµС‰С‘ РЅРµС‚ С‚РµРєСѓС‰РµРіРѕ paid storage bundle.",
       meta: [
-        paidStorage ? `Последний артефакт: ${reportOptionLabel(paidStorage)}` : "Артефакт в основном UI пока не найден.",
-        "Режим: read-only report, сам seller-documents refresh остаётся runner-driven.",
+        paidStorage ? `РџРѕСЃР»РµРґРЅРёР№ Р°СЂС‚РµС„Р°РєС‚: ${reportOptionLabel(paidStorage)}` : "РђСЂС‚РµС„Р°РєС‚ РІ РѕСЃРЅРѕРІРЅРѕРј UI РїРѕРєР° РЅРµ РЅР°Р№РґРµРЅ.",
+        "Р РµР¶РёРј: read-only report, СЃР°Рј seller-documents refresh РѕСЃС‚Р°С‘С‚СЃСЏ runner-driven.",
       ],
       reportFile: paidStorage?.file_name,
       jobKey: "paid_storage_report",
@@ -1827,13 +1827,13 @@ function renderFlowMap(items, cogsStore) {
     {
       title: "Waybill / historical COGS",
       state: waybill ? "available" : "runner",
-      badge: waybill ? "Доступно" : "Runner only",
+      badge: waybill ? "Р”РѕСЃС‚СѓРїРЅРѕ" : "Runner only",
       summary: waybill
-        ? "Batch-cost и historical COGS слой уже вынесены в основной интерфейс."
-        : "Waybill слой ещё не найден в dashboard index.",
+        ? "Batch-cost Рё historical COGS СЃР»РѕР№ СѓР¶Рµ РІС‹РЅРµСЃРµРЅС‹ РІ РѕСЃРЅРѕРІРЅРѕР№ РёРЅС‚РµСЂС„РµР№СЃ."
+        : "Waybill СЃР»РѕР№ РµС‰С‘ РЅРµ РЅР°Р№РґРµРЅ РІ dashboard index.",
       meta: [
-        waybill ? `Последний артефакт: ${reportOptionLabel(waybill)}` : "Артефакт в основном UI пока не найден.",
-        "Режим: read-only report + interactive rebuild через runner job.",
+        waybill ? `РџРѕСЃР»РµРґРЅРёР№ Р°СЂС‚РµС„Р°РєС‚: ${reportOptionLabel(waybill)}` : "РђСЂС‚РµС„Р°РєС‚ РІ РѕСЃРЅРѕРІРЅРѕРј UI РїРѕРєР° РЅРµ РЅР°Р№РґРµРЅ.",
+        "Р РµР¶РёРј: read-only report + interactive rebuild С‡РµСЂРµР· runner job.",
       ],
       reportFile: waybill?.file_name,
       jobKey: "waybill_cost_layer",
@@ -1843,16 +1843,16 @@ function renderFlowMap(items, cogsStore) {
       state: cogsRows.length || rescoredMarket ? "partial" : "runner",
       badge: cogsRows.length || rescoredMarket ? "Partial" : "Runner only",
       summary: cogsRows.length
-        ? "Локальное хранилище overrides уже заполнено, но inline fill/edit в основном UI пока нет."
-        : "Цикл registry -> fill -> rescore уже существует, но запускается через refresh runner.",
+        ? "Р›РѕРєР°Р»СЊРЅРѕРµ С…СЂР°РЅРёР»РёС‰Рµ overrides СѓР¶Рµ Р·Р°РїРѕР»РЅРµРЅРѕ, РЅРѕ inline fill/edit РІ РѕСЃРЅРѕРІРЅРѕРј UI РїРѕРєР° РЅРµС‚."
+        : "Р¦РёРєР» registry -> fill -> rescore СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, РЅРѕ Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ С‡РµСЂРµР· refresh runner.",
       meta: [
         cogsStore?.generated_at
-          ? `Локальный store: ${formatDateTime(cogsStore.generated_at)} · rows ${formatNumber(cogsSummary.items_total || cogsRows.length)} · imported ${formatNumber(cogsSummary.fill_rows_imported || 0)}`
-          : "Локальный store COGS пока не найден или ещё не был собран.",
+          ? `Р›РѕРєР°Р»СЊРЅС‹Р№ store: ${formatDateTime(cogsStore.generated_at)} В· rows ${formatNumber(cogsSummary.items_total || cogsRows.length)} В· imported ${formatNumber(cogsSummary.fill_rows_imported || 0)}`
+          : "Р›РѕРєР°Р»СЊРЅС‹Р№ store COGS РїРѕРєР° РЅРµ РЅР°Р№РґРµРЅ РёР»Рё РµС‰С‘ РЅРµ Р±С‹Р» СЃРѕР±СЂР°РЅ.",
         rescoredMarket
-          ? `Связанный артефакт: ${reportOptionLabel(rescoredMarket)}`
-          : "Rescored market bundle после COGS пока не найден в dashboard index.",
-        "Режим: partial. Артефакты видны, но сам fill/rescore цикл пока runner-driven.",
+          ? `РЎРІСЏР·Р°РЅРЅС‹Р№ Р°СЂС‚РµС„Р°РєС‚: ${reportOptionLabel(rescoredMarket)}`
+          : "Rescored market bundle РїРѕСЃР»Рµ COGS РїРѕРєР° РЅРµ РЅР°Р№РґРµРЅ РІ dashboard index.",
+        "Р РµР¶РёРј: partial. РђСЂС‚РµС„Р°РєС‚С‹ РІРёРґРЅС‹, РЅРѕ СЃР°Рј fill/rescore С†РёРєР» РїРѕРєР° runner-driven.",
       ],
       reportFile: rescoredMarket?.file_name,
       jobKey: "cogs_backfill_cycle",
@@ -1875,7 +1875,7 @@ function renderFlowMap(items, cogsStore) {
 
     const actions = el("div", "flow-card-actions");
     if (flow.reportFile) {
-      const openBtn = el("button", "theme-toggle compact-button", "Открыть в UI");
+      const openBtn = el("button", "theme-toggle compact-button", "РћС‚РєСЂС‹С‚СЊ РІ UI");
       openBtn.type = "button";
       openBtn.addEventListener("click", async () => {
         await activateReport(flow.reportFile);
@@ -1887,7 +1887,7 @@ function renderFlowMap(items, cogsStore) {
       const runnerLink = document.createElement("a");
       runnerLink.className = "theme-toggle compact-button";
       runnerLink.href = runnerJobUrl(flow.jobKey);
-      runnerLink.textContent = flow.jobKey === "cogs_backfill_cycle" ? "Открыть COGS cycle" : "Открыть runner";
+      runnerLink.textContent = flow.jobKey === "cogs_backfill_cycle" ? "РћС‚РєСЂС‹С‚СЊ COGS cycle" : "РћС‚РєСЂС‹С‚СЊ runner";
       actions.append(runnerLink);
     }
     card.append(actions);
@@ -1934,127 +1934,127 @@ function renderCubejsCompare(rawPayload) {
 
   renderCompareCard(
     root,
-    "Выручка за 365 дней",
+    "Р’С‹СЂСѓС‡РєР° Р·Р° 365 РґРЅРµР№",
     formatMoney(currentMetrics.revenue_total || 0),
-    `${current.date_from || "н/д"} -> ${current.date_to || "н/д"}`,
+    `${current.date_from || "РЅ/Рґ"} -> ${current.date_to || "РЅ/Рґ"}`,
     previous.delta_vs_current?.revenue_total_pct,
-    "Год к году"
+    "Р“РѕРґ Рє РіРѕРґСѓ"
   );
   renderCompareCard(
     root,
-    "Заказы за 365 дней",
+    "Р—Р°РєР°Р·С‹ Р·Р° 365 РґРЅРµР№",
     formatNumber(currentMetrics.orders_total || 0),
-    "Заказы за 365 дней",
+    "Р—Р°РєР°Р·С‹ Р·Р° 365 РґРЅРµР№",
     previous.delta_vs_current?.orders_total_pct,
-    "Год к году"
+    "Р“РѕРґ Рє РіРѕРґСѓ"
   );
   renderCompareCard(
     root,
-    "Проданные единицы за 365 дней",
+    "РџСЂРѕРґР°РЅРЅС‹Рµ РµРґРёРЅРёС†С‹ Р·Р° 365 РґРЅРµР№",
     formatNumber(currentMetrics.items_sold_total || 0),
-    "Проданные единицы за 365 дней",
+    "РџСЂРѕРґР°РЅРЅС‹Рµ РµРґРёРЅРёС†С‹ Р·Р° 365 РґРЅРµР№",
     previous.delta_vs_current?.items_sold_total_pct,
-    "Год к году"
+    "Р“РѕРґ Рє РіРѕРґСѓ"
   );
   renderCompareCard(
     root,
-    "Выручка с начала года",
+    "Р’С‹СЂСѓС‡РєР° СЃ РЅР°С‡Р°Р»Р° РіРѕРґР°",
     formatMoney((ytd.metrics || {}).revenue_total || 0),
-    `${ytd.date_from || "н/д"} -> ${ytd.date_to || "н/д"}`,
+    `${ytd.date_from || "РЅ/Рґ"} -> ${ytd.date_to || "РЅ/Рґ"}`,
     previousYtd.delta_vs_current?.revenue_total_pct,
-    "С начала года к прошлому"
+    "РЎ РЅР°С‡Р°Р»Р° РіРѕРґР° Рє РїСЂРѕС€Р»РѕРјСѓ"
   );
   renderCompareCard(
     root,
-    "База 3 года назад",
+    "Р‘Р°Р·Р° 3 РіРѕРґР° РЅР°Р·Р°Рґ",
     formatMoney((threeYear.metrics || {}).revenue_total || 0),
-    `${threeYear.date_from || "н/д"} -> ${threeYear.date_to || "н/д"}`,
+    `${threeYear.date_from || "РЅ/Рґ"} -> ${threeYear.date_to || "РЅ/Рґ"}`,
     threeYear.delta_vs_current?.revenue_total_pct,
-    "Сдвиг к базе"
+    "РЎРґРІРёРі Рє Р±Р°Р·Рµ"
   );
   renderCompareCard(
     root,
-    "Глубина истории",
-    `${rawPayload.history_window?.history_years || 0} года`,
-    `${rawPayload.history_window?.date_from || "н/д"} -> ${rawPayload.history_window?.date_to || "н/д"}`,
+    "Р“Р»СѓР±РёРЅР° РёСЃС‚РѕСЂРёРё",
+    `${rawPayload.history_window?.history_years || 0} РіРѕРґР°`,
+    `${rawPayload.history_window?.date_from || "РЅ/Рґ"} -> ${rawPayload.history_window?.date_to || "РЅ/Рґ"}`,
     null,
-    "Покрытие"
+    "РџРѕРєСЂС‹С‚РёРµ"
   );
 
   const monthly = rawPayload.series_monthly || [];
-  renderTrendCard(trendRoot, "Выручка по месяцам", monthly, "Sales.seller_revenue_without_delivery_measure", formatMoney);
-  renderTrendCard(trendRoot, "Заказы по месяцам", monthly, "Sales.orders_number", formatNumber);
-  renderTrendCard(trendRoot, "Проданные единицы по месяцам", monthly, "Sales.item_sold_number", formatNumber);
+  renderTrendCard(trendRoot, "Р’С‹СЂСѓС‡РєР° РїРѕ РјРµСЃСЏС†Р°Рј", monthly, "Sales.seller_revenue_without_delivery_measure", formatMoney);
+  renderTrendCard(trendRoot, "Р—Р°РєР°Р·С‹ РїРѕ РјРµСЃСЏС†Р°Рј", monthly, "Sales.orders_number", formatNumber);
+  renderTrendCard(trendRoot, "РџСЂРѕРґР°РЅРЅС‹Рµ РµРґРёРЅРёС†С‹ РїРѕ РјРµСЃСЏС†Р°Рј", monthly, "Sales.item_sold_number", formatNumber);
 }
 
 function renderMarketTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Топ продавцы", rows: tables.top_sellers || [], formatter: (row) => `заказы ${formatNumber(row.orders_sum)}, доля ${formatShare(row.share_of_observed_orders_pct)}, товаров ${formatNumber(row.products_seen)}, ядро ${row.top_group || "н/д"}, новизна ${row.novelty_proxy_index ?? "н/д"}`, infoText: "Это лидеры внутри наблюдаемой рыночной выборки, а не абсолютный рейтинг всего маркетплейса. Используйте как ориентир для того, кто доминирует в видимой части категории.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Что продаётся в рынке", rows: tables.top_products || [], formatter: (row) => `продавец ${row.seller_title || "н/д"}, заказы ${formatNumber(row.orders)}, цена ${formatMoney(row.price)}, отзывы ${formatNumber(row.reviews)}, новизна ${row.novelty_proxy_score ?? "н/д"}`, infoText: "Список заметных товаров в текущем market scan. Это помогает понять, какие офферы и цены уже подтверждены рынком.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Сильнейшие группы", rows: tables.groups || [], formatter: (row) => `заказы ${formatNumber(row.orders_sum)}, продавцов ${formatNumber(row.seller_count)}, avg ${formatMoney(row.avg_price)}, HHI ${row.dominance_hhi ?? "н/д"}, margin fit ${row.market_margin_fit_pct ?? "н/д"}%, разница до цели ${row.margin_vs_target_pct ?? "н/д"} п.п.`, infoText: "Показывает, какие товарные группы в выборке несут основной спрос, насколько они насыщены продавцами и насколько рыночная цена вообще совместима с вашей экономикой. Gap здесь означает разницу между фактической совместимостью рынка и вашей целевой маржой.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Окна входа", rows: tables.entry_windows || [], formatter: (row) => `группа ${row.group || "н/д"}, коридор ${row.price_band || "н/д"}, score ${row.entry_window_score ?? "н/д"}, решение ${row.entry_strategy_label || "н/д"}, margin fit ${row.market_margin_fit_pct ?? "н/д"}%`, infoText: "Это сочетания группа + ценовой коридор. Здесь уже виден не только спрос, но и управленческое решение: входить, тестировать, ждать или не лезть.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "РўРѕРї РїСЂРѕРґР°РІС†С‹", rows: tables.top_sellers || [], formatter: (row) => `Р·Р°РєР°Р·С‹ ${formatNumber(row.orders_sum)}, РґРѕР»СЏ ${formatShare(row.share_of_observed_orders_pct)}, С‚РѕРІР°СЂРѕРІ ${formatNumber(row.products_seen)}, СЏРґСЂРѕ ${row.top_group || "РЅ/Рґ"}, РЅРѕРІРёР·РЅР° ${row.novelty_proxy_index ?? "РЅ/Рґ"}`, infoText: "Р­С‚Рѕ Р»РёРґРµСЂС‹ РІРЅСѓС‚СЂРё РЅР°Р±Р»СЋРґР°РµРјРѕР№ СЂС‹РЅРѕС‡РЅРѕР№ РІС‹Р±РѕСЂРєРё, Р° РЅРµ Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ СЂРµР№С‚РёРЅРі РІСЃРµРіРѕ РјР°СЂРєРµС‚РїР»РµР№СЃР°. РСЃРїРѕР»СЊР·СѓР№С‚Рµ РєР°Рє РѕСЂРёРµРЅС‚РёСЂ РґР»СЏ С‚РѕРіРѕ, РєС‚Рѕ РґРѕРјРёРЅРёСЂСѓРµС‚ РІ РІРёРґРёРјРѕР№ С‡Р°СЃС‚Рё РєР°С‚РµРіРѕСЂРёРё.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "Р§С‚Рѕ РїСЂРѕРґР°С‘С‚СЃСЏ РІ СЂС‹РЅРєРµ", rows: tables.top_products || [], formatter: (row) => `РїСЂРѕРґР°РІРµС† ${row.seller_title || "РЅ/Рґ"}, Р·Р°РєР°Р·С‹ ${formatNumber(row.orders)}, С†РµРЅР° ${formatMoney(row.price)}, РѕС‚Р·С‹РІС‹ ${formatNumber(row.reviews)}, РЅРѕРІРёР·РЅР° ${row.novelty_proxy_score ?? "РЅ/Рґ"}`, infoText: "РЎРїРёСЃРѕРє Р·Р°РјРµС‚РЅС‹С… С‚РѕРІР°СЂРѕРІ РІ С‚РµРєСѓС‰РµРј market scan. Р­С‚Рѕ РїРѕРјРѕРіР°РµС‚ РїРѕРЅСЏС‚СЊ, РєР°РєРёРµ РѕС„С„РµСЂС‹ Рё С†РµРЅС‹ СѓР¶Рµ РїРѕРґС‚РІРµСЂР¶РґРµРЅС‹ СЂС‹РЅРєРѕРј.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "РЎРёР»СЊРЅРµР№С€РёРµ РіСЂСѓРїРїС‹", rows: tables.groups || [], formatter: (row) => `Р·Р°РєР°Р·С‹ ${formatNumber(row.orders_sum)}, РїСЂРѕРґР°РІС†РѕРІ ${formatNumber(row.seller_count)}, avg ${formatMoney(row.avg_price)}, HHI ${row.dominance_hhi ?? "РЅ/Рґ"}, margin fit ${row.market_margin_fit_pct ?? "РЅ/Рґ"}%, СЂР°Р·РЅРёС†Р° РґРѕ С†РµР»Рё ${row.margin_vs_target_pct ?? "РЅ/Рґ"} Рї.Рї.`, infoText: "РџРѕРєР°Р·С‹РІР°РµС‚, РєР°РєРёРµ С‚РѕРІР°СЂРЅС‹Рµ РіСЂСѓРїРїС‹ РІ РІС‹Р±РѕСЂРєРµ РЅРµСЃСѓС‚ РѕСЃРЅРѕРІРЅРѕР№ СЃРїСЂРѕСЃ, РЅР°СЃРєРѕР»СЊРєРѕ РѕРЅРё РЅР°СЃС‹С‰РµРЅС‹ РїСЂРѕРґР°РІС†Р°РјРё Рё РЅР°СЃРєРѕР»СЊРєРѕ СЂС‹РЅРѕС‡РЅР°СЏ С†РµРЅР° РІРѕРѕР±С‰Рµ СЃРѕРІРјРµСЃС‚РёРјР° СЃ РІР°С€РµР№ СЌРєРѕРЅРѕРјРёРєРѕР№. Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚ СЂР°Р·РЅРёС†Сѓ РјРµР¶РґСѓ С„Р°РєС‚РёС‡РµСЃРєРѕР№ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚СЊСЋ СЂС‹РЅРєР° Рё РІР°С€РµР№ С†РµР»РµРІРѕР№ РјР°СЂР¶РѕР№.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "РћРєРЅР° РІС…РѕРґР°", rows: tables.entry_windows || [], formatter: (row) => `РіСЂСѓРїРїР° ${row.group || "РЅ/Рґ"}, РєРѕСЂРёРґРѕСЂ ${row.price_band || "РЅ/Рґ"}, score ${row.entry_window_score ?? "РЅ/Рґ"}, СЂРµС€РµРЅРёРµ ${row.entry_strategy_label || "РЅ/Рґ"}, margin fit ${row.market_margin_fit_pct ?? "РЅ/Рґ"}%`, infoText: "Р­С‚Рѕ СЃРѕС‡РµС‚Р°РЅРёСЏ РіСЂСѓРїРїР° + С†РµРЅРѕРІРѕР№ РєРѕСЂРёРґРѕСЂ. Р—РґРµСЃСЊ СѓР¶Рµ РІРёРґРµРЅ РЅРµ С‚РѕР»СЊРєРѕ СЃРїСЂРѕСЃ, РЅРѕ Рё СѓРїСЂР°РІР»РµРЅС‡РµСЃРєРѕРµ СЂРµС€РµРЅРёРµ: РІС…РѕРґРёС‚СЊ, С‚РµСЃС‚РёСЂРѕРІР°С‚СЊ, Р¶РґР°С‚СЊ РёР»Рё РЅРµ Р»РµР·С‚СЊ.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderPricingTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Все pricing-окна", rows: tables.priced_windows || [], formatter: (row) => `группа ${row.group || "н/д"}, коридор ${row.price_band || "н/д"}, рынок ${formatMoney(row.avg_market_price)}, безопасно ${formatMoney(row.min_safe_price)}, рекомендация ${formatMoney(row.suggested_price)}`, infoText: "Все окна, где уже хватает экономических данных, чтобы дать ценовую рекомендацию.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Где входить агрессивно", rows: tables.aggressive_entry || [], formatter: (row) => `рынок ${formatMoney(row.avg_market_price)}, рекомендация ${formatMoney(row.suggested_price)}, margin fit ${row.market_margin_fit_pct ?? "н/д"}%`, infoText: "Окна, где можно идти чуть ниже рынка и всё ещё не разрушать экономику.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Где держать цену рынка", rows: (payload.actions || {}).price_at_market || [], formatter: (row) => `рынок ${formatMoney(row.avg_market_price)}, рекомендация ${formatMoney(row.suggested_price)}, разница к рынку ${row.price_gap_pct ?? "н/д"}%`, infoText: "Окна, где средняя рыночная цена уже достаточна для целевой маржи. Gap здесь означает, на сколько процентов ваша цена выше или ниже средней цены рынка.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Где нельзя демпинговать", rows: tables.margin_protection || [], formatter: (row) => `безопасно не ниже ${formatMoney(row.min_safe_price)}, рынок ${formatMoney(row.avg_market_price)}, причина: ${row.pricing_reason || "н/д"}`, infoText: "Это окно не для ценовой войны. Если входить, то только с более сильным оффером или иной закупкой.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "Р’СЃРµ pricing-РѕРєРЅР°", rows: tables.priced_windows || [], formatter: (row) => `РіСЂСѓРїРїР° ${row.group || "РЅ/Рґ"}, РєРѕСЂРёРґРѕСЂ ${row.price_band || "РЅ/Рґ"}, СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}, Р±РµР·РѕРїР°СЃРЅРѕ ${formatMoney(row.min_safe_price)}, СЂРµРєРѕРјРµРЅРґР°С†РёСЏ ${formatMoney(row.suggested_price)}`, infoText: "Р’СЃРµ РѕРєРЅР°, РіРґРµ СѓР¶Рµ С…РІР°С‚Р°РµС‚ СЌРєРѕРЅРѕРјРёС‡РµСЃРєРёС… РґР°РЅРЅС‹С…, С‡С‚РѕР±С‹ РґР°С‚СЊ С†РµРЅРѕРІСѓСЋ СЂРµРєРѕРјРµРЅРґР°С†РёСЋ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "Р“РґРµ РІС…РѕРґРёС‚СЊ Р°РіСЂРµСЃСЃРёРІРЅРѕ", rows: tables.aggressive_entry || [], formatter: (row) => `СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}, СЂРµРєРѕРјРµРЅРґР°С†РёСЏ ${formatMoney(row.suggested_price)}, margin fit ${row.market_margin_fit_pct ?? "РЅ/Рґ"}%`, infoText: "РћРєРЅР°, РіРґРµ РјРѕР¶РЅРѕ РёРґС‚Рё С‡СѓС‚СЊ РЅРёР¶Рµ СЂС‹РЅРєР° Рё РІСЃС‘ РµС‰С‘ РЅРµ СЂР°Р·СЂСѓС€Р°С‚СЊ СЌРєРѕРЅРѕРјРёРєСѓ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "Р“РґРµ РґРµСЂР¶Р°С‚СЊ С†РµРЅСѓ СЂС‹РЅРєР°", rows: (payload.actions || {}).price_at_market || [], formatter: (row) => `СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}, СЂРµРєРѕРјРµРЅРґР°С†РёСЏ ${formatMoney(row.suggested_price)}, СЂР°Р·РЅРёС†Р° Рє СЂС‹РЅРєСѓ ${row.price_gap_pct ?? "РЅ/Рґ"}%`, infoText: "РћРєРЅР°, РіРґРµ СЃСЂРµРґРЅСЏСЏ СЂС‹РЅРѕС‡РЅР°СЏ С†РµРЅР° СѓР¶Рµ РґРѕСЃС‚Р°С‚РѕС‡РЅР° РґР»СЏ С†РµР»РµРІРѕР№ РјР°СЂР¶Рё. Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚, РЅР° СЃРєРѕР»СЊРєРѕ РїСЂРѕС†РµРЅС‚РѕРІ РІР°С€Р° С†РµРЅР° РІС‹С€Рµ РёР»Рё РЅРёР¶Рµ СЃСЂРµРґРЅРµР№ С†РµРЅС‹ СЂС‹РЅРєР°.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "Р“РґРµ РЅРµР»СЊР·СЏ РґРµРјРїРёРЅРіРѕРІР°С‚СЊ", rows: tables.margin_protection || [], formatter: (row) => `Р±РµР·РѕРїР°СЃРЅРѕ РЅРµ РЅРёР¶Рµ ${formatMoney(row.min_safe_price)}, СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price)}, РїСЂРёС‡РёРЅР°: ${row.pricing_reason || "РЅ/Рґ"}`, infoText: "Р­С‚Рѕ РѕРєРЅРѕ РЅРµ РґР»СЏ С†РµРЅРѕРІРѕР№ РІРѕР№РЅС‹. Р•СЃР»Рё РІС…РѕРґРёС‚СЊ, С‚Рѕ С‚РѕР»СЊРєРѕ СЃ Р±РѕР»РµРµ СЃРёР»СЊРЅС‹Рј РѕС„С„РµСЂРѕРј РёР»Рё РёРЅРѕР№ Р·Р°РєСѓРїРєРѕР№.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderMarketingTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Приоритетные карточки", rows: tables.priority_cards || [], formatter: (row) => `${row.action_label || "н/д"}, score ${row.priority_score ?? "н/д"}, группа ${row.group || "н/д"} / ${row.price_band || "н/д"}`, infoText: "Главная очередь карточек, где уже сведены price trap, title SEO и рыночный pricing context.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Где тестировать цену", rows: tables.price_traps || [], formatter: (row) => `цена ${formatMoney(row.sale_price)}, порог ${formatMoney(row.threshold || 0)}, переплата ${row.overshoot_rub ?? "н/д"} ₽`, infoText: "Карточки чуть выше сильных психологических порогов. Это дешёвый слой быстрых ценовых тестов.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Где править title", rows: tables.seo_fixes || [], formatter: (row) => `SEO ${row.seo_status || "н/д"} / ${row.seo_score ?? "н/д"}, issues: ${(row.seo_issues || []).join(", ") || "н/д"}`, infoText: "Карточки, где содержание title уже выглядит слабым по эвристическому SEO-аудиту.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Карточки с рыночным контекстом", rows: tables.market_context || [], formatter: (row) => `pricing: ${row.pricing_label || "н/д"}, рынок ${formatMoney(row.avg_market_price || 0)}, рекомендация ${formatMoney(row.pricing_suggested_price || row.sale_price)}`, infoText: "Карточки, попавшие в группы и коридоры, где ценовой слой уже даёт поддерживающий рыночный контекст.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ РєР°СЂС‚РѕС‡РєРё", rows: tables.priority_cards || [], formatter: (row) => `${row.action_label || "РЅ/Рґ"}, score ${row.priority_score ?? "РЅ/Рґ"}, РіСЂСѓРїРїР° ${row.group || "РЅ/Рґ"} / ${row.price_band || "РЅ/Рґ"}`, infoText: "Р“Р»Р°РІРЅР°СЏ РѕС‡РµСЂРµРґСЊ РєР°СЂС‚РѕС‡РµРє, РіРґРµ СѓР¶Рµ СЃРІРµРґРµРЅС‹ price trap, title SEO Рё СЂС‹РЅРѕС‡РЅС‹Р№ pricing context.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "Р“РґРµ С‚РµСЃС‚РёСЂРѕРІР°С‚СЊ С†РµРЅСѓ", rows: tables.price_traps || [], formatter: (row) => `С†РµРЅР° ${formatMoney(row.sale_price)}, РїРѕСЂРѕРі ${formatMoney(row.threshold || 0)}, РїРµСЂРµРїР»Р°С‚Р° ${row.overshoot_rub ?? "РЅ/Рґ"} в‚Ѕ`, infoText: "РљР°СЂС‚РѕС‡РєРё С‡СѓС‚СЊ РІС‹С€Рµ СЃРёР»СЊРЅС‹С… РїСЃРёС…РѕР»РѕРіРёС‡РµСЃРєРёС… РїРѕСЂРѕРіРѕРІ. Р­С‚Рѕ РґРµС€С‘РІС‹Р№ СЃР»РѕР№ Р±С‹СЃС‚СЂС‹С… С†РµРЅРѕРІС‹С… С‚РµСЃС‚РѕРІ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "Р“РґРµ РїСЂР°РІРёС‚СЊ title", rows: tables.seo_fixes || [], formatter: (row) => `SEO ${row.seo_status || "РЅ/Рґ"} / ${row.seo_score ?? "РЅ/Рґ"}, issues: ${(row.seo_issues || []).join(", ") || "РЅ/Рґ"}`, infoText: "РљР°СЂС‚РѕС‡РєРё, РіРґРµ СЃРѕРґРµСЂР¶Р°РЅРёРµ title СѓР¶Рµ РІС‹РіР»СЏРґРёС‚ СЃР»Р°Р±С‹Рј РїРѕ СЌРІСЂРёСЃС‚РёС‡РµСЃРєРѕРјСѓ SEO-Р°СѓРґРёС‚Сѓ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "РљР°СЂС‚РѕС‡РєРё СЃ СЂС‹РЅРѕС‡РЅС‹Рј РєРѕРЅС‚РµРєСЃС‚РѕРј", rows: tables.market_context || [], formatter: (row) => `pricing: ${row.pricing_label || "РЅ/Рґ"}, СЂС‹РЅРѕРє ${formatMoney(row.avg_market_price || 0)}, СЂРµРєРѕРјРµРЅРґР°С†РёСЏ ${formatMoney(row.pricing_suggested_price || row.sale_price)}`, infoText: "РљР°СЂС‚РѕС‡РєРё, РїРѕРїР°РІС€РёРµ РІ РіСЂСѓРїРїС‹ Рё РєРѕСЂРёРґРѕСЂС‹, РіРґРµ С†РµРЅРѕРІРѕР№ СЃР»РѕР№ СѓР¶Рµ РґР°С‘С‚ РїРѕРґРґРµСЂР¶РёРІР°СЋС‰РёР№ СЂС‹РЅРѕС‡РЅС‹Р№ РєРѕРЅС‚РµРєСЃС‚.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderMediaTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Приоритетные карточки", rows: tables.priority_media || [], formatter: (row) => `media ${row.media_status || "н/д"} / ${row.media_score ?? "н/д"}, фото ${row.photo_count}, spec ${row.spec_count}`, infoText: "Карточки, где media-layer уже выглядит слабее полезного минимума или уступает группе.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Визуальные отставания", rows: tables.visual_gaps || [], formatter: (row) => `отставание по фото ${row.photo_gap_vs_group ?? 0}, по характеристикам ${row.spec_gap_vs_group ?? 0}`, infoText: "Карточки, где проблема видна именно относительно своей группы, а не только по абсолютному числу фото. Gap здесь означает отставание от типичного уровня похожих карточек.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Сильные примеры", rows: tables.strong_examples || [], formatter: (row) => `фото ${row.photo_count}, spec ${row.spec_count}, видео ${row.video_count}`, infoText: "Внутренние эталоны по visual/content layer, на которые можно равняться.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Пустые места по медиа", rows: (tables.priority_media || []).filter((row) => (row.photo_count || 0) < 5 || (row.spec_count || 0) < 4), formatter: (row) => `фото ${row.photo_count}, spec ${row.spec_count}, рекомендации: ${(row.recommendations || []).join("; ") || "н/д"}`, infoText: "Где именно не хватает фото/характеристик, чтобы карточка перестала выглядеть слабой.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ РєР°СЂС‚РѕС‡РєРё", rows: tables.priority_media || [], formatter: (row) => `media ${row.media_status || "РЅ/Рґ"} / ${row.media_score ?? "РЅ/Рґ"}, С„РѕС‚Рѕ ${row.photo_count}, spec ${row.spec_count}`, infoText: "РљР°СЂС‚РѕС‡РєРё, РіРґРµ media-layer СѓР¶Рµ РІС‹РіР»СЏРґРёС‚ СЃР»Р°Р±РµРµ РїРѕР»РµР·РЅРѕРіРѕ РјРёРЅРёРјСѓРјР° РёР»Рё СѓСЃС‚СѓРїР°РµС‚ РіСЂСѓРїРїРµ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "Р’РёР·СѓР°Р»СЊРЅС‹Рµ РѕС‚СЃС‚Р°РІР°РЅРёСЏ", rows: tables.visual_gaps || [], formatter: (row) => `РѕС‚СЃС‚Р°РІР°РЅРёРµ РїРѕ С„РѕС‚Рѕ ${row.photo_gap_vs_group ?? 0}, РїРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј ${row.spec_gap_vs_group ?? 0}`, infoText: "РљР°СЂС‚РѕС‡РєРё, РіРґРµ РїСЂРѕР±Р»РµРјР° РІРёРґРЅР° РёРјРµРЅРЅРѕ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЃРІРѕРµР№ РіСЂСѓРїРїС‹, Р° РЅРµ С‚РѕР»СЊРєРѕ РїРѕ Р°Р±СЃРѕР»СЋС‚РЅРѕРјСѓ С‡РёСЃР»Сѓ С„РѕС‚Рѕ. Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚ РѕС‚СЃС‚Р°РІР°РЅРёРµ РѕС‚ С‚РёРїРёС‡РЅРѕРіРѕ СѓСЂРѕРІРЅСЏ РїРѕС…РѕР¶РёС… РєР°СЂС‚РѕС‡РµРє.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "РЎРёР»СЊРЅС‹Рµ РїСЂРёРјРµСЂС‹", rows: tables.strong_examples || [], formatter: (row) => `С„РѕС‚Рѕ ${row.photo_count}, spec ${row.spec_count}, РІРёРґРµРѕ ${row.video_count}`, infoText: "Р’РЅСѓС‚СЂРµРЅРЅРёРµ СЌС‚Р°Р»РѕРЅС‹ РїРѕ visual/content layer, РЅР° РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ СЂР°РІРЅСЏС‚СЊСЃСЏ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "РџСѓСЃС‚С‹Рµ РјРµСЃС‚Р° РїРѕ РјРµРґРёР°", rows: (tables.priority_media || []).filter((row) => (row.photo_count || 0) < 5 || (row.spec_count || 0) < 4), formatter: (row) => `С„РѕС‚Рѕ ${row.photo_count}, spec ${row.spec_count}, СЂРµРєРѕРјРµРЅРґР°С†РёРё: ${(row.recommendations || []).join("; ") || "РЅ/Рґ"}`, infoText: "Р“РґРµ РёРјРµРЅРЅРѕ РЅРµ С…РІР°С‚Р°РµС‚ С„РѕС‚Рѕ/С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє, С‡С‚РѕР±С‹ РєР°СЂС‚РѕС‡РєР° РїРµСЂРµСЃС‚Р°Р»Р° РІС‹РіР»СЏРґРµС‚СЊ СЃР»Р°Р±РѕР№.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderDescriptionTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Приоритетные карточки", rows: tables.priority_descriptions || [], formatter: (row) => `description ${row.description_status || "н/д"} / ${row.description_score ?? "н/д"}, ${row.description_chars} симв.`, infoText: "Карточки, где описание уже выглядит слишком слабым для уверенной карточки и базового SEO.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Тонкие описания", rows: tables.thin_content || [], formatter: (row) => `${row.description_chars} симв., ${row.description_words} слов, coverage ${row.title_term_coverage_pct ?? "н/д"}%`, infoText: "Карточки с самыми короткими и бедными описаниями. Это первый фронт контентной доработки.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Сильные примеры", rows: tables.strong_examples || [], formatter: (row) => `${row.description_chars} симв., coverage ${row.title_term_coverage_pct ?? "н/д"}%`, infoText: "Внутренние эталоны по описаниям, от которых можно отталкиваться при переписывании слабых карточек.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Где текст слабее группы", rows: (tables.priority_descriptions || []).filter((row) => (row.description_gap_vs_group || 0) >= 100), formatter: (row) => `отставание ${row.description_gap_vs_group} симв., медиана группы ${row.group_median_description_chars}`, infoText: "Карточки, у которых описание заметно уступает даже медиане своей группы по объёму. Gap здесь означает, сколько символов не хватает до типичного уровня группы.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ РєР°СЂС‚РѕС‡РєРё", rows: tables.priority_descriptions || [], formatter: (row) => `description ${row.description_status || "РЅ/Рґ"} / ${row.description_score ?? "РЅ/Рґ"}, ${row.description_chars} СЃРёРјРІ.`, infoText: "РљР°СЂС‚РѕС‡РєРё, РіРґРµ РѕРїРёСЃР°РЅРёРµ СѓР¶Рµ РІС‹РіР»СЏРґРёС‚ СЃР»РёС€РєРѕРј СЃР»Р°Р±С‹Рј РґР»СЏ СѓРІРµСЂРµРЅРЅРѕР№ РєР°СЂС‚РѕС‡РєРё Рё Р±Р°Р·РѕРІРѕРіРѕ SEO.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "РўРѕРЅРєРёРµ РѕРїРёСЃР°РЅРёСЏ", rows: tables.thin_content || [], formatter: (row) => `${row.description_chars} СЃРёРјРІ., ${row.description_words} СЃР»РѕРІ, coverage ${row.title_term_coverage_pct ?? "РЅ/Рґ"}%`, infoText: "РљР°СЂС‚РѕС‡РєРё СЃ СЃР°РјС‹РјРё РєРѕСЂРѕС‚РєРёРјРё Рё Р±РµРґРЅС‹РјРё РѕРїРёСЃР°РЅРёСЏРјРё. Р­С‚Рѕ РїРµСЂРІС‹Р№ С„СЂРѕРЅС‚ РєРѕРЅС‚РµРЅС‚РЅРѕР№ РґРѕСЂР°Р±РѕС‚РєРё.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "РЎРёР»СЊРЅС‹Рµ РїСЂРёРјРµСЂС‹", rows: tables.strong_examples || [], formatter: (row) => `${row.description_chars} СЃРёРјРІ., coverage ${row.title_term_coverage_pct ?? "РЅ/Рґ"}%`, infoText: "Р’РЅСѓС‚СЂРµРЅРЅРёРµ СЌС‚Р°Р»РѕРЅС‹ РїРѕ РѕРїРёСЃР°РЅРёСЏРј, РѕС‚ РєРѕС‚РѕСЂС‹С… РјРѕР¶РЅРѕ РѕС‚С‚Р°Р»РєРёРІР°С‚СЊСЃСЏ РїСЂРё РїРµСЂРµРїРёСЃС‹РІР°РЅРёРё СЃР»Р°Р±С‹С… РєР°СЂС‚РѕС‡РµРє.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "Р“РґРµ С‚РµРєСЃС‚ СЃР»Р°Р±РµРµ РіСЂСѓРїРїС‹", rows: (tables.priority_descriptions || []).filter((row) => (row.description_gap_vs_group || 0) >= 100), formatter: (row) => `РѕС‚СЃС‚Р°РІР°РЅРёРµ ${row.description_gap_vs_group} СЃРёРјРІ., РјРµРґРёР°РЅР° РіСЂСѓРїРїС‹ ${row.group_median_description_chars}`, infoText: "РљР°СЂС‚РѕС‡РєРё, Сѓ РєРѕС‚РѕСЂС‹С… РѕРїРёСЃР°РЅРёРµ Р·Р°РјРµС‚РЅРѕ СѓСЃС‚СѓРїР°РµС‚ РґР°Р¶Рµ РјРµРґРёР°РЅРµ СЃРІРѕРµР№ РіСЂСѓРїРїС‹ РїРѕ РѕР±СЉС‘РјСѓ. Gap Р·РґРµСЃСЊ РѕР·РЅР°С‡Р°РµС‚, СЃРєРѕР»СЊРєРѕ СЃРёРјРІРѕР»РѕРІ РЅРµ С…РІР°С‚Р°РµС‚ РґРѕ С‚РёРїРёС‡РЅРѕРіРѕ СѓСЂРѕРІРЅСЏ РіСЂСѓРїРїС‹.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderSalesReturnTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "SKU и причины с максимальным ущербом", rows: tables.current_winners || [], formatter: (row) => `${row.reason || "Без причины"} · возвратов ${formatNumber(row.return_count || 0)}${row.amount_value ? ` · сумма ${formatMoney(row.amount_value)}` : ""}`, infoText: "Начинать нужно с тех сочетаний SKU и причины, где возвраты уже концентрируются сильнее всего. Это самый короткий путь к снижению потерь.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Причины возврата", rows: tables.profit_leaders || [], formatter: (row) => `возвратов ${formatNumber(row.return_count || 0)}${row.amount_value ? ` · сумма ${formatMoney(row.amount_value)}` : ""}`, infoText: "Агрегация по причинам показывает, что именно ломает товарный поток чаще всего: брак, описание, ожидания покупателя или логистика.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Строки без идентификации", rows: tables.stockout_risk || [], formatter: (row) => `${row.reason || "Без причины"} · возвратов ${formatNumber(row.return_count || 0)}`, infoText: "Это слой, где возврат уже виден, но его плохо получается привязать к конкретному товару. Здесь нельзя ограничиваться автоматическим выводом, нужен ручной разбор.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Полный список возвратов", rows: tables.stale_stock || [], formatter: (row) => `${row.reason || "Без причины"} · возвратов ${formatNumber(row.return_count || 0)}${row.amount_value ? ` · сумма ${formatMoney(row.amount_value)}` : ""}`, infoText: "Полный список строк текущего слоя SalesReturn, отсортированный по числу возвратов. Нужен для хвоста и повторной проверки после первых fixes.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "SKU Рё РїСЂРёС‡РёРЅС‹ СЃ РјР°РєСЃРёРјР°Р»СЊРЅС‹Рј СѓС‰РµСЂР±РѕРј", rows: tables.current_winners || [], formatter: (row) => `${row.reason || "Р‘РµР· РїСЂРёС‡РёРЅС‹"} В· РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}${row.amount_value ? ` В· СЃСѓРјРјР° ${formatMoney(row.amount_value)}` : ""}`, infoText: "РќР°С‡РёРЅР°С‚СЊ РЅСѓР¶РЅРѕ СЃ С‚РµС… СЃРѕС‡РµС‚Р°РЅРёР№ SKU Рё РїСЂРёС‡РёРЅС‹, РіРґРµ РІРѕР·РІСЂР°С‚С‹ СѓР¶Рµ РєРѕРЅС†РµРЅС‚СЂРёСЂСѓСЋС‚СЃСЏ СЃРёР»СЊРЅРµРµ РІСЃРµРіРѕ. Р­С‚Рѕ СЃР°РјС‹Р№ РєРѕСЂРѕС‚РєРёР№ РїСѓС‚СЊ Рє СЃРЅРёР¶РµРЅРёСЋ РїРѕС‚РµСЂСЊ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "РџСЂРёС‡РёРЅС‹ РІРѕР·РІСЂР°С‚Р°", rows: tables.profit_leaders || [], formatter: (row) => `РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}${row.amount_value ? ` В· СЃСѓРјРјР° ${formatMoney(row.amount_value)}` : ""}`, infoText: "РђРіСЂРµРіР°С†РёСЏ РїРѕ РїСЂРёС‡РёРЅР°Рј РїРѕРєР°Р·С‹РІР°РµС‚, С‡С‚Рѕ РёРјРµРЅРЅРѕ Р»РѕРјР°РµС‚ С‚РѕРІР°СЂРЅС‹Р№ РїРѕС‚РѕРє С‡Р°С‰Рµ РІСЃРµРіРѕ: Р±СЂР°Рє, РѕРїРёСЃР°РЅРёРµ, РѕР¶РёРґР°РЅРёСЏ РїРѕРєСѓРїР°С‚РµР»СЏ РёР»Рё Р»РѕРіРёСЃС‚РёРєР°.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "РЎС‚СЂРѕРєРё Р±РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё", rows: tables.stockout_risk || [], formatter: (row) => `${row.reason || "Р‘РµР· РїСЂРёС‡РёРЅС‹"} В· РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}`, infoText: "Р­С‚Рѕ СЃР»РѕР№, РіРґРµ РІРѕР·РІСЂР°С‚ СѓР¶Рµ РІРёРґРµРЅ, РЅРѕ РµРіРѕ РїР»РѕС…Рѕ РїРѕР»СѓС‡Р°РµС‚СЃСЏ РїСЂРёРІСЏР·Р°С‚СЊ Рє РєРѕРЅРєСЂРµС‚РЅРѕРјСѓ С‚РѕРІР°СЂСѓ. Р—РґРµСЃСЊ РЅРµР»СЊР·СЏ РѕРіСЂР°РЅРёС‡РёРІР°С‚СЊСЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёРј РІС‹РІРѕРґРѕРј, РЅСѓР¶РµРЅ СЂСѓС‡РЅРѕР№ СЂР°Р·Р±РѕСЂ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "РџРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє РІРѕР·РІСЂР°С‚РѕРІ", rows: tables.stale_stock || [], formatter: (row) => `${row.reason || "Р‘РµР· РїСЂРёС‡РёРЅС‹"} В· РІРѕР·РІСЂР°С‚РѕРІ ${formatNumber(row.return_count || 0)}${row.amount_value ? ` В· СЃСѓРјРјР° ${formatMoney(row.amount_value)}` : ""}`, infoText: "РџРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє С‚РµРєСѓС‰РµРіРѕ СЃР»РѕСЏ SalesReturn, РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РїРѕ С‡РёСЃР»Сѓ РІРѕР·РІСЂР°С‚РѕРІ. РќСѓР¶РµРЅ РґР»СЏ С…РІРѕСЃС‚Р° Рё РїРѕРІС‚РѕСЂРЅРѕР№ РїСЂРѕРІРµСЂРєРё РїРѕСЃР»Рµ РїРµСЂРІС‹С… fixes.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderWaybillTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Крупнейшие batch-строки", rows: tables.current_winners || [], formatter: (row) => `batch ${formatMoney(row.batch_cogs_total || 0)} · qty ${formatNumber(row.quantity_supplied || 0)} · unit ${formatMoney(row.unit_cogs || 0)}`, infoText: "Самые тяжёлые строки по суммарной себестоимости партии. С них нужно начинать проверку batch-layer.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Историческая себестоимость по identity", rows: tables.profit_leaders || [], formatter: (row) => `latest ${formatMoney(row.gross_profit || 0)} · avg ${formatMoney(row.profit_margin_pct || 0)}`, infoText: "Сводка по последней и средней себестоимости на уровне identity. Это первый слой будущего historical COGS.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Строки без идентификации", rows: tables.stockout_risk || [], formatter: (row) => `qty ${formatNumber(row.quantity_supplied || 0)} · unit ${formatMoney(row.unit_cogs || 0)}`, infoText: "Строки, где cost есть, но нормальной привязки к товару пока нет. Их нужно чинить раньше глубокого анализа прибыли.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Все строки batch-layer", rows: tables.stale_stock || [], formatter: (row) => `qty ${formatNumber(row.quantity_supplied || 0)} · unit ${formatMoney(row.unit_cogs || 0)} · batch ${formatMoney(row.batch_cogs_total || 0)}`, infoText: "Полный список строк текущей накладной, отсортированный по объёму и себестоимости партии.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "РљСЂСѓРїРЅРµР№С€РёРµ batch-СЃС‚СЂРѕРєРё", rows: tables.current_winners || [], formatter: (row) => `batch ${formatMoney(row.batch_cogs_total || 0)} В· qty ${formatNumber(row.quantity_supplied || 0)} В· unit ${formatMoney(row.unit_cogs || 0)}`, infoText: "РЎР°РјС‹Рµ С‚СЏР¶С‘Р»С‹Рµ СЃС‚СЂРѕРєРё РїРѕ СЃСѓРјРјР°СЂРЅРѕР№ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё РїР°СЂС‚РёРё. РЎ РЅРёС… РЅСѓР¶РЅРѕ РЅР°С‡РёРЅР°С‚СЊ РїСЂРѕРІРµСЂРєСѓ batch-layer.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "РСЃС‚РѕСЂРёС‡РµСЃРєР°СЏ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊ РїРѕ identity", rows: tables.profit_leaders || [], formatter: (row) => `latest ${formatMoney(row.gross_profit || 0)} В· avg ${formatMoney(row.profit_margin_pct || 0)}`, infoText: "РЎРІРѕРґРєР° РїРѕ РїРѕСЃР»РµРґРЅРµР№ Рё СЃСЂРµРґРЅРµР№ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё РЅР° СѓСЂРѕРІРЅРµ identity. Р­С‚Рѕ РїРµСЂРІС‹Р№ СЃР»РѕР№ Р±СѓРґСѓС‰РµРіРѕ historical COGS.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "РЎС‚СЂРѕРєРё Р±РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё", rows: tables.stockout_risk || [], formatter: (row) => `qty ${formatNumber(row.quantity_supplied || 0)} В· unit ${formatMoney(row.unit_cogs || 0)}`, infoText: "РЎС‚СЂРѕРєРё, РіРґРµ cost РµСЃС‚СЊ, РЅРѕ РЅРѕСЂРјР°Р»СЊРЅРѕР№ РїСЂРёРІСЏР·РєРё Рє С‚РѕРІР°СЂСѓ РїРѕРєР° РЅРµС‚. РС… РЅСѓР¶РЅРѕ С‡РёРЅРёС‚СЊ СЂР°РЅСЊС€Рµ РіР»СѓР±РѕРєРѕРіРѕ Р°РЅР°Р»РёР·Р° РїСЂРёР±С‹Р»Рё.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "Р’СЃРµ СЃС‚СЂРѕРєРё batch-layer", rows: tables.stale_stock || [], formatter: (row) => `qty ${formatNumber(row.quantity_supplied || 0)} В· unit ${formatMoney(row.unit_cogs || 0)} В· batch ${formatMoney(row.batch_cogs_total || 0)}`, infoText: "РџРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє С‚РµРєСѓС‰РµР№ РЅР°РєР»Р°РґРЅРѕР№, РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РїРѕ РѕР±СЉС‘РјСѓ Рё СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё РїР°СЂС‚РёРё.", getDisplayTitle, createEntityActionButtons });
 }
 
 function renderPaidStorageTables(payload) {
   const tables = payload.tables || {};
-  renderTableCard({ root: document.getElementById("table-winners"), title: "Крупнейшие начисления", rows: tables.current_winners || [], formatter: (row) => `${row.amount_label || "сумма"} ${formatMoney(row.amount || 0)}${row.identity ? ` · ${row.identity}` : ""}`, infoText: "Строки с самым большим начислением по основной денежной колонке. С них нужно начинать разбор storage/service слоя.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-profit"), title: "Итоги по numeric-колонкам", rows: tables.profit_leaders || [], formatter: (row) => `итого ${formatMoney(row.gross_profit || 0)}, среднее ${formatMoney(row.profit_margin_pct || 0)}`, infoText: "Суммы по числовым колонкам XLSX. Нужны, чтобы понять структуру начислений и отделить хранение от удержаний.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-risk"), title: "Строки без идентификации", rows: tables.stockout_risk || [], formatter: (row) => `${row.amount_label || "сумма"} ${formatMoney(row.amount || 0)} · identity ${row.identity || "н/д"}`, infoText: "Самый проблемный слой объяснимости: начисление есть, а нормального SKU или понятного названия нет.", getDisplayTitle, createEntityActionButtons });
-  renderTableCard({ root: document.getElementById("table-stale"), title: "Все строки платного слоя", rows: tables.stale_stock || [], formatter: (row) => `${row.amount_label || "сумма"} ${formatMoney(row.amount || 0)}${row.identity ? ` · ${row.identity}` : ""}`, infoText: "Полный список строк из текущего PAID_STORAGE_REPORT, отсортированный по сумме убывания.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-winners"), title: "РљСЂСѓРїРЅРµР№С€РёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ", rows: tables.current_winners || [], formatter: (row) => `${row.amount_label || "СЃСѓРјРјР°"} ${formatMoney(row.amount || 0)}${row.identity ? ` В· ${row.identity}` : ""}`, infoText: "РЎС‚СЂРѕРєРё СЃ СЃР°РјС‹Рј Р±РѕР»СЊС€РёРј РЅР°С‡РёСЃР»РµРЅРёРµРј РїРѕ РѕСЃРЅРѕРІРЅРѕР№ РґРµРЅРµР¶РЅРѕР№ РєРѕР»РѕРЅРєРµ. РЎ РЅРёС… РЅСѓР¶РЅРѕ РЅР°С‡РёРЅР°С‚СЊ СЂР°Р·Р±РѕСЂ storage/service СЃР»РѕСЏ.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-profit"), title: "РС‚РѕРіРё РїРѕ numeric-РєРѕР»РѕРЅРєР°Рј", rows: tables.profit_leaders || [], formatter: (row) => `РёС‚РѕРіРѕ ${formatMoney(row.gross_profit || 0)}, СЃСЂРµРґРЅРµРµ ${formatMoney(row.profit_margin_pct || 0)}`, infoText: "РЎСѓРјРјС‹ РїРѕ С‡РёСЃР»РѕРІС‹Рј РєРѕР»РѕРЅРєР°Рј XLSX. РќСѓР¶РЅС‹, С‡С‚РѕР±С‹ РїРѕРЅСЏС‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ РЅР°С‡РёСЃР»РµРЅРёР№ Рё РѕС‚РґРµР»РёС‚СЊ С…СЂР°РЅРµРЅРёРµ РѕС‚ СѓРґРµСЂР¶Р°РЅРёР№.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-risk"), title: "РЎС‚СЂРѕРєРё Р±РµР· РёРґРµРЅС‚РёС„РёРєР°С†РёРё", rows: tables.stockout_risk || [], formatter: (row) => `${row.amount_label || "СЃСѓРјРјР°"} ${formatMoney(row.amount || 0)} В· identity ${row.identity || "РЅ/Рґ"}`, infoText: "РЎР°РјС‹Р№ РїСЂРѕР±Р»РµРјРЅС‹Р№ СЃР»РѕР№ РѕР±СЉСЏСЃРЅРёРјРѕСЃС‚Рё: РЅР°С‡РёСЃР»РµРЅРёРµ РµСЃС‚СЊ, Р° РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ SKU РёР»Рё РїРѕРЅСЏС‚РЅРѕРіРѕ РЅР°Р·РІР°РЅРёСЏ РЅРµС‚.", getDisplayTitle, createEntityActionButtons });
+  renderTableCard({ root: document.getElementById("table-stale"), title: "Р’СЃРµ СЃС‚СЂРѕРєРё РїР»Р°С‚РЅРѕРіРѕ СЃР»РѕСЏ", rows: tables.stale_stock || [], formatter: (row) => `${row.amount_label || "СЃСѓРјРјР°"} ${formatMoney(row.amount || 0)}${row.identity ? ` В· ${row.identity}` : ""}`, infoText: "РџРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє РёР· С‚РµРєСѓС‰РµРіРѕ PAID_STORAGE_REPORT, РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РїРѕ СЃСѓРјРјРµ СѓР±С‹РІР°РЅРёСЏ.", getDisplayTitle, createEntityActionButtons });
 }
 
 function reportOptionLabel(item) {
   const kind = REPORT_KIND_LABELS[item.report_kind] || item.report_kind;
-  const variant = item.report_variant ? ` · ${item.report_variant}` : "";
-  const window = item.window && item.window.date_from && item.window.date_to ? ` · ${item.window.date_from.slice(0, 10)} -> ${item.window.date_to.slice(0, 10)}` : "";
+  const variant = item.report_variant ? ` В· ${item.report_variant}` : "";
+  const window = item.window && item.window.date_from && item.window.date_to ? ` В· ${item.window.date_from.slice(0, 10)} -> ${item.window.date_to.slice(0, 10)}` : "";
   return `${kind}${variant}${window}`;
 }
 
@@ -2084,8 +2084,8 @@ async function renderDashboard(item) {
   const jobKey = REPORT_KIND_TO_JOB[item.report_kind];
   const jobUrl = refreshJobUrl(item.report_kind);
   const jobTitle = jobKey
-    ? `Открыть refresh runner и выделить job: ${jobKey}`
-    : "Открыть refresh runner";
+    ? `РћС‚РєСЂС‹С‚СЊ refresh runner Рё РІС‹РґРµР»РёС‚СЊ job: ${jobKey}`
+    : "РћС‚РєСЂС‹С‚СЊ refresh runner";
   ["refresh-link-report", "refresh-link-report-top"].forEach((id) => {
     const link = document.getElementById(id);
     if (!link) return;
@@ -2123,83 +2123,83 @@ async function renderDashboard(item) {
     clearOperationalPanels();
   }
   subtitle.textContent = isCompare
-    ? "Интерактивный просмотр длинных периодов, сравнения год к году и истории по месяцам."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ РґР»РёРЅРЅС‹С… РїРµСЂРёРѕРґРѕРІ, СЃСЂР°РІРЅРµРЅРёСЏ РіРѕРґ Рє РіРѕРґСѓ Рё РёСЃС‚РѕСЂРёРё РїРѕ РјРµСЃСЏС†Р°Рј."
     : isMarket
-    ? "Интерактивный просмотр рыночной выборки: продавцы, группы, ценовые коридоры и кластеры товарных идей."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ СЂС‹РЅРѕС‡РЅРѕР№ РІС‹Р±РѕСЂРєРё: РїСЂРѕРґР°РІС†С‹, РіСЂСѓРїРїС‹, С†РµРЅРѕРІС‹Рµ РєРѕСЂРёРґРѕСЂС‹ Рё РєР»Р°СЃС‚РµСЂС‹ С‚РѕРІР°СЂРЅС‹С… РёРґРµР№."
     : isPricing
-    ? "Интерактивный просмотр рекомендаций по ценам относительно рынка и вашей целевой маржи."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ СЂРµРєРѕРјРµРЅРґР°С†РёР№ РїРѕ С†РµРЅР°Рј РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЂС‹РЅРєР° Рё РІР°С€РµР№ С†РµР»РµРІРѕР№ РјР°СЂР¶Рё."
     : isMarketing
-    ? "Интерактивный маркетинговый аудит карточек: price traps, title SEO и рыночный pricing context в одном экране."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ РјР°СЂРєРµС‚РёРЅРіРѕРІС‹Р№ Р°СѓРґРёС‚ РєР°СЂС‚РѕС‡РµРє: price traps, title SEO Рё СЂС‹РЅРѕС‡РЅС‹Р№ pricing context РІ РѕРґРЅРѕРј СЌРєСЂР°РЅРµ."
     : isMedia
-    ? "Интерактивный аудит фото, видео и характеристик карточек с привязкой к группе и приоритету действий."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ Р°СѓРґРёС‚ С„РѕС‚Рѕ, РІРёРґРµРѕ Рё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє РєР°СЂС‚РѕС‡РµРє СЃ РїСЂРёРІСЏР·РєРѕР№ Рє РіСЂСѓРїРїРµ Рё РїСЂРёРѕСЂРёС‚РµС‚Сѓ РґРµР№СЃС‚РІРёР№."
     : isDescription
-    ? "Интерактивный аудит description-layer: thin content, плотность текста и связь описания с title."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ Р°СѓРґРёС‚ description-layer: thin content, РїР»РѕС‚РЅРѕСЃС‚СЊ С‚РµРєСЃС‚Р° Рё СЃРІСЏР·СЊ РѕРїРёСЃР°РЅРёСЏ СЃ title."
     : isPaidStorage
-    ? "Интерактивный разбор платного хранения и услуг из seller documents с фокусом на крупнейшие начисления."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ СЂР°Р·Р±РѕСЂ РїР»Р°С‚РЅРѕРіРѕ С…СЂР°РЅРµРЅРёСЏ Рё СѓСЃР»СѓРі РёР· seller documents СЃ С„РѕРєСѓСЃРѕРј РЅР° РєСЂСѓРїРЅРµР№С€РёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ."
     : isSalesReturn
-    ? "Интерактивный разбор возвратов и причин через CubeJS / SalesReturn с фокусом на потери и explainability."
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ СЂР°Р·Р±РѕСЂ РІРѕР·РІСЂР°С‚РѕРІ Рё РїСЂРёС‡РёРЅ С‡РµСЂРµР· CubeJS / SalesReturn СЃ С„РѕРєСѓСЃРѕРј РЅР° РїРѕС‚РµСЂРё Рё explainability."
     : isWaybill
-    ? "Интерактивный слой накладных: партии поставки, batch-cost и будущая историческая себестоимость по товарам."
-    : "Интерактивный просмотр операционных и исторических отчётов из слоя аналитических данных.";
+    ? "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ СЃР»РѕР№ РЅР°РєР»Р°РґРЅС‹С…: РїР°СЂС‚РёРё РїРѕСЃС‚Р°РІРєРё, batch-cost Рё Р±СѓРґСѓС‰Р°СЏ РёСЃС‚РѕСЂРёС‡РµСЃРєР°СЏ СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊ РїРѕ С‚РѕРІР°СЂР°Рј."
+    : "РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ РѕРїРµСЂР°С†РёРѕРЅРЅС‹С… Рё РёСЃС‚РѕСЂРёС‡РµСЃРєРёС… РѕС‚С‡С‘С‚РѕРІ РёР· СЃР»РѕСЏ Р°РЅР°Р»РёС‚РёС‡РµСЃРєРёС… РґР°РЅРЅС‹С….";
   if (titleNode) {
-    titleNode.textContent = REPORT_KIND_LABELS[item.report_kind] || "Отчёт";
+    titleNode.textContent = REPORT_KIND_LABELS[item.report_kind] || "РћС‚С‡С‘С‚";
   }
-  actionsTitle.textContent = "Действия";
+  actionsTitle.textContent = "Р”РµР№СЃС‚РІРёСЏ";
   actionsSubtitle.textContent = isMarket
-    ? "Приоритетные списки для выбора подниш и оценки входа."
+    ? "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ СЃРїРёСЃРєРё РґР»СЏ РІС‹Р±РѕСЂР° РїРѕРґРЅРёС€ Рё РѕС†РµРЅРєРё РІС…РѕРґР°."
     : isPricing
-    ? "Рекомендации по тому, где можно входить агрессивно, а где нужно беречь маржу."
+    ? "Р РµРєРѕРјРµРЅРґР°С†РёРё РїРѕ С‚РѕРјСѓ, РіРґРµ РјРѕР¶РЅРѕ РІС…РѕРґРёС‚СЊ Р°РіСЂРµСЃСЃРёРІРЅРѕ, Р° РіРґРµ РЅСѓР¶РЅРѕ Р±РµСЂРµС‡СЊ РјР°СЂР¶Сѓ."
     : isMarketing
-    ? "Очереди исправлений по карточкам: цена, title и manager-facing приоритет."
+    ? "РћС‡РµСЂРµРґРё РёСЃРїСЂР°РІР»РµРЅРёР№ РїРѕ РєР°СЂС‚РѕС‡РєР°Рј: С†РµРЅР°, title Рё manager-facing РїСЂРёРѕСЂРёС‚РµС‚."
     : isMedia
-    ? "Приоритетные очереди по усилению фото, характеристик и визуальных отставаний относительно группы."
+    ? "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ РѕС‡РµСЂРµРґРё РїРѕ СѓСЃРёР»РµРЅРёСЋ С„РѕС‚Рѕ, С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє Рё РІРёР·СѓР°Р»СЊРЅС‹С… РѕС‚СЃС‚Р°РІР°РЅРёР№ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РіСЂСѓРїРїС‹."
     : isDescription
-    ? "Приоритетные очереди по переписыванию и уплотнению описаний."
+    ? "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ РѕС‡РµСЂРµРґРё РїРѕ РїРµСЂРµРїРёСЃС‹РІР°РЅРёСЋ Рё СѓРїР»РѕС‚РЅРµРЅРёСЋ РѕРїРёСЃР°РЅРёР№."
     : isPaidStorage
-    ? "Очереди разбора крупнейших начислений и строк, которые пока плохо идентифицируются."
+    ? "РћС‡РµСЂРµРґРё СЂР°Р·Р±РѕСЂР° РєСЂСѓРїРЅРµР№С€РёС… РЅР°С‡РёСЃР»РµРЅРёР№ Рё СЃС‚СЂРѕРє, РєРѕС‚РѕСЂС‹Рµ РїРѕРєР° РїР»РѕС…Рѕ РёРґРµРЅС‚РёС„РёС†РёСЂСѓСЋС‚СЃСЏ."
     : isSalesReturn
-    ? "Очереди разбора причин возврата, товарных hotspot и строк без уверенной идентификации."
+    ? "РћС‡РµСЂРµРґРё СЂР°Р·Р±РѕСЂР° РїСЂРёС‡РёРЅ РІРѕР·РІСЂР°С‚Р°, С‚РѕРІР°СЂРЅС‹С… hotspot Рё СЃС‚СЂРѕРє Р±РµР· СѓРІРµСЂРµРЅРЅРѕР№ РёРґРµРЅС‚РёС„РёРєР°С†РёРё."
     : isWaybill
-    ? "Очереди сверки партий, волатильности себестоимости и пробелов identity в накладных."
-    : "Приоритетные списки для weekly цикла.";
-  chartsTitle.textContent = isMarket ? "Структура Рынка" : isPricing ? "Структура Ценовых Решений" : isMarketing ? "Структура Маркетинговых Сигналов" : isMedia ? "Структура Медиа-Сигналов" : isDescription ? "Структура Description-Сигналов" : isPaidStorage ? "Структура Платного Слоя" : isSalesReturn ? "Структура Возвратов" : isWaybill ? "Структура Себестоимости По Накладным" : "Распределения";
+    ? "РћС‡РµСЂРµРґРё СЃРІРµСЂРєРё РїР°СЂС‚РёР№, РІРѕР»Р°С‚РёР»СЊРЅРѕСЃС‚Рё СЃРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё Рё РїСЂРѕР±РµР»РѕРІ identity РІ РЅР°РєР»Р°РґРЅС‹С…."
+    : "РџСЂРёРѕСЂРёС‚РµС‚РЅС‹Рµ СЃРїРёСЃРєРё РґР»СЏ weekly С†РёРєР»Р°.";
+  chartsTitle.textContent = isMarket ? "РЎС‚СЂСѓРєС‚СѓСЂР° Р С‹РЅРєР°" : isPricing ? "РЎС‚СЂСѓРєС‚СѓСЂР° Р¦РµРЅРѕРІС‹С… Р РµС€РµРЅРёР№" : isMarketing ? "РЎС‚СЂСѓРєС‚СѓСЂР° РњР°СЂРєРµС‚РёРЅРіРѕРІС‹С… РЎРёРіРЅР°Р»РѕРІ" : isMedia ? "РЎС‚СЂСѓРєС‚СѓСЂР° РњРµРґРёР°-РЎРёРіРЅР°Р»РѕРІ" : isDescription ? "РЎС‚СЂСѓРєС‚СѓСЂР° Description-РЎРёРіРЅР°Р»РѕРІ" : isPaidStorage ? "РЎС‚СЂСѓРєС‚СѓСЂР° РџР»Р°С‚РЅРѕРіРѕ РЎР»РѕСЏ" : isSalesReturn ? "РЎС‚СЂСѓРєС‚СѓСЂР° Р’РѕР·РІСЂР°С‚РѕРІ" : isWaybill ? "РЎС‚СЂСѓРєС‚СѓСЂР° РЎРµР±РµСЃС‚РѕРёРјРѕСЃС‚Рё РџРѕ РќР°РєР»Р°РґРЅС‹Рј" : "Р Р°СЃРїСЂРµРґРµР»РµРЅРёСЏ";
   chartsSubtitle.textContent = isMarket
-    ? "Быстрый взгляд на ценовые коридоры и группы в наблюдаемой выборке."
+    ? "Р‘С‹СЃС‚СЂС‹Р№ РІР·РіР»СЏРґ РЅР° С†РµРЅРѕРІС‹Рµ РєРѕСЂРёРґРѕСЂС‹ Рё РіСЂСѓРїРїС‹ РІ РЅР°Р±Р»СЋРґР°РµРјРѕР№ РІС‹Р±РѕСЂРєРµ."
     : isPricing
-    ? "Сводка по типам ценовых рекомендаций и уровню рынка в окнах с economics coverage."
+    ? "РЎРІРѕРґРєР° РїРѕ С‚РёРїР°Рј С†РµРЅРѕРІС‹С… СЂРµРєРѕРјРµРЅРґР°С†РёР№ Рё СѓСЂРѕРІРЅСЋ СЂС‹РЅРєР° РІ РѕРєРЅР°С… СЃ economics coverage."
     : isMarketing
-    ? "Сводка по типам карточечных проблем и очередям исправлений."
+    ? "РЎРІРѕРґРєР° РїРѕ С‚РёРїР°Рј РєР°СЂС‚РѕС‡РµС‡РЅС‹С… РїСЂРѕР±Р»РµРј Рё РѕС‡РµСЂРµРґСЏРј РёСЃРїСЂР°РІР»РµРЅРёР№."
     : isMedia
-    ? "Сводка по фото-стеку, плотности характеристик и визуальным отставаниям относительно группы."
+    ? "РЎРІРѕРґРєР° РїРѕ С„РѕС‚Рѕ-СЃС‚РµРєСѓ, РїР»РѕС‚РЅРѕСЃС‚Рё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє Рё РІРёР·СѓР°Р»СЊРЅС‹Рј РѕС‚СЃС‚Р°РІР°РЅРёСЏРј РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РіСЂСѓРїРїС‹."
     : isDescription
-    ? "Сводка по длине описаний, thin content и покрытию title-термов."
+    ? "РЎРІРѕРґРєР° РїРѕ РґР»РёРЅРµ РѕРїРёСЃР°РЅРёР№, thin content Рё РїРѕРєСЂС‹С‚РёСЋ title-С‚РµСЂРјРѕРІ."
     : isPaidStorage
-    ? "Быстрый взгляд на концентрацию начислений и numeric-колонки, которые формируют платный слой."
+    ? "Р‘С‹СЃС‚СЂС‹Р№ РІР·РіР»СЏРґ РЅР° РєРѕРЅС†РµРЅС‚СЂР°С†РёСЋ РЅР°С‡РёСЃР»РµРЅРёР№ Рё numeric-РєРѕР»РѕРЅРєРё, РєРѕС‚РѕСЂС‹Рµ С„РѕСЂРјРёСЂСѓСЋС‚ РїР»Р°С‚РЅС‹Р№ СЃР»РѕР№."
     : isSalesReturn
-    ? "Быстрый взгляд на доминирующие причины возврата и дневную динамику возвратов в окне."
+    ? "Р‘С‹СЃС‚СЂС‹Р№ РІР·РіР»СЏРґ РЅР° РґРѕРјРёРЅРёСЂСѓСЋС‰РёРµ РїСЂРёС‡РёРЅС‹ РІРѕР·РІСЂР°С‚Р° Рё РґРЅРµРІРЅСѓСЋ РґРёРЅР°РјРёРєСѓ РІРѕР·РІСЂР°С‚РѕРІ РІ РѕРєРЅРµ."
     : isWaybill
-    ? "Быстрый взгляд на концентрацию batch-cost, покрытие identity и даты поставок по накладным."
-    : "Быстрый взгляд на структуру текущего окна.";
-  insightsTitle.textContent = isCompare ? "Автоматические Выводы По Истории" : isMarket ? "Автоматические Выводы По Рынку" : isPricing ? "Автоматические Выводы По Ценам" : isMarketing ? "Автоматические Выводы По Карточкам" : isMedia ? "Автоматические Выводы По Медиа" : isDescription ? "Автоматические Выводы По Описаниям" : isPaidStorage ? "Автоматические Выводы По Платному Слою" : isSalesReturn ? "Автоматические Выводы По Возвратам" : isWaybill ? "Автоматические Выводы По Накладным" : "Автоматические Выводы По Окну";
+    ? "Р‘С‹СЃС‚СЂС‹Р№ РІР·РіР»СЏРґ РЅР° РєРѕРЅС†РµРЅС‚СЂР°С†РёСЋ batch-cost, РїРѕРєСЂС‹С‚РёРµ identity Рё РґР°С‚С‹ РїРѕСЃС‚Р°РІРѕРє РїРѕ РЅР°РєР»Р°РґРЅС‹Рј."
+    : "Р‘С‹СЃС‚СЂС‹Р№ РІР·РіР»СЏРґ РЅР° СЃС‚СЂСѓРєС‚СѓСЂСѓ С‚РµРєСѓС‰РµРіРѕ РѕРєРЅР°.";
+  insightsTitle.textContent = isCompare ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РСЃС‚РѕСЂРёРё" : isMarket ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ Р С‹РЅРєСѓ" : isPricing ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ Р¦РµРЅР°Рј" : isMarketing ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РљР°СЂС‚РѕС‡РєР°Рј" : isMedia ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РњРµРґРёР°" : isDescription ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РћРїРёСЃР°РЅРёСЏРј" : isPaidStorage ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РџР»Р°С‚РЅРѕРјСѓ РЎР»РѕСЋ" : isSalesReturn ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ Р’РѕР·РІСЂР°С‚Р°Рј" : isWaybill ? "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РќР°РєР»Р°РґРЅС‹Рј" : "РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ Р’С‹РІРѕРґС‹ РџРѕ РћРєРЅСѓ";
   insightsSubtitle.textContent = isCompare
-    ? "Что уже можно утверждать по длинному периоду, а где данных ещё недостаточно."
+    ? "Р§С‚Рѕ СѓР¶Рµ РјРѕР¶РЅРѕ СѓС‚РІРµСЂР¶РґР°С‚СЊ РїРѕ РґР»РёРЅРЅРѕРјСѓ РїРµСЂРёРѕРґСѓ, Р° РіРґРµ РґР°РЅРЅС‹С… РµС‰С‘ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ."
     : isMarket
-    ? "Короткие выводы по структуре наблюдаемого рынка, продавцам и ценовым коридорам."
+    ? "РљРѕСЂРѕС‚РєРёРµ РІС‹РІРѕРґС‹ РїРѕ СЃС‚СЂСѓРєС‚СѓСЂРµ РЅР°Р±Р»СЋРґР°РµРјРѕРіРѕ СЂС‹РЅРєР°, РїСЂРѕРґР°РІС†Р°Рј Рё С†РµРЅРѕРІС‹Рј РєРѕСЂРёРґРѕСЂР°Рј."
     : isPricing
-    ? "Короткие выводы о том, где цена рынка совместима с вашей экономикой, а где демпинг опасен."
+    ? "РљРѕСЂРѕС‚РєРёРµ РІС‹РІРѕРґС‹ Рѕ С‚РѕРј, РіРґРµ С†РµРЅР° СЂС‹РЅРєР° СЃРѕРІРјРµСЃС‚РёРјР° СЃ РІР°С€РµР№ СЌРєРѕРЅРѕРјРёРєРѕР№, Р° РіРґРµ РґРµРјРїРёРЅРі РѕРїР°СЃРµРЅ."
     : isMarketing
-    ? "Где маркетинговые правки по карточкам могут дать самый быстрый эффект без новой закупки."
+    ? "Р“РґРµ РјР°СЂРєРµС‚РёРЅРіРѕРІС‹Рµ РїСЂР°РІРєРё РїРѕ РєР°СЂС‚РѕС‡РєР°Рј РјРѕРіСѓС‚ РґР°С‚СЊ СЃР°РјС‹Р№ Р±С‹СЃС‚СЂС‹Р№ СЌС„С„РµРєС‚ Р±РµР· РЅРѕРІРѕР№ Р·Р°РєСѓРїРєРё."
     : isMedia
-    ? "Где карточки уже проигрывают по фото и характеристикам и что чинить раньше."
+    ? "Р“РґРµ РєР°СЂС‚РѕС‡РєРё СѓР¶Рµ РїСЂРѕРёРіСЂС‹РІР°СЋС‚ РїРѕ С„РѕС‚Рѕ Рё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°Рј Рё С‡С‚Рѕ С‡РёРЅРёС‚СЊ СЂР°РЅСЊС€Рµ."
     : isDescription
-    ? "Где description-layer слишком тонкий и как понимать силу/слабость текста."
+    ? "Р“РґРµ description-layer СЃР»РёС€РєРѕРј С‚РѕРЅРєРёР№ Рё РєР°Рє РїРѕРЅРёРјР°С‚СЊ СЃРёР»Сѓ/СЃР»Р°Р±РѕСЃС‚СЊ С‚РµРєСЃС‚Р°."
     : isPaidStorage
-    ? "Какие начисления уже выделяются, что не удаётся нормально сопоставить с SKU и где нужен ручной разбор."
+    ? "РљР°РєРёРµ РЅР°С‡РёСЃР»РµРЅРёСЏ СѓР¶Рµ РІС‹РґРµР»СЏСЋС‚СЃСЏ, С‡С‚Рѕ РЅРµ СѓРґР°С‘С‚СЃСЏ РЅРѕСЂРјР°Р»СЊРЅРѕ СЃРѕРїРѕСЃС‚Р°РІРёС‚СЊ СЃ SKU Рё РіРґРµ РЅСѓР¶РµРЅ СЂСѓС‡РЅРѕР№ СЂР°Р·Р±РѕСЂ."
     : isSalesReturn
-    ? "Какая причина доминирует, где возвраты плохо объясняются и какие SKU требуют первого ручного разбора."
+    ? "РљР°РєР°СЏ РїСЂРёС‡РёРЅР° РґРѕРјРёРЅРёСЂСѓРµС‚, РіРґРµ РІРѕР·РІСЂР°С‚С‹ РїР»РѕС…Рѕ РѕР±СЉСЏСЃРЅСЏСЋС‚СЃСЏ Рё РєР°РєРёРµ SKU С‚СЂРµР±СѓСЋС‚ РїРµСЂРІРѕРіРѕ СЂСѓС‡РЅРѕРіРѕ СЂР°Р·Р±РѕСЂР°."
     : isWaybill
-    ? "Где cost-layer уже собран, какие партии самые тяжёлые и где не хватает identity для полноценной historical COGS модели."
-    : "Короткие интерпретации по запасам, прибыли и рискам текущего окна.";
+    ? "Р“РґРµ cost-layer СѓР¶Рµ СЃРѕР±СЂР°РЅ, РєР°РєРёРµ РїР°СЂС‚РёРё СЃР°РјС‹Рµ С‚СЏР¶С‘Р»С‹Рµ Рё РіРґРµ РЅРµ С…РІР°С‚Р°РµС‚ identity РґР»СЏ РїРѕР»РЅРѕС†РµРЅРЅРѕР№ historical COGS РјРѕРґРµР»Рё."
+    : "РљРѕСЂРѕС‚РєРёРµ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёРё РїРѕ Р·Р°РїР°СЃР°Рј, РїСЂРёР±С‹Р»Рё Рё СЂРёСЃРєР°Рј С‚РµРєСѓС‰РµРіРѕ РѕРєРЅР°.";
   renderPriorityCards(item, payload, rawPayload);
   renderChangeSummary(item);
   renderMeta(payload);
@@ -2295,13 +2295,30 @@ function starsHtml(rating) {
   return "★".repeat(n) + "☆".repeat(5 - n);
 }
 
+function getReplyLifecycleStatus(item) {
+  if (item.has_answer) return "sent";
+  if (!item.id || !["review", "question"].includes(item.kind)) return "unsupported";
+  return "draft";
+}
+
+function replyStatusMeta(status) {
+  const labels = {
+    draft: { text: "draft", note: "Черновик можно править и генерировать заново до ручного approve." },
+    approved: { text: "approved", note: "Текст вручную подтверждён и готов к отправке в Seller API." },
+    sent: { text: "sent", note: "Ответ уже отправлен. Карточка остаётся read-only как подтверждение результата." },
+    unsupported: { text: "unsupported", note: "Для этой записи send-flow недоступен: нет корректного идентификатора или тип записи не поддержан." },
+  };
+  return labels[status] || labels.draft;
+}
+
 function renderReviewCard(item) {
   const card = el("div", "review-card");
   card.dataset.kind = item.kind;
   if (item.rating != null) card.dataset.rating = String(item.rating);
+  let replyStatus = getReplyLifecycleStatus(item);
 
   const header = el("div", "review-header");
-  const title = el("h3", "", item.product_title || item.kind === "question" ? "Вопрос" : "Отзыв");
+  const title = el("h3", "", item.product_title || (item.kind === "question" ? "Вопрос" : "Отзыв"));
   header.append(title);
   if (item.rating != null) {
     const stars = el("span", "review-stars", starsHtml(item.rating));
@@ -2311,27 +2328,82 @@ function renderReviewCard(item) {
   const badge = el("span", `badge badge-${item.kind === "question" ? "offline" : "online"}`,
     item.kind === "question" ? "Вопрос" : "Отзыв");
   header.append(badge);
+  const statusBadge = el("span", "", "");
+  const note = el("p", "reply-note", "");
+  const syncStatus = () => {
+    const metaInfo = replyStatusMeta(replyStatus);
+    statusBadge.className = `reply-status-badge reply-status-${replyStatus}`;
+    statusBadge.textContent = metaInfo.text;
+    note.textContent = metaInfo.note;
+  };
+  syncStatus();
+  header.append(statusBadge);
   card.append(header);
 
   const meta = el("div", "review-meta",
-    `${item.author || "Покупатель"} · ${String(item.created_at || "").slice(0, 10) || "дата н/д"} · ID ${item.id}`);
+    `${item.author || "Покупатель"} · ${String(item.created_at || "").slice(0, 10) || "дата н/д"} · ID ${item.id}${item.has_answer ? " · has_answer" : ""}`);
   card.append(meta);
 
   const text = el("p", "review-text", item.text || "(текст отсутствует)");
   card.append(text);
 
-  // Reply area
+  const existing = el("div", "reply-existing");
+  existing.append(el("span", "reply-existing-label", "Существующий ответ"));
+  const existingText = el("div", "", item.answer_text || "");
+  existing.append(existingText);
+  existing.hidden = !item.answer_text;
+  card.append(existing);
+
   const textarea = document.createElement("textarea");
   textarea.className = "reply-editor";
   textarea.placeholder = "Черновик ответа появится здесь после нажатия «Сгенерировать»…";
+  if (item.answer_text) {
+    textarea.value = item.answer_text;
+  }
   card.append(textarea);
 
   const actions = el("div", "reply-actions");
   const strategyLabel = el("span", "reply-strategy", "");
-
+  const approveBtn = el("button", "theme-toggle compact-button", "✓ Approve");
+  approveBtn.type = "button";
   const genBtn = el("button", "theme-toggle compact-button", "✦ Сгенерировать");
   genBtn.type = "button";
+  const sendBtn = el("button", "theme-toggle compact-button", "↑ Отправить");
+  sendBtn.type = "button";
+  const sentBadge = el("span", "reply-sent-badge", "✓ Отправлено");
+
+  const syncButtons = () => {
+    const hasDraft = Boolean(textarea.value.trim());
+    const isLocked = replyStatus === "sent" || replyStatus === "unsupported";
+    textarea.disabled = isLocked;
+    genBtn.disabled = isLocked;
+    approveBtn.disabled = isLocked || !hasDraft;
+    sendBtn.disabled = isLocked || replyStatus !== "approved" || !hasDraft;
+    approveBtn.textContent = replyStatus === "approved" ? "✓ Approved" : "✓ Approve";
+    sentBadge.hidden = replyStatus !== "sent";
+  };
+
+  textarea.addEventListener("input", () => {
+    if (replyStatus === "approved") {
+      replyStatus = "draft";
+      syncStatus();
+    }
+    syncButtons();
+  });
+
+  approveBtn.addEventListener("click", () => {
+    if (replyStatus === "unsupported" || replyStatus === "sent") return;
+    if (!textarea.value.trim()) {
+      alert("Черновик пуст.");
+      return;
+    }
+    replyStatus = "approved";
+    syncStatus();
+    syncButtons();
+  });
+
   genBtn.addEventListener("click", async () => {
+    if (replyStatus === "unsupported" || replyStatus === "sent") return;
     genBtn.disabled = true;
     genBtn.textContent = "Генерирую…";
     strategyLabel.textContent = "";
@@ -2347,22 +2419,30 @@ function renderReviewCard(item) {
       const strat = data.draft?.strategy || "";
       const prov = data.draft?.provider || "";
       strategyLabel.textContent = strat === "llm" ? `LLM: ${prov}` : strat === "template_fallback" ? `шаблон (LLM: ${data.draft?.llm_error || "не настроен"})` : "шаблон";
+      replyStatus = "draft";
+      syncStatus();
+      syncButtons();
     } catch (e) {
       strategyLabel.textContent = `Ошибка: ${e.message}`;
     } finally {
       genBtn.disabled = false;
       genBtn.textContent = "✦ Сгенерировать";
+      syncButtons();
     }
   });
 
-  const sendBtn = el("button", "theme-toggle compact-button", "↑ Отправить");
-  sendBtn.type = "button";
   sendBtn.addEventListener("click", async () => {
+    if (replyStatus === "unsupported" || replyStatus === "sent") return;
     const text = textarea.value.trim();
     if (!text) { alert("Черновик пуст."); return; }
+    if (replyStatus !== "approved") {
+      alert("Сначала подтверди черновик через Approve.");
+      return;
+    }
     const token = reviewsToken || (window.prompt("Access token для отправки ответа:") || "").trim();
     if (!token) { alert("Токен не задан."); return; }
     reviewsToken = token;
+    approveBtn.disabled = true;
     sendBtn.disabled = true;
     sendBtn.textContent = "Отправляю…";
     try {
@@ -2373,18 +2453,24 @@ function renderReviewCard(item) {
       });
       const data = await resp.json();
       if (!resp.ok) throw new Error(data.error || `HTTP ${resp.status}`);
-      const badge = el("span", "reply-sent-badge", "✓ Отправлено");
-      actions.append(badge);
-      sendBtn.disabled = true;
-      card.style.opacity = "0.6";
+      item.has_answer = true;
+      item.answer_text = text;
+      existingText.textContent = text;
+      existing.hidden = false;
+      replyStatus = "sent";
+      syncStatus();
+      syncButtons();
+      strategyLabel.textContent = data.status === "ok" ? "Seller API: sent" : strategyLabel.textContent;
     } catch (e) {
       alert(`Ошибка отправки: ${e.message}`);
-      sendBtn.disabled = false;
+      syncButtons();
       sendBtn.textContent = "↑ Отправить";
     }
   });
 
-  actions.append(genBtn, sendBtn, strategyLabel);
+  syncButtons();
+  actions.append(genBtn, approveBtn, sendBtn, sentBadge, strategyLabel);
+  card.append(note);
   card.append(actions);
   return card;
 }
@@ -2399,7 +2485,7 @@ function renderBuyerReviewsToolbar() {
   const tokenInput = document.createElement("input");
   tokenInput.type = "password";
   tokenInput.className = "inline-input";
-  tokenInput.placeholder = "Access token (для отправки ответов)";
+  tokenInput.placeholder = "Access token (РґР»СЏ РѕС‚РїСЂР°РІРєРё РѕС‚РІРµС‚РѕРІ)";
   tokenInput.style.minWidth = "300px";
   tokenInput.autocomplete = "off";
   tokenInput.addEventListener("input", () => { reviewsToken = tokenInput.value.trim(); });
@@ -2407,12 +2493,12 @@ function renderBuyerReviewsToolbar() {
   const llmInput = document.createElement("input");
   llmInput.type = "password";
   llmInput.className = "inline-input";
-  llmInput.placeholder = "LLM API key (Gemini/DeepSeek — опционально)";
+  llmInput.placeholder = "LLM API key (Gemini/DeepSeek вЂ” РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ)";
   llmInput.style.minWidth = "260px";
   llmInput.autocomplete = "off";
   llmInput.addEventListener("input", () => { reviewsLlmKey = llmInput.value.trim(); });
 
-  const reloadBtn = el("button", "theme-toggle compact-button", "↻ Обновить список");
+  const reloadBtn = el("button", "theme-toggle compact-button", "в†» РћР±РЅРѕРІРёС‚СЊ СЃРїРёСЃРѕРє");
   reloadBtn.type = "button";
   reloadBtn.addEventListener("click", loadBuyerReviews);
 
@@ -2431,17 +2517,17 @@ async function loadBuyerReviews() {
     if (!items.length) {
       const empty = el("p", "empty-state",
         data.status === "no_data"
-          ? "Нет данных. Запусти job «Отзывы и вопросы покупателей» в refresh runner, чтобы скачать отзывы."
-          : "Нет отзывов или вопросов без ответа.");
+          ? "РќРµС‚ РґР°РЅРЅС‹С…. Р—Р°РїСѓСЃС‚Рё job В«РћС‚Р·С‹РІС‹ Рё РІРѕРїСЂРѕСЃС‹ РїРѕРєСѓРїР°С‚РµР»РµР№В» РІ refresh runner, С‡С‚РѕР±С‹ СЃРєР°С‡Р°С‚СЊ РѕС‚Р·С‹РІС‹."
+          : "РќРµС‚ РѕС‚Р·С‹РІРѕРІ РёР»Рё РІРѕРїСЂРѕСЃРѕРІ Р±РµР· РѕС‚РІРµС‚Р°.");
       root.append(empty);
       return;
     }
     const meta = el("p", "job-card-text",
-      `${items.length} элементов · обновлено ${String(data.fetched_at || "").slice(0, 19).replace("T", " ") || "н/д"}`);
+      `${items.length} СЌР»РµРјРµРЅС‚РѕРІ В· РѕР±РЅРѕРІР»РµРЅРѕ ${String(data.fetched_at || "").slice(0, 19).replace("T", " ") || "РЅ/Рґ"}`);
     root.append(meta);
     items.forEach((item) => root.append(renderReviewCard(item)));
   } catch {
-    root.append(el("p", "empty-state", "Refresh runner недоступен. Запусти web_refresh_server.py, чтобы загрузить отзывы."));
+    root.append(el("p", "empty-state", "Refresh runner РЅРµРґРѕСЃС‚СѓРїРµРЅ. Р—Р°РїСѓСЃС‚Рё web_refresh_server.py, С‡С‚РѕР±С‹ Р·Р°РіСЂСѓР·РёС‚СЊ РѕС‚Р·С‹РІС‹."));
   }
 }
 
@@ -2488,7 +2574,7 @@ async function init() {
   const storedFile = getStoredReportSelection();
   const initial = items.find((item) => item.file_name === storedFile) || index.latest || items[0];
   if (!initial) {
-    document.getElementById("meta-grid").textContent = "Нет dashboard JSON. Сначала запусти build_dashboard_index.py.";
+    document.getElementById("meta-grid").textContent = "РќРµС‚ dashboard JSON. РЎРЅР°С‡Р°Р»Р° Р·Р°РїСѓСЃС‚Рё build_dashboard_index.py.";
     return;
   }
   selects.forEach((targetSelect) => {
@@ -2548,3 +2634,4 @@ init().catch((error) => {
   console.error(error);
   document.body.innerHTML = `<pre style="padding:20px">${error.message}</pre>`;
 });
+
