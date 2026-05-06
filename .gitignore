@@ -8,6 +8,7 @@ credentials/
 # ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
+*.pyc
 *.pyo
 .pytest_cache/
 *.egg-info/
@@ -24,11 +25,12 @@ data/raw/
 data/reports/*.csv
 data/reports/*.xlsx
 data/reports/*.zip
-# Keep: JSON dashboards (small), reviews, config
+# Keep: reviews and canonical reply config
+data/dashboard/*.json
 !data/dashboard/
 !data/reviews/
 !data/reply_config.json
-data/local/*
+data/local/
 !data/local/README.md
 
 # ── Job runs (temp logs) ──────────────────────────────────────────────────────
