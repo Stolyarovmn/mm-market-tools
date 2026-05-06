@@ -969,6 +969,12 @@ function buildEntityPayload(row, context) {
 }
 
 async function refreshActionCenter() {
+  const _acWatchRoot = document.getElementById("watchlist-panel");
+  const _acActionsRoot = document.getElementById("manual-actions-panel");
+  const _acStatusRoot = document.getElementById("action-center-status-panel");
+  [_acWatchRoot, _acActionsRoot, _acStatusRoot].forEach((root) => {
+    if (root) root.innerHTML = '<p class="empty-state">Загрузка…</p>';
+  });
   actionCenterState = await loadActionCenter();
   renderActionCenter();
   renderManagerQueues();
