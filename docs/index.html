@@ -1018,7 +1018,7 @@ function renderHeader(){
 
   const genAt=p.generated_at?p.generated_at.slice(0,16).replace('T',' '):'—';
 
-  document.getElementById('header-sub').textContent=`Последний план: ${genAt} UTC · Источников: ${((p.metadata||{}).sources_used||[]).length} · Неопределённость: ${it.uncertainty||'—'}`;
+  document.getElementById('header-sub').textContent=`????????? ????: ${genAt} UTC`;
 
   document.getElementById('iter-num').textContent=it.number||'—';
 
