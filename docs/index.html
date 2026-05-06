@@ -599,10 +599,8 @@ function renderActionCard(a){
     : '';
 
   const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
-  const applyTip=tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность. (TASK-008)');
-  const cliTip=tip('Копирует Python-команду для записи изменения в <code>applied_actions.json</code> через mm-market-tools CLI.<br>Запустите в терминале после применения.');
-  const actionButtons=a.ui_actions_html||`<button class="btn primary" data-apply="${a.rank}">Применил ${applyTip}</button>
-      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI ${cliTip}</button>`;
+  const actionButtons=a.ui_actions_html||`<span class="tt-wrap"><button class="btn primary" data-apply="${a.rank}">Применил</button><div class="tt-box">Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность.</div></span>
+      <span class="tt-wrap tt-right"><button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI</button><div class="tt-box">Копирует Python-команду для записи изменения в applied_actions.json через mm-market-tools CLI.<br>Запустите в терминале после применения.</div></span>`;
 
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
     <div class="action-header">
@@ -616,7 +614,7 @@ function renderActionCard(a){
     ${seoHtml}
     <div class="score-bar-wrap">
       <div class="score-bar-header">
-        <span class="score-bar-label-text">Приоритет ${tip('Compound score (0–100):<br><b>тип действия × рыночный контекст × срочность</b><br>80–100 = критично · 50–79 = важно · &lt;50 = фоновое')}</span>
+        <span class="score-bar-label-text">Приоритет ${tip('Compound score (0–100):<br><b>тип действия × рыночный контекст × срочность</b><br>80–100 = критично · 50–79 = важно · &lt;50 = фоновое', true)}</span>
         <span class="score-bar-value">${sp}/100</span>
       </div>
       <div class="score-bar-track"><div class="score-bar-fill ${sc}" style="width:${sp}%"></div></div>
