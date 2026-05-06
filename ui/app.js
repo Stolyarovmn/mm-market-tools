@@ -2805,7 +2805,7 @@ async function loadBuyerReviews() {
   const root = document.getElementById("buyer-reviews-list");
   if (!root) return;
   root.innerHTML = '<p class="empty-state">Загрузка отзывов…</p>';
-  const reloadBtn = document.querySelector("#buyer-reviews-wrap .compact-button");
+  const reloadBtn = document.querySelector("#buyer-reviews-toolbar .compact-button");
   if (reloadBtn) { reloadBtn.disabled = true; reloadBtn.textContent = "Загрузка…"; }
   try {
     const resp = await fetch("/api/reviews");
