@@ -2039,7 +2039,6 @@ function renderBuyers(){
         <div class="ai-suggestion">
           <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
         </div>
-          <div class="ai-text">⏳ AI-ответ будет доступен после TASK-007 — система предложит вариант на основе причины возврата и истории покупателя.</div>
         </div>
         <div class="action-btns">
           <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
