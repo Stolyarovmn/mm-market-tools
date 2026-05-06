@@ -135,7 +135,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .btn.secondary{background:var(--color-purple-soft);color:var(--color-purple);border-color:transparent;}
 /* Tooltip system */
 .tt-wrap{position:relative;display:inline-flex;align-items:center;}
-.tt-btn{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--color-text-tertiary);background:transparent;color:var(--color-text-tertiary);font-size:9px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:4px;flex-shrink:0;transition:all 0.15s;line-height:1;}
+.tt-btn{width:11px;height:11px;border-radius:50%;border:1px solid var(--color-text-tertiary);background:transparent;color:var(--color-text-tertiary);font-size:5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:3px;flex-shrink:0;transition:all 0.15s;line-height:1;}
 .tt-btn:hover,.tt-wrap.pinned .tt-btn{color:var(--color-accent);border-color:var(--color-accent);}
 .tt-box{display:none;position:absolute;z-index:200;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:180px;max-width:260px;background:var(--color-text-primary);color:var(--color-surface);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;line-height:1.5;font-weight:400;text-align:left;box-shadow:var(--shadow-md);white-space:normal;pointer-events:auto;}
 .tt-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--color-text-primary);}
@@ -948,11 +948,45 @@ function pinTip(btn){
   document.querySelectorAll('.tt-wrap.pinned').forEach(w=>w.classList.remove('pinned'));
   if(!wasPinned){
     wrap.classList.add('pinned');
+    showTip(wrap);
     const close=(e)=>{if(!wrap.contains(e.target)){wrap.classList.remove('pinned');document.removeEventListener('click',close,true);}};
     setTimeout(()=>document.addEventListener('click',close,true),0);
   }
 }
-function tip(text,right){return `<span class="tt-wrap${right?' tt-right':''}"><button class="tt-btn" onclick="pinTip(this)">i</button><div class="tt-box">${text}</div></span>`;}
+function repositionTooltip(box) {
+  if(!box) return;
+  box.style.left = '';
+  box.style.right = '';
+  box.style.transform = '';
+  const rect = box.getBoundingClientRect();
+  const vw = window.innerWidth;
+  if (rect.left < 8) {
+    box.style.left = '0';
+    box.style.right = 'auto';
+    box.style.transform = 'none';
+  } else if (rect.right > vw - 8) {
+    box.style.left = 'auto';
+    box.style.right = '0';
+    box.style.transform = 'none';
+  } else {
+    box.style.left = '50%';
+    box.style.right = 'auto';
+    box.style.transform = 'translateX(-50%)';
+  }
+}
+function showTip(wrap){
+  const box=wrap?.querySelector('.tt-box');
+  if(!box) return;
+  requestAnimationFrame(()=>repositionTooltip(box));
+}
+function resetTip(wrap){
+  const box=wrap?.querySelector('.tt-box');
+  if(!box) return;
+  box.style.left = '';
+  box.style.right = '';
+  box.style.transform = '';
+}
+function tip(text,right){return `<span class="tt-wrap${right?' tt-right':''}" onmouseenter="showTip(this)" onmouseleave="resetTip(this)"><button class="tt-btn" onclick="pinTip(this)">i</button><div class="tt-box">${text}</div></span>`;}
 
 // ── SEO candidate parser ──────────────────────────────────────────────────────
 function parseCandidate(detail){
@@ -1076,8 +1110,8 @@ function renderActionCard(a){
     : '';
 
   const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
-  const actionButtons=a.ui_actions_html||`<span class="tt-wrap"><button class="btn primary" data-apply="${a.rank}" data-product-id="${esc(String(a.product_id||''))}" data-title="${esc(a.title||a.entity_key||'Карточка')}" data-entity-key="${esc(a.entity_key||'')}" data-action-type="${esc(a.action_type||'')}" data-group="${esc(a.group||'')}" data-price-before="${esc(String(a.current_value ?? ''))}" data-price-recommended="${esc(String(a.suggested_value ?? ''))}">Применил</button><div class="tt-box">Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность.</div></span>
-      <span class="tt-wrap tt-right"><button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI</button><div class="tt-box">Копирует Python-команду для записи изменения в applied_actions.json через mm-market-tools CLI.<br>Запустите в терминале после применения.</div></span>`;
+  const actionButtons=a.ui_actions_html||`<button class="btn primary" data-apply="${a.rank}" data-product-id="${esc(String(a.product_id||''))}" data-title="${esc(a.title||a.entity_key||'Карточка')}" data-entity-key="${esc(a.entity_key||'')}" data-action-type="${esc(a.action_type||'')}" data-group="${esc(a.group||'')}" data-price-before="${esc(String(a.current_value ?? ''))}" data-price-recommended="${esc(String(a.suggested_value ?? ''))}">Применил</button>${tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность.')}
+      <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI</button>${tip('Копирует Python-команду для записи изменения в applied_actions.json через mm-market-tools CLI.<br>Запустите в терминале после применения.', true)}`;
 
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
     <div class="action-header">
