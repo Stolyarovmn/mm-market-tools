@@ -1321,8 +1321,8 @@ function renderReviews(){
         </div>
     <div class="action-btns">
       <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
-    </div>
-  </div>`).join('');
+    </div>`:''}
+    </div>`).join('');
 }
 
 // ── A/B Tab ───────────────────────────────────────────────────────────────────
