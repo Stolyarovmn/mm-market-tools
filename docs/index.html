@@ -254,6 +254,39 @@ table.sensitivity td.red{background:var(--color-coral-soft);color:var(--color-co
 .filter-pill{padding:4px 10px;border-radius:var(--radius-pill);border:0.5px solid var(--color-border);background:var(--color-surface);font-size:11px;cursor:pointer;color:var(--color-text-secondary);transition:all 0.15s;}
 .filter-pill:hover{background:var(--color-surface-secondary);}
 .filter-pill.active{background:var(--color-text-primary);color:var(--color-surface);border-color:transparent;}
+/* Report Explorer */
+.explorer-modebar,.explorer-toolbar,.explorer-pillbar,.explorer-detail-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.explorer-layout{display:grid;grid-template-columns:minmax(250px,300px) minmax(0,1fr);gap:12px;align-items:start;}
+@media(max-width:960px){.explorer-layout{grid-template-columns:1fr;}}
+.explorer-stack{display:flex;flex-direction:column;gap:8px;}
+.explorer-list{display:flex;flex-direction:column;gap:6px;max-height:480px;overflow:auto;padding-right:2px;}
+.explorer-list-item{padding:10px 12px;border:0.5px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface);cursor:pointer;transition:all 0.15s;box-shadow:var(--shadow-sm);}
+.explorer-list-item:hover{background:var(--color-surface-secondary);}
+.explorer-list-item.active{border-color:var(--color-accent);background:var(--color-accent-soft);}
+.explorer-list-title{font-size:12px;font-weight:600;margin-bottom:3px;}
+.explorer-list-meta{font-size:10px;color:var(--color-text-secondary);line-height:1.45;}
+.explorer-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px;}
+@media(max-width:960px){.explorer-controls{grid-template-columns:1fr;}}
+.explorer-controls input,.explorer-controls select{width:100%;padding:7px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;background:var(--color-surface-secondary);color:var(--color-text-primary);}
+.explorer-table-wrap{overflow:auto;border:0.5px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface);box-shadow:var(--shadow-sm);}
+.explorer-table{width:100%;border-collapse:collapse;font-size:11px;min-width:780px;}
+.explorer-table th,.explorer-table td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-subtle);text-align:left;vertical-align:top;}
+.explorer-table th{position:sticky;top:0;background:var(--color-surface-secondary);z-index:1;font-size:10px;text-transform:uppercase;letter-spacing:0.04em;color:var(--color-text-secondary);}
+.explorer-table th button{border:none;background:none;padding:0;color:inherit;font:inherit;cursor:pointer;text-transform:inherit;letter-spacing:inherit;}
+.explorer-table tr{cursor:pointer;transition:background 0.15s;}
+.explorer-table tr:hover{background:var(--color-surface-secondary);}
+.explorer-table tr.active{background:var(--color-accent-soft);}
+.explorer-table td strong{color:var(--color-text-primary);}
+.explorer-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px;}
+@media(max-width:720px){.explorer-detail-grid{grid-template-columns:1fr;}}
+.explorer-detail-item{padding:9px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);}
+.explorer-detail-item .label{font-size:9px;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-tertiary);margin-bottom:3px;}
+.explorer-detail-item .value{font-size:12px;font-weight:600;color:var(--color-text-primary);word-break:break-word;}
+.explorer-json{max-height:240px;overflow:auto;white-space:pre-wrap;font-size:10px;line-height:1.5;background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);padding:10px 12px;color:var(--color-text-secondary);}
+.explorer-subtle{font-size:10px;color:var(--color-text-tertiary);}
+.explorer-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:10px;}
+.explorer-empty-state{padding:18px 16px;border:0.5px dashed var(--color-border);border-radius:var(--radius-md);color:var(--color-text-secondary);background:var(--color-surface);}
+.explorer-tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:var(--radius-pill);font-size:10px;background:var(--color-surface-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border);}
 /* Misc */
 code{font-family:ui-monospace,"SF Mono",Consolas,monospace;background:var(--color-surface-secondary);padding:1px 5px;border-radius:3px;font-size:10px;color:var(--color-text-secondary);}
 .empty{color:var(--color-text-tertiary);font-style:italic;padding:24px;text-align:center;font-size:12px;}
@@ -284,6 +317,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div class="tabs-wrapper">
   <div class="tab-pills">
     <button class="tab-btn active" data-tab="plan">План</button>
+    <button class="tab-btn" data-tab="explorer">Explorer</button>
     <button class="tab-btn" data-tab="quickwins">Быстрые победы</button>
     <button class="tab-btn" data-tab="ops">Операции</button>
     <button class="tab-btn" data-tab="reports">Отчёты</button>
@@ -298,6 +332,7 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 </div>
 
 <div id="tab-plan" class="tab-content active"></div>
+<div id="tab-explorer" class="tab-content"></div>
 <div id="tab-quickwins" class="tab-content"></div>
 <div id="tab-ops" class="tab-content"></div>
 <div id="tab-reports" class="tab-content"></div>
@@ -330,6 +365,20 @@ let AUX_REPORTS = {
 // ── Globals ─────────────────────────────────────────────────────────────────
 let apiToken = localStorage.getItem('mm_api_token') || '';
 const PENDING_QUICKWINS_KEY = 'mm_quickwins_pending_v1';
+const APPLIED_TRACKER_KEY = 'mm_report_explorer_applied_v1';
+let REPORT_INDEX = null;
+let REPORT_INDEX_ERROR = null;
+const REPORT_CACHE = {};
+let EXPLORER_STATE = {
+  mode: 'reports',
+  selectedReportPath: '',
+  selectedDatasetKey: '',
+  filter: '',
+  sortKey: '',
+  sortDir: 'desc',
+  detailKey: '',
+  latestCatalog: null,
+};
 
 // ── Utils ────────────────────────────────────────────────────────────────────
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
@@ -462,6 +511,434 @@ async function initAuxReports(){
     AUX_REPORTS.descriptionSeo = null;
     AUX_REPORTS.descriptionSeoError = err.message || 'description report unavailable';
   }
+}
+
+function formatExplorerValue(value){
+  if(value===null || value===undefined || value==='') return '—';
+  if(Array.isArray(value)) return value.length ? value.map(formatExplorerValue).join(', ') : '—';
+  if(typeof value==='number'){
+    return Number.isInteger(value)
+      ? new Intl.NumberFormat('ru-RU').format(value)
+      : new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(value);
+  }
+  if(typeof value==='boolean') return value ? 'Да' : 'Нет';
+  if(typeof value==='object') return JSON.stringify(value);
+  return String(value);
+}
+function parseMaybeNumber(value){
+  if(value===null || value===undefined || value==='') return null;
+  const normalized=String(value).replace(',', '.');
+  const num=Number(normalized);
+  return Number.isFinite(num) ? num : null;
+}
+function formatMoneyMaybe(value){
+  const num=parseMaybeNumber(value);
+  return num===null ? '—' : `${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(num)} ₽`;
+}
+function daysSince(ts){
+  if(!ts) return null;
+  const diff=Date.now()-new Date(ts).getTime();
+  if(!Number.isFinite(diff)) return null;
+  return Math.max(0, Math.floor(diff/86400000));
+}
+function readAppliedTracker(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(APPLIED_TRACKER_KEY) || '[]');
+    return Array.isArray(raw) ? raw : [];
+  }catch(_err){
+    return [];
+  }
+}
+function writeAppliedTracker(items){
+  localStorage.setItem(APPLIED_TRACKER_KEY, JSON.stringify(items || []));
+}
+function saveAppliedSnapshot(snapshot){
+  const items=readAppliedTracker().filter(item=>!(String(item.timestamp||'')===String(snapshot.timestamp||'') && String(item.product_id||'')===String(snapshot.product_id||'') && String(item.rank||'')===String(snapshot.rank||'')));
+  items.unshift(snapshot);
+  writeAppliedTracker(items.slice(0, 120));
+}
+function clearAppliedSnapshot(timestamp){
+  const items=readAppliedTracker().filter(item=>String(item.timestamp||'')!==String(timestamp||''));
+  writeAppliedTracker(items);
+}
+function reportKindLabel(kind){
+  const labels={
+    weekly_operational:'Weekly operational',
+    official_period_analysis:'Official period',
+    dynamic_pricing:'Dynamic pricing',
+    marketing_card_audit:'Marketing card audit',
+    media_richness_report:'Media richness',
+    description_seo_report:'Description SEO',
+    cubejs_period_compare:'CubeJS compare',
+    paid_storage_report:'Paid storage',
+    sales_return_report:'Sales return',
+    competitor_market_analysis:'Competitor market',
+    waybill_cost_layer:'Waybill cost layer',
+  };
+  return labels[kind] || kind || 'report';
+}
+function explorerReportItems(){
+  const base=(REPORT_INDEX||{}).reports || (REPORT_INDEX||{}).items || Object.values((REPORT_INDEX||{}).latest_by_kind||{});
+  return [...base].sort((a,b)=>String(b.generated_at||'').localeCompare(String(a.generated_at||'')));
+}
+function latestExplorerReportItems(){
+  return Object.values((REPORT_INDEX||{}).latest_by_kind||{}).sort((a,b)=>String(b.generated_at||'').localeCompare(String(a.generated_at||'')));
+}
+function reportRelativePath(filePath){
+  return String(filePath||'').startsWith('data/') ? `./${filePath}` : `./data/dashboard/${filePath}`;
+}
+async function fetchJsonFallback(paths){
+  let lastError=null;
+  for(const path of paths){
+    try{
+      const resp=await fetch(path, { headers:{ Accept:'application/json' }, cache:'no-store' });
+      if(!resp.ok) throw new Error(`${path} unavailable (${resp.status})`);
+      return await resp.json();
+    }catch(err){
+      lastError=err;
+    }
+  }
+  throw lastError || new Error('json unavailable');
+}
+async function initReportExplorer(){
+  try{
+    REPORT_INDEX = await fetchJsonFallback([
+      './data/dashboard/index.json',
+      `https://raw.githubusercontent.com/${REPO}/main/data/dashboard/index.json`,
+    ]);
+    REPORT_INDEX_ERROR = null;
+    const items=explorerReportItems();
+    if(items.length && !EXPLORER_STATE.selectedReportPath){
+      EXPLORER_STATE.selectedReportPath = items[0].file_path;
+    }
+  }catch(err){
+    REPORT_INDEX = null;
+    REPORT_INDEX_ERROR = err.message || 'report index unavailable';
+  }
+}
+async function loadExplorerReport(filePath){
+  if(!filePath) return null;
+  if(REPORT_CACHE[filePath]) return REPORT_CACHE[filePath];
+  REPORT_CACHE[filePath] = await fetchJsonFallback([
+    reportRelativePath(filePath),
+    `https://raw.githubusercontent.com/${REPO}/main/${filePath}`,
+  ]);
+  return REPORT_CACHE[filePath];
+}
+function datasetLabel(group, key){
+  return `${group==='actions'?'Action':'Table'} · ${key.replace(/_/g,' ')}`;
+}
+function reportDatasets(payload){
+  const datasets=[];
+  ['tables','actions'].forEach(group=>{
+    const source=payload?.[group] || {};
+    Object.entries(source).forEach(([key, rows])=>{
+      if(Array.isArray(rows)){
+        datasets.push({ key:`${group}:${key}`, group, rawKey:key, label:datasetLabel(group,key), rows });
+      }
+    });
+  });
+  if(Array.isArray(payload?.series_monthly)){
+    datasets.push({ key:'series_monthly', group:'series', rawKey:'series_monthly', label:'Series · monthly', rows:payload.series_monthly });
+  }
+  if(payload?.periods && typeof payload.periods==='object'){
+    const rows=Object.entries(payload.periods).map(([period, values])=>({ period, ...(values||{}) }));
+    if(rows.length){
+      datasets.push({ key:'periods', group:'series', rawKey:'periods', label:'Series · periods', rows });
+    }
+  }
+  return datasets;
+}
+function explorerEntityKey(row){
+  if(!row || typeof row!=='object') return '';
+  const keys=['product_id','sku','seller_sku_id','key','group','barcode','title','price_band'];
+  for(const key of keys){
+    const value=row[key];
+    if(value!==null && value!==undefined && String(value).trim()) return `${key}:${String(value).trim()}`;
+  }
+  return '';
+}
+function explorerEntityLabel(row){
+  if(!row || typeof row!=='object') return 'Строка отчёта';
+  return row.title || row.group || row.key || row.product_id || row.sku || 'Строка отчёта';
+}
+function inferCurrentPrice(row){
+  if(!row || typeof row!=='object') return null;
+  const keys=['sale_price','current_value','price','current_price','avg_market_price','market_price','threshold'];
+  for(const key of keys){
+    const num=parseMaybeNumber(row[key]);
+    if(num!==null) return num;
+  }
+  return null;
+}
+function inferRecommendedPrice(row){
+  if(!row || typeof row!=='object') return null;
+  const keys=['suggested_price','suggested_threshold_price','price_recommended','recommended_price','min_safe_price'];
+  for(const key of keys){
+    const num=parseMaybeNumber(row[key]);
+    if(num!==null) return num;
+  }
+  return null;
+}
+function datasetColumns(rows){
+  if(!rows.length) return [];
+  const scalarKeys=Object.keys(rows[0]).filter(key=>{
+    const value=rows[0][key];
+    return value===null || value===undefined || ['string','number','boolean'].includes(typeof value);
+  });
+  return scalarKeys.slice(0, 12);
+}
+function filteredExplorerRows(rows, filter){
+  const query=String(filter||'').trim().toLowerCase();
+  if(!query) return rows;
+  return rows.filter(row=>JSON.stringify(row).toLowerCase().includes(query));
+}
+function sortedExplorerRows(rows, sortKey, sortDir){
+  if(!sortKey) return rows;
+  return [...rows].sort((a,b)=>{
+    const av=a?.[sortKey];
+    const bv=b?.[sortKey];
+    const an=parseMaybeNumber(av);
+    const bn=parseMaybeNumber(bv);
+    let result=0;
+    if(an!==null && bn!==null){
+      result=an-bn;
+    }else{
+      result=String(av ?? '').localeCompare(String(bv ?? ''), 'ru', { numeric:true, sensitivity:'base' });
+    }
+    return sortDir==='asc' ? result : -result;
+  });
+}
+function reportDetailMatches(payload, entityKey){
+  if(!entityKey) return [];
+  const matches=[];
+  reportDatasets(payload).forEach(dataset=>{
+    (dataset.rows||[]).forEach(row=>{
+      if(explorerEntityKey(row)===entityKey){
+        matches.push({ dataset, row });
+      }
+    });
+  });
+  return matches;
+}
+function explorerSummaryMetrics(reportItem){
+  const kpis=reportItem?.kpis || {};
+  return Object.entries(kpis).slice(0,4).map(([key, value])=>`<div class="explorer-detail-item"><div class="label">${esc(key.replace(/_/g,' '))}</div><div class="value">${esc(formatExplorerValue(value))}</div></div>`).join('');
+}
+function reportCardHtml(item, active){
+  return `<button class="explorer-list-item ${active?'active':''}" data-report-path="${esc(item.file_path)}" type="button">
+    <div class="explorer-list-title">${esc(reportKindLabel(item.report_kind))}</div>
+    <div class="explorer-list-meta">${esc(item.report_variant||item.report_name||item.file_name||'')}</div>
+    <div class="explorer-list-meta">${shortDate(item.generated_at)} · ${esc(item.file_name||'')}</div>
+  </button>`;
+}
+function renderExplorerTable(rows, columns){
+  if(!rows.length){
+    return `<div class="explorer-empty-state">В выбранном dataset сейчас нет строк.</div>`;
+  }
+  return `<div class="explorer-table-wrap"><table class="explorer-table"><thead><tr>
+    ${columns.map(key=>`<th><button type="button" data-explorer-sort="${esc(key)}">${esc(key.replace(/_/g,' '))}${EXPLORER_STATE.sortKey===key?` ${EXPLORER_STATE.sortDir==='asc'?'↑':'↓'}`:''}</button></th>`).join('')}
+  </tr></thead><tbody>
+    ${rows.map(row=>{
+      const detailKey=explorerEntityKey(row);
+      return `<tr data-explorer-detail="${esc(detailKey)}" class="${detailKey && detailKey===EXPLORER_STATE.detailKey?'active':''}">
+        ${columns.map(key=>`<td>${esc(formatExplorerValue(row[key]))}</td>`).join('')}
+      </tr>`;
+    }).join('')}
+  </tbody></table></div>`;
+}
+async function buildAppliedCatalog(){
+  if(EXPLORER_STATE.latestCatalog) return EXPLORER_STATE.latestCatalog;
+  const catalog=[];
+  for(const item of latestExplorerReportItems()){
+    try{
+      const payload=await loadExplorerReport(item.file_path);
+      reportDatasets(payload).forEach(dataset=>{
+        (dataset.rows||[]).forEach(row=>{
+          const entityKey=explorerEntityKey(row);
+          if(entityKey){
+            catalog.push({
+              item,
+              dataset,
+              row,
+              entityKey,
+              productId:String(row.product_id || row.sku || row.seller_sku_id || ''),
+              title:String(row.title || row.group || row.key || ''),
+            });
+          }
+        });
+      });
+    }catch(_err){}
+  }
+  EXPLORER_STATE.latestCatalog = catalog;
+  return catalog;
+}
+function matchAppliedSnapshot(snapshot, catalog){
+  const productId=String(snapshot.product_id || '').trim();
+  const entityKey=String(snapshot.entity_key || '').trim();
+  const title=String(snapshot.title || '').trim().toLowerCase();
+  return catalog.find(entry=>
+    (productId && entry.productId===productId) ||
+    (entityKey && entry.entityKey===entityKey) ||
+    (title && entry.title.toLowerCase()===title)
+  ) || null;
+}
+async function renderAppliedTrackerView(){
+  const snapshots=readAppliedTracker();
+  if(!snapshots.length){
+    return `<div class="explorer-empty-state">Пока нет сохранённых snapshot'ов. Они появятся после нажатия «Применил» в плане.</div>`;
+  }
+  const catalog=await buildAppliedCatalog();
+  return snapshots.map(snapshot=>{
+    const match=matchAppliedSnapshot(snapshot, catalog);
+    const currentPrice=match ? inferCurrentPrice(match.row) : null;
+    const recommendedNow=match ? inferRecommendedPrice(match.row) : null;
+    const delta=currentPrice!==null && snapshot.price_before!==null ? currentPrice - snapshot.price_before : null;
+    return `<div class="card">
+      <div class="action-header">
+        <span class="type-pill ${snapshot.action_type || 'price_strategy'}">${esc(snapshot.action_type || 'applied')}</span>
+        <span class="text-xs text-muted">${esc(snapshot.title || snapshot.entity_key || snapshot.product_id || 'Карточка')} · ${daysSince(snapshot.timestamp) ?? '—'} дн назад</span>
+      </div>
+      <div class="explorer-detail-grid">
+        <div class="explorer-detail-item"><div class="label">Цена тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_before))}</div></div>
+        <div class="explorer-detail-item"><div class="label">Рекомендация тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_recommended))}</div></div>
+        <div class="explorer-detail-item"><div class="label">Цена сейчас</div><div class="value">${esc(formatMoneyMaybe(currentPrice))}</div></div>
+        <div class="explorer-detail-item"><div class="label">Дельта</div><div class="value">${delta===null?'—':`${delta>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(delta)} ₽`}</div></div>
+      </div>
+      <div class="explorer-detail-actions mt-8">
+        <span class="explorer-tag">${esc(match?.item?.report_kind || 'match not found')}</span>
+        ${recommendedNow!==null?`<span class="explorer-tag">Актуальная рекомендация: ${esc(formatMoneyMaybe(recommendedNow))}</span>`:''}
+        <button class="btn" data-applied-clear="${esc(snapshot.timestamp)}">Убрать</button>
+      </div>
+      <div class="text-xs text-muted mt-4">${match ? `Сопоставлено с ${esc(match.item.file_name)} / ${esc(match.dataset.label)}` : 'В последних JSON-отчётах совпадение не найдено.'}</div>
+    </div>`;
+  }).join('');
+}
+async function renderExplorer(){
+  const box=document.getElementById('tab-explorer');
+  if(REPORT_INDEX_ERROR){
+    box.innerHTML=`<div class="card"><div class="alert-banner danger">Не удалось загрузить каталог отчётов: ${esc(REPORT_INDEX_ERROR)}</div></div>`;
+    return;
+  }
+  if(!REPORT_INDEX){
+    box.innerHTML=`<div class="card"><div class="text-sm text-muted">Подгружаю каталог отчётов…</div></div>`;
+    return;
+  }
+  const items=explorerReportItems();
+  if(!items.length){
+    box.innerHTML=`<div class="explorer-empty-state">В ` + '`data/dashboard/index.json`' + ` пока нет зарегистрированных отчётов.</div>`;
+    return;
+  }
+  const selected=items.find(item=>item.file_path===EXPLORER_STATE.selectedReportPath) || items[0];
+  EXPLORER_STATE.selectedReportPath=selected.file_path;
+  let contentHtml='';
+
+  if(EXPLORER_STATE.mode==='applied'){
+    contentHtml=`<div class="card" style="margin-bottom:12px">
+      <div class="section-label" style="margin-top:0">Применённые действия</div>
+      <div class="text-sm text-muted">Snapshot сохраняется в ` + '`localStorage`' + ` в момент нажатия «Применил», после чего сравнивается с последними строками из актуальных dashboard JSON.</div>
+    </div>${await renderAppliedTrackerView()}`;
+  }else{
+    try{
+      const payload=await loadExplorerReport(selected.file_path);
+      const datasets=reportDatasets(payload);
+      const selectedDataset=datasets.find(dataset=>dataset.key===EXPLORER_STATE.selectedDatasetKey) || datasets[0] || null;
+      EXPLORER_STATE.selectedDatasetKey=selectedDataset?.key || '';
+      const filtered=selectedDataset ? filteredExplorerRows(selectedDataset.rows || [], EXPLORER_STATE.filter) : [];
+      const sorted=selectedDataset ? sortedExplorerRows(filtered, EXPLORER_STATE.sortKey, EXPLORER_STATE.sortDir) : [];
+      const columns=datasetColumns(sorted);
+      const detailMatches=reportDetailMatches(payload, EXPLORER_STATE.detailKey);
+      const detailRow=detailMatches[0]?.row || null;
+      contentHtml=`<div class="explorer-layout">
+        <div class="explorer-stack">
+          <div class="card">
+            <div class="section-label" style="margin-top:0">Доступные отчёты</div>
+            <div class="explorer-list">${items.map(item=>reportCardHtml(item, item.file_path===selected.file_path)).join('')}</div>
+          </div>
+        </div>
+        <div class="explorer-stack">
+          <div class="card">
+            <div class="section-label" style="margin-top:0">Текущий отчёт</div>
+            <div class="explorer-kpi">${explorerSummaryMetrics(selected)}</div>
+            <div class="explorer-controls">
+              <div><label class="text-xs text-muted">Dataset</label><select id="explorer-dataset-select">${datasets.map(dataset=>`<option value="${esc(dataset.key)}" ${dataset.key===EXPLORER_STATE.selectedDatasetKey?'selected':''}>${esc(dataset.label)} (${dataset.rows.length})</option>`).join('')}</select></div>
+              <div><label class="text-xs text-muted">Фильтр</label><input id="explorer-filter-input" type="text" placeholder="SKU / product_id / title / group" value="${esc(EXPLORER_STATE.filter)}"></div>
+              <div><label class="text-xs text-muted">Строк после фильтра</label><div class="explorer-empty-state" style="padding:9px 10px">${sorted.length}</div></div>
+            </div>
+            <div class="text-xs text-muted">Файл: ${esc(selected.file_name)} · Сгенерирован: ${shortDate(selected.generated_at)} · Variant: ${esc(selected.report_variant || '—')}</div>
+          </div>
+          ${selectedDataset ? renderExplorerTable(sorted.slice(0, 200), columns) : `<div class="explorer-empty-state">У этого отчёта нет поддерживаемых tabular datasets.</div>`}
+          ${detailRow ? `<div class="card">
+            <div class="section-label" style="margin-top:0">Drill-down: ${esc(explorerEntityLabel(detailRow))}</div>
+            <div class="explorer-detail-grid">
+              ${Object.entries(detailRow).slice(0, 8).map(([key, value])=>`<div class="explorer-detail-item"><div class="label">${esc(key.replace(/_/g,' '))}</div><div class="value">${esc(formatExplorerValue(value))}</div></div>`).join('')}
+            </div>
+            ${detailMatches.length>1 ? `<div class="section-label">Та же сущность в других datasets</div>${detailMatches.map(match=>`<div class="details-row"><span>${esc(match.dataset.label)}</span><strong>${esc(explorerEntityLabel(match.row))}</strong></div>`).join('')}` : ''}
+            <div class="section-label">Raw JSON строки</div>
+            <div class="explorer-json">${esc(JSON.stringify(detailRow, null, 2))}</div>
+          </div>` : `<div class="explorer-empty-state">Нажмите на строку таблицы, чтобы открыть drill-down по товару или категории.</div>`}
+        </div>
+      </div>`;
+    }catch(err){
+      contentHtml=`<div class="card"><div class="alert-banner danger">Не удалось загрузить отчёт ${esc(selected.file_name || selected.file_path)}: ${esc(err.message || 'unknown error')}</div></div>`;
+    }
+  }
+
+  box.innerHTML=`<div class="card" style="margin-bottom:12px">
+    <div class="explorer-modebar">
+      <button class="btn ${EXPLORER_STATE.mode==='reports'?'primary':''}" data-explorer-mode="reports">Report Explorer</button>
+      <button class="btn ${EXPLORER_STATE.mode==='applied'?'primary':''}" data-explorer-mode="applied">Применённые действия</button>
+    </div>
+    <div class="text-xs text-muted mt-4">Explorer читает dashboard JSON напрямую из репозитория и не зависит от локального runtime.</div>
+  </div>${contentHtml}`;
+  attachExplorerEvents(box);
+}
+function attachExplorerEvents(box){
+  box.querySelectorAll('[data-explorer-mode]').forEach(btn=>btn.addEventListener('click',()=>{
+    EXPLORER_STATE.mode=btn.dataset.explorerMode;
+    void renderExplorer();
+  }));
+  box.querySelectorAll('[data-report-path]').forEach(btn=>btn.addEventListener('click',()=>{
+    EXPLORER_STATE.selectedReportPath=btn.dataset.reportPath;
+    EXPLORER_STATE.selectedDatasetKey='';
+    EXPLORER_STATE.detailKey='';
+    EXPLORER_STATE.sortKey='';
+    EXPLORER_STATE.filter='';
+    void renderExplorer();
+  }));
+  const datasetSelect=box.querySelector('#explorer-dataset-select');
+  if(datasetSelect){
+    datasetSelect.addEventListener('change',()=>{
+      EXPLORER_STATE.selectedDatasetKey=datasetSelect.value;
+      EXPLORER_STATE.detailKey='';
+      void renderExplorer();
+    });
+  }
+  const filterInput=box.querySelector('#explorer-filter-input');
+  if(filterInput){
+    filterInput.addEventListener('input',()=>{
+      EXPLORER_STATE.filter=filterInput.value;
+      void renderExplorer();
+    });
+  }
+  box.querySelectorAll('[data-explorer-sort]').forEach(btn=>btn.addEventListener('click',()=>{
+    const key=btn.dataset.explorerSort;
+    if(EXPLORER_STATE.sortKey===key){
+      EXPLORER_STATE.sortDir=EXPLORER_STATE.sortDir==='asc'?'desc':'asc';
+    }else{
+      EXPLORER_STATE.sortKey=key;
+      EXPLORER_STATE.sortDir='desc';
+    }
+    void renderExplorer();
+  }));
+  box.querySelectorAll('[data-explorer-detail]').forEach(row=>row.addEventListener('click',()=>{
+    EXPLORER_STATE.detailKey=row.dataset.explorerDetail;
+    void renderExplorer();
+  }));
+  box.querySelectorAll('[data-applied-clear]').forEach(btn=>btn.addEventListener('click',()=>{
+    clearAppliedSnapshot(btn.dataset.appliedClear);
+    void renderExplorer();
+  }));
 }
 
 // ── Tooltip system ────────────────────────────────────────────────────────────
@@ -599,7 +1076,7 @@ function renderActionCard(a){
     : '';
 
   const cliCmd=`python3 record_applied_action.py --plan data/dashboard/daily_action_plan_${new Date().toISOString().slice(0,10)}.json --rank ${a.rank} --note "apply ${a.entity_key||''}"`;
-  const actionButtons=a.ui_actions_html||`<span class="tt-wrap"><button class="btn primary" data-apply="${a.rank}">Применил</button><div class="tt-box">Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность.</div></span>
+  const actionButtons=a.ui_actions_html||`<span class="tt-wrap"><button class="btn primary" data-apply="${a.rank}" data-product-id="${esc(String(a.product_id||''))}" data-title="${esc(a.title||a.entity_key||'Карточка')}" data-entity-key="${esc(a.entity_key||'')}" data-action-type="${esc(a.action_type||'')}" data-group="${esc(a.group||'')}" data-price-before="${esc(String(a.current_value ?? ''))}" data-price-recommended="${esc(String(a.suggested_value ?? ''))}">Применил</button><div class="tt-box">Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность.</div></span>
       <span class="tt-wrap tt-right"><button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI</button><div class="tt-box">Копирует Python-команду для записи изменения в applied_actions.json через mm-market-tools CLI.<br>Запустите в терминале после применения.</div></span>`;
 
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
@@ -632,8 +1109,23 @@ function renderActionCard(a){
 
 function onApplyClick(e){
   const btn=e.currentTarget;
+  const snapshot={
+    product_id: btn.dataset.productId || '',
+    rank: parseMaybeNumber(btn.dataset.apply),
+    price_before: parseMaybeNumber(btn.dataset.priceBefore),
+    price_recommended: parseMaybeNumber(btn.dataset.priceRecommended),
+    timestamp: new Date().toISOString(),
+    title: btn.dataset.title || '',
+    entity_key: btn.dataset.entityKey || '',
+    action_type: btn.dataset.actionType || '',
+    group: btn.dataset.group || '',
+  };
+  saveAppliedSnapshot(snapshot);
   btn.classList.add('done');btn.textContent='Отмечено ✓';btn.disabled=true;
   toast('Записано! Через 7 дней появится в A/B журнале.');
+  if(document.getElementById('tab-explorer')?.classList.contains('active') && EXPLORER_STATE.mode==='applied'){
+    void renderExplorer();
+  }
 }
 
 function renderDescriptionQuickWin(row, state, key){
@@ -1650,6 +2142,9 @@ function setupTabs(){
       btn.classList.add('active');
       document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
       document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+      if(btn.dataset.tab==='explorer'){
+        void renderExplorer();
+      }
     });
   });
 }
@@ -1782,6 +2277,8 @@ async function initDashboard() {
     await initLiveMode();
     msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
     await initAuxReports();
+    msgEl.textContent = 'Подтягиваю каталог отчётов...';
+    await initReportExplorer();
   } catch (err) {
     msgEl.textContent = '⚠ ' + err.message;
     msgEl.style.color = 'var(--color-coral)';
@@ -1796,6 +2293,7 @@ async function initDashboard() {
   renderKPIs();
   renderInsights();
   renderPlan();
+  await renderExplorer();
   renderQuickWins();
   renderOps();
   renderReports();
