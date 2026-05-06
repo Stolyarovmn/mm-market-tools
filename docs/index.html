@@ -1317,7 +1317,7 @@ function renderReviews(){
       <div class="action-title">${esc(r.product_title||`SKU ${r.product_id||'—'}`)}</div>
       <div class="action-detail mt-4">${esc(r.text||'')}</div>
       ${r.answer_text?`<div class="ai-suggestion">
-          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||"")}','${esc(r.reason_label||"")}','${esc(r.template_response||"")}')">Генерировать AI-ответ</button>
         </div>
     <div class="action-btns">
       <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
@@ -1855,9 +1855,7 @@ async function geminiReviewReply(btn,code,label,tmpl){
 async function geminiSeoTitle(btn,title,ctx){
   const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
   try{
-    const p='Ты SEO-специалист для Магнит Маркет (Россия). Сгенерируй оптимальное название товара (60-100 символов). Формула: [Бренд][Категория][Характеристика]. Ключевые слова в начале. Только готовое название.
-Текущее: '+title+'
-Контекст: '+ctx;
+    const p='Ты SEO-специалист для Магнит Маркет (Россия). Сгенерируй оптимальное название товара (60-100 символов). Формула: [Бренд][Категория][Характеристика]. Ключевые слова в начале. Только готовое название. Текущее: '+title+'. Контекст: '+ctx;
     const res=await callGemini(p);
     showGeminiResult(btn.closest('.action-card'),res,'Скопировать AI-название');
     btn.textContent='Обновить';btn.disabled=false;
@@ -1866,10 +1864,7 @@ async function geminiSeoTitle(btn,title,ctx){
 async function geminiSeoDesc(btn,title,chars,recs){
   const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
   try{
-    const p='Ты SEO-специалист для Магнит Маркет (Россия). Напиши оптимальное описание товара (1000-3000 символов). Структура: преимущества, характеристики, способы применения. Естественное включение ключевых слов.
-Название: '+title+'
-Символов: '+chars+'
-Рекомендации: '+recs;
+    const p='Ты SEO-специалист для Магнит Маркет (Россия). Напиши оптимальное описание товара (1000-3000 символов). Структура: преимущества, характеристики, способы применения. Естественное включение ключевых слов. Название: '+title+'. Символов: '+chars+'. Рекомендации: '+recs;
     const res=await callGemini(p);
     showGeminiResult(btn.closest('.action-card'),res,'Скопировать описание');
     btn.textContent='Обновить';btn.disabled=false;
@@ -2037,8 +2032,7 @@ function renderBuyers(){
         <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
         <div class="template-preview">${esc(r.template_response||'')}</div>
         <div class="ai-suggestion">
-          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
-        </div>
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||"")}','${esc(r.reason_label||"")}','${esc(r.template_response||"")}')">Генерировать AI-ответ</button>
         </div>
         <div class="action-btns">
           <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
