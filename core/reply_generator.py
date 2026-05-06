@@ -6,7 +6,7 @@ Strategy:
   - "typical" items  → template-based (fast, free, no LLM needed)
   - "complex" items  → LLM prompt (Gemini / DeepSeek / local ollama)
 
-Tone and templates are configured in data/reply_config.json.
+Tone and templates are configured in data/reply_config.default.json with optional overrides from data/reply_config.local.json.
 The LLM endpoint and API key are never stored on disk — they come from
 the caller (e.g. the web server passes them from the browser session).
 """
@@ -14,10 +14,12 @@ import json
 import re
 from pathlib import Path
 
-DEFAULT_CONFIG_PATH = Path(__file__).parent.parent / "data" / "reply_config.json"
+DEFAULT_CONFIG_PATH = Path(__file__).parent.parent / "data" / "reply_config.default.json"
+LOCAL_CONFIG_PATH = Path(__file__).parent.parent / "data" / "reply_config.local.json"
+LEGACY_CONFIG_PATH = Path(__file__).parent.parent / "data" / "reply_config.json"
 
 # ---------------------------------------------------------------------------
-# Default built-in config (used if reply_config.json is absent)
+# Default built-in config (used if repo files are absent)
 # ---------------------------------------------------------------------------
 
 DEFAULT_CONFIG = {
@@ -66,27 +68,40 @@ DEFAULT_CONFIG = {
 # Config loading
 # ---------------------------------------------------------------------------
 
-def load_config(config_path=None):
-    path = Path(config_path or DEFAULT_CONFIG_PATH)
+def _deep_merge(base, override):
+    merged = dict(base)
+    for key, value in (override or {}).items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge(merged[key], value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def _load_json_config(path):
     if not path.exists():
-        return dict(DEFAULT_CONFIG)
+        return {}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-        merged = dict(DEFAULT_CONFIG)
-        merged.update(data)
-        # Deep-merge nested dicts
-        for key in ("templates", "llm"):
-            if key in data and isinstance(data[key], dict):
-                merged[key] = {**DEFAULT_CONFIG.get(key, {}), **data[key]}
-        return merged
     except Exception:
-        return dict(DEFAULT_CONFIG)
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def load_config(config_path=None, local_config_path=None):
+    if config_path is not None:
+        return _deep_merge(DEFAULT_CONFIG, _load_json_config(Path(config_path)))
+
+    base_path = DEFAULT_CONFIG_PATH if DEFAULT_CONFIG_PATH.exists() else LEGACY_CONFIG_PATH
+    merged = _deep_merge(DEFAULT_CONFIG, _load_json_config(base_path))
+    merged = _deep_merge(merged, _load_json_config(Path(local_config_path or LOCAL_CONFIG_PATH)))
+    return merged
 
 
 def save_config(config, config_path=None):
-    path = Path(config_path or DEFAULT_CONFIG_PATH)
+    path = Path(config_path or LOCAL_CONFIG_PATH)
     path.parent.mkdir(parents=True, exist_ok=True)
-    # Never save LLM keys — strip them
+    # Never save LLM keys ? strip them
     safe = {k: v for k, v in config.items() if k != "llm_api_key"}
     path.write_text(json.dumps(safe, ensure_ascii=False, indent=2), encoding="utf-8")
 
