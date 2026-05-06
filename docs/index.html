@@ -2346,7 +2346,7 @@ async function triggerDataRefresh(){
 
     if(resp.status===204){
 
-      status.textContent='✓ Запущено — данные обновятся через ~3 мин';
+      status.innerHTML='✓ Запущено. После завершения (~3 мин) нажмите <a href="javascript:window.location.reload()" style="color:var(--color-teal)">Обновить страницу</a>';
 
       toast('Workflow запущен!');
 
