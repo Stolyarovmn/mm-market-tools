@@ -253,7 +253,12 @@ async function renderResultSummary(status) {
 
   const artifacts = status.artifacts || [];
   if (!artifacts.length) return;
-  const indexPayload = await loadDashboardIndex();
+  let indexPayload;
+  try {
+    indexPayload = await loadDashboardIndex();
+  } catch {
+    indexPayload = { items: [] };
+  }
   artifacts.slice(0, 6).forEach((artifact) => {
     const dashboardMatch = findDashboardMatch(indexPayload, artifact);
     const card = el("div", "insight-card artifact-summary-card");
