@@ -626,7 +626,12 @@ function renderMarketingKpis(payload) {
 function renderInsights(items) {
   const root = document.getElementById("insights-grid");
   root.innerHTML = "";
-  (items || []).forEach((item) => {
+  const list = items || [];
+  if (!list.length) {
+    root.append(el("p", "empty-state", "Аналитических инсайтов нет."));
+    return;
+  }
+  list.forEach((item) => {
     const card = el("div", "insight-card");
     if (item.tone) {
       card.dataset.tone = item.tone;
