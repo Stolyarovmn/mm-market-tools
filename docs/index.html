@@ -1089,7 +1089,7 @@ function renderPlan(){
 
   const box=document.getElementById('tab-plan');
 
-  const actions=(((PAYLOAD.plan||{}).actions)||[]).filter(a=>!shouldHideUnnamedAction(a));
+  const actions=(((PAYLOAD.plan||{}).actions)||[]).filter(a=>!shouldHideUnnamedAction(a) && !a.quick_win);
 
   if(!actions.length){box.innerHTML='<div class="empty">Нет действий.</div>';return;}
 
@@ -1101,7 +1101,6 @@ function renderPlan(){
 
     ${types.map(t=>`<button class="filter-pill" data-filter="${t}">${typeLabel(t)} (${actions.filter(a=>a.action_type===t).length})</button>`).join('')}
 
-    <button class="filter-pill" data-filter="quickwin">Quick wins (${actions.filter(a=>a.quick_win).length})</button>
 
   </div><div id="plan-cards">${actions.map(renderActionCard).join('')}</div>`;
 
@@ -1129,7 +1128,7 @@ function attachPlanEvents(box,actions){
 
     const cards=box.querySelector('#plan-cards');
 
-    cards.innerHTML=actions.filter(a=>af==='all'||a.action_type===af||(af==='quickwin'&&a.quick_win)).map(renderActionCard).join('');
+    cards.innerHTML=actions.filter(a=>af==='all'||a.action_type===af).map(renderActionCard).join('');
 
     attachPlanEvents(box,actions);
 
