@@ -109,9 +109,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .score-bar-value{font-size:10px;color:var(--color-text-tertiary);}
 .score-bar-track{height:4px;background:var(--color-surface-secondary);border-radius:2px;overflow:hidden;}
 .score-bar-fill{height:100%;border-radius:2px;transition:width 0.4s;}
-.score-bar-fill.high{background:var(--color-teal);}
+.score-bar-fill.high{background:var(--color-coral);}
 .score-bar-fill.med{background:var(--color-amber);}
-.score-bar-fill.low{background:var(--color-coral);}
+.score-bar-fill.low{background:var(--color-teal);}
 /* Price row */
 .price-row{display:flex;gap:12px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--color-border-subtle);flex-wrap:wrap;}
 .price-item{display:flex;flex-direction:column;gap:1px;}
@@ -1070,14 +1070,13 @@ function renderActionCard(a){
   const sp=Math.min(100,score).toFixed(0);
   const sc=score>=80?'high':(score>=50?'med':'low');
   const pid=a.product_id;
-  const productUrl=pid?`https://megamarket.ru/catalogue/details/${pid}/`:'#';
+  const shopId=(PAYLOAD.api_status||{}).shop_id||98;
+  const productUrl=pid?`https://seller.mm.ru/seller/${shopId}/products/all/id/${pid}/main`:'#';
   const candidate=parseCandidate(a.detail||'');
   const firstStep=
-    a.action_type==='price_fix' && a.suggested_value!=null
-      ? `Поставить цену ${a.suggested_value} ₽ вместо ${a.current_value} ₽`
-      : a.action_type==='title_seo'
-        ? (firstRecommendation(a.detail||'') || 'Переписать title по SEO-рекомендации')
-        : null;
+    a.action_type==='title_seo'
+      ? (firstRecommendation(a.detail||'') || 'Переписать title по SEO-рекомендации')
+      : null;
 
   const chips=[];
   if(meta.total_stock!=null){const c=meta.total_stock<=0?'danger':(meta.total_stock<5?'warn':'ok');chips.push(`<span class="chip ${c}">Остаток: ${meta.total_stock}</span>`);}
@@ -1164,7 +1163,8 @@ function onApplyClick(e){
 
 function renderDescriptionQuickWin(row, state, key){
   const recommendations=(row.recommendations||[]).slice(0,3);
-  const productUrl=row.product_id?`https://megamarket.ru/catalogue/details/${row.product_id}/`:'#';
+  const shopId2=(PAYLOAD.api_status||{}).shop_id||98;
+  const productUrl=row.product_id?`https://seller.mm.ru/seller/${shopId2}/products/all/id/${row.product_id}/main`:'#';
   const score=Math.min(100, Number(row.description_score)||0).toFixed(0);
   const stateHtml=state==='pending_verify'
     ? `<div class="alert-banner warn" style="margin-top:10px">Ожидает перепроверки: описание уже обновили, теперь запустите refresh и проверьте, ушла ли карточка из списка.</div>`
