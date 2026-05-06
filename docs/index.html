@@ -1112,6 +1112,9 @@ function renderActionCard(a){
   const actionButtons=a.ui_actions_html||`<button class="btn primary" data-apply="${a.rank}" data-product-id="${esc(String(a.product_id||''))}" data-title="${esc(a.title||a.entity_key||'Карточка')}" data-entity-key="${esc(a.entity_key||'')}" data-action-type="${esc(a.action_type||'')}" data-group="${esc(a.group||'')}" data-price-before="${esc(String(a.current_value ?? ''))}" data-price-recommended="${esc(String(a.suggested_value ?? ''))}">Применил</button>${tip('Отмечает действие как применённое.<br>Запускает 7-дневный A/B замер.<br>Карточка уйдёт в журнал A/B и вернётся в план только если система обнаружит новую возможность.')}
       <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI</button>${tip('Копирует Python-команду для записи изменения в applied_actions.json через mm-market-tools CLI.<br>Запустите в терминале после применения.', true)}`;
 
+  const aiSeoBtn=a.action_type==='title_seo'
+    ?`<button class="btn" onclick="geminiSeoTitle(this,'${esc(a.title||'')}','${esc(a.headline||a.detail||'')}')">АI-название</button>`
+    :'';
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
     <div class="action-header">
       <span class="action-rank">#${a.rank}</span>
@@ -1136,6 +1139,7 @@ function renderActionCard(a){
     ${chips.length?`<div class="chips">${chips.join('')}</div>`:''}
     <div class="action-btns">
       ${actionButtons}
+      ${aiSeoBtn}
     </div>
   </div>`;
 }
@@ -1183,6 +1187,7 @@ function renderDescriptionQuickWin(row, state, key){
     ${stateHtml}
     ${row.product_id?`<div class="sku-row"><span class="text-muted" style="font-size:10px">SKU</span><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     <div class="action-btns">
+      <button class="btn" onclick="geminiSeoDesc(this,'${esc(row.title||row.key||'')}','${esc(String(row.description_chars??0))}','${esc((row.recommendations||[]).slice(0,3).join("; "))}')">AI-описание</button>
       <button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(row.title||row.key||'Карточка')}" data-qw-label="description_seo">Отметить как изменено</button>
       <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
     </div>
@@ -1311,34 +1316,9 @@ function renderReviews(){
       </div>
       <div class="action-title">${esc(r.product_title||`SKU ${r.product_id||'—'}`)}</div>
       <div class="action-detail mt-4">${esc(r.text||'')}</div>
-      ${r.answer_text?`<div class="ai-suggestion"><div class="ai-label">Уже отправленный ответ</div><div class="ai-text">${esc(r.answer_text)}</div></div>`:''}
-      <div class="action-btns">
-        <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.text||'')});toast('Текст отзыва скопирован')">Скопировать текст</button>
-        <button class="btn" onclick="syncReviewDraft(${idx}, 'tab-reviews')">Сгенерировать черновик</button>
-        <button class="btn" onclick="toggleReviewComposer(${idx}, 'tab-reviews')">Ответить</button>
-      </div>
-      <div id="review-compose-tab-reviews-${idx}" style="display:none;margin-top:8px">
-        <textarea id="review-text-tab-reviews-${idx}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(r.answer_text||'')}</textarea>
-        <div class="action-btns">
-          <button class="btn primary" onclick="sendReviewReply(${idx}, 'tab-reviews')">Отправить через API</button>
-          <button class="btn" onclick="copyComposerText(${idx}, 'tab-reviews')">Скопировать ответ</button>
+      ${r.answer_text?`<div class="ai-suggestion">
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
         </div>
-        <div class="text-xs text-muted" id="review-status-tab-reviews-${idx}" style="margin-top:6px"></div>
-      </div>
-    </div>`).join('');
-    return;
-  }
-  const rows=((PAYLOAD.review_booster||{}).rows)||[];
-  if(!rows.length){box.innerHTML='<div class="empty">Нет возвратов для обработки.</div>';return;}
-  box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">Возвраты влияют на рейтинг магазина и позиции в поиске. Ответьте сегодня — это прямой сигнал площадке.</div>`
-    +rows.map((r,idx)=>`<div class="card action-card type-return_investigate">
-    <div class="action-header">
-      <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
-      <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
-    </div>
-    <div class="sku-row"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
-    <div class="template-preview">${esc(r.template_response||'')}</div>
-    <div class="text-sm text-muted mt-4">Проверьте карточку: ${esc(r.action_for_seller||'')}</div>
     <div class="action-btns">
       <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
     </div>
@@ -1793,6 +1773,16 @@ function renderAPI(){
   });
   html+=`<div class="alert-banner info" style="margin-top:10px">Полный отчёт: <code>deliverables/MAGNIT_API_NEEDS.md</code>. Refresh-token handler — задача 005.</div>`;
 
+  html+=`<div class="section-label" style="margin-top:16px">Настройка Gemini AI</div>
+  <div class="token-section">
+    <div class="text-xs text-muted" style="margin-bottom:8px">Gemini API ключ для AI-ответов и SEO. <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>. Хранится в localStorage.</div>
+    <div class="token-row" style="margin-bottom:6px">
+      <input type="password" id="gemini-key-input" placeholder="AIza..." style="flex:1;min-width:0">
+      <button class="btn primary" onclick="saveGeminiKey()">Сохранить</button>
+      <button class="btn" onclick="clearGeminiKey()">Очистить</button>
+    </div>
+    <div class="text-xs text-muted" id="gemini-key-status"></div>
+  </div>`;
   html+=`<div class="section-label" style="margin-top:16px">Обновление данных</div>
   <div class="token-section">
     <div class="text-xs text-muted" style="margin-bottom:8px">
@@ -1821,6 +1811,70 @@ function renderAPI(){
   updateGhPatStatus();
 }
 
+function getGeminiKey(){return localStorage.getItem('mm_gemini_api_key')||'';}
+function saveGeminiKey(){
+  const inp=document.getElementById('gemini-key-input');
+  if(!inp)return;
+  const k=inp.value.trim();
+  if(k){localStorage.setItem('mm_gemini_api_key',k);toast('Ключ Gemini сохранён');}
+  const st=document.getElementById('gemini-key-status');
+  if(st)st.textContent=k?'Ключ сохранён':'';
+}
+function clearGeminiKey(){
+  localStorage.removeItem('mm_gemini_api_key');
+  const inp=document.getElementById('gemini-key-input');
+  if(inp)inp.value='';
+  const st=document.getElementById('gemini-key-status');
+  if(st)st.textContent='';
+  toast('Ключ Gemini удалён');
+}
+async function callGemini(prompt){
+  const key=getGeminiKey();
+  if(!key)throw new Error('Сохраните Gemini API ключ во вкладке API');
+  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+key;
+  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+  if(!r.ok)throw new Error('Gemini error '+r.status);
+  const d=await r.json();
+  return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+}
+function showGeminiResult(card,result,copyLabel){
+  let aiDiv=card.querySelector('.ai-gemini-result');
+  if(!aiDiv){aiDiv=document.createElement('div');aiDiv.className='ai-gemini-result';aiDiv.style.cssText='margin-top:8px;padding:8px;background:var(--color-surface-secondary);border-radius:6px;font-size:12px;white-space:pre-wrap';card.querySelector('.action-btns').before(aiDiv);}
+  aiDiv.textContent=result;
+  if(!card.querySelector('.ai-gemini-copy')){const cb=document.createElement('button');cb.className='btn ai-gemini-copy';cb.textContent=copyLabel;cb.onclick=()=>{copyToClipboard(aiDiv.textContent);toast('Скопировано');};card.querySelector('.action-btns').appendChild(cb);}
+}
+async function geminiReviewReply(btn,code,label,tmpl){
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const p='Ты продавец на Магнит Маркет. Напиши вежливый ответ покупателю на русском языке, 2-4 предложения. Причина возврата: '+code+' ('+label+'). Шаблон: '+tmpl;
+    const res=await callGemini(p);
+    showGeminiResult(btn.closest('.action-card'),res,'Скопировать AI-ответ');
+    btn.textContent='Обновить';btn.disabled=false;
+  }catch(e){toast('Ошибка: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+async function geminiSeoTitle(btn,title,ctx){
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const p='Ты SEO-специалист для Магнит Маркет (Россия). Сгенерируй оптимальное название товара (60-100 символов). Формула: [Бренд][Категория][Характеристика]. Ключевые слова в начале. Только готовое название.
+Текущее: '+title+'
+Контекст: '+ctx;
+    const res=await callGemini(p);
+    showGeminiResult(btn.closest('.action-card'),res,'Скопировать AI-название');
+    btn.textContent='Обновить';btn.disabled=false;
+  }catch(e){toast('Ошибка: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+async function geminiSeoDesc(btn,title,chars,recs){
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const p='Ты SEO-специалист для Магнит Маркет (Россия). Напиши оптимальное описание товара (1000-3000 символов). Структура: преимущества, характеристики, способы применения. Естественное включение ключевых слов.
+Название: '+title+'
+Символов: '+chars+'
+Рекомендации: '+recs;
+    const res=await callGemini(p);
+    showGeminiResult(btn.closest('.action-card'),res,'Скопировать описание');
+    btn.textContent='Обновить';btn.disabled=false;
+  }catch(e){toast('Ошибка: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
 function onTokenInput(val){
   document.getElementById('token-dot').classList.toggle('active',val.length>0);
 }
@@ -1969,8 +2023,7 @@ function renderBuyers(){
   const rows=((PAYLOAD.review_booster||{}).rows)||[];
 
   let html=`<div class="alert-banner info" style="margin-bottom:10px">
-    Вкладка для коммуникации с покупателями. Возвраты — прямой сигнал площадке. Ответьте сегодня.
-    <strong>TASK-007:</strong> AI-подбор ответа (локальный LLM для типовых, Gemini для нетипичных) + отправка через API.
+    Вкладка для коммуникации с покупателями. Возвраты — прямой сигнал площадке. Ответьте сегодня. Gemini AI доступен.
   </div>`;
 
   if(rows.length){
@@ -1984,12 +2037,11 @@ function renderBuyers(){
         <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
         <div class="template-preview">${esc(r.template_response||'')}</div>
         <div class="ai-suggestion">
-          <div class="ai-label">AI-предложение ${tip('После внедрения TASK-007: AI подберёт тон ответа автоматически — мягкий для эмоциональных отзывов, формальный для технических.')}</div>
-          <div class="ai-text">⏳ AI-ответ будет доступен после TASK-007 — система предложит вариант на основе причины возврата и истории покупателя.</div>
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
+        </div>
         </div>
         <div class="action-btns">
           <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
-          <button class="btn" disabled title="Требует TASK-007">Отправить через API</button>
         </div>
       </div>`;
     });
@@ -1999,7 +2051,7 @@ function renderBuyers(){
   <div class="comm-empty">
     <div class="comm-empty-icon">💬</div>
     <div>Вопросов от покупателей пока нет.</div>
-    <div class="text-xs text-muted mt-4">После TASK-007: вопросы из карточки товара будут появляться здесь с AI-предложением ответа.</div>
+    <div class="text-xs text-muted mt-4">Вопросы покупателей появятся здесь с AI-предложением ответа.</div>
   </div>`;
 
   box.innerHTML=html;
