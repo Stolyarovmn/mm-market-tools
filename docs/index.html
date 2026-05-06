@@ -1075,7 +1075,7 @@ function renderActionCard(a){
   const candidate=parseCandidate(a.detail||'');
   const firstStep=
     a.action_type==='title_seo'
-      ? (firstRecommendation(a.detail||'') || '?????????? title ?? SEO-????????????')
+      ? (firstRecommendation(a.detail||'') || 'Переписать title по SEO-рекомендации')
       : null;
 
   const chips=[];
