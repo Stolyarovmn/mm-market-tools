@@ -1080,11 +1080,16 @@ function typeLabel(t){return TYPE_LABELS[t]||t;}
 
 
 
+function shouldHideUnnamedAction(a){
+  const title=(a&&a.title||'').trim().toLowerCase();
+  return title==='?????? ??? ????????';
+}
+
 function renderPlan(){
 
   const box=document.getElementById('tab-plan');
 
-  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const actions=(((PAYLOAD.plan||{}).actions)||[]).filter(a=>!shouldHideUnnamedAction(a));
 
   if(!actions.length){box.innerHTML='<div class="empty">Нет действий.</div>';return;}
 
@@ -1303,7 +1308,7 @@ function renderDescriptionQuickWin(row, state, key){
 
 function renderQuickWins(){
   const box=document.getElementById('tab-quickwins');
-  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const actions=(((PAYLOAD.plan||{}).actions)||[]).filter(a=>!shouldHideUnnamedAction(a));
   const pending = readPendingQuickWins();
   const priceFixes=actions.filter(a=>a.action_type==='price_fix').slice(0,8);
   const titleFixes=actions.filter(a=>a.action_type==='title_seo').slice(0,8);
@@ -1629,7 +1634,7 @@ function renderOps(){
 
 // ── Reports Tab ───────────────────────────────────────────────────────────────
 function reportAvailability(label, actionTypes){
-  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const actions=(((PAYLOAD.plan||{}).actions)||[]).filter(a=>!shouldHideUnnamedAction(a));
   const meta=(PAYLOAD.plan||{}).metadata||{};
   const sources=(meta.sources_used||[]).join(' | ');
   const matchedActions=actions.filter(a=>actionTypes.includes(a.action_type));
@@ -1653,7 +1658,7 @@ function renderReportActionList(actions, emptyText){
 
 function renderReports(){
   const box=document.getElementById('tab-reports');
-  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const actions=(((PAYLOAD.plan||{}).actions)||[]).filter(a=>!shouldHideUnnamedAction(a));
   const pricing=actions.filter(a=>['price_fix','price_strategy'].includes(a.action_type));
   const content=actions.filter(a=>['title_seo','content_fix'].includes(a.action_type));
   const storage=actions.filter(a=>a.action_type==='storage_cost');
