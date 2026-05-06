@@ -2430,38 +2430,32 @@ async function sendReviewReply(idx, scope){
 function renderBlockers(){
   const box=document.getElementById('tab-blockers');
 
-  const blk=PAYLOAD.blockers||[];
+  const blk=(PAYLOAD.blockers||[]).filter(b=>b && (b.title||b.body||b.id));
+
+  if(!blk.length){
+    box.innerHTML='<div class="card"><div class="text-sm text-muted">???????? ???????? ? ??????? payload ???.</div></div>';
+    return;
+  }
 
   const order={critical:0,high:1,med:2,low:3,resolved:4};
-
+  const sevLabel={critical:'????????',high:'???????',med:'???????',low:'??????',resolved:'??????'};
   const sorted=[...blk].sort((a,b)=>(order[a.sev]??9)-(order[b.sev]??9));
+  const openCount=sorted.filter(b=>b.sev!=='resolved').length;
 
-  const sevLabel={critical:'Критично',high:'Высокий',med:'Средний',low:'Низкий',resolved:'Решено'};
-
-  let html=`<div class="text-sm text-muted" style="margin-bottom:10px">B-009 и B-010 — приоритет #1 для итерации 005.</div>`;
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">? payload ${openCount} ???????? ??????(??). ?????? ???? ???????????? ?? severity.</div>`;
 
   sorted.forEach(b=>{
-
-    html+=`<div class="blocker ${b.sev}">
-
+    html+=`<div class="blocker ${b.sev||'low'}">
       <div class="blocker-header">
-
         <span class="sev-dot"></span>
-
-        <span class="text-xs text-muted">${sevLabel[b.sev]||b.sev}</span>
-
-        <span class="blocker-title">${esc(b.id)}: ${esc(b.title)}</span>
-
+        <span class="text-xs text-muted">${sevLabel[b.sev]||b.sev||'unknown'}</span>
+        <span class="blocker-title">${esc(b.id||'B-?')}: ${esc(b.title||'??? ????????')}</span>
       </div>
-
-      <div class="blocker-body">${esc(b.body)}</div>
-
+      <div class="blocker-body">${esc(b.body||'???????? ???????????')}</div>
     </div>`;
-
   });
 
   box.innerHTML=html;
-
 }
 
 
