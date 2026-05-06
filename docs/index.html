@@ -2346,9 +2346,27 @@ async function triggerDataRefresh(){
 
     if(resp.status===204){
 
-      status.innerHTML='✓ Запущено. После завершения (~3 мин) нажмите <a href="javascript:window.location.reload()" style="color:var(--color-teal)">Обновить страницу</a>';
-
+      const oldTs=PAYLOAD.plan&&PAYLOAD.plan.generated_at||null;
+      status.textContent='✅ Запущено, ожидаю данные...';
       toast('Workflow запущен!');
+      let tick=0;const maxTicks=12;
+      const poll=setInterval(async()=>{
+        tick++;
+        status.textContent='⏳ Ожидание данных... ('+tick+'/'+maxTicks+')';
+        try{
+          const np=await loadPublishedPayload();
+          if(np.plan&&np.plan.generated_at&&np.plan.generated_at!==oldTs){
+            clearInterval(poll);PAYLOAD=np;
+            renderQuickWins();renderPlan();renderKPIs();renderInsights();
+            status.textContent='✅ Данные обновлены';
+            toast('Данные обновлены!');
+          }
+        }catch(_){}
+        if(tick>=maxTicks){
+          clearInterval(poll);
+          status.textContent='⚠ Данные пока не готовы, попробуйте позже';
+        }
+      },30000);
 
     } else {
 
