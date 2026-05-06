@@ -1317,7 +1317,7 @@ function renderReviews(){
       <div class="action-title">${esc(r.product_title||`SKU ${r.product_id||'—'}`)}</div>
       <div class="action-detail mt-4">${esc(r.text||'')}</div>
       ${r.answer_text?`<div class="ai-suggestion">
-          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code)}','${esc(r.reason_label||'')}','${esc(r.template_response||'')}')">Генерировать AI-ответ</button>
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
         </div>
     <div class="action-btns">
       <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
@@ -1773,6 +1773,16 @@ function renderAPI(){
   });
   html+=`<div class="alert-banner info" style="margin-top:10px">Полный отчёт: <code>deliverables/MAGNIT_API_NEEDS.md</code>. Refresh-token handler — задача 005.</div>`;
 
+  html+=`<div class="section-label" style="margin-top:16px">Настройка Gemini AI</div>
+  <div class="token-section">
+    <div class="text-xs text-muted" style="margin-bottom:8px">Gemini API ключ для AI-ответов и SEO. <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>. Хранится в localStorage.</div>
+    <div class="token-row" style="margin-bottom:6px">
+      <input type="password" id="gemini-key-input" placeholder="AIza..." style="flex:1;min-width:0">
+      <button class="btn primary" onclick="saveGeminiKey()">Сохранить</button>
+      <button class="btn" onclick="clearGeminiKey()">Очистить</button>
+    </div>
+    <div class="text-xs text-muted" id="gemini-key-status"></div>
+  </div>`;
   html+=`<div class="section-label" style="margin-top:16px">Обновление данных</div>
   <div class="token-section">
     <div class="text-xs text-muted" style="margin-bottom:8px">
@@ -2027,7 +2037,8 @@ function renderBuyers(){
         <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
         <div class="template-preview">${esc(r.template_response||'')}</div>
         <div class="ai-suggestion">
-          <div class="ai-label">AI-предложение ${tip('После внедрения TASK-007: AI подберёт тон ответа автоматически — мягкий для эмоциональных отзывов, формальный для технических.')}</div>
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code||item.return_reason_code||"")}','${esc(r.reason_label||item.reason_label||"")}','${esc(r.template_response||item.template_response||"")}')">Генерировать AI-ответ</button>
+        </div>
           <div class="ai-text">⏳ AI-ответ будет доступен после TASK-007 — система предложит вариант на основе причины возврата и истории покупателя.</div>
         </div>
         <div class="action-btns">
