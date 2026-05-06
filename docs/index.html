@@ -1336,7 +1336,7 @@ function renderReviews(){
       <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
       <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
     </div>
-    <div class="action-title"><span class="text-muted" style="font-size:10px">SKU</span> <span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+    <div class="sku-row"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
     <div class="template-preview">${esc(r.template_response||'')}</div>
     <div class="text-sm text-muted mt-4">Проверьте карточку: ${esc(r.action_for_seller||'')}</div>
     <div class="action-btns">
@@ -1981,7 +1981,7 @@ function renderBuyers(){
           <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
           <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
         </div>
-        <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:10px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+        <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
         <div class="template-preview">${esc(r.template_response||'')}</div>
         <div class="ai-suggestion">
           <div class="ai-label">AI-предложение ${tip('После внедрения TASK-007: AI подберёт тон ответа автоматически — мягкий для эмоциональных отзывов, формальный для технических.')}</div>
