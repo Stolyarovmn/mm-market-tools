@@ -27,7 +27,8 @@ data/reports/*.zip
 # Keep: JSON dashboards (small), reviews, config
 !data/dashboard/
 !data/reviews/
-!data/reply_config.json
+!data/reply_config.default.json
+data/reply_config.local.json
 data/local/*
 !data/local/README.md
 
