@@ -135,7 +135,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .btn.secondary{background:var(--color-purple-soft);color:var(--color-purple);border-color:transparent;}
 /* Tooltip system */
 .tt-wrap{position:relative;display:inline-flex;align-items:center;}
-.tt-btn{width:11px;height:11px;border-radius:50%;border:1px solid var(--color-text-tertiary);background:transparent;color:var(--color-text-tertiary);font-size:5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:3px;flex-shrink:0;transition:all 0.15s;line-height:1;}
+.tt-btn{width:11px;height:11px;border-radius:50%;border:1px solid var(--color-text-tertiary);background:transparent;color:var(--color-text-tertiary);font-size:8px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin-left:3px;flex-shrink:0;transition:all 0.15s;line-height:1;}
 .tt-btn:hover,.tt-wrap.pinned .tt-btn{color:var(--color-accent);border-color:var(--color-accent);}
 .tt-box{display:none;position:absolute;z-index:200;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:180px;max-width:260px;background:var(--color-text-primary);color:var(--color-surface);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;line-height:1.5;font-weight:400;text-align:left;box-shadow:var(--shadow-md);white-space:normal;pointer-events:auto;}
 .tt-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--color-text-primary);}
@@ -1133,7 +1133,7 @@ function renderActionCard(a){
     ${priceHtml}
     ${firstStepHtml}
     ${quickWinStateHtml}
-    ${pid?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(pid))}" title="Нажмите для копирования SKU">SKU ${esc(String(pid))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
+    ${pid?`<div class="sku-row"><span class="text-muted" style="font-size:10px">SKU</span><span class="sku-chip" data-sku="${esc(String(pid))}" title="Нажмите для копирования SKU">${esc(String(pid))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     ${chips.length?`<div class="chips">${chips.join('')}</div>`:''}
     <div class="action-btns">
       ${actionButtons}
@@ -1181,7 +1181,7 @@ function renderDescriptionQuickWin(row, state, key){
       ${recommendations.map((rec, idx)=>`<div class="seo-compare-row"><div class="seo-row-label ${idx===0?'candidate':'current'}">${idx===0?'Что сделать в первую очередь':'Следующий шаг'}</div><div class="seo-candidate-text" style="font-size:11px">${esc(rec)}</div></div>`).join('')}
     </div>`:''}
     ${stateHtml}
-    ${row.product_id?`<div class="sku-row"><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">SKU ${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
+    ${row.product_id?`<div class="sku-row"><span class="text-muted" style="font-size:10px">SKU</span><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     <div class="action-btns">
       <button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(row.title||row.key||'Карточка')}" data-qw-label="description_seo">Отметить как изменено</button>
       <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
@@ -1336,7 +1336,7 @@ function renderReviews(){
       <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
       <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
     </div>
-    <div class="action-title">SKU <span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+    <div class="action-title"><span class="text-muted" style="font-size:10px">SKU</span> <span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
     <div class="template-preview">${esc(r.template_response||'')}</div>
     <div class="text-sm text-muted mt-4">Проверьте карточку: ${esc(r.action_for_seller||'')}</div>
     <div class="action-btns">
@@ -1981,7 +1981,7 @@ function renderBuyers(){
           <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
           <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
         </div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:4px">SKU: <span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+        <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:10px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
         <div class="template-preview">${esc(r.template_response||'')}</div>
         <div class="ai-suggestion">
           <div class="ai-label">AI-предложение ${tip('После внедрения TASK-007: AI подберёт тон ответа автоматически — мягкий для эмоциональных отзывов, формальный для технических.')}</div>
