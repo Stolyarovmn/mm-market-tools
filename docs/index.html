@@ -1113,7 +1113,7 @@ function renderActionCard(a){
       <button class="btn" data-cmd="${esc(cliCmd)}">Скопировать CLI</button>${tip('Копирует Python-команду для записи изменения в applied_actions.json через mm-market-tools CLI.<br>Запустите в терминале после применения.', true)}`;
 
   const aiSeoBtn=a.action_type==='title_seo'
-    ?`<button class="btn" onclick="geminiSeoTitle(this,'${esc(a.title||'')}','${esc(a.headline||a.detail||'')}')">АI SEO-название</button>`
+    ?`<button class="btn" onclick="geminiSeoTitle(this,'${esc(a.title||'')}','${esc(a.headline||a.detail||'')}')">АI-название</button>`
     :'';
   return `<div class="card action-card type-${a.action_type} ${a.quick_win?'quickwin':''}">
     <div class="action-header">
@@ -1187,7 +1187,7 @@ function renderDescriptionQuickWin(row, state, key){
     ${stateHtml}
     ${row.product_id?`<div class="sku-row"><span class="text-muted" style="font-size:10px">SKU</span><span class="sku-chip" data-sku="${esc(String(row.product_id))}" title="Нажмите для копирования SKU">${esc(String(row.product_id))}</span><a class="product-link" href="${esc(productUrl)}" target="_blank" rel="noopener" title="Открыть карточку товара на Мегамаркет">↗</a></div>`:''}
     <div class="action-btns">
-      <button class="btn" onclick="geminiSeoDesc(this,'${esc(row.title||row.key||'')}','${esc(String(row.description_chars??0))}','${esc((row.recommendations||[]).join('; '))}')">AI SEO-описание</button>
+      <button class="btn" onclick="geminiSeoDesc(this,'${esc(row.title||row.key||'')}','${esc(String(row.description_chars??0))}','${esc((row.recommendations||[]).slice(0,3).join("; "))}')">AI-описание</button>
       <button class="btn primary" data-qw-mark="${esc(key)}" data-qw-title="${esc(row.title||row.key||'Карточка')}" data-qw-label="description_seo">Отметить как изменено</button>
       <button class="btn" data-qw-refresh="1">Обновить данные и перепроверить</button>
     </div>
@@ -1316,8 +1316,719 @@ function renderReviews(){
       </div>
       <div class="action-title">${esc(r.product_title||`SKU ${r.product_id||'—'}`)}</div>
       <div class="action-detail mt-4">${esc(r.text||'')}</div>
-      ${r.answer_text?`        <div class="ai-suggestion">
-          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code)}','${esc(r.reason_label||'')}','${esc(r.template_response||'')}')">AI-ответ Gemini</button>
+      ${r.answer_text?`<div class="ai-suggestion">
+          <button class="btn" onclick="geminiReviewReply(this,'${esc(r.return_reason_code)}','${esc(r.reason_label||'')}','${esc(r.template_response||'')}')">Генерировать AI-ответ</button>
+        </div>
+    <div class="action-btns">
+      <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
+    </div>
+  </div>`).join('');
+}
+
+// ── A/B Tab ───────────────────────────────────────────────────────────────────
+function renderApplied(){
+  const box=document.getElementById('tab-applied');
+  const entries=((PAYLOAD.applied_actions||{}).entries)||[];
+  const summary=(PAYLOAD.applied_actions||{}).summary||{};
+
+  const howItWorks=`<div class="card" style="margin-bottom:12px">
+    <button class="help-toggle-btn" onclick="toggleHelp('ab-help',this)"><span class="toggle-icon">▶</span> Как работает A/B журнал ${tip('Applied Actions — журнал применённых изменений с автоматическим измерением результата через CubeJS.')}</button>
+    <div id="ab-help" style="display:none;font-size:12px;color:var(--color-text-secondary);line-height:1.7">
+      <strong style="color:var(--color-text-primary)">Workflow:</strong><br>
+      1. Вы применяете изменение (цена, заголовок) и нажимаете «Применил» в плане.<br>
+      2. Действие фиксируется в <code>applied_actions.json</code> с baseline метриками.<br>
+      3. Через 7 дней система сравнивает orders/views/conversion до и после через CubeJS.<br>
+      4. Результат появляется здесь со статусом <strong>measured</strong> и дельтой.<br>
+      5. Карточка уходит из плана навсегда — пока система не найдёт новую возможность.<br>
+      <div class="alert-banner info" style="margin-top:8px">Полная интеграция с CubeJS — <strong>TASK-008</strong> в разработке.</div>
+    </div>
+  </div>`;
+
+  const now=Date.now();
+  const entriesHtml=entries.length?entries.map(e=>{
+    const dueMs=e.measurement_due_at?new Date(e.measurement_due_at).getTime():null;
+    const daysLeft=dueMs?Math.max(0,Math.ceil((dueMs-now)/86400000)):null;
+    const timelineHtml=`<div style="display:flex;align-items:flex-start;gap:0;margin:10px 0 6px">
+      <div class="ab-step"><div class="ab-step-dot done"></div><div class="ab-step-label">Применено</div></div>
+      <div class="ab-line ${e.status==='measured'?'done':'done'}" style="margin-top:4px"></div>
+      <div class="ab-step"><div class="ab-step-dot ${e.status==='measured'?'done':'active'}"></div><div class="ab-step-label">Замер${daysLeft!==null?`<br><strong>${daysLeft}д осталось</strong>`:''}</div></div>
+      <div class="ab-line ${e.status==='measured'?'done':'idle'}" style="margin-top:4px"></div>
+      <div class="ab-step"><div class="ab-step-dot ${e.status==='measured'?'done':'idle'}"></div><div class="ab-step-label">Результат</div></div>
+    </div>`;
+    return `<div class="applied-row" style="flex-direction:column;align-items:flex-start">
+      <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
+        <div><div class="fw-600">${esc(e.title||e.entity_key||'?')}</div>
+        <div class="text-xs text-muted">${esc(e.action_type)} · Применено: ${e.applied_at?e.applied_at.slice(0,10):'—'}</div></div>
+        <span class="status-pill ${e.status}">${e.status}</span>
+      </div>
+      ${timelineHtml}
+    </div>`;
+  }).join(''):`<div class="empty">Нет применённых действий. Нажмите «Применил» на карточке в Плане.</div>`;
+
+  box.innerHTML=howItWorks+`<div class="text-xs text-muted" style="margin-bottom:8px">Всего: <strong>${summary.total_entries||0}</strong> · Pending: <strong class="text-amber">${summary.pending_count||0}</strong> · Измерено: <strong class="text-teal">${summary.measured_count||0}</strong></div>`+entriesHtml;
+}
+
+// ── Operations Tab ───────────────────────────────────────────────────────────
+function renderOps(){
+  const box=document.getElementById('tab-ops');
+  const ac=LIVE.actionCenter||{};
+  const jobs=LIVE.jobs||[];
+  const runs=LIVE.runs||[];
+
+  if(!LIVE.enabled){
+    box.innerHTML=`<div class="alert-banner warn" style="margin-bottom:10px">
+      Live operational mode сейчас недоступен. Этот экран открыт как Pages/read-only UI.
+      Для runtime-операций поднимите локальный backend через <code>web_refresh_server.py</code>, после чего этот же основной интерфейс автоматически подхватит <code>/api/jobs</code>, <code>/api/runs</code> и <code>/api/action-center</code>.
+    </div>
+    <div class="card">
+      <div class="fw-600" style="margin-bottom:6px">Что переезжает в первую волну</div>
+      <div class="text-sm text-muted">Action Center summary, последние job runs, список доступных jobs и переход к legacy screen <code>/refresh.html</code> для полного ручного запуска.</div>
+    </div>`;
+    return;
+  }
+
+  const recentRuns=(runs||[]).slice(0,4);
+  const recentActions=(ac.actions||[]).slice(0,5);
+  const recentEvents=(ac.events||[]).slice(0,5);
+
+  let html=`<div class="alert-banner ok" style="margin-bottom:10px">
+    Live operational mode активен. Основной UI читает локальный runtime API и показывает актуальные jobs, runs и Action Center без переключения на отдельный дашборд.
+  </div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card"><div class="kpi-value">${jobs.length}</div><div class="kpi-label">Jobs доступны</div></div>
+    <div class="kpi-card ${recentRuns.some(r=>r.state==='failed')?'danger':'ok'}"><div class="kpi-value">${recentRuns.length}</div><div class="kpi-label">Последние runs</div></div>
+    <div class="kpi-card ${ac.open_actions_count?'warn':'ok'}"><div class="kpi-value">${ac.open_actions_count||0}</div><div class="kpi-label">Открытых action items</div></div>
+    <div class="kpi-card"><div class="kpi-value">${ac.acknowledged_entities_count||0}</div><div class="kpi-label">Acknowledged entities</div></div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="action-btns">
+      <a class="btn primary" href="/refresh.html">Открыть legacy control room</a>
+      <button class="btn" onclick="location.reload()">Обновить live state</button>
+    </div>
+    <div class="text-xs text-muted mt-4">Legacy screen пока остаётся для полного ручного запуска job и подробного live-log, но основной UI уже показывает operational summary.</div>
+  </div>`;
+
+  html+=`<div class="section-label">Action Center</div>`;
+  if(recentActions.length){
+    recentActions.forEach(a=>{
+      html+=`<div class="card">
+        <div class="action-header">
+          <span class="type-pill ${a.status==='done'?'price_strategy':'return_investigate'}">${esc(a.status||'open')}</span>
+          <span class="text-xs text-muted">${esc(a.report_kind||'unknown')} · ${shortDate(a.updated_at)}</span>
+        </div>
+        <div class="action-title">${esc(a.title||a.entity_key||'Action')}</div>
+        <div class="action-detail mt-4">${esc(a.context||a.note||'Без дополнительного контекста')}</div>
+      </div>`;
+    });
+  }else{
+    html+=`<div class="card"><div class="text-sm text-muted">В Action Center пока нет action items.</div></div>`;
+  }
+
+  html+=`<div class="section-label">Последние runs</div>`;
+  if(recentRuns.length){
+    recentRuns.forEach(run=>{
+      html+=`<div class="source-card">
+        <div>
+          <div class="source-name">${esc(run.job_key||'job')}</div>
+          <div class="source-meta">Старт: ${shortDate(run.started_at)} · Финиш: ${shortDate(run.ended_at)} · Код: ${esc(String(run.return_code ?? 'н/д'))}</div>
+        </div>
+        <span class="stale-badge ${run.state==='failed'?'stale':run.state==='running'?'warn':'fresh'}">⬤ ${esc(run.state||'unknown')}</span>
+      </div>`;
+    });
+  }else{
+    html+=`<div class="card"><div class="text-sm text-muted">История запусков пока пуста.</div></div>`;
+  }
+
+  html+=`<div class="section-label">Jobs</div>`;
+  jobs.slice(0,6).forEach(job=>{
+    html+=`<div class="source-card">
+      <div>
+        <div class="source-name">${esc(job.title||job.job_key||'job')}</div>
+        <div class="source-meta">${esc(job.description||'Описание пока не заполнено')}</div>
+      </div>
+      <span class="stale-badge ${String(job.mode||'').toLowerCase()==='online'?'warn':'fresh'}">⬤ ${esc(job.mode||'unknown')}</span>
+    </div>`;
+  });
+
+  if(recentEvents.length){
+    html+=`<div class="section-label">Последние события</div>`;
+    recentEvents.forEach(ev=>{
+      html+=`<div class="details-row"><span>${esc(ev.event_type||'event')} · ${esc(ev.title||ev.entity_key||'')}</span><strong>${shortDate(ev.created_at)}</strong></div>`;
+    });
+  }
+
+  box.innerHTML=html;
+}
+
+// ── Reports Tab ───────────────────────────────────────────────────────────────
+function reportAvailability(label, actionTypes){
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const meta=(PAYLOAD.plan||{}).metadata||{};
+  const sources=(meta.sources_used||[]).join(' | ');
+  const matchedActions=actions.filter(a=>actionTypes.includes(a.action_type));
+  const available=sources.includes(label);
+  if(available && matchedActions.length) return {state:'available', count:matchedActions.length};
+  if(available) return {state:'partial', count:0};
+  return {state:'missing', count:0};
+}
+
+function statusBadge(state, text){
+  const cls=state==='available'?'fresh':state==='partial'?'warn':'stale';
+  return `<span class="stale-badge ${cls}">⬤ ${text}</span>`;
+}
+
+function renderReportActionList(actions, emptyText){
+  if(!actions.length){
+    return `<div class="text-sm text-muted">${emptyText}</div>`;
+  }
+  return actions.slice(0,5).map(a=>`<div class="details-row"><span>${esc(a.title||a.group||a.entity_key||'Action')}</span><strong>${esc(a.headline||typeLabel(a.action_type))}</strong></div>`).join('');
+}
+
+function renderReports(){
+  const box=document.getElementById('tab-reports');
+  const actions=((PAYLOAD.plan||{}).actions)||[];
+  const pricing=actions.filter(a=>['price_fix','price_strategy'].includes(a.action_type));
+  const content=actions.filter(a=>['title_seo','content_fix'].includes(a.action_type));
+  const storage=actions.filter(a=>a.action_type==='storage_cost');
+  const returns=actions.filter(a=>a.action_type==='return_investigate');
+  const meta=(PAYLOAD.plan||{}).metadata||{};
+  const sources=(meta.sources_used||[]);
+
+  const blocks=[
+    {
+      title:'Pricing / price trap / repricer',
+      desc:'Рыночные price actions, психологические пороги и recommendation-first pricing уже подмешиваются в основной payload.',
+      avail: reportAvailability('dynamic_pricing', ['price_fix','price_strategy']),
+      actions: pricing,
+      footer:'Следующий шаг: сделать отдельный drilldown/decision flow поверх уже доступных pricing cards.',
+    },
+    {
+      title:'Title SEO / marketing card audit',
+      desc:'Marketing/title слой уже даёт actionable items в основном UI, но пока живёт внутри общего плана, а не как отдельный manager-facing view.',
+      avail: reportAvailability('marketing_card_audit', ['title_seo','content_fix']),
+      actions: content,
+      footer:'Следующий шаг: отдельный shortlist для rewrite и связка с entity pages.',
+    },
+    {
+      title:'Paid storage / storage cost',
+      desc:'Storage layer уже попадает в план действий и виден в основном payload, но пока без отдельного detail-view.',
+      avail: reportAvailability('paid_storage_report', ['storage_cost']),
+      actions: storage,
+      footer:'Следующий шаг: отдельная таблица SKU по storage-cost и trace до исходного report bundle.',
+    },
+    {
+      title:'Returns / review booster',
+      desc:'Возвраты и review booster уже представлены и дополнительно вынесены в live reviews/reply flow.',
+      avail: sources.some(s=>s.includes('sales_return_report')) ? {state:'available', count:returns.length} : {state:'partial', count:returns.length},
+      actions: returns,
+      footer:'Следующий шаг: unified customer-communication view без split между tabs.',
+    },
+    {
+      title:'COGS workflow',
+      desc:'COGS backfill / zero-COGS / rescore cycle реализованы в коде, но ещё не стали отдельной UI-поверхностью в основном интерфейсе.',
+      avail: {state:'missing', count:0},
+      actions: [],
+      footer:'Сейчас это CLI/backend-first слой. Для полноценного переноса нужен отдельный bundle/view для registry, fill-state и rescore artifacts.',
+    },
+    {
+      title:'Waybill cost layer',
+      desc:'Waybill / logistics слой есть в коде и отчётах, но в текущий main payload не подмешивается как отдельный UI-блок.',
+      avail: {state:'missing', count:0},
+      actions: [],
+      footer:'Следующий шаг: добавить bundle в daily action plan / SQLite и затем вывести в основной UI.',
+    },
+  ];
+
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">
+    Это manager-facing слой по issue #43: показывает, какие функциональные блоки уже реально доступны в основном UI, какие доступны частично, а какие пока остаются CLI/backend-only.
+  </div>`;
+
+  html+=`<div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi-card ok"><div class="kpi-value">${pricing.length}</div><div class="kpi-label">Pricing actions в payload</div></div>
+    <div class="kpi-card ok"><div class="kpi-value">${content.length}</div><div class="kpi-label">Content/SEO actions</div></div>
+    <div class="kpi-card ${storage.length?'warn':'danger'}"><div class="kpi-value">${storage.length}</div><div class="kpi-label">Storage actions</div></div>
+    <div class="kpi-card ${returns.length?'ok':'warn'}"><div class="kpi-value">${returns.length}</div><div class="kpi-label">Returns actions</div></div>
+  </div>`;
+
+  blocks.forEach(block=>{
+    const badgeText=block.avail.state==='available'
+      ? `available${block.avail.count?` · ${block.avail.count}`:''}`
+      : block.avail.state==='partial'
+        ? 'partial'
+        : 'CLI/backend only';
+    html+=`<div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:6px">
+        <div>
+          <div class="action-title">${esc(block.title)}</div>
+          <div class="text-sm text-muted mt-4">${esc(block.desc)}</div>
+        </div>
+        <div style="flex-shrink:0">${statusBadge(block.avail.state, badgeText)}</div>
+      </div>
+      <div class="section-label" style="margin:10px 0 6px">Что уже видно в основном UI</div>
+      ${renderReportActionList(block.actions, 'Пока нет отдельного surfaced action list для этого блока.')}
+      <div class="alert-banner ${block.avail.state==='missing'?'warn':'info'}" style="margin-top:10px">${esc(block.footer)}</div>
+    </div>`;
+  });
+
+  box.innerHTML=html;
+}
+
+// ── ROMI Tab ──────────────────────────────────────────────────────────────────
+function renderROMI(){
+  const box=document.getElementById('tab-romi');
+  box.innerHTML=`<div class="card">
+    <button class="help-toggle-btn" onclick="toggleHelp('romi-help',this)" style="margin-bottom:10px"><span class="toggle-icon">▶</span> Как пользоваться калькулятором</button>
+    <div id="romi-help" style="display:none" class="help-panel">
+      <strong>ROMI-калькулятор</strong> — оценивает рентабельность рекламного буста на Магнит Маркет.<br>
+      1. Введите параметры товара (цена, <strong>COGS</strong> ${tip('Cost Of Goods Sold — себестоимость товара. Включает закупочную цену без упаковки и доставки.')}, комиссию, упаковку, логистику).<br>
+      2. Укажите параметры рекламы (<strong>CPC</strong> ${tip('Cost Per Click — стоимость одного клика в Буст продаж.')}, <strong>CTR</strong> ${tip('Click-Through Rate — % показов, которые становятся кликами.')}, конверсию).<br>
+      3. Смотрите на <strong>ROMI</strong> ${tip('Return On Marketing Investment = (Прибыль от рекламы − Бюджет) / Бюджет × 100%.<br>≥100% = реклама окупается дважды.')}, <strong>CAC</strong> ${tip('Customer Acquisition Cost — стоимость привлечения одного покупателя через рекламу. = Бюджет / Продажи.')}, <strong>break-even CPC</strong> ${tip('Максимальная цена клика при которой реклама ещё не убыточна. = Маржа/ед × Конверсия%.')}.<br>
+      4. Таблица sensitivity — как изменится ROMI при разных CPC и конверсии.<br>
+      <strong>Правило 50%:</strong> бюджет рекламы не должен превышать 50% месячной прибыли магазина.
+    </div>
+    <div class="fw-600" style="font-size:14px;margin-bottom:14px">ROMI Калькулятор — WONDERS (детские игрушки)</div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">Товар</div>
+        <div class="field"><label>Категория</label><select id="r_category">
+          <option value="toys" selected>Игрушки / детское (17%)</option>
+          <option value="audio">Аудио (5%)</option><option value="beauty">Красота (28%)</option>
+          <option value="appliances">Бытовая техника (22%)</option><option value="electronics">Электроника (15%)</option>
+          <option value="clothing">Одежда (25%)</option><option value="home">Дом (20%)</option><option value="food">Продукты (10%)</option>
+        </select></div>
+        <div class="field"><label>Комиссия %</label><input type="number" id="r_commission" value="17" min="0" max="50" step="0.5"></div>
+        <div class="field"><label>Цена, ₽/шт</label><input type="number" id="r_price" value="499" min="1"></div>
+        <div class="field"><label>COGS ${tip('Себестоимость — закупочная цена без упаковки и логистики.')}, ₽/шт</label><input type="number" id="r_cogs" value="180" min="0"></div>
+        <div class="field"><label>Упаковка, ₽/шт</label><input type="number" id="r_packaging" value="30" min="0"></div>
+        <div class="field"><label>Логистика, ₽/шт</label><input type="number" id="r_logistics" value="60" min="0"></div>
+        <div class="field"><label>% возвратов</label><input type="number" id="r_returns" value="5" min="0" max="100" step="0.5"><div class="hint">Детские игрушки: 5-8%</div></div>
+        <div class="section-label">Реклама (Буст)</div>
+        <div class="field"><label>Бюджет, ₽/мес</label><input type="number" id="r_budget" value="5000" min="0"></div>
+        <div class="field"><label>CPC ${tip('Cost Per Click — стоимость одного клика.')}, ₽</label><input type="number" id="r_cpc" value="5" min="0.1" step="0.5"></div>
+        <div class="field"><label>CTR ${tip('Click-Through Rate — % показов → кликов.')}, %</label><input type="number" id="r_ctr" value="2.5" min="0.1" max="20" step="0.1"></div>
+        <div class="field"><label>Конверсия, %</label><input type="number" id="r_conv" value="8" min="0.1" max="100" step="0.5"></div>
+        <div class="section-label">Бюджет-правило (50% прибыли)</div>
+        <div class="field"><label>Выручка прошлого месяца, ₽</label><input type="number" id="r_revmonth" value="300000" min="0"></div>
+        <div class="field"><label>Чистая маржа магазина, %</label><input type="number" id="r_marginpct" value="25" min="0" max="100" step="0.5"></div>
+        <div class="alert-banner info" id="r_budgetrule">Допустимый бюджет: <strong>—</strong></div>
+      </div>
+      <div>
+        <div class="section-label">Результат</div>
+        <div class="metrics-row">
+          <div class="metric-card" id="r_m_romi"><div class="m-label">ROMI ${tip('Return On Marketing Investment')}</div><div class="m-value">—</div><div class="m-sub">—</div></div>
+          <div class="metric-card" id="r_m_margin"><div class="m-label">Маржа/ед</div><div class="m-value">—</div><div class="m-sub">—</div></div>
+          <div class="metric-card" id="r_m_cac"><div class="m-label">CAC ${tip('Customer Acquisition Cost — стоимость привлечения покупателя')}</div><div class="m-value">—</div><div class="m-sub">—</div></div>
+        </div>
+        <div id="r_alerts"></div>
+        <div class="section-label">Юнит-экономика</div>
+        <div class="details-row"><span>Цена</span><strong id="r_d_price">—</strong></div>
+        <div class="details-row"><span>Комиссия</span><strong id="r_d_commission">—</strong></div>
+        <div class="details-row"><span>COGS</span><strong id="r_d_cogs">—</strong></div>
+        <div class="details-row"><span>Упаковка</span><strong id="r_d_packaging">—</strong></div>
+        <div class="details-row"><span>Логистика</span><strong id="r_d_logistics">—</strong></div>
+        <div class="details-row"><span>Потери на возвраты</span><strong id="r_d_returns">—</strong></div>
+        <div class="details-row"><span><strong>Маржа/ед</strong></span><strong id="r_d_margin">—</strong></div>
+        <div class="section-label">Реклама</div>
+        <div class="details-row"><span>Клики (оценка)</span><strong id="r_d_clicks">—</strong></div>
+        <div class="details-row"><span>Продажи от рекламы</span><strong id="r_d_sales">—</strong></div>
+        <div class="details-row"><span>Прибыль от рекламы</span><strong id="r_d_profit">—</strong></div>
+        <div class="details-row"><span>ROAS ${tip('Return On Ad Spend = Выручка / Бюджет. Показывает сколько ₽ выручки на 1 ₽ рекламы.')}</span><strong id="r_d_roas">—</strong></div>
+        <div class="details-row"><span>Break-even CPC ${tip('Максимальная цена клика при которой реклама ещё не убыточна.')}</span><strong id="r_d_becpc">—</strong></div>
+        <div class="section-label">Sensitivity (CPC × конверсия)</div>
+        <table class="sensitivity" id="r_sens"></table>
+        <div class="section-label">Рекомендация</div>
+        <div id="r_rec" class="alert-banner info">—</div>
+      </div>
+    </div>
+  </div>`;
+
+  const PRESETS={audio:{c:5,cpc:5,ctr:2.5,cv:9,pk:80},beauty:{c:28,cpc:8,ctr:3,cv:12,pk:120},appliances:{c:22,cpc:6,ctr:2,cv:8,pk:150},electronics:{c:15,cpc:6,ctr:2.5,cv:10,pk:120},toys:{c:17,cpc:5,ctr:2.5,cv:8,pk:30},clothing:{c:25,cpc:4,ctr:3,cv:7,pk:60},home:{c:20,cpc:5,ctr:2,cv:9,pk:80},food:{c:10,cpc:4,ctr:2.5,cv:11,pk:40}};
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value)||0;
+  const rub=v=>!isFinite(v)?'—':(v>=0?'':'−')+Math.abs(Math.round(v)).toLocaleString('ru-RU')+' ₽';
+  const pct=v=>!isFinite(v)?'—':v.toFixed(1)+'%';
+  function setMetric(id,val,sub,lvl){const el=$(id);el.className='metric-card '+lvl;el.querySelector('.m-value').textContent=val;el.querySelector('.m-sub').textContent=sub;}
+
+  function calc(){
+    const price=num('r_price'),cogs=num('r_cogs'),pk=num('r_packaging'),lg=num('r_logistics'),
+          cm=num('r_commission'),rt=num('r_returns'),bg=num('r_budget'),cpc=num('r_cpc'),
+          ctr=num('r_ctr'),cv=num('r_conv'),rev=num('r_revmonth'),mpt=num('r_marginpct');
+    const monthlyProfit=rev*mpt/100;const allowed=monthlyProfit*0.5;
+    $('r_budgetrule').innerHTML=`Допустимый бюджет: <strong>${rub(allowed)}</strong> / мес `+(bg>allowed?`<span style="color:var(--color-coral)"> · превышает лимит</span>`:'');
+    const commR=price*cm/100;
+    const retL=price*rt/100*0.7;
+    const marginUnit=price-commR-cogs-pk-lg-retL;
+    const marginPct=price>0?marginUnit/price*100:0;
+    $('r_d_price').textContent=rub(price);$('r_d_commission').textContent='−'+rub(commR);
+    $('r_d_cogs').textContent='−'+rub(cogs);$('r_d_packaging').textContent='−'+rub(pk);
+    $('r_d_logistics').textContent='−'+rub(lg);$('r_d_returns').textContent='−'+rub(retL);
+    $('r_d_margin').textContent=rub(marginUnit)+' ('+pct(marginPct)+')';
+    const clicks=cpc>0?bg/cpc:0;
+    const sales=clicks*cv/100;
+    const profit=sales*marginUnit-bg;
+    const roas=bg>0?(sales*price)/bg:0;
+    const romi=bg>0?profit/bg*100:0;
+    const cac=sales>0?bg/sales:Infinity;
+    const becpc=marginUnit*cv/100;
+    $('r_d_clicks').textContent=Math.round(clicks).toLocaleString('ru-RU');
+    $('r_d_sales').textContent=sales.toFixed(1)+' шт';
+    $('r_d_profit').textContent=rub(profit);
+    $('r_d_roas').textContent=isFinite(roas)&&roas>0?roas.toFixed(2)+'x':'—';
+    $('r_d_becpc').textContent=rub(becpc);
+    let rL='red',rS='убыток';if(romi>=100){rL='green';rS='×2';}else if(romi>=50){rL='yellow';rS='на грани';}else if(romi>=0){rL='yellow';rS='в ноль';}
+    setMetric('r_m_romi',(isFinite(romi)?romi.toFixed(0):'—')+'%',rS,rL);
+    let mL='red',mS='тонкая';if(marginUnit>=500){mL='green';mS='здоровая';}else if(marginUnit>=200){mL='yellow';mS='средняя';}if(marginUnit<0){mL='red';mS='убыток';}
+    setMetric('r_m_margin',rub(marginUnit),mS,mL);
+    let cL='red',cS='дорого';if(cac<400){cL='green';cS='ок';}else if(cac<800){cL='yellow';cS='высоко';}
+    setMetric('r_m_cac',isFinite(cac)?rub(cac):'∞',cS,cL);
+    const alerts=[];
+    if(marginUnit<0)alerts.push({c:'danger',t:'Товар убыточен даже без рекламы. Пересмотрите цену или COGS.'});
+    if(cac>price)alerts.push({c:'danger',t:'CAC ('+rub(cac)+') > цены товара — реклама сжигает деньги.'});
+    else if(cac>price*0.25)alerts.push({c:'warn',t:'CAC > 25% от цены.'});
+    if(bg>allowed&&allowed>0)alerts.push({c:'warn',t:'Бюджет > 50% прибыли. Уменьшите до '+rub(allowed)+'.'});
+    if(romi>=100)alerts.push({c:'ok',t:'ROMI ≥ 100%. Масштабируйте ×1.5 раз в 2 недели.'});
+    if(cpc>becpc&&becpc>0)alerts.push({c:'warn',t:'CPC выше break-even ('+rub(becpc)+').'});
+    $('r_alerts').innerHTML=alerts.map(a=>`<div class="alert-banner ${a.c}" style="margin-bottom:4px">${a.t}</div>`).join('');
+    const cpcR=[Math.max(1,cpc-3),Math.max(1,cpc-1),cpc,cpc+2,cpc+4];
+    const cvR=[Math.max(1,cv-4),Math.max(1,cv-2),cv,cv+2,cv+4];
+    let h='<thead><tr><th>CPC / Конв.</th>';
+    for(const c of cvR)h+=`<th>${c.toFixed(1)}%</th>`;
+    h+='</tr></thead><tbody>';
+    for(const cc of cpcR){
+      h+=`<tr><th>${cc.toFixed(1)}₽</th>`;
+      for(const vv of cvR){
+        const _cl=bg/cc,_s=_cl*vv/100,_p=_s*marginUnit-bg,_r=bg>0?_p/bg*100:0;
+        let l='red';if(_r>=100)l='green';else if(_r>=0)l='yellow';
+        h+=`<td class="${l}">${_r.toFixed(0)}%</td>`;
+      }
+      h+='</tr>';
+    }
+    h+='</tbody>';
+    $('r_sens').innerHTML=h;
+    const rec=$('r_rec');let rT='',rC='info';
+    if(marginUnit<0){rT='Не запускать промо. Убыточен. Поднимите цену на '+rub(Math.abs(marginUnit)+50)+' или снизьте COGS.';rC='danger';}
+    else if(romi>=100){rT='Запускать и масштабировать. ROMI '+romi.toFixed(0)+'%. Старт '+rub(Math.min(bg,allowed||bg))+'/мес, ×2 через 2 нед при CPC < '+rub(becpc)+'.';rC='ok';}
+    else if(romi>=0){rT='Осторожно. ROMI '+romi.toFixed(0)+'%. Сначала поднимите конверсию карточки, потом масштабируйте.';rC='warn';}
+    else{rT='Не запускать в такой конфигурации. '+(cac>price*0.25?'CAC высоко. ':'')+(cpc>becpc?'CPC > break-even. ':'')+(cv<5?'Низкая конверсия. ':'')+'Доработайте карточку → ретест через 2 нед.';rC='danger';}
+    rec.className='alert-banner '+rC;rec.textContent=rT;
+  }
+
+  $('r_category').addEventListener('change',()=>{
+    const p=PRESETS[$('r_category').value];if(!p)return;
+    $('r_commission').value=p.c;$('r_cpc').value=p.cpc;$('r_ctr').value=p.ctr;$('r_conv').value=p.cv;$('r_packaging').value=p.pk;
+    calc();
+  });
+  box.querySelectorAll('input').forEach(el=>el.addEventListener('input',calc));
+  calc();
+}
+
+// ── API Tab ───────────────────────────────────────────────────────────────────
+function renderAPI(){
+  const box=document.getElementById('tab-api');
+  const api=PAYLOAD.api_status||{};
+  const tokenBadge=api.token_status==='valid'
+    ?`<span style="color:var(--color-teal);font-weight:600">✓ Валиден до ${api.token_expires_moscow||'—'}</span>`
+    :`<span style="color:var(--color-coral);font-weight:600">⚠ Требует обновления</span>`;
+
+  let html=`${LIVE.enabled
+    ? `<div class="alert-banner ok" style="margin-bottom:10px">Локальный runtime API доступен. Токен можно проверять и использовать в live-режиме без перехода на отдельный экран.</div>`
+    : `<div class="alert-banner info" style="margin-bottom:10px">Сейчас открыт read-only Pages режим. Когда этот экран обслуживает локальный backend, здесь становится доступен live API-контур.</div>`
+  }<div class="token-section">
+    <div class="section-label" style="margin-top:0">API Токен ${tip('Токен хранится только в памяти страницы — не сохраняется нигде. При перезагрузке нужно ввести снова.')}</div>
+    <div class="token-row">
+      <div class="token-dot" id="token-dot"></div>
+      <input type="password" id="token-input" placeholder="Вставьте Bearer-токен..." oninput="onTokenInput(this.value)">
+      <button class="btn primary" onclick="onTokenSave()">Сохранить</button>
+      <button class="btn" onclick="onTokenClear()">Очистить</button>
+    </div>
+    <div class="text-xs text-muted mt-4">Из данных: ${tokenBadge} · shop_id: ${api.shop_id||'—'} · CubeJS: ${api.cubes||0} cubes</div>
+  </div>
+  <div class="section-label">Работающие endpoints</div>`;
+
+  (api.endpoints||[]).forEach((e,i)=>{
+    const statusCls=e.status==='ok'?'ok':(e.status==='fix'?'fix':'todo');
+    const statusTxt=e.status==='ok'?'✓ OK':(e.status==='fix'?'⚠ Fix':'— todo');
+    html+=`<div class="source-card" style="flex-direction:column;align-items:flex-start">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <span class="method-pill ${e.method}">${esc(e.method)}</span>
+        <span class="api-url">${esc(e.url)}</span>
+        <span class="api-status-badge ${statusCls}" style="margin-left:auto">${statusTxt}</span>
+        <button class="btn" style="flex-shrink:0;font-size:10px;padding:3px 8px" onclick="testEndpoint(${i})">curl</button>
+      </div>
+      <div class="text-xs text-muted mt-4">${esc(e.note)}</div>
+      <div class="test-result" id="test-result-${i}"></div>
+    </div>`;
+  });
+
+  html+=`<div class="section-label" style="margin-top:12px">Пробелы API (план 005-006)</div>`;
+  (api.gaps||[]).forEach(g=>{
+    html+=`<div class="source-card">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <span class="method-pill GAP">GAP</span>
+        <span class="api-url">${esc(g.name)}</span>
+        <span class="api-status-badge todo" style="margin-left:auto">todo</span>
+      </div>
+      <div class="text-xs text-muted mt-4">${esc(g.note)}</div>
+    </div>`;
+  });
+  html+=`<div class="alert-banner info" style="margin-top:10px">Полный отчёт: <code>deliverables/MAGNIT_API_NEEDS.md</code>. Refresh-token handler — задача 005.</div>`;
+
+  html+=`<div class="section-label" style="margin-top:16px">Обновление данных</div>
+  <div class="token-section">
+    <div class="text-xs text-muted" style="margin-bottom:8px">
+      GitHub PAT нужен один раз — сохраняется в localStorage браузера. Нужны права: <code>repo</code> + <code>workflow</code>.
+    </div>
+    <div class="token-row" style="margin-bottom:6px">
+      <input type="password" id="gh-pat-input" placeholder="GitHub PAT (ghp_...)..." style="flex:1;min-width:0">
+      <button class="btn" onclick="saveGhPat()">Сохранить PAT</button>
+    </div>
+    <div class="text-xs text-muted" id="gh-pat-status" style="margin-bottom:10px"></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <button class="btn primary" id="refresh-btn" onclick="triggerDataRefresh()">▶ Обновить данные</button>
+      <span class="text-xs" id="refresh-status" style="color:var(--color-text-secondary)"></span>
+    </div>
+    <div class="text-xs text-muted" style="margin-top:6px">
+      Запускает GitHub Actions с текущим MM токеном → скрипты генерируют данные → страница обновится через ~3 мин.
+    </div>
+  </div>`;
+
+  box.innerHTML=html;
+  const tokenInput=document.getElementById('token-input');
+  if(tokenInput && apiToken){
+    tokenInput.value=apiToken;
+    onTokenInput(apiToken);
+  }
+  updateGhPatStatus();
+}
+
+function getGeminiKey(){return localStorage.getItem('mm_gemini_api_key')||'';}
+function saveGeminiKey(){
+  const inp=document.getElementById('gemini-key-input');
+  if(!inp)return;
+  const k=inp.value.trim();
+  if(k){localStorage.setItem('mm_gemini_api_key',k);toast('Ключ Gemini сохранён');}
+  const st=document.getElementById('gemini-key-status');
+  if(st)st.textContent=k?'Ключ сохранён':'';
+}
+function clearGeminiKey(){
+  localStorage.removeItem('mm_gemini_api_key');
+  const inp=document.getElementById('gemini-key-input');
+  if(inp)inp.value='';
+  const st=document.getElementById('gemini-key-status');
+  if(st)st.textContent='';
+  toast('Ключ Gemini удалён');
+}
+async function callGemini(prompt){
+  const key=getGeminiKey();
+  if(!key)throw new Error('Сохраните Gemini API ключ во вкладке API');
+  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+key;
+  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+  if(!r.ok)throw new Error('Gemini error '+r.status);
+  const d=await r.json();
+  return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+}
+function showGeminiResult(card,result,copyLabel){
+  let aiDiv=card.querySelector('.ai-gemini-result');
+  if(!aiDiv){aiDiv=document.createElement('div');aiDiv.className='ai-gemini-result';aiDiv.style.cssText='margin-top:8px;padding:8px;background:var(--color-surface-secondary);border-radius:6px;font-size:12px;white-space:pre-wrap';card.querySelector('.action-btns').before(aiDiv);}
+  aiDiv.textContent=result;
+  if(!card.querySelector('.ai-gemini-copy')){const cb=document.createElement('button');cb.className='btn ai-gemini-copy';cb.textContent=copyLabel;cb.onclick=()=>{copyToClipboard(aiDiv.textContent);toast('Скопировано');};card.querySelector('.action-btns').appendChild(cb);}
+}
+async function geminiReviewReply(btn,code,label,tmpl){
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const p='Ты продавец на Магнит Маркет. Напиши вежливый ответ покупателю на русском языке, 2-4 предложения. Причина возврата: '+code+' ('+label+'). Шаблон: '+tmpl;
+    const res=await callGemini(p);
+    showGeminiResult(btn.closest('.action-card'),res,'Скопировать AI-ответ');
+    btn.textContent='Обновить';btn.disabled=false;
+  }catch(e){toast('Ошибка: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+async function geminiSeoTitle(btn,title,ctx){
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const p='Ты SEO-специалист для Магнит Маркет (Россия). Сгенерируй оптимальное название товара (60-100 символов). Формула: [Бренд][Категория][Характеристика]. Ключевые слова в начале. Только готовое название.
+Текущее: '+title+'
+Контекст: '+ctx;
+    const res=await callGemini(p);
+    showGeminiResult(btn.closest('.action-card'),res,'Скопировать AI-название');
+    btn.textContent='Обновить';btn.disabled=false;
+  }catch(e){toast('Ошибка: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+async function geminiSeoDesc(btn,title,chars,recs){
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const p='Ты SEO-специалист для Магнит Маркет (Россия). Напиши оптимальное описание товара (1000-3000 символов). Структура: преимущества, характеристики, способы применения. Естественное включение ключевых слов.
+Название: '+title+'
+Символов: '+chars+'
+Рекомендации: '+recs;
+    const res=await callGemini(p);
+    showGeminiResult(btn.closest('.action-card'),res,'Скопировать описание');
+    btn.textContent='Обновить';btn.disabled=false;
+  }catch(e){toast('Ошибка: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+function onTokenInput(val){
+  document.getElementById('token-dot').classList.toggle('active',val.length>0);
+}
+function onTokenSave(){
+  const inp=document.getElementById('token-input');
+  apiToken=inp.value;
+  document.getElementById('token-dot').className='token-dot'+(apiToken?' active':'');
+  if(apiToken){
+    localStorage.setItem('mm_api_token', apiToken);
+    toast('Токен сохранён');
+  }
+}
+function onTokenClear(){
+  apiToken='';
+  localStorage.removeItem('mm_api_token');
+  document.getElementById('token-input').value='';
+  document.getElementById('token-dot').className='token-dot';
+  toast('Токен очищен');
+}
+function saveGhPat(){
+  const val=document.getElementById('gh-pat-input').value.trim();
+  if(!val){toast('Введи GitHub PAT');return;}
+  localStorage.setItem('mm_gh_pat',val);
+  document.getElementById('gh-pat-input').value='';
+  updateGhPatStatus();
+  toast('GitHub PAT сохранён');
+}
+function updateGhPatStatus(){
+  const pat=localStorage.getItem('mm_gh_pat')||'';
+  const el=document.getElementById('gh-pat-status');
+  if(!el)return;
+  el.textContent=pat?'PAT: '+pat.slice(0,4)+'...'+pat.slice(-4)+' (сохранён в localStorage)':'Не задан';
+}
+async function triggerDataRefresh(){
+  const pat=localStorage.getItem('mm_gh_pat');
+  if(!pat){toast('Сначала сохрани GitHub PAT');return;}
+  if(!apiToken){toast('Сначала сохрани MM Bearer токен');return;}
+  const btn=document.getElementById('refresh-btn');
+  const status=document.getElementById('refresh-status');
+  btn.disabled=true;
+  status.textContent='⏳ Запускаю workflow...';
+  try{
+    const resp=await fetch('https://api.github.com/repos/Stolyarovmn/mm-market-tools/actions/workflows/daily-plan.yml/dispatches',{
+      method:'POST',
+      headers:{
+        'Authorization':'Bearer '+pat,
+        'Accept':'application/vnd.github+json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({ref:'main',inputs:{ke_token:apiToken}})
+    });
+    if(resp.status===204){
+      status.textContent='✓ Запущено — данные обновятся через ~3 мин';
+      toast('Workflow запущен!');
+    } else {
+      const err=await resp.json().catch(()=>({}));
+      status.textContent='✗ Ошибка '+resp.status+': '+(err.message||'unknown');
+    }
+  }catch(e){
+    status.textContent='✗ '+e.message;
+  }finally{
+    btn.disabled=false;
+  }
+}
+function testEndpoint(i){
+  const ep=(PAYLOAD.api_status||{}).endpoints||[];
+  if(!ep[i])return;
+  const e=ep[i];
+  const tk=apiToken?`Bearer ${apiToken.slice(0,6)}...`:'<your-token>';
+  const curl=`curl -X ${e.method} "https://${e.url}" \\\n  -H "Authorization: ${tk}" \\\n  -H "Content-Type: application/json"`;
+  const el=document.getElementById('test-result-'+i);
+  if(el.style.display==='block'&&el.textContent===curl){el.style.display='none';return;}
+  el.textContent=curl;el.style.display='block';
+}
+
+// ── Buyers Tab ────────────────────────────────────────────────────────────────
+function renderBuyers(){
+  const box=document.getElementById('tab-buyers');
+  if(LIVE.enabled && LIVE.reviews){
+    const rows=(LIVE.reviews.items)||[];
+    const questions=rows.filter(r=>r.kind==='question');
+    const reviews=rows.filter(r=>r.kind!=='question');
+    let html=`<div class="alert-banner ok" style="margin-bottom:10px">
+      Основной UI теперь умеет работать с live reviews/reply tooling через локальный backend. Здесь можно сгенерировать черновик и отправить ответ через API.
+    </div>`;
+
+    if(reviews.length){
+      html+=`<div class="section-label">Отзывы покупателей</div>`;
+      reviews.forEach((r,idx)=>{
+        html+=`<div class="card action-card type-return_investigate">
+          <div class="action-header">
+            <span class="type-pill return_investigate">${r.rating?`${r.rating}/5`:'review'}</span>
+            <span class="text-xs text-muted">${esc(r.author||'Покупатель')} · ${shortDate(r.created_at)}</span>
+          </div>
+          <div class="action-title">${esc(r.product_title||`Товар ${r.product_id||'—'}`)}</div>
+          <div class="action-detail mt-4">${esc(r.text||'')}</div>
+          <div class="action-btns">
+            <button class="btn" onclick="syncReviewDraft(${rows.indexOf(r)}, 'tab-buyers')">AI-черновик</button>
+            <button class="btn primary" onclick="toggleReviewComposer(${rows.indexOf(r)}, 'tab-buyers')">Открыть ответ</button>
+          </div>
+          <div id="review-compose-tab-buyers-${rows.indexOf(r)}" style="display:none;margin-top:8px">
+            <textarea id="review-text-tab-buyers-${rows.indexOf(r)}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(r.answer_text||'')}</textarea>
+            <div class="action-btns">
+              <button class="btn primary" onclick="sendReviewReply(${rows.indexOf(r)}, 'tab-buyers')">Отправить через API</button>
+              <button class="btn" onclick="copyComposerText(${rows.indexOf(r)}, 'tab-buyers')">Скопировать ответ</button>
+            </div>
+            <div class="text-xs text-muted" id="review-status-tab-buyers-${rows.indexOf(r)}" style="margin-top:6px"></div>
+          </div>
+        </div>`;
+      });
+    }
+
+    html+=`<div class="section-label" style="margin-top:12px">Вопросы покупателей</div>`;
+    if(questions.length){
+      questions.forEach((q,idx)=>{
+        html+=`<div class="card">
+          <div class="action-header">
+            <span class="type-pill title_seo">question</span>
+            <span class="text-xs text-muted">${esc(q.author||'Покупатель')} · ${shortDate(q.created_at)}</span>
+          </div>
+          <div class="action-title">${esc(q.product_title||`Товар ${q.product_id||'—'}`)}</div>
+          <div class="action-detail mt-4">${esc(q.text||'')}</div>
+          <div class="action-btns">
+            <button class="btn" onclick="syncReviewDraft(${rows.indexOf(q)}, 'tab-buyers')">AI-черновик</button>
+            <button class="btn primary" onclick="toggleReviewComposer(${rows.indexOf(q)}, 'tab-buyers')">Ответить</button>
+          </div>
+          <div id="review-compose-tab-buyers-${rows.indexOf(q)}" style="display:none;margin-top:8px">
+            <textarea id="review-text-tab-buyers-${rows.indexOf(q)}" style="width:100%;min-height:92px;padding:8px 10px;border:0.5px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface-secondary);color:var(--color-text-primary);font-size:12px">${esc(q.answer_text||'')}</textarea>
+            <div class="action-btns">
+              <button class="btn primary" onclick="sendReviewReply(${rows.indexOf(q)}, 'tab-buyers')">Отправить через API</button>
+              <button class="btn" onclick="copyComposerText(${rows.indexOf(q)}, 'tab-buyers')">Скопировать ответ</button>
+            </div>
+            <div class="text-xs text-muted" id="review-status-tab-buyers-${rows.indexOf(q)}" style="margin-top:6px"></div>
+          </div>
+        </div>`;
+      });
+    }else{
+      html+=`<div class="comm-empty">
+        <div class="comm-empty-icon">💬</div>
+        <div>Вопросов от покупателей пока нет.</div>
+      </div>`;
+    }
+    box.innerHTML=html;
+    return;
+  }
+  const rows=((PAYLOAD.review_booster||{}).rows)||[];
+
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">
+    Вкладка для коммуникации с покупателями. Возвраты — прямой сигнал площадке. Ответьте сегодня. Gemini AI доступен.
+  </div>`;
+
+  if(rows.length){
+    html+=`<div class="section-label">Шаблоны ответов на возвраты</div>`;
+    rows.forEach(r=>{
+      html+=`<div class="card action-card type-return_investigate">
+        <div class="action-header">
+          <span class="type-pill return_investigate">${esc(r.return_reason_code)}</span>
+          <span class="text-xs text-muted">${esc(r.reason_label||'')} · ${r.return_count||0} возврат(ов)</span>
+        </div>
+        <div class="sku-row" style="margin-bottom:4px"><span class="text-muted" style="font-size:9px">SKU</span><span class="sku-chip" style="cursor:pointer" onclick="copyToClipboard('${esc(r.sku||r.product_id||'')}');toast('SKU скопирован')">${esc(r.sku||r.product_id||'?')}</span></div>
+        <div class="template-preview">${esc(r.template_response||'')}</div>
+        <div class="ai-suggestion">
+          <div class="ai-label">AI-предложение ${tip('После внедрения TASK-007: AI подберёт тон ответа автоматически — мягкий для эмоциональных отзывов, формальный для технических.')}</div>
+          <div class="ai-text">⏳ AI-ответ будет доступен после TASK-007 — система предложит вариант на основе причины возврата и истории покупателя.</div>
         </div>
         <div class="action-btns">
           <button class="btn primary" onclick="copyToClipboard(${JSON.stringify(r.template_response||'')});toast('Шаблон скопирован')">Скопировать шаблон</button>
