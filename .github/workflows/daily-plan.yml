@@ -50,9 +50,9 @@ jobs:
         run: |
           REPORT="${{ github.event.inputs.report_kind || 'daily_action_plan' }}"
           if [ "$REPORT" = "all" ]; then
-            python3 core/refresh_jobs.py --job paid_storage_report || true
-            python3 core/refresh_jobs.py --job sales_return_report || true
-            python3 core/refresh_jobs.py --job dynamic_pricing || true
+            PYTHONPATH=. python3 -m core.refresh_jobs --job paid_storage_report || echo "WARN: paid_storage_report refresh failed"
+            PYTHONPATH=. python3 -m core.refresh_jobs --job sales_return_report || echo "WARN: sales_return_report refresh failed"
+            PYTHONPATH=. python3 -m core.refresh_jobs --job dynamic_pricing || echo "WARN: dynamic_pricing refresh failed"
           fi
           python3 build_dashboard_index.py || echo "WARNING: build_dashboard_index.py not found, using existing data"
 
