@@ -1,0 +1,333 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-04-13T07:01:02.139808+00:00",
+  "metadata": {
+    "window": {
+      "date_from": "2026-03-15",
+      "date_to": "2026-04-13",
+      "window_days": 30
+    },
+    "documents": {
+      "sales_return_mode": "local",
+      "sales_return_source": "/tmp/sales_return_smoke.json"
+    },
+    "cubejs": {
+      "count_measure": "SalesReturn.returns_count",
+      "amount_measure": null,
+      "reason_dimension": "SalesReturn.reason",
+      "sku_dimension": "SalesReturn.sku",
+      "title_dimension": "SalesReturn.title",
+      "date_dimension": "SalesReturn.created_at",
+      "shop_dimension": "SalesReturn.shop_id"
+    }
+  },
+  "kpis": {
+    "return_rows_count": 5,
+    "total_returns_count": 21.0,
+    "unique_return_reasons_count": 4,
+    "rows_without_reason_count": 1,
+    "rows_without_identity_count": 1,
+    "top_reason_share_pct": 57.14,
+    "avg_returns_per_row": 4.2
+  },
+  "actions": {
+    "investigate_now": [
+      {
+        "title": "WONDERS-519540-КОНФЕТН",
+        "reason": "Брак",
+        "sku": "WONDERS-519540",
+        "seller_sku_id": "WONDERS-519540",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 7.0,
+        "amount_value": 3500.0,
+        "identity": "WONDERS-519540"
+      },
+      {
+        "title": "LAPKI-2201",
+        "reason": "Брак",
+        "sku": "LAPKI-2201",
+        "seller_sku_id": "LAPKI-2201",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 5.0,
+        "amount_value": 2100.0,
+        "identity": "LAPKI-2201"
+      },
+      {
+        "title": "SKWISH-778",
+        "reason": "Повреждение упаковки",
+        "sku": "SKWISH-778",
+        "seller_sku_id": "SKWISH-778",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 4.0,
+        "amount_value": 900.0,
+        "identity": "SKWISH-778"
+      },
+      {
+        "title": "WONDERS-519540-КОНФЕТН",
+        "reason": "Не соответствует ожиданиям",
+        "sku": "WONDERS-519540",
+        "seller_sku_id": "WONDERS-519540",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 3.0,
+        "amount_value": 1200.0,
+        "identity": "WONDERS-519540"
+      },
+      {
+        "title": "SKU-EMPTY",
+        "reason": "Без причины",
+        "sku": null,
+        "seller_sku_id": null,
+        "barcode": null,
+        "product_id": null,
+        "return_count": 2.0,
+        "amount_value": 400.0,
+        "identity": null
+      }
+    ],
+    "reason_hotspots": [
+      {
+        "title": "Брак",
+        "reason": "Брак",
+        "return_count": 12.0,
+        "amount_value": 5600.0
+      },
+      {
+        "title": "Повреждение упаковки",
+        "reason": "Повреждение упаковки",
+        "return_count": 4.0,
+        "amount_value": 900.0
+      },
+      {
+        "title": "Не соответствует ожиданиям",
+        "reason": "Не соответствует ожиданиям",
+        "return_count": 3.0,
+        "amount_value": 1200.0
+      },
+      {
+        "title": "Без причины",
+        "reason": "Без причины",
+        "return_count": 2.0,
+        "amount_value": 400.0
+      }
+    ],
+    "identity_gaps": [
+      {
+        "title": "SKU-EMPTY",
+        "reason": "Без причины",
+        "sku": null,
+        "seller_sku_id": null,
+        "barcode": null,
+        "product_id": null,
+        "return_count": 2.0,
+        "amount_value": 400.0,
+        "identity": null
+      }
+    ]
+  },
+  "tables": {
+    "current_winners": [
+      {
+        "title": "WONDERS-519540-КОНФЕТН",
+        "reason": "Брак",
+        "sku": "WONDERS-519540",
+        "seller_sku_id": "WONDERS-519540",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 7.0,
+        "amount_value": 3500.0,
+        "identity": "WONDERS-519540"
+      },
+      {
+        "title": "LAPKI-2201",
+        "reason": "Брак",
+        "sku": "LAPKI-2201",
+        "seller_sku_id": "LAPKI-2201",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 5.0,
+        "amount_value": 2100.0,
+        "identity": "LAPKI-2201"
+      },
+      {
+        "title": "SKWISH-778",
+        "reason": "Повреждение упаковки",
+        "sku": "SKWISH-778",
+        "seller_sku_id": "SKWISH-778",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 4.0,
+        "amount_value": 900.0,
+        "identity": "SKWISH-778"
+      },
+      {
+        "title": "WONDERS-519540-КОНФЕТН",
+        "reason": "Не соответствует ожиданиям",
+        "sku": "WONDERS-519540",
+        "seller_sku_id": "WONDERS-519540",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 3.0,
+        "amount_value": 1200.0,
+        "identity": "WONDERS-519540"
+      },
+      {
+        "title": "SKU-EMPTY",
+        "reason": "Без причины",
+        "sku": null,
+        "seller_sku_id": null,
+        "barcode": null,
+        "product_id": null,
+        "return_count": 2.0,
+        "amount_value": 400.0,
+        "identity": null
+      }
+    ],
+    "profit_leaders": [
+      {
+        "title": "Брак",
+        "reason": "Брак",
+        "return_count": 12.0,
+        "amount_value": 5600.0
+      },
+      {
+        "title": "Повреждение упаковки",
+        "reason": "Повреждение упаковки",
+        "return_count": 4.0,
+        "amount_value": 900.0
+      },
+      {
+        "title": "Не соответствует ожиданиям",
+        "reason": "Не соответствует ожиданиям",
+        "return_count": 3.0,
+        "amount_value": 1200.0
+      },
+      {
+        "title": "Без причины",
+        "reason": "Без причины",
+        "return_count": 2.0,
+        "amount_value": 400.0
+      }
+    ],
+    "stockout_risk": [
+      {
+        "title": "SKU-EMPTY",
+        "reason": "Без причины",
+        "sku": null,
+        "seller_sku_id": null,
+        "barcode": null,
+        "product_id": null,
+        "return_count": 2.0,
+        "amount_value": 400.0,
+        "identity": null
+      }
+    ],
+    "stale_stock": [
+      {
+        "title": "WONDERS-519540-КОНФЕТН",
+        "reason": "Брак",
+        "sku": "WONDERS-519540",
+        "seller_sku_id": "WONDERS-519540",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 7.0,
+        "amount_value": 3500.0,
+        "identity": "WONDERS-519540"
+      },
+      {
+        "title": "LAPKI-2201",
+        "reason": "Брак",
+        "sku": "LAPKI-2201",
+        "seller_sku_id": "LAPKI-2201",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 5.0,
+        "amount_value": 2100.0,
+        "identity": "LAPKI-2201"
+      },
+      {
+        "title": "SKWISH-778",
+        "reason": "Повреждение упаковки",
+        "sku": "SKWISH-778",
+        "seller_sku_id": "SKWISH-778",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 4.0,
+        "amount_value": 900.0,
+        "identity": "SKWISH-778"
+      },
+      {
+        "title": "WONDERS-519540-КОНФЕТН",
+        "reason": "Не соответствует ожиданиям",
+        "sku": "WONDERS-519540",
+        "seller_sku_id": "WONDERS-519540",
+        "barcode": null,
+        "product_id": null,
+        "return_count": 3.0,
+        "amount_value": 1200.0,
+        "identity": "WONDERS-519540"
+      },
+      {
+        "title": "SKU-EMPTY",
+        "reason": "Без причины",
+        "sku": null,
+        "seller_sku_id": null,
+        "barcode": null,
+        "product_id": null,
+        "return_count": 2.0,
+        "amount_value": 400.0,
+        "identity": null
+      }
+    ]
+  },
+  "charts": {
+    "reason_distribution": [
+      {
+        "key": "Брак",
+        "value": 12.0
+      },
+      {
+        "key": "Повреждение упаковки",
+        "value": 4.0
+      },
+      {
+        "key": "Не соответствует ожиданиям",
+        "value": 3.0
+      },
+      {
+        "key": "Без причины",
+        "value": 2.0
+      }
+    ],
+    "daily_returns": [
+      {
+        "key": "2026-04-01",
+        "value": 1.0
+      },
+      {
+        "key": "2026-04-02",
+        "value": 2.0
+      },
+      {
+        "key": "2026-04-03",
+        "value": 4.0
+      },
+      {
+        "key": "2026-04-04",
+        "value": 3.0
+      },
+      {
+        "key": "2026-04-05",
+        "value": 5.0
+      },
+      {
+        "key": "2026-04-06",
+        "value": 6.0
+      }
+    ]
+  },
+  "insights": []
+}

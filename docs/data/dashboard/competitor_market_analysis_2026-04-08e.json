@@ -1,0 +1,1466 @@
+{
+  "generated_at": "2026-04-08T15:37:51.603754+00:00",
+  "metadata": {
+    "window": {},
+    "market_scope": {
+      "category_id": 10162,
+      "pages": 2,
+      "page_size": 40
+    }
+  },
+  "kpis": {
+    "total_skus": 50,
+    "sold_skus": 50,
+    "revenue_total": 0.0,
+    "gross_profit_total": 0.0,
+    "stockout_risk_count": 27,
+    "stale_stock_count": 8,
+    "observed_price_bands": 5,
+    "observed_idea_clusters": 1
+  },
+  "insights": [
+    {
+      "title": "Насыщенность рынка уже можно оценивать",
+      "text": "По наблюдаемой выборке рынок выглядит так: сегмент контролируется лидером. Доля крупнейшего продавца в видимых заказах: 71.51%. Это сигнал о том, насколько легко входить в подниши этой категории.",
+      "tone": "warn"
+    },
+    {
+      "title": "Сильнейшая группа в наблюдаемом рынке",
+      "text": "Прочее даёт 26974 orders. Ваш средний ценовой gap к этой группе: -39.19%. Доля лидера внутри группы: 78.84%.",
+      "tone": "good"
+    },
+    {
+      "title": "Главный ценовой коридор рынка",
+      "text": "В выборке лидирует диапазон 0-199 ₽: 27917 orders, 17 товаров.",
+      "tone": "good"
+    },
+    {
+      "title": "Верхний продавец выборки",
+      "text": "Крошка Мания даёт 24826 orders, доля в наблюдаемом спросе 71.51% и ядро в группе Прочее.",
+      "tone": "warn"
+    },
+    {
+      "title": "Повторяющиеся идеи уже видны",
+      "text": "В наблюдаемой выборке нашлось 1 повторяющихся idea clusters. Их стоит использовать как карту для расширения ассортимента, а не только смотреть на одиночные SKU.",
+      "tone": "good"
+    }
+  ],
+  "tables": {
+    "top_sellers": [
+      {
+        "seller_id": 38280,
+        "seller_title": "Крошка Мания",
+        "seller_slug": "fiestalife",
+        "products_seen": 3,
+        "orders_sum": 24826,
+        "avg_price": 157.47,
+        "median_price": 159.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 71.51,
+        "top_products": [
+          {
+            "product_id": 2247310,
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "title": "Сквиш лапка таба, игрушки антистресс Лабубу/Стич/Вакуку/Капибара/Куроми/Гусь/Котик,подарок",
+            "price": 114.4,
+            "orders": 20105,
+            "rating": 4.7,
+            "reviews": 297,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс игрушки лапка сквиш таба"
+          },
+          {
+            "product_id": 2096611,
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "title": "Мягкая игрушка-брелок Лабубу/Стич/Капибара/Куроми/Котик/Лошадка,антистресс детский подарок",
+            "price": 199.0,
+            "orders": 3559,
+            "rating": 4.8,
+            "reviews": 82,
+            "group": "Мягкие игрушки и театр",
+            "price_band": "0-199",
+            "idea_cluster": "брелок капибара лабубу мягкая стич"
+          },
+          {
+            "product_id": 4315611,
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "title": "Водяной пистолет Глок/водный ручной Glock, водная помпа брызгалка-фонтан, бластер игрушка",
+            "price": 159.0,
+            "orders": 1162,
+            "rating": 4.7,
+            "reviews": 20,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "водный водяной глок пистолет ручной"
+          }
+        ]
+      },
+      {
+        "seller_id": 8382,
+        "seller_title": "ExclusiveGOODS",
+        "seller_slug": "exclusivegoods",
+        "products_seen": 4,
+        "orders_sum": 3144,
+        "avg_price": 286.75,
+        "median_price": 284.0,
+        "top_group": "Деревянные игрушки и шнуровки",
+        "share_of_observed_orders_pct": 9.06,
+        "top_products": [
+          {
+            "product_id": 1361953,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Нож деревянный керамбит, бабочка, катана, меч, нунчаки, пистолет",
+            "price": 269.0,
+            "orders": 1758,
+            "rating": 4.8,
+            "reviews": 51,
+            "group": "Деревянные игрушки и шнуровки",
+            "price_band": "200-499",
+            "idea_cluster": "бабочка деревянный катана керамбит нунчаки"
+          },
+          {
+            "product_id": 381440,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Наручники металлические, детские",
+            "price": 349.0,
+            "orders": 658,
+            "rating": 4.9,
+            "reviews": 16,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "металлические наручники"
+          },
+          {
+            "product_id": 2783019,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Игрушка Антистресс Кейкап, Указка, Поп Ит, Фиджет, Ручка, Спиннер",
+            "price": 230.0,
+            "orders": 599,
+            "rating": 4.7,
+            "reviews": 15,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "антистресс кейкап ручка указка фиджет"
+          },
+          {
+            "product_id": 2460205,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Пистолет брелок с лазером и фонариком, с шокером",
+            "price": 299.0,
+            "orders": 129,
+            "rating": 4.3,
+            "reviews": 4,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "брелок лазером пистолет фонариком шокером"
+          }
+        ]
+      },
+      {
+        "seller_id": 74954,
+        "seller_title": "AmurBabyMarket",
+        "seller_slug": "amurbabymarket",
+        "products_seen": 1,
+        "orders_sum": 1476,
+        "avg_price": 248.0,
+        "median_price": 248.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 4.25,
+        "top_products": [
+          {
+            "product_id": 2670832,
+            "seller_id": 74954,
+            "seller_title": "AmurBabyMarket",
+            "title": "Прорезыватель грызунок силиконовый пульт грибок",
+            "price": 248.0,
+            "orders": 1476,
+            "rating": 5.0,
+            "reviews": 33,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "грибок грызунок прорезыватель пульт силиконовый"
+          }
+        ]
+      },
+      {
+        "seller_id": 54255,
+        "seller_title": "САМСОН",
+        "seller_slug": "samson555",
+        "products_seen": 4,
+        "orders_sum": 848,
+        "avg_price": 395.43,
+        "median_price": 403.49,
+        "top_group": "Пазлы",
+        "share_of_observed_orders_pct": 2.44,
+        "top_products": [
+          {
+            "product_id": 2613835,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Головоломка Brauberg Kids, для детей деревянная Тетрис от 3 лет, сортер, пазлы для малышей",
+            "price": 174.0,
+            "orders": 468,
+            "rating": 4.5,
+            "reviews": 8,
+            "group": "Пазлы",
+            "price_band": "0-199",
+            "idea_cluster": "brauberg kids головоломка деревянная детей"
+          },
+          {
+            "product_id": 2025776,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Тактильные мячики сенсорные игрушки развивающие ЭКО 6 штук, d 60-80 мм, ЮНЛАНДИЯ, 664702",
+            "price": 386.0,
+            "orders": 258,
+            "rating": 4.9,
+            "reviews": 7,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "игрушки мячики развивающие сенсорные тактильные"
+          },
+          {
+            "product_id": 2614306,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Сортер Brauberg Kids, 665245, для малышей, магнитная рыбалка, развивающие игрушки, дерево",
+            "price": 420.97,
+            "orders": 68,
+            "rating": 5.0,
+            "reviews": 3,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "200-499",
+            "idea_cluster": "brauberg kids магнитная малышей сортер"
+          },
+          {
+            "product_id": 2614304,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Сортер Brauberg Kids, 665246, для малышей, магнитная рыбалка, развивающие игрушки, дерево",
+            "price": 600.76,
+            "orders": 54,
+            "rating": 5.0,
+            "reviews": 1,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "500-799",
+            "idea_cluster": "brauberg kids магнитная малышей сортер"
+          }
+        ]
+      },
+      {
+        "seller_id": 3856,
+        "seller_title": "Holy Day",
+        "seller_slug": "holyday",
+        "products_seen": 1,
+        "orders_sum": 701,
+        "avg_price": 112.34,
+        "median_price": 112.34,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 2.02,
+        "top_products": [
+          {
+            "product_id": 2670717,
+            "seller_id": 3856,
+            "seller_title": "Holy Day",
+            "title": "Игрушка жираф на присосках, детская игрушка антистресс для мальчиков и девочек",
+            "price": 112.34,
+            "orders": 701,
+            "rating": 4.7,
+            "reviews": 12,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс девочек жираф мальчиков присосках"
+          }
+        ]
+      },
+      {
+        "seller_id": 67343,
+        "seller_title": "mamagoods",
+        "seller_slug": "mamagoods",
+        "products_seen": 2,
+        "orders_sum": 650,
+        "avg_price": 962.35,
+        "median_price": 962.35,
+        "top_group": "Книги и обучающие материалы",
+        "share_of_observed_orders_pct": 1.87,
+        "top_products": [
+          {
+            "product_id": 2741894,
+            "seller_id": 67343,
+            "seller_title": "mamagoods",
+            "title": "Игрушка книжка-шуршалка тканевая Mamagoods",
+            "price": 425.7,
+            "orders": 597,
+            "rating": 5.0,
+            "reviews": 14,
+            "group": "Книги и обучающие материалы",
+            "price_band": "200-499",
+            "idea_cluster": "mamagoods книжка тканевая шуршалка"
+          },
+          {
+            "product_id": 3045299,
+            "seller_id": 67343,
+            "seller_title": "mamagoods",
+            "title": "Набор мягких погремушек-подвесок Mamagoods",
+            "price": 1499.0,
+            "orders": 53,
+            "rating": 5.0,
+            "reviews": 2,
+            "group": "Прочее",
+            "price_band": "1200+",
+            "idea_cluster": "mamagoods мягких погремушек подвесок"
+          }
+        ]
+      },
+      {
+        "seller_id": 26445,
+        "seller_title": "BabyMi",
+        "seller_slug": "babymi",
+        "products_seen": 1,
+        "orders_sum": 547,
+        "avg_price": 89.0,
+        "median_price": 89.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 1.58,
+        "top_products": [
+          {
+            "product_id": 2128173,
+            "seller_id": 26445,
+            "seller_title": "BabyMi",
+            "title": "Игрушка йо-йо",
+            "price": 89.0,
+            "orders": 547,
+            "rating": 4.1,
+            "reviews": 14,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "игрушка йо-йо"
+          }
+        ]
+      },
+      {
+        "seller_id": 37502,
+        "seller_title": "Lucky Home 43",
+        "seller_slug": "luckyhome43",
+        "products_seen": 1,
+        "orders_sum": 515,
+        "avg_price": 224.1,
+        "median_price": 224.1,
+        "top_group": "Пазлы",
+        "share_of_observed_orders_pct": 1.48,
+        "top_products": [
+          {
+            "product_id": 2397793,
+            "seller_id": 37502,
+            "seller_title": "Lucky Home 43",
+            "title": "Детские развивающие деревянные пазлы, сортер \"Картинки-палочки\"",
+            "price": 224.1,
+            "orders": 515,
+            "rating": 4.5,
+            "reviews": 11,
+            "group": "Пазлы",
+            "price_band": "200-499",
+            "idea_cluster": "деревянные картинки пазлы развивающие сортер"
+          }
+        ]
+      },
+      {
+        "seller_id": 22156,
+        "seller_title": "МАССПОРТ",
+        "seller_slug": "masport",
+        "products_seen": 1,
+        "orders_sum": 442,
+        "avg_price": 199.0,
+        "median_price": 199.0,
+        "top_group": "Мягкие игрушки и театр",
+        "share_of_observed_orders_pct": 1.27,
+        "top_products": [
+          {
+            "product_id": 3054687,
+            "seller_id": 22156,
+            "seller_title": "МАССПОРТ",
+            "title": "Мягкая игрушка кот, котик антистресс, кот батон, котенок",
+            "price": 199.0,
+            "orders": 442,
+            "rating": 4.8,
+            "reviews": 13,
+            "group": "Мягкие игрушки и театр",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс батон котенок котик мягкая"
+          }
+        ]
+      },
+      {
+        "seller_id": 16685,
+        "seller_title": "Магазин детских товаров Ассорти",
+        "seller_slug": "assorty",
+        "products_seen": 4,
+        "orders_sum": 411,
+        "avg_price": 144.25,
+        "median_price": 83.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 1.18,
+        "top_products": [
+          {
+            "product_id": 5900390,
+            "seller_id": 16685,
+            "seller_title": "Магазин детских товаров Ассорти",
+            "title": "Трансформер-фигурка в пакете",
+            "price": 12.0,
+            "orders": 186,
+            "rating": 4.0,
+            "reviews": 1,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "пакете трансформер фигурка"
+          },
+          {
+            "product_id": 2954134,
+            "seller_id": 16685,
+            "seller_title": "Магазин детских товаров Ассорти",
+            "title": "Конструктор \"Сказочная лошадка\", цвет случайный",
+            "price": 17.0,
+            "orders": 127,
+            "rating": 4.0,
+            "reviews": 4,
+            "group": "Конструкторы",
+            "price_band": "0-199",
+            "idea_cluster": "конструктор лошадка сказочная случайный цвет"
+          },
+          {
+            "product_id": 898744,
+            "seller_id": 16685,
+            "seller_title": "Магазин детских товаров Ассорти",
+            "title": "Кукла-модель \"Оля с дочкой\", с аксессуарами, разные цвета и модели",
+            "price": 149.0,
+            "orders": 95,
+            "rating": 5.0,
+            "reviews": 2,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "аксессуарами дочкой кукла модель разные"
+          },
+          {
+            "product_id": 5543795,
+            "seller_id": 16685,
+            "seller_title": "Магазин детских товаров Ассорти",
+            "title": "Одежда для пупса Мой малыш платье, шапочка, носочки",
+            "price": 399.0,
+            "orders": 3,
+            "rating": 0.0,
+            "reviews": 0,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "малыш одежда платье пупса шапочка"
+          }
+        ]
+      },
+      {
+        "seller_id": 17579,
+        "seller_title": "Подарки от Совушки",
+        "seller_slug": "sovushka",
+        "products_seen": 1,
+        "orders_sum": 249,
+        "avg_price": 65.0,
+        "median_price": 65.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 0.72,
+        "top_products": [
+          {
+            "product_id": 3021345,
+            "seller_id": 17579,
+            "seller_title": "Подарки от Совушки",
+            "title": "Погремушка-стучалка Ручка 9х17 см",
+            "price": 65.0,
+            "orders": 249,
+            "rating": 4.5,
+            "reviews": 2,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "9х17 погремушка ручка стучалка"
+          }
+        ]
+      },
+      {
+        "seller_id": 75085,
+        "seller_title": "SmartRetail Москва",
+        "seller_slug": "74249",
+        "products_seen": 1,
+        "orders_sum": 236,
+        "avg_price": 30.0,
+        "median_price": 30.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 0.68,
+        "top_products": [
+          {
+            "product_id": 2882662,
+            "seller_id": 75085,
+            "seller_title": "SmartRetail Москва",
+            "title": "Игрушки-антистресс сквиши. Капибара, Орео",
+            "price": 30.0,
+            "orders": 236,
+            "rating": 4.7,
+            "reviews": 3,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс игрушки капибара орео сквиши"
+          }
+        ]
+      },
+      {
+        "seller_id": 8055,
+        "seller_title": "ROXY-KIDS",
+        "seller_slug": "roxy-kids",
+        "products_seen": 1,
+        "orders_sum": 152,
+        "avg_price": 470.25,
+        "median_price": 470.25,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 0.44,
+        "top_products": [
+          {
+            "product_id": 5756333,
+            "seller_id": 8055,
+            "seller_title": "ROXY-KIDS",
+            "title": "Игрушка развивающая для малышей BUSY",
+            "price": 470.25,
+            "orders": 152,
+            "rating": 5.0,
+            "reviews": 3,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "busy малышей развивающая"
+          }
+        ]
+      },
+      {
+        "seller_id": 25608,
+        "seller_title": "Балачак",
+        "seller_slug": "balachak",
+        "products_seen": 1,
+        "orders_sum": 114,
+        "avg_price": 1484.1,
+        "median_price": 1484.1,
+        "top_group": "Магнитные игры и одевашки",
+        "share_of_observed_orders_pct": 0.33,
+        "top_products": [
+          {
+            "product_id": 949090,
+            "seller_id": 25608,
+            "seller_title": "Балачак",
+            "title": "Конструктор магнитный \"Мини магический магнит\", 32 детали",
+            "price": 1484.1,
+            "orders": 114,
+            "rating": 5.0,
+            "reviews": 3,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "1200+",
+            "idea_cluster": "конструктор магический магнит магнитный мини"
+          }
+        ]
+      },
+      {
+        "seller_id": 40319,
+        "seller_title": "Игрушечный",
+        "seller_slug": "igrushechny",
+        "products_seen": 1,
+        "orders_sum": 98,
+        "avg_price": 285.0,
+        "median_price": 285.0,
+        "top_group": "Прочее",
+        "share_of_observed_orders_pct": 0.28,
+        "top_products": [
+          {
+            "product_id": 4633035,
+            "seller_id": 40319,
+            "seller_title": "Игрушечный",
+            "title": "Детская игрушечная машина \"Грузовик с песочным набором\", самосвал с ведерком и лопаткой",
+            "price": 285.0,
+            "orders": 98,
+            "rating": 5.0,
+            "reviews": 7,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "грузовик игрушечная машина набором песочным"
+          }
+        ]
+      }
+    ],
+    "top_products": [
+      {
+        "product_id": 2247310,
+        "seller_id": 38280,
+        "seller_title": "Крошка Мания",
+        "title": "Сквиш лапка таба, игрушки антистресс Лабубу/Стич/Вакуку/Капибара/Куроми/Гусь/Котик,подарок",
+        "price": 114.4,
+        "orders": 20105,
+        "rating": 4.7,
+        "reviews": 297,
+        "group": "Прочее",
+        "price_band": "0-199",
+        "idea_cluster": "антистресс игрушки лапка сквиш таба"
+      },
+      {
+        "product_id": 2096611,
+        "seller_id": 38280,
+        "seller_title": "Крошка Мания",
+        "title": "Мягкая игрушка-брелок Лабубу/Стич/Капибара/Куроми/Котик/Лошадка,антистресс детский подарок",
+        "price": 199.0,
+        "orders": 3559,
+        "rating": 4.8,
+        "reviews": 82,
+        "group": "Мягкие игрушки и театр",
+        "price_band": "0-199",
+        "idea_cluster": "брелок капибара лабубу мягкая стич"
+      },
+      {
+        "product_id": 1361953,
+        "seller_id": 8382,
+        "seller_title": "ExclusiveGOODS",
+        "title": "Нож деревянный керамбит, бабочка, катана, меч, нунчаки, пистолет",
+        "price": 269.0,
+        "orders": 1758,
+        "rating": 4.8,
+        "reviews": 51,
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "idea_cluster": "бабочка деревянный катана керамбит нунчаки"
+      },
+      {
+        "product_id": 2670832,
+        "seller_id": 74954,
+        "seller_title": "AmurBabyMarket",
+        "title": "Прорезыватель грызунок силиконовый пульт грибок",
+        "price": 248.0,
+        "orders": 1476,
+        "rating": 5.0,
+        "reviews": 33,
+        "group": "Прочее",
+        "price_band": "200-499",
+        "idea_cluster": "грибок грызунок прорезыватель пульт силиконовый"
+      },
+      {
+        "product_id": 4315611,
+        "seller_id": 38280,
+        "seller_title": "Крошка Мания",
+        "title": "Водяной пистолет Глок/водный ручной Glock, водная помпа брызгалка-фонтан, бластер игрушка",
+        "price": 159.0,
+        "orders": 1162,
+        "rating": 4.7,
+        "reviews": 20,
+        "group": "Прочее",
+        "price_band": "0-199",
+        "idea_cluster": "водный водяной глок пистолет ручной"
+      },
+      {
+        "product_id": 2670717,
+        "seller_id": 3856,
+        "seller_title": "Holy Day",
+        "title": "Игрушка жираф на присосках, детская игрушка антистресс для мальчиков и девочек",
+        "price": 112.34,
+        "orders": 701,
+        "rating": 4.7,
+        "reviews": 12,
+        "group": "Прочее",
+        "price_band": "0-199",
+        "idea_cluster": "антистресс девочек жираф мальчиков присосках"
+      },
+      {
+        "product_id": 381440,
+        "seller_id": 8382,
+        "seller_title": "ExclusiveGOODS",
+        "title": "Наручники металлические, детские",
+        "price": 349.0,
+        "orders": 658,
+        "rating": 4.9,
+        "reviews": 16,
+        "group": "Прочее",
+        "price_band": "200-499",
+        "idea_cluster": "металлические наручники"
+      },
+      {
+        "product_id": 2783019,
+        "seller_id": 8382,
+        "seller_title": "ExclusiveGOODS",
+        "title": "Игрушка Антистресс Кейкап, Указка, Поп Ит, Фиджет, Ручка, Спиннер",
+        "price": 230.0,
+        "orders": 599,
+        "rating": 4.7,
+        "reviews": 15,
+        "group": "Прочее",
+        "price_band": "200-499",
+        "idea_cluster": "антистресс кейкап ручка указка фиджет"
+      },
+      {
+        "product_id": 2741894,
+        "seller_id": 67343,
+        "seller_title": "mamagoods",
+        "title": "Игрушка книжка-шуршалка тканевая Mamagoods",
+        "price": 425.7,
+        "orders": 597,
+        "rating": 5.0,
+        "reviews": 14,
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "idea_cluster": "mamagoods книжка тканевая шуршалка"
+      },
+      {
+        "product_id": 2128173,
+        "seller_id": 26445,
+        "seller_title": "BabyMi",
+        "title": "Игрушка йо-йо",
+        "price": 89.0,
+        "orders": 547,
+        "rating": 4.1,
+        "reviews": 14,
+        "group": "Прочее",
+        "price_band": "0-199",
+        "idea_cluster": "игрушка йо-йо"
+      },
+      {
+        "product_id": 2397793,
+        "seller_id": 37502,
+        "seller_title": "Lucky Home 43",
+        "title": "Детские развивающие деревянные пазлы, сортер \"Картинки-палочки\"",
+        "price": 224.1,
+        "orders": 515,
+        "rating": 4.5,
+        "reviews": 11,
+        "group": "Пазлы",
+        "price_band": "200-499",
+        "idea_cluster": "деревянные картинки пазлы развивающие сортер"
+      },
+      {
+        "product_id": 2613835,
+        "seller_id": 54255,
+        "seller_title": "САМСОН",
+        "title": "Головоломка Brauberg Kids, для детей деревянная Тетрис от 3 лет, сортер, пазлы для малышей",
+        "price": 174.0,
+        "orders": 468,
+        "rating": 4.5,
+        "reviews": 8,
+        "group": "Пазлы",
+        "price_band": "0-199",
+        "idea_cluster": "brauberg kids головоломка деревянная детей"
+      },
+      {
+        "product_id": 3054687,
+        "seller_id": 22156,
+        "seller_title": "МАССПОРТ",
+        "title": "Мягкая игрушка кот, котик антистресс, кот батон, котенок",
+        "price": 199.0,
+        "orders": 442,
+        "rating": 4.8,
+        "reviews": 13,
+        "group": "Мягкие игрушки и театр",
+        "price_band": "0-199",
+        "idea_cluster": "антистресс батон котенок котик мягкая"
+      },
+      {
+        "product_id": 2025776,
+        "seller_id": 54255,
+        "seller_title": "САМСОН",
+        "title": "Тактильные мячики сенсорные игрушки развивающие ЭКО 6 штук, d 60-80 мм, ЮНЛАНДИЯ, 664702",
+        "price": 386.0,
+        "orders": 258,
+        "rating": 4.9,
+        "reviews": 7,
+        "group": "Прочее",
+        "price_band": "200-499",
+        "idea_cluster": "игрушки мячики развивающие сенсорные тактильные"
+      },
+      {
+        "product_id": 3021345,
+        "seller_id": 17579,
+        "seller_title": "Подарки от Совушки",
+        "title": "Погремушка-стучалка Ручка 9х17 см",
+        "price": 65.0,
+        "orders": 249,
+        "rating": 4.5,
+        "reviews": 2,
+        "group": "Прочее",
+        "price_band": "0-199",
+        "idea_cluster": "9х17 погремушка ручка стучалка"
+      }
+    ],
+    "groups": [
+      {
+        "group": "Прочее",
+        "products_seen": 35,
+        "seller_count": 22,
+        "orders_sum": 26974,
+        "avg_price": 785.05,
+        "median_price": 248.0,
+        "my_avg_price": 477.38,
+        "my_median_price": 390.0,
+        "my_sku_count": 274,
+        "price_gap_pct": -39.19,
+        "leading_seller_share_pct": 78.84,
+        "dominance_hhi": 6287.72,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "orders_sum": 21267
+          },
+          {
+            "seller_id": 74954,
+            "seller_title": "AmurBabyMarket",
+            "orders_sum": 1476
+          },
+          {
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "orders_sum": 1386
+          },
+          {
+            "seller_id": 3856,
+            "seller_title": "Holy Day",
+            "orders_sum": 701
+          },
+          {
+            "seller_id": 26445,
+            "seller_title": "BabyMi",
+            "orders_sum": 547
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 2247310,
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "title": "Сквиш лапка таба, игрушки антистресс Лабубу/Стич/Вакуку/Капибара/Куроми/Гусь/Котик,подарок",
+            "price": 114.4,
+            "orders": 20105,
+            "rating": 4.7,
+            "reviews": 297,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс игрушки лапка сквиш таба"
+          },
+          {
+            "product_id": 2670832,
+            "seller_id": 74954,
+            "seller_title": "AmurBabyMarket",
+            "title": "Прорезыватель грызунок силиконовый пульт грибок",
+            "price": 248.0,
+            "orders": 1476,
+            "rating": 5.0,
+            "reviews": 33,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "грибок грызунок прорезыватель пульт силиконовый"
+          },
+          {
+            "product_id": 4315611,
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "title": "Водяной пистолет Глок/водный ручной Glock, водная помпа брызгалка-фонтан, бластер игрушка",
+            "price": 159.0,
+            "orders": 1162,
+            "rating": 4.7,
+            "reviews": 20,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "водный водяной глок пистолет ручной"
+          },
+          {
+            "product_id": 2670717,
+            "seller_id": 3856,
+            "seller_title": "Holy Day",
+            "title": "Игрушка жираф на присосках, детская игрушка антистресс для мальчиков и девочек",
+            "price": 112.34,
+            "orders": 701,
+            "rating": 4.7,
+            "reviews": 12,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс девочек жираф мальчиков присосках"
+          },
+          {
+            "product_id": 381440,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Наручники металлические, детские",
+            "price": 349.0,
+            "orders": 658,
+            "rating": 4.9,
+            "reviews": 16,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "металлические наручники"
+          },
+          {
+            "product_id": 2783019,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Игрушка Антистресс Кейкап, Указка, Поп Ит, Фиджет, Ручка, Спиннер",
+            "price": 230.0,
+            "orders": 599,
+            "rating": 4.7,
+            "reviews": 15,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "антистресс кейкап ручка указка фиджет"
+          },
+          {
+            "product_id": 2128173,
+            "seller_id": 26445,
+            "seller_title": "BabyMi",
+            "title": "Игрушка йо-йо",
+            "price": 89.0,
+            "orders": 547,
+            "rating": 4.1,
+            "reviews": 14,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "игрушка йо-йо"
+          },
+          {
+            "product_id": 2025776,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Тактильные мячики сенсорные игрушки развивающие ЭКО 6 штук, d 60-80 мм, ЮНЛАНДИЯ, 664702",
+            "price": 386.0,
+            "orders": 258,
+            "rating": 4.9,
+            "reviews": 7,
+            "group": "Прочее",
+            "price_band": "200-499",
+            "idea_cluster": "игрушки мячики развивающие сенсорные тактильные"
+          },
+          {
+            "product_id": 3021345,
+            "seller_id": 17579,
+            "seller_title": "Подарки от Совушки",
+            "title": "Погремушка-стучалка Ручка 9х17 см",
+            "price": 65.0,
+            "orders": 249,
+            "rating": 4.5,
+            "reviews": 2,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "9х17 погремушка ручка стучалка"
+          },
+          {
+            "product_id": 2882662,
+            "seller_id": 75085,
+            "seller_title": "SmartRetail Москва",
+            "title": "Игрушки-антистресс сквиши. Капибара, Орео",
+            "price": 30.0,
+            "orders": 236,
+            "rating": 4.7,
+            "reviews": 3,
+            "group": "Прочее",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс игрушки капибара орео сквиши"
+          }
+        ]
+      },
+      {
+        "group": "Мягкие игрушки и театр",
+        "products_seen": 3,
+        "seller_count": 3,
+        "orders_sum": 4001,
+        "avg_price": 732.37,
+        "median_price": 199.0,
+        "my_avg_price": 508.45,
+        "my_median_price": 469.11,
+        "my_sku_count": 14,
+        "price_gap_pct": -30.57,
+        "leading_seller_share_pct": 88.95,
+        "dominance_hhi": 8034.64,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "orders_sum": 3559
+          },
+          {
+            "seller_id": 22156,
+            "seller_title": "МАССПОРТ",
+            "orders_sum": 442
+          },
+          {
+            "seller_id": 38982,
+            "seller_title": "CARAMEL-KA",
+            "orders_sum": 0
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 2096611,
+            "seller_id": 38280,
+            "seller_title": "Крошка Мания",
+            "title": "Мягкая игрушка-брелок Лабубу/Стич/Капибара/Куроми/Котик/Лошадка,антистресс детский подарок",
+            "price": 199.0,
+            "orders": 3559,
+            "rating": 4.8,
+            "reviews": 82,
+            "group": "Мягкие игрушки и театр",
+            "price_band": "0-199",
+            "idea_cluster": "брелок капибара лабубу мягкая стич"
+          },
+          {
+            "product_id": 3054687,
+            "seller_id": 22156,
+            "seller_title": "МАССПОРТ",
+            "title": "Мягкая игрушка кот, котик антистресс, кот батон, котенок",
+            "price": 199.0,
+            "orders": 442,
+            "rating": 4.8,
+            "reviews": 13,
+            "group": "Мягкие игрушки и театр",
+            "price_band": "0-199",
+            "idea_cluster": "антистресс батон котенок котик мягкая"
+          },
+          {
+            "product_id": 2087075,
+            "seller_id": 38982,
+            "seller_title": "CARAMEL-KA",
+            "title": "Кукольный театр \"Красная шапочка\"",
+            "price": 1799.1,
+            "orders": 0,
+            "rating": 0.0,
+            "reviews": 0,
+            "group": "Мягкие игрушки и театр",
+            "price_band": "1200+",
+            "idea_cluster": "красная кукольный театр шапочка"
+          }
+        ]
+      },
+      {
+        "group": "Деревянные игрушки и шнуровки",
+        "products_seen": 1,
+        "seller_count": 1,
+        "orders_sum": 1758,
+        "avg_price": 269.0,
+        "median_price": 269.0,
+        "my_avg_price": 488.09,
+        "my_median_price": 380.0,
+        "my_sku_count": 114,
+        "price_gap_pct": 81.45,
+        "leading_seller_share_pct": 100.0,
+        "dominance_hhi": 10000.0,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "orders_sum": 1758
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 1361953,
+            "seller_id": 8382,
+            "seller_title": "ExclusiveGOODS",
+            "title": "Нож деревянный керамбит, бабочка, катана, меч, нунчаки, пистолет",
+            "price": 269.0,
+            "orders": 1758,
+            "rating": 4.8,
+            "reviews": 51,
+            "group": "Деревянные игрушки и шнуровки",
+            "price_band": "200-499",
+            "idea_cluster": "бабочка деревянный катана керамбит нунчаки"
+          }
+        ]
+      },
+      {
+        "group": "Пазлы",
+        "products_seen": 2,
+        "seller_count": 2,
+        "orders_sum": 983,
+        "avg_price": 199.05,
+        "median_price": 199.05,
+        "my_avg_price": 356.64,
+        "my_median_price": 349.0,
+        "my_sku_count": 77,
+        "price_gap_pct": 79.17,
+        "leading_seller_share_pct": 52.39,
+        "dominance_hhi": 5011.43,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 37502,
+            "seller_title": "Lucky Home 43",
+            "orders_sum": 515
+          },
+          {
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "orders_sum": 468
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 2397793,
+            "seller_id": 37502,
+            "seller_title": "Lucky Home 43",
+            "title": "Детские развивающие деревянные пазлы, сортер \"Картинки-палочки\"",
+            "price": 224.1,
+            "orders": 515,
+            "rating": 4.5,
+            "reviews": 11,
+            "group": "Пазлы",
+            "price_band": "200-499",
+            "idea_cluster": "деревянные картинки пазлы развивающие сортер"
+          },
+          {
+            "product_id": 2613835,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Головоломка Brauberg Kids, для детей деревянная Тетрис от 3 лет, сортер, пазлы для малышей",
+            "price": 174.0,
+            "orders": 468,
+            "rating": 4.5,
+            "reviews": 8,
+            "group": "Пазлы",
+            "price_band": "0-199",
+            "idea_cluster": "brauberg kids головоломка деревянная детей"
+          }
+        ]
+      },
+      {
+        "group": "Книги и обучающие материалы",
+        "products_seen": 1,
+        "seller_count": 1,
+        "orders_sum": 597,
+        "avg_price": 425.7,
+        "median_price": 425.7,
+        "my_avg_price": 435.42,
+        "my_median_price": 299.0,
+        "my_sku_count": 47,
+        "price_gap_pct": 2.28,
+        "leading_seller_share_pct": 100.0,
+        "dominance_hhi": 10000.0,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 67343,
+            "seller_title": "mamagoods",
+            "orders_sum": 597
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 2741894,
+            "seller_id": 67343,
+            "seller_title": "mamagoods",
+            "title": "Игрушка книжка-шуршалка тканевая Mamagoods",
+            "price": 425.7,
+            "orders": 597,
+            "rating": 5.0,
+            "reviews": 14,
+            "group": "Книги и обучающие материалы",
+            "price_band": "200-499",
+            "idea_cluster": "mamagoods книжка тканевая шуршалка"
+          }
+        ]
+      },
+      {
+        "group": "Магнитные игры и одевашки",
+        "products_seen": 4,
+        "seller_count": 3,
+        "orders_sum": 243,
+        "avg_price": 1241.21,
+        "median_price": 1042.43,
+        "my_avg_price": 482.89,
+        "my_median_price": 404.54,
+        "my_sku_count": 42,
+        "price_gap_pct": -61.1,
+        "leading_seller_share_pct": 50.21,
+        "dominance_hhi": 4729.8,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "orders_sum": 122
+          },
+          {
+            "seller_id": 25608,
+            "seller_title": "Балачак",
+            "orders_sum": 114
+          },
+          {
+            "seller_id": 28000,
+            "seller_title": "ДИСКАУНТЕР ваших любимых товаров.",
+            "orders_sum": 7
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 949090,
+            "seller_id": 25608,
+            "seller_title": "Балачак",
+            "title": "Конструктор магнитный \"Мини магический магнит\", 32 детали",
+            "price": 1484.1,
+            "orders": 114,
+            "rating": 5.0,
+            "reviews": 3,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "1200+",
+            "idea_cluster": "конструктор магический магнит магнитный мини"
+          },
+          {
+            "product_id": 2614306,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Сортер Brauberg Kids, 665245, для малышей, магнитная рыбалка, развивающие игрушки, дерево",
+            "price": 420.97,
+            "orders": 68,
+            "rating": 5.0,
+            "reviews": 3,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "200-499",
+            "idea_cluster": "brauberg kids магнитная малышей сортер"
+          },
+          {
+            "product_id": 2614304,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Сортер Brauberg Kids, 665246, для малышей, магнитная рыбалка, развивающие игрушки, дерево",
+            "price": 600.76,
+            "orders": 54,
+            "rating": 5.0,
+            "reviews": 1,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "500-799",
+            "idea_cluster": "brauberg kids магнитная малышей сортер"
+          },
+          {
+            "product_id": 4526884,
+            "seller_id": 28000,
+            "seller_title": "ДИСКАУНТЕР ваших любимых товаров.",
+            "title": "Игрушка робот трансформер Play Okay магнитный 5 в 1, военный, 25 эл, подвижные детали",
+            "price": 2459.0,
+            "orders": 7,
+            "rating": 0.0,
+            "reviews": 0,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "1200+",
+            "idea_cluster": "okay play магнитный робот трансформер"
+          }
+        ]
+      },
+      {
+        "group": "Конструкторы",
+        "products_seen": 3,
+        "seller_count": 3,
+        "orders_sum": 152,
+        "avg_price": 1207.06,
+        "median_price": 1364.09,
+        "my_avg_price": 679.71,
+        "my_median_price": 545.09,
+        "my_sku_count": 41,
+        "price_gap_pct": -43.69,
+        "leading_seller_share_pct": 83.55,
+        "dominance_hhi": 7121.71,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 16685,
+            "seller_title": "Магазин детских товаров Ассорти",
+            "orders_sum": 127
+          },
+          {
+            "seller_id": 25185,
+            "seller_title": "BUMBLEBEE",
+            "orders_sum": 15
+          },
+          {
+            "seller_id": 28000,
+            "seller_title": "ДИСКАУНТЕР ваших любимых товаров.",
+            "orders_sum": 10
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 2954134,
+            "seller_id": 16685,
+            "seller_title": "Магазин детских товаров Ассорти",
+            "title": "Конструктор \"Сказочная лошадка\", цвет случайный",
+            "price": 17.0,
+            "orders": 127,
+            "rating": 4.0,
+            "reviews": 4,
+            "group": "Конструкторы",
+            "price_band": "0-199",
+            "idea_cluster": "конструктор лошадка сказочная случайный цвет"
+          },
+          {
+            "product_id": 2089197,
+            "seller_id": 25185,
+            "seller_title": "BUMBLEBEE",
+            "title": "Конструктор детский Механик металлический 275деталей игрушка подарок для мальчиков девочек",
+            "price": 1364.09,
+            "orders": 15,
+            "rating": 5.0,
+            "reviews": 1,
+            "group": "Конструкторы",
+            "price_band": "1200+",
+            "idea_cluster": "275деталей конструктор металлический механик подарок"
+          },
+          {
+            "product_id": 4526983,
+            "seller_id": 28000,
+            "seller_title": "ДИСКАУНТЕР ваших любимых товаров.",
+            "title": "Конструктор для мальчика и девочки Play Okay 136 элементов, легко собирается, автобус",
+            "price": 2240.1,
+            "orders": 10,
+            "rating": 0.0,
+            "reviews": 0,
+            "group": "Конструкторы",
+            "price_band": "1200+",
+            "idea_cluster": "okay play девочки конструктор мальчика"
+          }
+        ]
+      },
+      {
+        "group": "Кубики, мозаика и пирамидки",
+        "products_seen": 1,
+        "seller_count": 1,
+        "orders_sum": 11,
+        "avg_price": 374.0,
+        "median_price": 374.0,
+        "my_avg_price": 474.4,
+        "my_median_price": 450.0,
+        "my_sku_count": 35,
+        "price_gap_pct": 26.84,
+        "leading_seller_share_pct": 100.0,
+        "dominance_hhi": 10000.0,
+        "competition_profile": "сегмент контролируется лидером",
+        "top_sellers": [
+          {
+            "seller_id": 27763,
+            "seller_title": "Lyubimka",
+            "orders_sum": 11
+          }
+        ],
+        "top_products": [
+          {
+            "product_id": 2133248,
+            "seller_id": 27763,
+            "seller_title": "Lyubimka",
+            "title": "Аквамозаика 5 в 1 с декорациями для детей \"Транспорт\" с пинцетом,5 трафарета, термомозаика",
+            "price": 374.0,
+            "orders": 11,
+            "rating": 0.0,
+            "reviews": 0,
+            "group": "Кубики, мозаика и пирамидки",
+            "price_band": "200-499",
+            "idea_cluster": "аквамозаика декорациями детей пинцетом транспорт"
+          }
+        ]
+      }
+    ],
+    "idea_clusters": [
+      {
+        "idea_cluster": "brauberg kids магнитная малышей сортер",
+        "group": "Магнитные игры и одевашки",
+        "products_seen": 2,
+        "seller_count": 1,
+        "orders_sum": 122,
+        "avg_price": 510.87,
+        "top_products": [
+          {
+            "product_id": 2614306,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Сортер Brauberg Kids, 665245, для малышей, магнитная рыбалка, развивающие игрушки, дерево",
+            "price": 420.97,
+            "orders": 68,
+            "rating": 5.0,
+            "reviews": 3,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "200-499",
+            "idea_cluster": "brauberg kids магнитная малышей сортер"
+          },
+          {
+            "product_id": 2614304,
+            "seller_id": 54255,
+            "seller_title": "САМСОН",
+            "title": "Сортер Brauberg Kids, 665246, для малышей, магнитная рыбалка, развивающие игрушки, дерево",
+            "price": 600.76,
+            "orders": 54,
+            "rating": 5.0,
+            "reviews": 1,
+            "group": "Магнитные игры и одевашки",
+            "price_band": "500-799",
+            "idea_cluster": "brauberg kids магнитная малышей сортер"
+          }
+        ]
+      }
+    ]
+  },
+  "charts": {
+    "price_bands": [
+      {
+        "key": "0-199",
+        "value": 27917
+      },
+      {
+        "key": "200-499",
+        "value": 6449
+      },
+      {
+        "key": "1200+",
+        "value": 235
+      },
+      {
+        "key": "500-799",
+        "value": 98
+      },
+      {
+        "key": "800-1199",
+        "value": 20
+      }
+    ],
+    "group_orders": [
+      {
+        "key": "Прочее",
+        "value": 26974
+      },
+      {
+        "key": "Мягкие игрушки и театр",
+        "value": 4001
+      },
+      {
+        "key": "Деревянные игрушки и шнуровки",
+        "value": 1758
+      },
+      {
+        "key": "Пазлы",
+        "value": 983
+      },
+      {
+        "key": "Книги и обучающие материалы",
+        "value": 597
+      },
+      {
+        "key": "Магнитные игры и одевашки",
+        "value": 243
+      },
+      {
+        "key": "Конструкторы",
+        "value": 152
+      },
+      {
+        "key": "Кубики, мозаика и пирамидки",
+        "value": 11
+      }
+    ]
+  },
+  "schema_version": "1.0.0"
+}

@@ -1,0 +1,2807 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-04-10T21:59:12.855170+00:00",
+  "metadata": {
+    "window": {},
+    "documents": {},
+    "content_audit": {
+      "mode": "description seo richness heuristic",
+      "input_json": "/home/user/mm-market-tools/reports/marketing_card_audit_2026-04-10.json",
+      "cache_json": "/home/user/mm-market-tools/data/local/product_content_cache.json",
+      "cache_only": false
+    }
+  },
+  "kpis": {
+    "total_skus": 60,
+    "sold_skus": 0,
+    "revenue_total": 0.0,
+    "gross_profit_total": 0.0,
+    "stockout_risk_count": 0,
+    "stale_stock_count": 29,
+    "priority_cards_count": 13,
+    "description_needs_work_count": 4,
+    "thin_content_count": 13,
+    "description_gap_count": 12
+  },
+  "actions": {
+    "fix_now": [
+      {
+        "key": "WONDERS-ЯЩИКСОР",
+        "product_id": 10328,
+        "barcode": "1000000243475",
+        "title": "Сортировочный бокс 80 предметов",
+        "group": "Прочее",
+        "price_band": "500-799",
+        "sale_price": 760.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 594,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГОНОЧНЫ",
+        "product_id": 9927,
+        "barcode": "1000000233711",
+        "title": "Гоночный трек с 4 машинками",
+        "group": "Транспорт и машинки",
+        "price_band": "1200+",
+        "sale_price": 1750.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-АВТОВОЗ",
+        "product_id": 12919,
+        "barcode": "1000000306255",
+        "title": "Автовоз",
+        "group": "Транспорт и машинки",
+        "price_band": "800-1199",
+        "sale_price": 800.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 1,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-КРАСН",
+        "product_id": 13399,
+        "barcode": "1000000319262",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-ЗЕЛЕН",
+        "product_id": 13399,
+        "barcode": "1000000319279",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ПЗЛ1001",
+        "product_id": 419620,
+        "barcode": "4670006851720",
+        "title": "Пазл Сортер деревянный для малышей - Животные: Утка собака медведь лошадь'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 412.0,
+        "units_sold": 0,
+        "stock_value_sale": 5768.0,
+        "total_stock": 14,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 119,
+        "description_words": 18,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 134,
+        "description_score": 30,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Горчичный",
+        "product_id": 3064419,
+        "barcode": "1000086751727",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Индиго",
+        "product_id": 3064419,
+        "barcode": "1000086751741",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Конфетный",
+        "product_id": 3064419,
+        "barcode": "1000086751758",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Красный",
+        "product_id": 3064419,
+        "barcode": "2909863194001",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Черный",
+        "product_id": 3064419,
+        "barcode": "2900044355525",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Желтый",
+        "product_id": 3064419,
+        "barcode": "1000086751734",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 3690.0,
+        "total_stock": 9,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      }
+    ],
+    "thin_content": [
+      {
+        "key": "WONDERS-ЯЩИКСОР",
+        "product_id": 10328,
+        "barcode": "1000000243475",
+        "title": "Сортировочный бокс 80 предметов",
+        "group": "Прочее",
+        "price_band": "500-799",
+        "sale_price": 760.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 594,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГОНОЧНЫ",
+        "product_id": 9927,
+        "barcode": "1000000233711",
+        "title": "Гоночный трек с 4 машинками",
+        "group": "Транспорт и машинки",
+        "price_band": "1200+",
+        "sale_price": 1750.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-АВТОВОЗ",
+        "product_id": 12919,
+        "barcode": "1000000306255",
+        "title": "Автовоз",
+        "group": "Транспорт и машинки",
+        "price_band": "800-1199",
+        "sale_price": 800.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 1,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-КРАСН",
+        "product_id": 13399,
+        "barcode": "1000000319262",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-ЗЕЛЕН",
+        "product_id": 13399,
+        "barcode": "1000000319279",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ПЗЛ1001",
+        "product_id": 419620,
+        "barcode": "4670006851720",
+        "title": "Пазл Сортер деревянный для малышей - Животные: Утка собака медведь лошадь'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 412.0,
+        "units_sold": 0,
+        "stock_value_sale": 5768.0,
+        "total_stock": 14,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 119,
+        "description_words": 18,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 134,
+        "description_score": 30,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Горчичный",
+        "product_id": 3064419,
+        "barcode": "1000086751727",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Индиго",
+        "product_id": 3064419,
+        "barcode": "1000086751741",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Конфетный",
+        "product_id": 3064419,
+        "barcode": "1000086751758",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Красный",
+        "product_id": 3064419,
+        "barcode": "2909863194001",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Черный",
+        "product_id": 3064419,
+        "barcode": "2900044355525",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Желтый",
+        "product_id": 3064419,
+        "barcode": "1000086751734",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 3690.0,
+        "total_stock": 9,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      }
+    ],
+    "strong_examples": [
+      {
+        "key": "WONDERS-04270",
+        "product_id": 950401,
+        "barcode": "4606088042701",
+        "title": "Настольная игра Baby Toys 'Азбука для самых маленьких' русский алфавит",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 400.5,
+        "units_sold": 0,
+        "stock_value_sale": 6808.5,
+        "total_stock": 17,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 790,
+        "description_words": 119,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-СЕРЕБРН-КРУГ",
+        "product_id": 1830487,
+        "barcode": "4606088044330",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 1240.0,
+        "total_stock": 4,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-КОНФЕТН-ОВАЛ",
+        "product_id": 1830487,
+        "barcode": "4606088044361",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 930.0,
+        "total_stock": 3,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ШБ08",
+        "product_id": 452353,
+        "barcode": "4670006852239",
+        "title": "Деревянная игрушка - 'Шнуровка кеда'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 408.03,
+        "units_sold": 0,
+        "stock_value_sale": 816.06,
+        "total_stock": 2,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 354,
+        "description_words": 50,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-МАНГО-ОВАЛ",
+        "product_id": 1830487,
+        "barcode": "4606088044354",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 620.0,
+        "total_stock": 2,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПДСВКВ1-БЕЛЫЙ",
+        "product_id": 2161,
+        "barcode": "1000000042672",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 299.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 717,
+        "description_words": 100,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПДСВКВ1-ЧЕРН",
+        "product_id": 2161,
+        "barcode": "1000000042689",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 280.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 717,
+        "description_words": 100,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ТАНГРАМ",
+        "product_id": 30810,
+        "barcode": "1000000797442",
+        "title": "Танграм в нежных тонах",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 399.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 2008,
+        "description_words": 277,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ЦВЕТКОД",
+        "product_id": 31882,
+        "barcode": "1000000825718",
+        "title": "Головоломка BONDIBON Smart Games Цветовой код (ВВ0352)",
+        "group": "Книги и обучающие материалы",
+        "price_band": "1200+",
+        "sale_price": 2450.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 2863,
+        "description_words": 414,
+        "title_term_coverage_pct": 28.6,
+        "matched_title_terms": 2,
+        "title_terms_count": 7,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-НГСУМК1-ЧЕРН",
+        "product_id": 2204,
+        "barcode": "1000000042764",
+        "title": "Новогодняя сумка для подарков",
+        "group": "Рюкзаки и аксессуары",
+        "price_band": "0-199",
+        "sale_price": 130.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 1011,
+        "description_words": 148,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 1180.5,
+        "description_gap_vs_group": 170,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-НГСУМК1-УГОЛЬН",
+        "product_id": 2204,
+        "barcode": "1000000042771",
+        "title": "Новогодняя сумка для подарков",
+        "group": "Рюкзаки и аксессуары",
+        "price_band": "0-199",
+        "sale_price": 130.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 1011,
+        "description_words": 148,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 1180.5,
+        "description_gap_vs_group": 170,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-НГСУМК1-СЕРЫЙ",
+        "product_id": 2204,
+        "barcode": "1000000042788",
+        "title": "Новогодняя сумка для подарков",
+        "group": "Рюкзаки и аксессуары",
+        "price_band": "0-199",
+        "sale_price": 130.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 1011,
+        "description_words": 148,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 1180.5,
+        "description_gap_vs_group": 170,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      }
+    ]
+  },
+  "tables": {
+    "priority_descriptions": [
+      {
+        "key": "WONDERS-ЯЩИКСОР",
+        "product_id": 10328,
+        "barcode": "1000000243475",
+        "title": "Сортировочный бокс 80 предметов",
+        "group": "Прочее",
+        "price_band": "500-799",
+        "sale_price": 760.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 594,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГОНОЧНЫ",
+        "product_id": 9927,
+        "barcode": "1000000233711",
+        "title": "Гоночный трек с 4 машинками",
+        "group": "Транспорт и машинки",
+        "price_band": "1200+",
+        "sale_price": 1750.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-АВТОВОЗ",
+        "product_id": 12919,
+        "barcode": "1000000306255",
+        "title": "Автовоз",
+        "group": "Транспорт и машинки",
+        "price_band": "800-1199",
+        "sale_price": 800.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 1,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-КРАСН",
+        "product_id": 13399,
+        "barcode": "1000000319262",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-ЗЕЛЕН",
+        "product_id": 13399,
+        "barcode": "1000000319279",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ПЗЛ1001",
+        "product_id": 419620,
+        "barcode": "4670006851720",
+        "title": "Пазл Сортер деревянный для малышей - Животные: Утка собака медведь лошадь'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 412.0,
+        "units_sold": 0,
+        "stock_value_sale": 5768.0,
+        "total_stock": 14,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 119,
+        "description_words": 18,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 134,
+        "description_score": 30,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Горчичный",
+        "product_id": 3064419,
+        "barcode": "1000086751727",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Индиго",
+        "product_id": 3064419,
+        "barcode": "1000086751741",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Конфетный",
+        "product_id": 3064419,
+        "barcode": "1000086751758",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Красный",
+        "product_id": 3064419,
+        "barcode": "2909863194001",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Черный",
+        "product_id": 3064419,
+        "barcode": "2900044355525",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Желтый",
+        "product_id": 3064419,
+        "barcode": "1000086751734",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 3690.0,
+        "total_stock": 9,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Розовый",
+        "product_id": 3064419,
+        "barcode": "2900038083090",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 3690.0,
+        "total_stock": 9,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "WONDERS-ВВ4239-КРАСН",
+        "product_id": 1965188,
+        "barcode": "4895136042132",
+        "title": "Конструктор  'Железная дорога' Транспорт Поезд",
+        "group": "Конструкторы",
+        "price_band": "800-1199",
+        "sale_price": 801.0,
+        "units_sold": 0,
+        "stock_value_sale": 5607.0,
+        "total_stock": 7,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 219,
+        "description_words": 29,
+        "title_term_coverage_pct": 20.0,
+        "matched_title_terms": 1,
+        "title_terms_count": 5,
+        "content_source": "cache",
+        "group_median_description_chars": 219,
+        "description_gap_vs_group": 0,
+        "description_score": 55,
+        "description_status": "needs_work",
+        "issues": [
+          "description_short",
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Углубить описание: добавить пользу, сценарии, состав/комплектацию и сильные отличия.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ШД01",
+        "product_id": 309652,
+        "barcode": "4670006851553",
+        "title": "Шнуровка 'Дерево' развивающая деревянная игрушка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 405.0,
+        "units_sold": 0,
+        "stock_value_sale": 3645.0,
+        "total_stock": 9,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 204,
+        "description_words": 29,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 49,
+        "description_score": 55,
+        "description_status": "needs_work",
+        "issues": [
+          "description_short",
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Углубить описание: добавить пользу, сценарии, состав/комплектацию и сильные отличия.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПСЧ3007",
+        "product_id": 419169,
+        "barcode": "4670006856794",
+        "title": "Логическая пирамидка 'Учимся считать'",
+        "group": "Кубики, мозаика и пирамидки",
+        "price_band": "200-499",
+        "sale_price": 499.59,
+        "units_sold": 0,
+        "stock_value_sale": 6994.26,
+        "total_stock": 14,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 309,
+        "description_words": 44,
+        "title_term_coverage_pct": 25.0,
+        "matched_title_terms": 1,
+        "title_terms_count": 4,
+        "content_source": "cache",
+        "group_median_description_chars": 594,
+        "description_gap_vs_group": 285,
+        "description_score": 63,
+        "description_status": "needs_work",
+        "issues": [
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ФЖИВОТН-ЛЗЕЛЕН",
+        "product_id": 45757,
+        "barcode": "4895136030276",
+        "title": "Набор животных Bondibon 'Ребятам о Зверятах'",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 408.59,
+        "units_sold": 0,
+        "stock_value_sale": 6537.44,
+        "total_stock": 16,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 340,
+        "description_words": 44,
+        "title_term_coverage_pct": 25.0,
+        "matched_title_terms": 1,
+        "title_terms_count": 4,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 254,
+        "description_score": 63,
+        "description_status": "needs_work",
+        "issues": [
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-04270",
+        "product_id": 950401,
+        "barcode": "4606088042701",
+        "title": "Настольная игра Baby Toys 'Азбука для самых маленьких' русский алфавит",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 400.5,
+        "units_sold": 0,
+        "stock_value_sale": 6808.5,
+        "total_stock": 17,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 790,
+        "description_words": 119,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-СЕРЕБРН-КРУГ",
+        "product_id": 1830487,
+        "barcode": "4606088044330",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 1240.0,
+        "total_stock": 4,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-КОНФЕТН-ОВАЛ",
+        "product_id": 1830487,
+        "barcode": "4606088044361",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 930.0,
+        "total_stock": 3,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ШБ08",
+        "product_id": 452353,
+        "barcode": "4670006852239",
+        "title": "Деревянная игрушка - 'Шнуровка кеда'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 408.03,
+        "units_sold": 0,
+        "stock_value_sale": 816.06,
+        "total_stock": 2,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 354,
+        "description_words": 50,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-МАНГО-ОВАЛ",
+        "product_id": 1830487,
+        "barcode": "4606088044354",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 620.0,
+        "total_stock": 2,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПДСВКВ1-БЕЛЫЙ",
+        "product_id": 2161,
+        "barcode": "1000000042672",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 299.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 717,
+        "description_words": 100,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПДСВКВ1-ЧЕРН",
+        "product_id": 2161,
+        "barcode": "1000000042689",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 280.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 717,
+        "description_words": 100,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ТАНГРАМ",
+        "product_id": 30810,
+        "barcode": "1000000797442",
+        "title": "Танграм в нежных тонах",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 399.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 2008,
+        "description_words": 277,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      }
+    ],
+    "thin_content": [
+      {
+        "key": "WONDERS-ЯЩИКСОР",
+        "product_id": 10328,
+        "barcode": "1000000243475",
+        "title": "Сортировочный бокс 80 предметов",
+        "group": "Прочее",
+        "price_band": "500-799",
+        "sale_price": 760.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 594,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГОНОЧНЫ",
+        "product_id": 9927,
+        "barcode": "1000000233711",
+        "title": "Гоночный трек с 4 машинками",
+        "group": "Транспорт и машинки",
+        "price_band": "1200+",
+        "sale_price": 1750.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-АВТОВОЗ",
+        "product_id": 12919,
+        "barcode": "1000000306255",
+        "title": "Автовоз",
+        "group": "Транспорт и машинки",
+        "price_band": "800-1199",
+        "sale_price": 800.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 0,
+        "description_words": 0,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 1,
+        "content_source": "cache",
+        "group_median_description_chars": 362.5,
+        "description_gap_vs_group": 362,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-КРАСН",
+        "product_id": 13399,
+        "barcode": "1000000319262",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ГАРМОНЬ-ЗЕЛЕН",
+        "product_id": 13399,
+        "barcode": "1000000319279",
+        "title": "Губная деревянная гармошка",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "0-199",
+        "sale_price": 150.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 66,
+        "description_words": 10,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 187,
+        "description_score": 18,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage",
+          "description_gap_vs_group"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте.",
+          "Описание заметно короче медианы своей группы. Это уже контентный минус относительно окружения."
+        ]
+      },
+      {
+        "key": "WONDERS-ПЗЛ1001",
+        "product_id": 419620,
+        "barcode": "4670006851720",
+        "title": "Пазл Сортер деревянный для малышей - Животные: Утка собака медведь лошадь'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 412.0,
+        "units_sold": 0,
+        "stock_value_sale": 5768.0,
+        "total_stock": 14,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 119,
+        "description_words": 18,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 134,
+        "description_score": 30,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Горчичный",
+        "product_id": 3064419,
+        "barcode": "1000086751727",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Индиго",
+        "product_id": 3064419,
+        "barcode": "1000086751741",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Конфетный",
+        "product_id": 3064419,
+        "barcode": "1000086751758",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Красный",
+        "product_id": 3064419,
+        "barcode": "2909863194001",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Черный",
+        "product_id": 3064419,
+        "barcode": "2900044355525",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 4100.0,
+        "total_stock": 10,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      },
+      {
+        "key": "НАЗАМОЧ-Желтый",
+        "product_id": 3064419,
+        "barcode": "1000086751734",
+        "title": "Записная книжка / дневник / блокнот/ анкета для девочек и мальчиков на замочке А6 50 л",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 410.0,
+        "units_sold": 0,
+        "stock_value_sale": 3690.0,
+        "total_stock": 9,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 43,
+        "description_words": 8,
+        "title_term_coverage_pct": 37.5,
+        "matched_title_terms": 3,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 45,
+        "description_status": "priority_fix",
+        "issues": [
+          "thin_content",
+          "mid_title_term_coverage"
+        ],
+        "recommendations": [
+          "Сильно расширить описание: что это за товар, для кого, что внутри, как использовать и чем он полезен.",
+          "Усилить связь title и description: добавить тип товара, ключевой entity и сценарий использования."
+        ]
+      }
+    ],
+    "strong_examples": [
+      {
+        "key": "WONDERS-04270",
+        "product_id": 950401,
+        "barcode": "4606088042701",
+        "title": "Настольная игра Baby Toys 'Азбука для самых маленьких' русский алфавит",
+        "group": "Книги и обучающие материалы",
+        "price_band": "200-499",
+        "sale_price": 400.5,
+        "units_sold": 0,
+        "stock_value_sale": 6808.5,
+        "total_stock": 17,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 790,
+        "description_words": 119,
+        "title_term_coverage_pct": 12.5,
+        "matched_title_terms": 1,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-СЕРЕБРН-КРУГ",
+        "product_id": 1830487,
+        "barcode": "4606088044330",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 1240.0,
+        "total_stock": 4,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-КОНФЕТН-ОВАЛ",
+        "product_id": 1830487,
+        "barcode": "4606088044361",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 930.0,
+        "total_stock": 3,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ШБ08",
+        "product_id": 452353,
+        "barcode": "4670006852239",
+        "title": "Деревянная игрушка - 'Шнуровка кеда'",
+        "group": "Деревянные игрушки и шнуровки",
+        "price_band": "200-499",
+        "sale_price": 408.03,
+        "units_sold": 0,
+        "stock_value_sale": 816.06,
+        "total_stock": 2,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 354,
+        "description_words": 50,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 253.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-04430-МАНГО-ОВАЛ",
+        "product_id": 1830487,
+        "barcode": "4606088044354",
+        "title": "Раскраска на доске 'Животные': Котик Единорог Лев Фламинго Жираф",
+        "group": "Творчество и рукоделие",
+        "price_band": "200-499",
+        "sale_price": 310.0,
+        "units_sold": 0,
+        "stock_value_sale": 620.0,
+        "total_stock": 2,
+        "current_winner": false,
+        "stale_stock": true,
+        "description_chars": 1070,
+        "description_words": 159,
+        "title_term_coverage_pct": 0.0,
+        "matched_title_terms": 0,
+        "title_terms_count": 8,
+        "content_source": "cache",
+        "group_median_description_chars": 1070,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПДСВКВ1-БЕЛЫЙ",
+        "product_id": 2161,
+        "barcode": "1000000042672",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 299.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 717,
+        "description_words": 100,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ПДСВКВ1-ЧЕРН",
+        "product_id": 2161,
+        "barcode": "1000000042689",
+        "title": "Подсвечник в винтажном стиле",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 280.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 717,
+        "description_words": 100,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ТАНГРАМ",
+        "product_id": 30810,
+        "barcode": "1000000797442",
+        "title": "Танграм в нежных тонах",
+        "group": "Прочее",
+        "price_band": "200-499",
+        "sale_price": 399.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 2008,
+        "description_words": 277,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 594.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-ЦВЕТКОД",
+        "product_id": 31882,
+        "barcode": "1000000825718",
+        "title": "Головоломка BONDIBON Smart Games Цветовой код (ВВ0352)",
+        "group": "Книги и обучающие материалы",
+        "price_band": "1200+",
+        "sale_price": 2450.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 2863,
+        "description_words": 414,
+        "title_term_coverage_pct": 28.6,
+        "matched_title_terms": 2,
+        "title_terms_count": 7,
+        "content_source": "cache",
+        "group_median_description_chars": 43.0,
+        "description_gap_vs_group": 0,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-НГСУМК1-ЧЕРН",
+        "product_id": 2204,
+        "barcode": "1000000042764",
+        "title": "Новогодняя сумка для подарков",
+        "group": "Рюкзаки и аксессуары",
+        "price_band": "0-199",
+        "sale_price": 130.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 1011,
+        "description_words": 148,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 1180.5,
+        "description_gap_vs_group": 170,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-НГСУМК1-УГОЛЬН",
+        "product_id": 2204,
+        "barcode": "1000000042771",
+        "title": "Новогодняя сумка для подарков",
+        "group": "Рюкзаки и аксессуары",
+        "price_band": "0-199",
+        "sale_price": 130.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 1011,
+        "description_words": 148,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 1180.5,
+        "description_gap_vs_group": 170,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      },
+      {
+        "key": "WONDERS-НГСУМК1-СЕРЫЙ",
+        "product_id": 2204,
+        "barcode": "1000000042788",
+        "title": "Новогодняя сумка для подарков",
+        "group": "Рюкзаки и аксессуары",
+        "price_band": "0-199",
+        "sale_price": 130.0,
+        "units_sold": 0,
+        "stock_value_sale": 0.0,
+        "total_stock": 0,
+        "current_winner": false,
+        "stale_stock": false,
+        "description_chars": 1011,
+        "description_words": 148,
+        "title_term_coverage_pct": 33.3,
+        "matched_title_terms": 1,
+        "title_terms_count": 3,
+        "content_source": "cache",
+        "group_median_description_chars": 1180.5,
+        "description_gap_vs_group": 170,
+        "description_score": 75,
+        "description_status": "strong",
+        "issues": [
+          "weak_title_term_coverage"
+        ],
+        "recommendations": [
+          "Переписать описание так, чтобы важные слова из title реально раскрывались в тексте."
+        ]
+      }
+    ]
+  },
+  "charts": {
+    "description_status_counts": [
+      {
+        "key": "Priority fix",
+        "count": 13
+      },
+      {
+        "key": "Needs work",
+        "count": 4
+      },
+      {
+        "key": "Strong",
+        "count": 43
+      }
+    ],
+    "description_length_counts": [
+      {
+        "key": "0-119",
+        "count": 13
+      },
+      {
+        "key": "120-239",
+        "count": 2
+      },
+      {
+        "key": "240-499",
+        "count": 14
+      },
+      {
+        "key": "500+",
+        "count": 31
+      }
+    ],
+    "title_term_coverage_counts": [
+      {
+        "key": "0-34%",
+        "count": 22
+      },
+      {
+        "key": "35-54%",
+        "count": 11
+      },
+      {
+        "key": "55-74%",
+        "count": 4
+      },
+      {
+        "key": "75%+",
+        "count": 23
+      }
+    ]
+  },
+  "insights": [
+    {
+      "title": "Есть карточки с реально тонким описанием",
+      "text": "Найдено 13 карточек, где описание уже слишком короткое, чтобы нормально раскрывать товар и его пользу.",
+      "tone": "warn"
+    },
+    {
+      "title": "Часть карточек отстаёт от своей группы по плотности текста",
+      "text": "В 12 карточках описание слабее медианы своей группы по объёму. Это полезный ориентир для prioritization контентной работы.",
+      "tone": "warn"
+    },
+    {
+      "title": "Уже есть карточки, на которые можно равняться",
+      "text": "Внутри выборки есть 43 карточек с сильным description-layer. Их стоит использовать как внутренние эталоны, а не придумывать контент с нуля.",
+      "tone": "good"
+    }
+  ]
+}

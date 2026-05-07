@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-04-13T08:39:25.705695+00:00",
+  "metadata": {
+    "window": {
+      "date_from": "2026-03-15",
+      "date_to": "2026-04-13",
+      "window_days": 30
+    },
+    "documents": {
+      "sales_return_mode": "seller analytics",
+      "sales_return_source": "CubeJS / SalesReturn"
+    },
+    "cubejs": {
+      "count_measure": "SalesReturn.returned_quantity_measure",
+      "secondary_measure": "SalesReturn.number_of_returns_by_cause",
+      "shop_dimension": "SalesReturn.shop_id",
+      "date_dimension": "SalesReturn.returned_at",
+      "reason_dimension": "SalesReturn.cause",
+      "sku_dimension": "SalesReturn.sku_id",
+      "title_dimension": null,
+      "barcode_dimension": null,
+      "product_dimension": "SalesReturn.product_id",
+      "amount_dimension": "SalesReturn.amount_to_return"
+    }
+  },
+  "kpis": {
+    "return_rows_count": 2,
+    "total_returns_count": 1.0,
+    "unique_return_reasons_count": 2,
+    "rows_without_reason_count": 0,
+    "rows_without_identity_count": 0,
+    "top_reason_share_pct": 100.0,
+    "avg_returns_per_row": 0.5
+  },
+  "actions": {
+    "investigate_now": [
+      {
+        "title": "2623485",
+        "reason": "REGULAR",
+        "sku": "2623485",
+        "seller_sku_id": "2623485",
+        "barcode": null,
+        "product_id": "970356",
+        "return_count": 1.0,
+        "amount_value": null,
+        "identity": "2623485"
+      },
+      {
+        "title": "7941901",
+        "reason": "CANCELED",
+        "sku": "7941901",
+        "seller_sku_id": "7941901",
+        "barcode": null,
+        "product_id": "2539424",
+        "return_count": 0.0,
+        "amount_value": null,
+        "identity": "7941901"
+      }
+    ],
+    "reason_hotspots": [
+      {
+        "title": "REGULAR",
+        "reason": "REGULAR",
+        "return_count": 1.0,
+        "amount_value": 0.0
+      },
+      {
+        "title": "CANCELED",
+        "reason": "CANCELED",
+        "return_count": 0.0,
+        "amount_value": 0.0
+      }
+    ],
+    "identity_gaps": []
+  },
+  "tables": {
+    "current_winners": [
+      {
+        "title": "2623485",
+        "reason": "REGULAR",
+        "sku": "2623485",
+        "seller_sku_id": "2623485",
+        "barcode": null,
+        "product_id": "970356",
+        "return_count": 1.0,
+        "amount_value": null,
+        "identity": "2623485"
+      },
+      {
+        "title": "7941901",
+        "reason": "CANCELED",
+        "sku": "7941901",
+        "seller_sku_id": "7941901",
+        "barcode": null,
+        "product_id": "2539424",
+        "return_count": 0.0,
+        "amount_value": null,
+        "identity": "7941901"
+      }
+    ],
+    "profit_leaders": [
+      {
+        "title": "REGULAR",
+        "reason": "REGULAR",
+        "return_count": 1.0,
+        "amount_value": 0.0
+      },
+      {
+        "title": "CANCELED",
+        "reason": "CANCELED",
+        "return_count": 0.0,
+        "amount_value": 0.0
+      }
+    ],
+    "stockout_risk": [],
+    "stale_stock": [
+      {
+        "title": "2623485",
+        "reason": "REGULAR",
+        "sku": "2623485",
+        "seller_sku_id": "2623485",
+        "barcode": null,
+        "product_id": "970356",
+        "return_count": 1.0,
+        "amount_value": null,
+        "identity": "2623485"
+      },
+      {
+        "title": "7941901",
+        "reason": "CANCELED",
+        "sku": "7941901",
+        "seller_sku_id": "7941901",
+        "barcode": null,
+        "product_id": "2539424",
+        "return_count": 0.0,
+        "amount_value": null,
+        "identity": "7941901"
+      }
+    ]
+  },
+  "charts": {
+    "reason_distribution": [
+      {
+        "key": "REGULAR",
+        "value": 1.0
+      },
+      {
+        "key": "CANCELED",
+        "value": 0.0
+      }
+    ],
+    "daily_returns": [
+      {
+        "key": "2026-03-18T00:00:00.000",
+        "value": 0.0
+      },
+      {
+        "key": "2026-03-28T00:00:00.000",
+        "value": 0.0
+      }
+    ]
+  },
+  "insights": []
+}
