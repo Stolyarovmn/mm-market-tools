@@ -1,6 +1,6 @@
 {
   "plan": {
-    "generated_at": "2026-05-07T05:08:11.046743+00:00",
+    "generated_at": "2026-05-07T08:33:06.095144+00:00",
     "kpis": {
       "actions_in_plan": 34,
       "quick_wins_count": 24,
@@ -700,7 +700,7 @@
     ]
   },
   "review_booster": {
-    "generated_at": "2026-05-07T05:08:11.046762+00:00",
+    "generated_at": "2026-05-07T08:33:06.095163+00:00",
     "kpis": {
       "responses_suggested": 2,
       "high_priority_responses": 0,
@@ -790,7 +790,7 @@
   ],
   "iteration": {
     "number": "012",
-    "updated_at": "2026-05-07T05:08:11.046730+00:00",
+    "updated_at": "2026-05-07T08:33:06.095133+00:00",
     "status": "in_progress",
     "uncertainty": 0.32
   }
