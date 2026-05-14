@@ -144,6 +144,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .tt-wrap.tt-right .tt-box::after{left:auto;right:10px;transform:none;}
 /* Applied/A-B */
 .applied-row{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:10px 12px;margin-bottom:6px;}
+.ab-tracker-section{margin-top:10px;padding-top:10px;border-top:1px solid var(--color-border)}
+.ab-progress-bar{height:6px;background:var(--color-border);border-radius:3px;overflow:hidden;margin-bottom:5px}
+.ab-progress-fill{height:100%;background:var(--color-accent,#6366f1);border-radius:3px;transition:width .3s}
+.ab-delta-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.ab-delta-item{min-width:80px}
+.ab-delta-label{font-size:11px;color:var(--color-muted)}
+.ab-delta-value{font-size:13px;font-weight:600}
+.ab-delta-value.positive{color:#16a34a}
+.ab-delta-value.negative{color:#dc2626}
+.ab-cli-block{display:flex;align-items:center;gap:8px;background:var(--color-surface-alt,var(--color-surface));border:1px solid var(--color-border);border-radius:6px;padding:6px 10px;margin-top:4px;overflow:hidden}
+.ab-cli-block code{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+.btn-xs{padding:2px 8px;font-size:11px;flex-shrink:0}
+.ab-paste-area summary{padding:4px 0;font-size:11px}
+.ab-result-input{width:100%;box-sizing:border-box;margin-top:4px;font-family:monospace;font-size:11px;padding:4px;border:1px solid var(--color-border);border-radius:4px;background:var(--color-surface);color:var(--color-text)}
 .status-pill{padding:3px 9px;border-radius:var(--radius-pill);font-size:10px;font-weight:600;}
 .status-pill.pending{background:var(--color-amber-soft);color:var(--color-amber);}
 .status-pill.measured{background:var(--color-green-soft);color:var(--color-green);}
@@ -367,6 +381,7 @@ let AUX_REPORTS = {
 let apiToken = localStorage.getItem('mm_api_token') || '';
 const PENDING_QUICKWINS_KEY = 'mm_quickwins_pending_v1';
 const APPLIED_TRACKER_KEY = 'mm_report_explorer_applied_v1';
+  const AB_RESULTS_KEY = 'mm_ab_results_v1';
 let REPORT_INDEX = null;
 let REPORT_INDEX_ERROR = null;
 const REPORT_CACHE = {};
@@ -565,6 +580,23 @@ function saveAppliedSnapshot(snapshot){
 function clearAppliedSnapshot(timestamp){
   const items=readAppliedTracker().filter(item=>String(item.timestamp||'')!==String(timestamp||''));
   writeAppliedTracker(items);
+}
+function readAbResults(){
+  try{return JSON.parse(localStorage.getItem(AB_RESULTS_KEY)||'{}');}catch(_){return {};}
+}
+function saveAbResult(key,result){
+  const all=readAbResults();all[key]=result;
+  localStorage.setItem(AB_RESULTS_KEY,JSON.stringify(all));
+}
+function abSnapshotKey(snapshot){
+  return String(snapshot.product_id||'x')+'_'+(snapshot.timestamp||'').slice(0,10);
+}
+function abCliCmd(snapshot){
+  const appliedDate=(snapshot.timestamp||'').slice(0,10);
+  const today=new Date().toISOString().slice(0,10);
+  const pid=snapshot.product_id||'';
+  const baseStart=new Date(new Date(appliedDate).getTime()-7*86400000).toISOString().slice(0,10);
+  return 'python3 ab_compare.py --a-product-id '+pid+' --a-date-range "'+appliedDate+','+today+'" --b-product-id '+pid+' --b-date-range "'+baseStart+','+appliedDate+'"';
 }
 function reportKindLabel(kind){
   const labels={
@@ -794,21 +826,39 @@ async function renderAppliedTrackerView(){
     return `<div class="explorer-empty-state">Пока нет сохранённых snapshot'ов. Они появятся после нажатия «Применил» в плане.</div>`;
   }
   const catalog=await buildAppliedCatalog();
+  const abResults=readAbResults();
   return snapshots.map(snapshot=>{
     const match=matchAppliedSnapshot(snapshot, catalog);
     const currentPrice=match ? inferCurrentPrice(match.row) : null;
     const recommendedNow=match ? inferRecommendedPrice(match.row) : null;
     const delta=currentPrice!==null && snapshot.price_before!==null ? currentPrice - snapshot.price_before : null;
+    const days=daysSince(snapshot.timestamp);
+    const abKey=abSnapshotKey(snapshot);
+    const abResult=abResults[abKey]||null;
+    const appliedDateStr=snapshot.timestamp?new Date(snapshot.timestamp).toLocaleDateString('ru-RU'):'—';
+    let abSection='';
+    if(days===null){}
+    else if(days<7){
+      const pct=Math.round(days/7*100);
+      abSection=`<div class="ab-tracker-section"><div class="text-xs text-muted" style="margin-bottom:5px">Данных пока недостаточно (${days} дней из 7)</div><div class="ab-progress-bar"><div class="ab-progress-fill" style="width:${pct}%"></div></div></div>`;
+    } else if(abResult){
+      const d=(abResult.comparison&&abResult.comparison.delta)||{};
+      const fmtD=(key,label)=>{const r=d[key]||{};const sign=r.absolute>0?'+':'';const ps=r.pct!=null?` (${r.pct>0?'+':''}${r.pct}%)`:'';return `<div class="ab-delta-item"><div class="ab-delta-label">${label}</div><div class="ab-delta-value ${r.absolute>0?'positive':r.absolute<0?'negative':''}">${sign}${r.absolute}${ps}</div></div>`;};
+      abSection=`<div class="ab-tracker-section"><div class="text-xs text-muted" style="margin-bottom:6px">A/B результат через ${days} дней:</div><div class="ab-delta-grid">${fmtD('revenue','Выручка')}${fmtD('orders','Заказы')}${fmtD('sold_qty','Продано')}</div></div>`;
+    } else {
+      const cmd=abCliCmd(snapshot);
+      abSection=`<div class="ab-tracker-section"><div class="text-xs text-muted" style="margin-bottom:6px">Прошло ${days} дней — готово к A/B анализу:</div><div class="ab-cli-block"><code>${esc(cmd)}</code><button class="btn btn-xs" data-copy-cmd="${esc(cmd)}">Скопировать</button></div><details class="ab-paste-area" style="margin-top:8px"><summary class="text-xs text-muted">Вставить результат JSON</summary><textarea class="ab-result-input" rows="3" placeholder='{"comparison":{"delta":{...}}}' data-ab-key="${esc(abKey)}"></textarea><button class="btn btn-xs" style="margin-top:4px" data-ab-save="${esc(abKey)}">Сохранить</button></details></div>`;
+    }
     return `<div class="card">
       <div class="action-header">
         <span class="type-pill ${snapshot.action_type || 'price_strategy'}">${esc(snapshot.action_type || 'applied')}</span>
-        <span class="text-xs text-muted">${esc(snapshot.title || snapshot.entity_key || snapshot.product_id || 'Карточка')} · ${daysSince(snapshot.timestamp) ?? '—'} дн назад</span>
+        <span class="text-xs text-muted">${esc(snapshot.title || snapshot.entity_key || snapshot.product_id || 'Карточка')} · Применил ${appliedDateStr} (${days??'?'}д назад)</span>
       </div>
       <div class="explorer-detail-grid">
         <div class="explorer-detail-item"><div class="label">Цена тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_before))}</div></div>
         <div class="explorer-detail-item"><div class="label">Рекомендация тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_recommended))}</div></div>
         <div class="explorer-detail-item"><div class="label">Цена сейчас</div><div class="value">${esc(formatMoneyMaybe(currentPrice))}</div></div>
-        <div class="explorer-detail-item"><div class="label">Дельта</div><div class="value">${delta===null?'—':`${delta>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(delta)} ₽`}</div></div>
+        <div class="explorer-detail-item"><div class="label">Дельта цены</div><div class="value">${delta===null?'—':`${delta>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(delta)} ₽`}</div></div>
       </div>
       <div class="explorer-detail-actions mt-8">
         <span class="explorer-tag">${esc(match?.item?.report_kind || 'match not found')}</span>
@@ -816,6 +866,7 @@ async function renderAppliedTrackerView(){
         <button class="btn" data-applied-clear="${esc(snapshot.timestamp)}">Убрать</button>
       </div>
       <div class="text-xs text-muted mt-4">${match ? `Сопоставлено с ${esc(match.item.file_name)} / ${esc(match.dataset.label)}` : 'В последних JSON-отчётах совпадение не найдено.'}</div>
+      ${abSection}
     </div>`;
   }).join('');
 }
@@ -943,6 +994,16 @@ function attachExplorerEvents(box){
   box.querySelectorAll('[data-applied-clear]').forEach(btn=>btn.addEventListener('click',()=>{
     clearAppliedSnapshot(btn.dataset.appliedClear);
     void renderExplorer();
+  }));
+  box.querySelectorAll('[data-copy-cmd]').forEach(btn=>btn.addEventListener('click',()=>{
+    navigator.clipboard.writeText(btn.dataset.copyCmd).then(()=>{const t=btn.textContent;btn.textContent='Скопировано!';setTimeout(()=>btn.textContent=t,1500);}).catch(()=>toast('Скопируйте вручную: '+btn.dataset.copyCmd));
+  }));
+  box.querySelectorAll('[data-ab-save]').forEach(btn=>btn.addEventListener('click',()=>{
+    const key=btn.dataset.abSave;
+    const ta=btn.parentElement.querySelector('[data-ab-key="'+key+'"]');
+    if(!ta||!ta.value.trim()){toast('Вставьте JSON результат ab_compare.py');return;}
+    try{const parsed=JSON.parse(ta.value.trim());saveAbResult(key,parsed);void renderExplorer();toast('A/B результат сохранён!');}
+    catch(_){toast('Ошибка: невалидный JSON');}
   }));
 }
 
