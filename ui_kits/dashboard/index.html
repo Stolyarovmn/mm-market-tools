@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru" data-screen-label="Dashboard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MM Market Tools — Дашборд магазина</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../ui_source/styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  /* Review-card styles lifted inline from ui_source/index.html so the kit
+     doesn't depend on a private stylesheet block. */
+  .buyer-reviews-list { display: flex; flex-direction: column; gap: 16px; }
+  .review-card {
+    background: var(--surface-strong); border: 1px solid var(--line);
+    border-radius: 18px; padding: 16px;
+  }
+  .review-card[data-kind="question"]      { border-left: 3px solid var(--accent); }
+  .review-card[data-kind="review"]        { border-left: 3px solid var(--warn); }
+  .review-card[data-rating="5"],
+  .review-card[data-rating="4"]           { border-left-color: var(--good); }
+  .review-card[data-rating="2"],
+  .review-card[data-rating="1"]           { border-left-color: var(--bad); }
+  .review-header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .review-header h3 { margin: 0; font-size: .95rem; flex: 1 1 auto; }
+  .review-stars { font-size: .85rem; letter-spacing: .1em; color: var(--warn); }
+  .review-meta  { font-size: .75rem; color: var(--muted); }
+  .review-text  { margin: 8px 0 12px; line-height: 1.5; }
+  .reply-editor {
+    width: 100%; box-sizing: border-box; min-height: 80px;
+    padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px;
+    font-size: .9rem; font-family: inherit; resize: vertical;
+    background: var(--bg); color: var(--ink);
+  }
+  .reply-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+  .reply-status-badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 8px; border-radius: 999px;
+    font-size: .72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .04em;
+  }
+  .reply-status-draft    { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+  .reply-status-approved { background: var(--accent-soft); color: var(--accent); }
+  .reply-status-sent     { background: color-mix(in srgb, var(--good) 16%, transparent); color: var(--good); }
+  .reply-status-unsupported { background: color-mix(in srgb, var(--bad) 16%, transparent); color: var(--bad); }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="data.js"></script>
+  <script type="text/babel" src="components.jsx"></script>
+  <script type="text/babel" src="App.jsx"></script>
+</body>
+</html>
