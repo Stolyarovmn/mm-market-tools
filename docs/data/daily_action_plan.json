@@ -1,6 +1,6 @@
 {
   "plan": {
-    "generated_at": "2026-05-18T13:00:35.403536+00:00",
+    "generated_at": "2026-05-18T13:04:20.009411+00:00",
     "kpis": {
       "actions_in_plan": 34,
       "quick_wins_count": 24,
@@ -700,7 +700,7 @@
     ]
   },
   "review_booster": {
-    "generated_at": "2026-05-18T13:00:35.403571+00:00",
+    "generated_at": "2026-05-18T13:04:20.009447+00:00",
     "kpis": {
       "responses_suggested": 2,
       "high_priority_responses": 0,
@@ -746,7 +746,7 @@
     "entries": []
   },
   "api_status": {
-    "checked_at": "2026-05-18T13:00:35.402795+00:00",
+    "checked_at": "2026-05-18T13:04:20.008714+00:00",
     "shop_id": 98,
     "token_status": "valid",
     "token_expires_moscow": "2026-05-18T16:15:07+03:00",
@@ -790,7 +790,7 @@
   ],
   "iteration": {
     "number": "012",
-    "updated_at": "2026-05-18T13:00:35.403525+00:00",
+    "updated_at": "2026-05-18T13:04:20.009400+00:00",
     "status": "in_progress",
     "uncertainty": 0.32
   }
