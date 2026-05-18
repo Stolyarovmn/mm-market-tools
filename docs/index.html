@@ -157,6 +157,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .ab-line.done{background:var(--color-teal);}
 .ab-line.idle{background:var(--color-border);}
 .ab-step-label{font-size:9px;color:var(--color-text-tertiary);margin-top:4px;text-align:center;max-width:72px;line-height:1.3;}
+.ab-progress{margin:10px 0 4px;}
+.ab-progress-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:5px;}
+.ab-progress-bar{height:5px;background:var(--color-border);border-radius:3px;overflow:hidden;}
+.ab-progress-fill{height:100%;background:var(--color-teal);border-radius:3px;}
+.ab-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0;}
+@media(max-width:640px){.ab-result-grid{grid-template-columns:repeat(2,1fr);}}
+.ab-result-item{background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);padding:8px 10px;}
+.ab-result-item .label{font-size:10px;color:var(--color-text-tertiary);margin-bottom:3px;}
+.ab-result-item .value{font-size:13px;font-weight:700;}
+.ab-result-item .value.positive{color:var(--color-green);}
+.ab-result-item .value.negative{color:#e05252;}
+.ab-cli-block{background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);padding:10px 12px;margin:8px 0;}
+.ab-cli-cmd{font-family:monospace;font-size:10px;color:var(--color-text-secondary);word-break:break-all;display:block;margin-bottom:8px;line-height:1.5;}
 /* ROMI */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:720px){.two-col{grid-template-columns:1fr;}}
@@ -829,30 +842,74 @@ async function renderAppliedTrackerView(){
     return `<div class="explorer-empty-state">Пока нет сохранённых snapshot'ов. Они появятся после нажатия «Применил» в плане.</div>`;
   }
   const catalog=await buildAppliedCatalog();
-  return snapshots.map(snapshot=>{
-    const match=matchAppliedSnapshot(snapshot, catalog);
-    const currentPrice=match ? inferCurrentPrice(match.row) : null;
-    const recommendedNow=match ? inferRecommendedPrice(match.row) : null;
-    const delta=currentPrice!==null && snapshot.price_before!==null ? currentPrice - snapshot.price_before : null;
+  const cards=await Promise.all(snapshots.map(async snapshot=>{
+    const days=daysSince(snapshot.timestamp)??0;
+    const productId=snapshot.product_id||String(snapshot.entity_key||'').replace(/^product_/,'');
+    const appliedDate=String(snapshot.timestamp).slice(0,10);
+    const match=matchAppliedSnapshot(snapshot,catalog);
+    const currentPrice=match?inferCurrentPrice(match.row):null;
+    const priceDelta=currentPrice!==null&&snapshot.price_before!==null?currentPrice-snapshot.price_before:null;
+    const fmtMoney=v=>v==null?'—':`${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(v)} ₽`;
+    const fmtDelta=(v,unit='')=>v==null?'—':`${v>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(v)}${unit}`;
+
+    // ── Status block ────────────────────────────────────────────────────────
+    let statusHtml='';
+    if(days<7){
+      const pct=Math.round((days/7)*100);
+      statusHtml=`<div class="ab-progress">
+        <div class="ab-progress-label">⏳ Идёт замер: ${days} из 7 дней</div>
+        <div class="ab-progress-bar"><div class="ab-progress-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    } else {
+      const abResult=await fetchAbResult(snapshot.entity_key||productId, snapshot.timestamp);
+      if(abResult){
+        const d=abResult.comparison?.delta||{};
+        const cls=(v)=>v==null?'':(v>0?'positive':'negative');
+        statusHtml=`<div class="ab-result-grid">
+          <div class="ab-result-item"><div class="label">Выручка</div><div class="value ${cls(d.revenue?.absolute)}">${fmtDelta(d.revenue?.absolute,'₽')} <span style="font-weight:400;font-size:10px">(${fmtDelta(d.revenue?.pct)}%)</span></div></div>
+          <div class="ab-result-item"><div class="label">Заказы</div><div class="value ${cls(d.orders?.absolute)}">${fmtDelta(d.orders?.absolute)} <span style="font-weight:400;font-size:10px">(${fmtDelta(d.orders?.pct)}%)</span></div></div>
+          <div class="ab-result-item"><div class="label">Продажи, шт</div><div class="value ${cls(d.sold_qty?.absolute)}">${fmtDelta(d.sold_qty?.absolute)} <span style="font-weight:400;font-size:10px">(${fmtDelta(d.sold_qty?.pct)}%)</span></div></div>
+          <div class="ab-result-item"><div class="label">Ср. цена</div><div class="value ${cls(d.avg_price?.absolute)}">${fmtDelta(d.avg_price?.absolute,'₽')}</div></div>
+        </div>
+        <div class="text-xs text-muted">A = после (${esc(String(abResult.variants?.A?.date_range||''))}), B = до (${esc(String(abResult.variants?.B?.date_range||''))})</div>`;
+      } else {
+        // Build CLI command for ab_compare.py
+        const today=new Date().toISOString().slice(0,10);
+        const bEnd=appliedDate;
+        const bStart=new Date(new Date(appliedDate).getTime()-7*86400000).toISOString().slice(0,10);
+        const prefix=`ab_result_${productId}_${appliedDate}`;
+        const cmd=`py -3 ab_compare.py --token %KE_TOKEN% --a-product-id ${productId} --a-date-range "[\\"${appliedDate}\\",\\"${today}\\"]" --b-product-id ${productId} --b-date-range "[\\"${bStart}\\",\\"${bEnd}\\"]" --report-prefix ${prefix}`;
+        statusHtml=`<div class="ab-cli-block">
+          <div class="text-xs text-muted" style="margin-bottom:6px">✅ 7 дней прошло — готово к замеру. Вставь свежий токен в %KE_TOKEN% и запусти из папки проекта:</div>
+          <code class="ab-cli-cmd">${esc(cmd)}</code>
+          <button class="btn" data-cmd="${esc(cmd)}">Скопировать</button>
+        </div>`;
+      }
+    }
+
+    const statusPill=days<7
+      ?`<span class="status-pill pending">замер ${days}/7д</span>`
+      :`<span class="status-pill measured">готово</span>`;
+
     return `<div class="card">
       <div class="action-header">
-        <span class="type-pill ${snapshot.action_type || 'price_strategy'}">${esc(snapshot.action_type || 'applied')}</span>
-        <span class="text-xs text-muted">${esc(snapshot.title || snapshot.entity_key || snapshot.product_id || 'Карточка')} · ${daysSince(snapshot.timestamp) ?? '—'} дн назад</span>
+        <span class="type-pill ${snapshot.action_type||'price_strategy'}">${esc(snapshot.action_type||'applied')}</span>
+        <span class="text-xs text-muted">${esc(snapshot.title||snapshot.entity_key||productId||'Карточка')} · ${days} дн назад</span>
+        ${statusPill}
       </div>
       <div class="explorer-detail-grid">
-        <div class="explorer-detail-item"><div class="label">Цена тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_before))}</div></div>
-        <div class="explorer-detail-item"><div class="label">Рекомендация тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_recommended))}</div></div>
-        <div class="explorer-detail-item"><div class="label">Цена сейчас</div><div class="value">${esc(formatMoneyMaybe(currentPrice))}</div></div>
-        <div class="explorer-detail-item"><div class="label">Дельта</div><div class="value">${delta===null?'—':`${delta>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(delta)} ₽`}</div></div>
+        <div class="explorer-detail-item"><div class="label">Цена тогда</div><div class="value">${fmtMoney(snapshot.price_before)}</div></div>
+        <div class="explorer-detail-item"><div class="label">Рекомендация</div><div class="value">${fmtMoney(snapshot.price_recommended)}</div></div>
+        <div class="explorer-detail-item"><div class="label">Цена сейчас</div><div class="value">${fmtMoney(currentPrice)}</div></div>
+        <div class="explorer-detail-item"><div class="label">Δ цены</div><div class="value" style="color:${priceDelta==null?'inherit':priceDelta>0?'var(--color-green)':'#e05252'}">${fmtDelta(priceDelta,'₽')}</div></div>
       </div>
+      ${statusHtml}
       <div class="explorer-detail-actions mt-8">
-        <span class="explorer-tag">${esc(match?.item?.report_kind || 'match not found')}</span>
-        ${recommendedNow!==null?`<span class="explorer-tag">Актуальная рекомендация: ${esc(formatMoneyMaybe(recommendedNow))}</span>`:''}
         <button class="btn" data-applied-clear="${esc(snapshot.timestamp)}">Убрать</button>
       </div>
-      <div class="text-xs text-muted mt-4">${match ? `Сопоставлено с ${esc(match.item.file_name)} / ${esc(match.dataset.label)}` : 'В последних JSON-отчётах совпадение не найдено.'}</div>
     </div>`;
-  }).join('');
+  }));
+  return cards.join('');
 }
 async function renderExplorer(){
   const box=document.getElementById('tab-explorer');
@@ -2805,139 +2862,4 @@ function buildPayload(db) {
 
     review_booster: {
 
-      generated_at: kpis.rb_generated_at,
-
-      kpis: {
-
-        responses_suggested: kpis.rb_responses_suggested,
-
-        high_priority_responses: kpis.rb_high_priority_responses,
-
-        reason_coverage: kpis.rb_reason_coverage,
-
-      },
-
-      insights: insights.filter(i => i.source === 'review_booster').map(i => ({severity: i.severity, message: i.message})),
-
-      rows: reviews,
-
-    },
-
-    applied_actions: {
-
-      summary: {
-
-        total_entries: applied.length,
-
-        pending_count: applied.filter(a => a.status === 'pending').length,
-
-        measured_count: applied.filter(a => a.status === 'measured').length,
-
-      },
-
-      entries: applied.map(a => ({...a, baseline: parseJ(a.baseline_json) || {}})),
-
-    },
-
-    api_status: { ...apiSt, endpoints, gaps },
-
-    blockers,
-
-    iteration: iter,
-
-  };
-}
-
-async function loadPublishedPayload() {
-  const resp = await fetch('./data/daily_action_plan.json', {
-    headers: { Accept: 'application/json' },
-    cache: 'no-store',
-  });
-  if (!resp.ok) {
-    throw new Error(`published daily_action_plan.json unavailable (${resp.status})`);
-  }
-  const payload = await resp.json();
-  if (!payload || !payload.plan || !payload.review_booster) {
-    throw new Error('published daily_action_plan.json has unexpected shape');
-  }
-  return payload;
-}
-
-async function initDashboard() {
-  const loadingEl = document.getElementById('db-loading');
-  const msgEl = document.getElementById('db-loading-msg');
-  try {
-    msgEl.textContent = 'Загружаю опубликованный payload...';
-    try {
-      PAYLOAD = await loadPublishedPayload();
-    } catch (_payloadErr) {
-      msgEl.textContent = 'Получаю список релизов...';
-      const releases = await fetch(
-        `https://api.github.com/repos/${REPO}/releases?per_page=20`,
-        { headers: { Accept: 'application/vnd.github+json' } }
-      ).then(r => r.json());
-
-      const rel = releases.find(r => r.assets && r.assets.some(a => a.name === DB_ASSET_NAME));
-      if (!rel) throw new Error('Релиз с data.db не найден. Запустите GitHub Actions для первого создания.');
-
-      const asset = rel.assets.find(a => a.name === DB_ASSET_NAME);
-      msgEl.textContent = `Загружаю data.db (${Math.round(asset.size/1024)}KB)...`;
-
-      const buf = await fetch(asset.browser_download_url).then(r => r.arrayBuffer());
-      msgEl.textContent = 'Инициализирую базу данных...';
-
-      const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
-      const db = new SQL.Database(new Uint8Array(buf));
-
-      PAYLOAD = buildPayload(db);
-      db.close();
-    }
-    msgEl.textContent = 'Проверяю live runtime API...';
-    await initLiveMode();
-    msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
-    await initAuxReports();
-    msgEl.textContent = 'Подтягиваю каталог отчётов...';
-    await initReportExplorer();
-  } catch (err) {
-    msgEl.textContent = '⚠ ' + err.message;
-    msgEl.style.color = 'var(--color-coral)';
-    document.getElementById('db-loading').style.background = 'rgba(0,0,0,0.7)';
-    await new Promise(r => setTimeout(r, 3000));
-  }
-
-
-
-  loadingEl.style.display = 'none';
-
-  // ── Init ──────────────────────────────────────────────────────────────────────────────
-  const _renders=[
-    ()=>renderHeader(),
-    ()=>renderKPIs(),
-    ()=>renderInsights(),
-    ()=>renderPlan(),
-    async ()=>{ try{ await renderExplorer(); }catch(e){ console.error('renderExplorer',e); } },
-    ()=>renderQuickWins(),
-    ()=>renderOps(),
-    ()=>renderReports(),
-    ()=>renderReviews(),
-    ()=>renderApplied(),
-    ()=>renderROMI(),
-    ()=>renderAPI(),
-    ()=>renderBuyers(),
-    ()=>renderBlockers(),
-    ()=>renderSources(),
-  ];
-  for(const _fn of _renders){
-    try{ await _fn(); }catch(e){ console.error('render error',e); }
-  }
-  setupTabs();
-
-}
-
-
-
-initDashboard();
-
-</script>
-</body>
-</html>
+      gene
