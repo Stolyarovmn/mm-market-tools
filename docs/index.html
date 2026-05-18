@@ -638,7 +638,13 @@ function latestExplorerReportItems(){
   return Object.values((REPORT_INDEX||{}).latest_by_kind||{}).sort((a,b)=>String(b.generated_at||'').localeCompare(String(a.generated_at||'')));
 }
 function reportRelativePath(filePath){
-  return String(filePath||'').startsWith('data/') ? `./${filePath}` : `./data/dashboard/${filePath}`;
+  const p=String(filePath||'');
+  // Strip absolute Unix/Windows paths — take only filename
+  if(p.startsWith('/')||/^[A-Za-z]:[\\]/.test(p)){
+    const name=p.replace(/\\/g,'/').split('/').filter(Boolean).pop()||'';
+    return `./data/dashboard/${name}`;
+  }
+  return p.startsWith('data/')?`./${p}`:`./data/dashboard/${p}`;
 }
 async function fetchJsonFallback(paths){
   let lastError=null;
@@ -803,39 +809,29 @@ function renderExplorerTable(rows, columns){
 async function buildAppliedCatalog(){
   if(EXPLORER_STATE.latestCatalog) return EXPLORER_STATE.latestCatalog;
   const catalog=[];
-  for(const item of latestExplorerReportItems()){
-    try{
-      const payload=await loadExplorerReport(item.file_path);
-      reportDatasets(payload).forEach(dataset=>{
-        (dataset.rows||[]).forEach(row=>{
-          const entityKey=explorerEntityKey(row);
-          if(entityKey){
-            catalog.push({
-              item,
-              dataset,
-              row,
-              entityKey,
-              productId:String(row.product_id || row.sku || row.seller_sku_id || ''),
-              title:String(row.title || row.group || row.key || ''),
-            });
-          }
-        });
-      });
-    }catch(_err){}
+  // Always use PAYLOAD (already loaded) as primary source — fast, no HTTP
+  for(const row of (PAYLOAD?.plan?.actions||[])){
+    const entityKey=explorerEntityKey(row);
+    if(entityKey) catalog.push({entityKey,row,dataset:{label:'plan',key:'actions',rows:[]},item:{file_name:'daily_action_plan',report_kind:'plan'}});
   }
-  EXPLORER_STATE.latestCatalog = catalog;
+  // On localhost also scan report files (explorer has full index)
+  if(IS_LOCAL && REPORT_INDEX && !REPORT_INDEX_ERROR){
+    for(const item of latestExplorerReportItems()){
+      try{
+        const payload=await loadExplorerReport(item.file_path);
+        reportDatasets(payload).forEach(dataset=>{
+          (dataset.rows||[]).forEach(row=>{
+            const entityKey=explorerEntityKey(row);
+            if(entityKey) catalog.push({entityKey,row,dataset,item});
+          });
+        });
+      }catch(_e){}
+    }
+  }
+  EXPLORER_STATE.latestCatalog=catalog;
   return catalog;
 }
-function matchAppliedSnapshot(snapshot, catalog){
-  const productId=String(snapshot.product_id || '').trim();
-  const entityKey=String(snapshot.entity_key || '').trim();
-  const title=String(snapshot.title || '').trim().toLowerCase();
-  return catalog.find(entry=>
-    (productId && entry.productId===productId) ||
-    (entityKey && entry.entityKey===entityKey) ||
-    (title && entry.title.toLowerCase()===title)
-  ) || null;
-}
+
 async function renderAppliedTrackerView(){
   const snapshots=readAppliedTracker();
   if(!snapshots.length){
@@ -2977,8 +2973,10 @@ async function initDashboard() {
       PAYLOAD = buildPayload(db);
       db.close();
     }
-    msgEl.textContent = 'Проверяю live runtime API...';
-    await initLiveMode();
+    if(IS_LOCAL){
+      msgEl.textContent = 'Проверяю live runtime API...';
+      await initLiveMode();
+    }
     msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
     await initAuxReports();
     msgEl.textContent = 'Подтягиваю каталог отчётов...';
