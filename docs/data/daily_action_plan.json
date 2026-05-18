@@ -1,6 +1,6 @@
 {
   "plan": {
-    "generated_at": "2026-05-18T12:44:12.018516+00:00",
+    "generated_at": "2026-05-18T13:00:35.403536+00:00",
     "kpis": {
       "actions_in_plan": 34,
       "quick_wins_count": 24,
@@ -700,7 +700,7 @@
     ]
   },
   "review_booster": {
-    "generated_at": "2026-05-18T12:44:12.018538+00:00",
+    "generated_at": "2026-05-18T13:00:35.403571+00:00",
     "kpis": {
       "responses_suggested": 2,
       "high_priority_responses": 0,
@@ -746,37 +746,37 @@
     "entries": []
   },
   "api_status": {
-    "checked_at": "2026-04-10T22:11:35+00:00",
+    "checked_at": "2026-05-18T13:00:35.402795+00:00",
     "shop_id": 98,
     "token_status": "valid",
-    "token_expires_moscow": "2026-04-11T01:11:35+03:00",
+    "token_expires_moscow": "2026-05-18T16:15:07+03:00",
     "cubes": 24,
-    "existing_documents": 24,
+    "existing_documents": 34,
     "endpoints": [
       {
         "url": "cubejs-api/v1/meta",
         "method": "GET",
         "status": "ok",
-        "note": "Кубы аналитики доступны."
+        "note": "Live check from validate_token_integrations.py"
+      },
+      {
+        "url": "cubejs-api/v1/load",
+        "method": "POST",
+        "status": "ok",
+        "note": "Live query health check"
       },
       {
         "url": "api/seller/documents/requests",
         "method": "GET",
         "status": "ok",
-        "note": "Используем completed documents как основной источник seller reports."
-      },
-      {
-        "url": "api/seller/documents/create",
-        "method": "POST",
-        "status": "fix",
-        "note": "Validation failed, поэтому workflow не должен зависеть от create-контракта."
+        "note": "Completed reports visibility"
       }
     ],
     "gaps": [
       {
         "name": "documents_create",
         "status": "todo",
-        "note": "documents/create пока не даёт стабильный контракт; используем reuse completed reports."
+        "note": "documents/create пока нестабилен; используем completed reports и offline bundles."
       }
     ]
   },
@@ -790,7 +790,7 @@
   ],
   "iteration": {
     "number": "012",
-    "updated_at": "2026-05-18T12:44:12.018501+00:00",
+    "updated_at": "2026-05-18T13:00:35.403525+00:00",
     "status": "in_progress",
     "uncertainty": 0.32
   }
