@@ -382,4 +382,85 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                         "token_health": info,
                         "payload": {
                             "uid": decoded.get("uid"),
-                            "sub": decoded.get("s
+                            "sub": decoded.get("sub"),
+                            "exp": decoded.get("exp"),
+                        },
+                    }
+                )
+                return
+            if parsed.path == "/api/ab_compare":
+                import datetime as _dt
+                import re as _re
+                import sys as _sys
+                product_id = str(payload.get("product_id", "")).strip()
+                applied_date = str(payload.get("applied_date", "")).strip()
+                token = (payload.get("token") or "").strip()
+                if not product_id or not applied_date or not token:
+                    self._send_json({"error": "missing product_id, applied_date or token"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+                if not _re.match(r'^\d{4}-\d{2}-\d{2}$', applied_date):
+                    self._send_json({"error": "invalid applied_date, expected YYYY-MM-DD"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+                a_start = applied_date
+                a_end = _dt.date.today().isoformat()
+                b_end = applied_date
+                b_start = (_dt.date.fromisoformat(applied_date) - _dt.timedelta(days=7)).isoformat()
+                prefix = f"ab_result_{product_id}_{applied_date}"
+                from core.paths import REPORTS_DIR
+                cmd = [
+                    _sys.executable, "ab_compare.py",
+                    "--token", token,
+                    "--a-product-id", product_id,
+                    "--a-date-range", f'["{a_start}","{a_end}"]',
+                    "--b-product-id", product_id,
+                    "--b-date-range", f'["{b_start}","{b_end}"]',
+                    "--report-prefix", prefix,
+                ]
+                try:
+                    proc = subprocess.run(
+                        cmd,
+                        cwd=str(PROJECT_ROOT),
+                        capture_output=True,
+                        text=True,
+                        timeout=90,
+                    )
+                    if proc.returncode != 0:
+                        self._send_json(
+                            {"error": (proc.stdout + proc.stderr).strip() or "ab_compare failed"},
+                            status=HTTPStatus.INTERNAL_SERVER_ERROR,
+                        )
+                        return
+                    result_path = REPORTS_DIR / f"{prefix}.json"
+                    if not result_path.exists():
+                        self._send_json({"error": "result file not found after run"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                        return
+                    data = json.loads(result_path.read_text(encoding="utf-8"))
+                    self._send_json({"ok": True, "result": data, "log": proc.stdout})
+                except subprocess.TimeoutExpired:
+                    self._send_json({"error": "ab_compare timed out (90s)"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                except Exception as exc:
+                    self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                return
+            self._send_json({"error": "unknown path"}, status=HTTPStatus.NOT_FOUND)
+        except Exception as exc:
+            self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="MM Market Tools — Local dashboard server")
+    parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--host", default="localhost")
+    args = parser.parse_args()
+
+    job_store = JobStore(JOB_RUNS_DIR)
+    handler = lambda *a, **kw: RefreshHandler(*a, directory=str(PROJECT_ROOT), job_store=job_store, **kw)
+    server = ThreadingHTTPServer((args.host, args.port), handler)
+    print(f"Serving at http://{args.host}:{args.port} — Press Ctrl+C to stop")
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\nStopped.")
+
+
+if __name__ == "__main__":
+    main()

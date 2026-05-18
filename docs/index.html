@@ -873,17 +873,19 @@ async function renderAppliedTrackerView(){
         </div>
         <div class="text-xs text-muted">A = после (${esc(String(abResult.variants?.A?.date_range||''))}), B = до (${esc(String(abResult.variants?.B?.date_range||''))})</div>`;
       } else {
-        // Build CLI command for ab_compare.py
-        const today=new Date().toISOString().slice(0,10);
-        const bEnd=appliedDate;
-        const bStart=new Date(new Date(appliedDate).getTime()-7*86400000).toISOString().slice(0,10);
-        const prefix=`ab_result_${productId}_${appliedDate}`;
-        const cmd=`py -3 ab_compare.py --token %KE_TOKEN% --a-product-id ${productId} --a-date-range "[\\"${appliedDate}\\",\\"${today}\\"]" --b-product-id ${productId} --b-date-range "[\\"${bStart}\\",\\"${bEnd}\\"]" --report-prefix ${prefix}`;
-        statusHtml=`<div class="ab-cli-block">
-          <div class="text-xs text-muted" style="margin-bottom:6px">✅ 7 дней прошло — готово к замеру. Вставь свежий токен в %KE_TOKEN% и запусти из папки проекта:</div>
-          <code class="ab-cli-cmd">${esc(cmd)}</code>
-          <button class="btn" data-cmd="${esc(cmd)}">Скопировать</button>
-        </div>`;
+        if(IS_LOCAL){
+          const tokenHint=apiToken?'':`<div class="text-xs" style="color:#e05252;margin-bottom:6px">⚠️ Вставьте Bearer-токен в поле токена (вкладка Ops / верх страницы) — он нужен для запроса API.</div>`;
+          statusHtml=`<div class="ab-cli-block">
+            <div class="text-xs text-muted" style="margin-bottom:6px">✅ 7 дней прошло — готово к замеру.</div>
+            ${tokenHint}
+            <button class="btn primary" data-ab-run="${esc(snapshot.timestamp)}" data-ab-pid="${esc(String(productId))}" data-ab-date="${esc(appliedDate)}">Запустить замер</button>
+            <span class="ab-run-status" id="ab-status-${esc(snapshot.timestamp)}"></span>
+          </div>`;
+        } else {
+          statusHtml=`<div class="ab-cli-block">
+            <div class="text-xs text-muted">✅ 7 дней прошло. Откройте дашборд локально (<code>py -3 web_refresh_server.py</code>) для запуска замера кнопкой.</div>
+          </div>`;
+        }
       }
     }
 
@@ -1036,6 +1038,7 @@ function attachExplorerEvents(box){
     clearAppliedSnapshot(btn.dataset.appliedClear);
     void renderExplorer();
   }));
+  box.querySelectorAll('[data-ab-run]').forEach(btn=>btn.addEventListener('click',()=>runAbCompare(btn)));
 }
 
 // ── Tooltip system ────────────────────────────────────────────────────────────
@@ -1346,6 +1349,35 @@ function renderActionCard(a){
   </div>`;
 }
 
+
+async function runAbCompare(btn){
+  const productId=btn.dataset.abPid;
+  const appliedDate=btn.dataset.abDate;
+  const ts=btn.dataset.abRun;
+  const statusEl=document.getElementById(`ab-status-${ts}`);
+  if(!apiToken){
+    if(statusEl) statusEl.textContent='⚠️ Введите токен в поле токена выше';
+    return;
+  }
+  btn.disabled=true;
+  btn.textContent='Запускаем…';
+  if(statusEl) statusEl.textContent='';
+  try{
+    const res=await fetch('/api/ab_compare',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({product_id:productId,applied_date:appliedDate,token:apiToken}),
+    });
+    const data=await res.json();
+    if(!res.ok||!data.ok) throw new Error(data.error||'Ошибка сервера');
+    toast('✅ Замер готов! Обновляю карточку…');
+    await renderApplied();
+  } catch(err){
+    btn.disabled=false;
+    btn.textContent='Запустить замер';
+    if(statusEl) statusEl.textContent=`❌ ${err.message}`;
+  }
+}
 
 function onApplyClick(e){
   const btn=e.currentTarget;
@@ -1658,8 +1690,13 @@ async function renderApplied(){
   if(!box) return;
   box.innerHTML=`<div class="card" style="margin-bottom:12px">
     <div class="section-label" style="margin-top:0">Применённые действия</div>
-    <div class="text-sm text-muted">Snapshot сохраняется в <code>localStorage</code> в момент нажатия «Применил», после чего сравнивается с последними строками из актуальных dashboard JSON. При работе локально (localhost) данные можно экспортировать через run_daily.bat для синхронизации в Gist.</div>
+    <div class="text-sm text-muted">Snapshot сохраняется в <code>localStorage</code> в момент нажатия «Применил». Через 7 дней появится кнопка «Запустить замер» — она запустит A/B сравнение прямо из браузера (только локально).</div>
   </div>${await renderAppliedTrackerView()}`;
+  box.querySelectorAll('[data-applied-clear]').forEach(btn=>btn.addEventListener('click',()=>{
+    clearAppliedSnapshot(btn.dataset.appliedClear);
+    void renderApplied();
+  }));
+  box.querySelectorAll('[data-ab-run]').forEach(btn=>btn.addEventListener('click',()=>runAbCompare(btn)));
 }
 
 // ── Ops Tab ────────────────────────────────────────────────────────────────────
@@ -2800,66 +2837,4 @@ function buildPayload(db) {
 
 
 
-  return {
-
-    plan: {
-
-      generated_at: kpis.generated_at,
-
-      kpis: {
-
-        actions_in_plan: kpis.actions_in_plan,
-
-        quick_wins_count: kpis.quick_wins_count,
-
-        by_type_count: parseJ(kpis.by_type_count_json) || {},
-
-        potential_price_shift_rub: kpis.potential_price_shift_rub,
-
-        zero_stock_in_top: kpis.zero_stock_in_top,
-
-        stockout_risk_in_top: kpis.stockout_risk_in_top,
-
-        competitor_aware_in_top: kpis.competitor_aware_in_top,
-
-      },
-
-      metadata: {
-
-        sources_used: sources.map(s => s.label),
-
-        sources_skipped: parseJ(kpis.sources_skipped_json) || [],
-
-        stock_context_source: kpis.stock_context_source,
-
-        competitor_context_source: kpis.competitor_context_source,
-
-        stock_annotated: kpis.stock_annotated,
-
-        competitor_annotated: kpis.competitor_annotated,
-
-      },
-
-      insights: insights.filter(i => i.source === 'plan').map(i => ({severity: i.severity, message: i.message})),
-
-      actions: actions.map(a => ({
-
-        rank: a.rank, action_type: a.action_type, title: a.title, group: a.group_name,
-
-        headline: a.headline, detail: a.detail, current_value: a.current_value,
-
-        suggested_value: a.suggested_value, priority_score: a.priority_score,
-
-        compound_score: a.compound_score, quick_win: !!a.quick_win,
-
-        entity_key: a.entity_key, product_id: a.product_id,
-
-        meta: parseJ(a.meta_json) || {},
-
-      })),
-
-    },
-
-    review_booster: {
-
-      gene
+ 
