@@ -16,6 +16,7 @@ from core.auth import decode_jwt_payload, token_expiry_info
 from core.http_client import create_session
 from core.io_utils import write_json
 from core.paths import JOB_RUNS_DIR, PROJECT_ROOT, ensure_dir
+from core.quick_wins_state import load_state as qw_load_state, mark_done as qw_mark_done, mark_active as qw_mark_active, set_order as qw_set_order, _public as qw_public
 from core.refresh_jobs import build_job_command, list_jobs, sanitize_payload
 from core.reply_generator import generate_draft, load_config as load_reply_config
 from core.reviews_api import post_question_answer, post_review_answer
@@ -249,6 +250,12 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                 payload = _json.loads(reviews_file.read_text(encoding="utf-8"))
                 self._send_json(payload)
             return
+        if parsed.path == "/api/quick_wins/state":
+            import datetime as _dt
+            session_date = parse_qs(parsed.query).get("date", [_dt.date.today().isoformat()])[0]
+            state = qw_load_state(session_date)
+            self._send_json({"ok": True, "state": qw_public(state)})
+            return
         if parsed.path == "/api/artifact":
             target = parse_qs(parsed.query).get("path", [None])[0]
             if not target:
@@ -331,6 +338,27 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                 except Exception as exc:
                     self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
                 return
+            if parsed.path == "/api/quick_wins/complete":
+                import datetime as _dt
+                session_date = payload.get("date") or _dt.date.today().isoformat()
+                item_id = payload["id"]
+                state = qw_mark_done(session_date, item_id)
+                self._send_json({"ok": True, "state": qw_public(state)})
+                return
+            if parsed.path == "/api/quick_wins/restore":
+                import datetime as _dt
+                session_date = payload.get("date") or _dt.date.today().isoformat()
+                item_id = payload["id"]
+                state = qw_mark_active(session_date, item_id)
+                self._send_json({"ok": True, "state": qw_public(state)})
+                return
+            if parsed.path == "/api/quick_wins/reorder":
+                import datetime as _dt
+                session_date = payload.get("date") or _dt.date.today().isoformat()
+                order = payload.get("order", [])
+                state = qw_set_order(session_date, order)
+                self._send_json({"ok": True, "state": qw_public(state)})
+                return
             if parsed.path == "/api/token-health":
                 token = (payload.get("token") or "").strip()
                 if not token:
@@ -354,46 +382,4 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                         "token_health": info,
                         "payload": {
                             "uid": decoded.get("uid"),
-                            "sub": decoded.get("sub"),
-                            "phone": decoded.get("phone"),
-                            "email": decoded.get("email"),
-                        },
-                    },
-                    status=HTTPStatus.OK,
-                )
-                return
-            self._send_json({"error": "unknown endpoint"}, status=HTTPStatus.NOT_FOUND)
-        except KeyError as exc:
-            self._send_json({"error": f"missing field: {exc}"}, status=HTTPStatus.BAD_REQUEST)
-        except RuntimeError as exc:
-            self._send_json({"error": str(exc)}, status=HTTPStatus.CONFLICT)
-        except Exception as exc:
-            self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
-
-
-def parse_args():
-    parser = argparse.ArgumentParser(description="Local web UI runner for MM Market Tools refresh jobs.")
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8040)
-    parser.add_argument("--jobs-dir", default=str(JOB_RUNS_DIR))
-    parser.add_argument("--ui-dir", default=str(PROJECT_ROOT))
-    return parser.parse_args()
-
-
-def main():
-    args = parse_args()
-    job_store = JobStore(args.jobs_dir)
-
-    def factory(*handler_args, **handler_kwargs):
-        return RefreshHandler(*handler_args, directory=args.ui_dir, job_store=job_store, **handler_kwargs)
-
-    server = ThreadingHTTPServer((args.host, args.port), factory)
-    print(f"Refresh server running on http://{args.host}:{args.port}/")
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print("Shutting down.")
-
-
-if __name__ == "__main__":
-    main()
+                            "sub": decoded.get("s
