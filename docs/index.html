@@ -78,12 +78,20 @@ body{font-family:var(--font-ui);background:radial-gradient(circle at top left,va
 .insight.high{background:var(--color-coral-soft);border-color:var(--color-coral);color:var(--color-coral);}
 .insight.warn{background:var(--color-amber-soft);border-color:var(--color-amber);color:var(--color-amber);}
 .insight.ok{background:var(--color-green-soft);border-color:var(--color-green);color:var(--color-green);}
-.tabs-wrapper{margin-bottom:12px;}
-.tab-pills{display:flex;flex-wrap:wrap;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);backdrop-filter:blur(8px);}
-.tab-btn{padding:6px 14px;background:transparent;border:none;border-radius:var(--radius-pill);cursor:pointer;font-size:12px;font-weight:500;color:var(--color-text-secondary);transition:all 0.15s;white-space:nowrap;}
-.tab-btn:hover{color:var(--color-text-primary);background:var(--color-surface-secondary);}
-.tab-btn.active{background:var(--color-accent);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(37,99,235,0.3);}
-.tab-content{display:none;}.tab-content.active{display:block;}
+
+
+
+
+.tab-content{display:block;}
+/* Mode toggle */
+.mode-toggle-wrapper{margin-bottom:12px;}
+.mode-toggle{display:inline-flex;padding:4px;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);box-shadow:var(--shadow-sm);}
+.mode-btn{padding:8px 20px;background:transparent;border:none;border-radius:var(--radius-pill);cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all 0.18s;font-family:var(--font-ui);white-space:nowrap;}
+.mode-btn.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(10,132,255,0.3);}
+.mode-btn:not(.active):hover{color:var(--ink);background:var(--accent-soft);}
+/* Deep-only sections */
+.section-deep{display:none;}
+body.mode-deep .section-deep{display:block;}
 .card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:8px;box-shadow:var(--shadow-sm);backdrop-filter:blur(8px);}
 .action-card{position:relative;overflow:hidden;}
 .action-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--color-border);}
@@ -349,35 +357,26 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div class="kpi-grid" id="kpi-grid"></div>
 <div class="insight-list" id="insights-box"></div>
 
-<div class="tabs-wrapper">
-  <div class="tab-pills">
-    <button class="tab-btn active" data-tab="plan">План</button>
-    <button class="tab-btn" data-tab="explorer">Explorer</button>
-    <button class="tab-btn" data-tab="quickwins">Быстрые победы</button>
-    <button class="tab-btn" data-tab="ops">Операции</button>
-    <button class="tab-btn" data-tab="reports">Отчёты</button>
-    <button class="tab-btn" data-tab="reviews">Отзывы</button>
-    <button class="tab-btn" data-tab="applied">A/B</button>
-    <button class="tab-btn" data-tab="romi">ROMI</button>
-    <button class="tab-btn" data-tab="api">API</button>
-    <button class="tab-btn" data-tab="buyers">Покупатели</button>
-    <button class="tab-btn" data-tab="blockers">Блокеры</button>
-    <button class="tab-btn" data-tab="sources">Источники</button>
+<div class="mode-toggle-wrapper">
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="quick" onclick="setMode('quick')">Сейчас</button>
+    <button class="mode-btn" data-mode="deep" onclick="setMode('deep')">Полный режим</button>
   </div>
 </div>
 
-<div id="tab-plan" class="tab-content active"></div>
-<div id="tab-explorer" class="tab-content"></div>
 <div id="tab-quickwins" class="tab-content"></div>
-<div id="tab-ops" class="tab-content"></div>
-<div id="tab-reports" class="tab-content"></div>
+<div id="tab-plan" class="tab-content"></div>
 <div id="tab-reviews" class="tab-content"></div>
-<div id="tab-applied" class="tab-content"></div>
-<div id="tab-romi" class="tab-content"></div>
-<div id="tab-api" class="tab-content"></div>
 <div id="tab-buyers" class="tab-content"></div>
-<div id="tab-blockers" class="tab-content"></div>
-<div id="tab-sources" class="tab-content"></div>
+
+<div id="tab-explorer" class="tab-content section-deep"></div>
+<div id="tab-ops" class="tab-content section-deep"></div>
+<div id="tab-reports" class="tab-content section-deep"></div>
+<div id="tab-applied" class="tab-content section-deep"></div>
+<div id="tab-romi" class="tab-content section-deep"></div>
+<div id="tab-api" class="tab-content section-deep"></div>
+<div id="tab-blockers" class="tab-content section-deep"></div>
+<div id="tab-sources" class="tab-content section-deep"></div>
 
 <footer>Итерация <span id="iter-num">—</span> · Обновлено <span id="iter-updated">—</span> · goal: WONDERS в ТОП-10</footer>
 <div id="toast" class="toast"></div>
@@ -2812,20 +2811,17 @@ function handleFileSelect(inp){
 
 
 
-// ── Tabs ──────────────────────────────────────────────────────────────────────
+// ── Mode toggle (Сейчас / Полный режим) ──────────────────────────────────────
 
-function setupTabs(){
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-      if(btn.dataset.tab==='explorer'){
-        void renderExplorer();
-      }
-    });
+function setMode(mode){
+  const isDeep = mode === 'deep';
+  document.body.classList.toggle('mode-deep', isDeep);
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.mode === mode);
   });
+  if(isDeep){
+    void renderExplorer();
+  }
 }
 
 
@@ -3069,7 +3065,7 @@ async function initDashboard() {
   for(const _fn of _renders){
     try{ await _fn(); }catch(e){ console.error('render error',e); }
   }
-  setupTabs();
+  setMode('quick');
 
 }
 
