@@ -49,9 +49,11 @@ def gh_request(method, url, token, data=None, extra_headers=None):
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
         with urllib.request.urlopen(req) as resp:
-            return resp.status, json.loads(resp.read().decode("utf-8"))
+            raw = resp.read()
+            return resp.status, json.loads(raw.decode("utf-8")) if raw.strip() else {}
     except urllib.error.HTTPError as e:
-        return e.code, json.loads(e.read().decode("utf-8") or "{}")
+        raw = e.read()
+        return e.code, json.loads(raw.decode("utf-8")) if raw.strip() else {}
 
 
 def upload_request(url, token, data_bytes, content_type="application/octet-stream"):
@@ -303,8 +305,4 @@ def main():
 
     try:
         step_a(token, repo)
-    except Exception as e:
-        print(f"[A] EXCEPTION: {e}")
-
-    try:
-        step_b(token, repo)
+    except Exception as

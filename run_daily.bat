@@ -39,10 +39,10 @@ py -3 build_daily_action_plan.py --offline-fallback
 
 echo [2/5] Building paid storage report...
 if not defined SKIP_API (
-    py -3 build_paid_storage_report.py || echo WARN: paid_storage_report failed
+    py -3 build_paid_storage_report.py --token %KE_TOKEN% || echo WARN: paid_storage_report failed
 ) else (
     echo SKIP: paid_storage_report ^(нет токена^)
 )
 
 REM ab_compare.py requires specific product args — runs on-demand, not daily
-REM Use: py -3 ab_compare.py --a-product-id ... --a-date-range ... --b-product-id ... --b-dat
+REM Use: py -3 ab_compare.py --a-product-id ... --a-date-range ... --b-pro
