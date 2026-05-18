@@ -851,8 +851,6 @@ async function renderAppliedTrackerView(){
     const priceDelta=currentPrice!==null&&snapshot.price_before!==null?currentPrice-snapshot.price_before:null;
     const fmtMoney=v=>v==null?'—':`${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(v)} ₽`;
     const fmtDelta=(v,unit='')=>v==null?'—':`${v>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(v)}${unit}`;
-
-    // ── Status block ────────────────────────────────────────────────────────
     let statusHtml='';
     if(days<7){
       const pct=Math.round((days/7)*100);
@@ -861,7 +859,7 @@ async function renderAppliedTrackerView(){
         <div class="ab-progress-bar"><div class="ab-progress-fill" style="width:${pct}%"></div></div>
       </div>`;
     } else {
-      const abResult=await fetchAbResult(snapshot.entity_key||productId, snapshot.timestamp);
+      const abResult=await fetchAbResult(snapshot.entity_key||productId,snapshot.timestamp);
       if(abResult){
         const d=abResult.comparison?.delta||{};
         const cls=(v)=>v==null?'':(v>0?'positive':'negative');
@@ -872,27 +870,23 @@ async function renderAppliedTrackerView(){
           <div class="ab-result-item"><div class="label">Ср. цена</div><div class="value ${cls(d.avg_price?.absolute)}">${fmtDelta(d.avg_price?.absolute,'₽')}</div></div>
         </div>
         <div class="text-xs text-muted">A = после (${esc(String(abResult.variants?.A?.date_range||''))}), B = до (${esc(String(abResult.variants?.B?.date_range||''))})</div>`;
+      } else if(IS_LOCAL){
+        const tokenHint=apiToken?'':`<div class="text-xs" style="color:#e05252;margin-bottom:6px">⚠️ Введите Bearer-токен в поле токена выше.</div>`;
+        statusHtml=`<div class="ab-cli-block">
+          <div class="text-xs text-muted" style="margin-bottom:6px">✅ 7 дней прошло — готово к замеру.</div>
+          ${tokenHint}
+          <button class="btn primary" data-ab-run="${esc(snapshot.timestamp)}" data-ab-pid="${esc(String(productId))}" data-ab-date="${esc(appliedDate)}">Запустить замер</button>
+          <span class="ab-run-status" id="ab-status-${esc(snapshot.timestamp)}" style="margin-left:8px;font-size:11px;"></span>
+        </div>`;
       } else {
-        if(IS_LOCAL){
-          const tokenHint=apiToken?'':`<div class="text-xs" style="color:#e05252;margin-bottom:6px">⚠️ Вставьте Bearer-токен в поле токена (вкладка Ops / верх страницы) — он нужен для запроса API.</div>`;
-          statusHtml=`<div class="ab-cli-block">
-            <div class="text-xs text-muted" style="margin-bottom:6px">✅ 7 дней прошло — готово к замеру.</div>
-            ${tokenHint}
-            <button class="btn primary" data-ab-run="${esc(snapshot.timestamp)}" data-ab-pid="${esc(String(productId))}" data-ab-date="${esc(appliedDate)}">Запустить замер</button>
-            <span class="ab-run-status" id="ab-status-${esc(snapshot.timestamp)}"></span>
-          </div>`;
-        } else {
-          statusHtml=`<div class="ab-cli-block">
-            <div class="text-xs text-muted">✅ 7 дней прошло. Откройте дашборд локально (<code>py -3 web_refresh_server.py</code>) для запуска замера кнопкой.</div>
-          </div>`;
-        }
+        statusHtml=`<div class="ab-cli-block">
+          <div class="text-xs text-muted">✅ 7 дней прошло. Откройте дашборд локально (<code>py -3 web_refresh_server.py</code>) для запуска замера кнопкой.</div>
+        </div>`;
       }
     }
-
     const statusPill=days<7
       ?`<span class="status-pill pending">замер ${days}/7д</span>`
       :`<span class="status-pill measured">готово</span>`;
-
     return `<div class="card">
       <div class="action-header">
         <span class="type-pill ${snapshot.action_type||'price_strategy'}">${esc(snapshot.action_type||'applied')}</span>
@@ -1359,8 +1353,7 @@ async function runAbCompare(btn){
     if(statusEl) statusEl.textContent='⚠️ Введите токен в поле токена выше';
     return;
   }
-  btn.disabled=true;
-  btn.textContent='Запускаем…';
+  btn.disabled=true; btn.textContent='Запускаем…';
   if(statusEl) statusEl.textContent='';
   try{
     const res=await fetch('/api/ab_compare',{
@@ -1372,9 +1365,8 @@ async function runAbCompare(btn){
     if(!res.ok||!data.ok) throw new Error(data.error||'Ошибка сервера');
     toast('✅ Замер готов! Обновляю карточку…');
     await renderApplied();
-  } catch(err){
-    btn.disabled=false;
-    btn.textContent='Запустить замер';
+  }catch(err){
+    btn.disabled=false; btn.textContent='Запустить замер';
     if(statusEl) statusEl.textContent=`❌ ${err.message}`;
   }
 }
@@ -1690,11 +1682,10 @@ async function renderApplied(){
   if(!box) return;
   box.innerHTML=`<div class="card" style="margin-bottom:12px">
     <div class="section-label" style="margin-top:0">Применённые действия</div>
-    <div class="text-sm text-muted">Snapshot сохраняется в <code>localStorage</code> в момент нажатия «Применил». Через 7 дней появится кнопка «Запустить замер» — она запустит A/B сравнение прямо из браузера (только локально).</div>
+    <div class="text-sm text-muted">Snapshot сохраняется в <code>localStorage</code> в момент нажатия «Применил». Через 7 дней появится кнопка «Запустить замер» для A/B сравнения (только локально).</div>
   </div>${await renderAppliedTrackerView()}`;
   box.querySelectorAll('[data-applied-clear]').forEach(btn=>btn.addEventListener('click',()=>{
-    clearAppliedSnapshot(btn.dataset.appliedClear);
-    void renderApplied();
+    clearAppliedSnapshot(btn.dataset.appliedClear); void renderApplied();
   }));
   box.querySelectorAll('[data-ab-run]').forEach(btn=>btn.addEventListener('click',()=>runAbCompare(btn)));
 }
@@ -2837,4 +2828,201 @@ function buildPayload(db) {
 
 
 
- 
+  return {
+
+    plan: {
+
+      generated_at: kpis.generated_at,
+
+      kpis: {
+
+        actions_in_plan: kpis.actions_in_plan,
+
+        quick_wins_count: kpis.quick_wins_count,
+
+        by_type_count: parseJ(kpis.by_type_count_json) || {},
+
+        potential_price_shift_rub: kpis.potential_price_shift_rub,
+
+        zero_stock_in_top: kpis.zero_stock_in_top,
+
+        stockout_risk_in_top: kpis.stockout_risk_in_top,
+
+        competitor_aware_in_top: kpis.competitor_aware_in_top,
+
+      },
+
+      metadata: {
+
+        sources_used: sources.map(s => s.label),
+
+        sources_skipped: parseJ(kpis.sources_skipped_json) || [],
+
+        stock_context_source: kpis.stock_context_source,
+
+        competitor_context_source: kpis.competitor_context_source,
+
+        stock_annotated: kpis.stock_annotated,
+
+        competitor_annotated: kpis.competitor_annotated,
+
+      },
+
+      insights: insights.filter(i => i.source === 'plan').map(i => ({severity: i.severity, message: i.message})),
+
+      actions: actions.map(a => ({
+
+        rank: a.rank, action_type: a.action_type, title: a.title, group: a.group_name,
+
+        headline: a.headline, detail: a.detail, current_value: a.current_value,
+
+        suggested_value: a.suggested_value, priority_score: a.priority_score,
+
+        compound_score: a.compound_score, quick_win: !!a.quick_win,
+
+        entity_key: a.entity_key, product_id: a.product_id,
+
+        meta: parseJ(a.meta_json) || {},
+
+      })),
+
+    },
+
+    review_booster: {
+
+      generated_at: kpis.rb_generated_at,
+
+      kpis: {
+
+        responses_suggested: kpis.rb_responses_suggested,
+
+        high_priority_responses: kpis.rb_high_priority_responses,
+
+        reason_coverage: kpis.rb_reason_coverage,
+
+      },
+
+      insights: insights.filter(i => i.source === 'review_booster').map(i => ({severity: i.severity, message: i.message})),
+
+      rows: reviews,
+
+    },
+
+    applied_actions: {
+
+      summary: {
+
+        total_entries: applied.length,
+
+        pending_count: applied.filter(a => a.status === 'pending').length,
+
+        measured_count: applied.filter(a => a.status === 'measured').length,
+
+      },
+
+      entries: applied.map(a => ({...a, baseline: parseJ(a.baseline_json) || {}})),
+
+    },
+
+    api_status: { ...apiSt, endpoints, gaps },
+
+    blockers,
+
+    iteration: iter,
+
+  };
+}
+
+async function loadPublishedPayload() {
+  const resp = await fetch('./data/daily_action_plan.json', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+  });
+  if (!resp.ok) {
+    throw new Error(`published daily_action_plan.json unavailable (${resp.status})`);
+  }
+  const payload = await resp.json();
+  if (!payload || !payload.plan || !payload.review_booster) {
+    throw new Error('published daily_action_plan.json has unexpected shape');
+  }
+  return payload;
+}
+
+async function initDashboard() {
+  const loadingEl = document.getElementById('db-loading');
+  const msgEl = document.getElementById('db-loading-msg');
+  try {
+    msgEl.textContent = 'Загружаю опубликованный payload...';
+    try {
+      PAYLOAD = await loadPublishedPayload();
+    } catch (_payloadErr) {
+      msgEl.textContent = 'Получаю список релизов...';
+      const releases = await fetch(
+        `https://api.github.com/repos/${REPO}/releases?per_page=20`,
+        { headers: { Accept: 'application/vnd.github+json' } }
+      ).then(r => r.json());
+
+      const rel = releases.find(r => r.assets && r.assets.some(a => a.name === DB_ASSET_NAME));
+      if (!rel) throw new Error('Релиз с data.db не найден. Запустите GitHub Actions для первого создания.');
+
+      const asset = rel.assets.find(a => a.name === DB_ASSET_NAME);
+      msgEl.textContent = `Загружаю data.db (${Math.round(asset.size/1024)}KB)...`;
+
+      const buf = await fetch(asset.browser_download_url).then(r => r.arrayBuffer());
+      msgEl.textContent = 'Инициализирую базу данных...';
+
+      const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+      const db = new SQL.Database(new Uint8Array(buf));
+
+      PAYLOAD = buildPayload(db);
+      db.close();
+    }
+    msgEl.textContent = 'Проверяю live runtime API...';
+    await initLiveMode();
+    msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
+    await initAuxReports();
+    msgEl.textContent = 'Подтягиваю каталог отчётов...';
+    await initReportExplorer();
+  } catch (err) {
+    msgEl.textContent = '⚠ ' + err.message;
+    msgEl.style.color = 'var(--color-coral)';
+    document.getElementById('db-loading').style.background = 'rgba(0,0,0,0.7)';
+    await new Promise(r => setTimeout(r, 3000));
+  }
+
+
+
+  loadingEl.style.display = 'none';
+
+  // ── Init ──────────────────────────────────────────────────────────────────────────────
+  const _renders=[
+    ()=>renderHeader(),
+    ()=>renderKPIs(),
+    ()=>renderInsights(),
+    ()=>renderPlan(),
+    async ()=>{ try{ await renderExplorer(); }catch(e){ console.error('renderExplorer',e); } },
+    ()=>renderQuickWins(),
+    ()=>renderOps(),
+    ()=>renderReports(),
+    ()=>renderReviews(),
+    ()=>renderApplied(),
+    ()=>renderROMI(),
+    ()=>renderAPI(),
+    ()=>renderBuyers(),
+    ()=>renderBlockers(),
+    ()=>renderSources(),
+  ];
+  for(const _fn of _renders){
+    try{ await _fn(); }catch(e){ console.error('render error',e); }
+  }
+  setupTabs();
+
+}
+
+
+
+initDashboard();
+
+</script>
+</body>
+</html>
