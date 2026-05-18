@@ -388,6 +388,58 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                     }
                 )
                 return
+            if parsed.path == "/api/ingest":
+                import base64 as _b64
+                import tempfile as _tmp
+                import sys as _sys2
+                filename = str(payload.get("filename", "upload")).strip()
+                data_b64 = str(payload.get("data_b64", "")).strip()
+                token = str(payload.get("token", "")).strip()
+                if not data_b64:
+                    self._send_json({"error": "missing data_b64"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+                try:
+                    file_bytes = _b64.b64decode(data_b64)
+                except Exception as exc:
+                    self._send_json({"error": f"invalid base64: {exc}"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+                suffix = Path(filename).suffix.lower() or ".bin"
+                with _tmp.NamedTemporaryFile(suffix=suffix, delete=False) as tf:
+                    tf.write(file_bytes)
+                    tmp_path = Path(tf.name)
+                result_path = PROJECT_ROOT / "data" / "ingest_result.json"
+                cmd = [
+                    _sys2.executable, "scripts/ingest.py",
+                    "--file", str(tmp_path),
+                    "--output-json", str(result_path),
+                ]
+                if token:
+                    cmd += ["--token", token]
+                try:
+                    proc = subprocess.run(
+                        cmd,
+                        cwd=str(PROJECT_ROOT),
+                        capture_output=True,
+                        text=True,
+                        timeout=120,
+                    )
+                    try:
+                        result_data = json.loads(result_path.read_text(encoding="utf-8")) if result_path.exists() else {}
+                    except Exception:
+                        result_data = {}
+                    if not result_data:
+                        result_data = {"ok": proc.returncode == 0, "log": [(proc.stdout + proc.stderr).strip()]}
+                    self._send_json(result_data)
+                except subprocess.TimeoutExpired:
+                    self._send_json({"error": "ingest timed out (120s)"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                except Exception as exc:
+                    self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                finally:
+                    try:
+                        tmp_path.unlink(missing_ok=True)
+                    except Exception:
+                        pass
+                return
             if parsed.path == "/api/ab_compare":
                 import datetime as _dt
                 import re as _re
@@ -409,58 +461,4 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                 from core.paths import REPORTS_DIR
                 cmd = [
                     _sys.executable, "ab_compare.py",
-                    "--token", token,
-                    "--a-product-id", product_id,
-                    "--a-date-range", f'["{a_start}","{a_end}"]',
-                    "--b-product-id", product_id,
-                    "--b-date-range", f'["{b_start}","{b_end}"]',
-                    "--report-prefix", prefix,
-                ]
-                try:
-                    proc = subprocess.run(
-                        cmd,
-                        cwd=str(PROJECT_ROOT),
-                        capture_output=True,
-                        text=True,
-                        timeout=90,
-                    )
-                    if proc.returncode != 0:
-                        self._send_json(
-                            {"error": (proc.stdout + proc.stderr).strip() or "ab_compare failed"},
-                            status=HTTPStatus.INTERNAL_SERVER_ERROR,
-                        )
-                        return
-                    result_path = REPORTS_DIR / f"{prefix}.json"
-                    if not result_path.exists():
-                        self._send_json({"error": "result file not found after run"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
-                        return
-                    data = json.loads(result_path.read_text(encoding="utf-8"))
-                    self._send_json({"ok": True, "result": data, "log": proc.stdout})
-                except subprocess.TimeoutExpired:
-                    self._send_json({"error": "ab_compare timed out (90s)"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
-                except Exception as exc:
-                    self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
-                return
-            self._send_json({"error": "unknown path"}, status=HTTPStatus.NOT_FOUND)
-        except Exception as exc:
-            self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
-
-
-def main():
-    parser = argparse.ArgumentParser(description="MM Market Tools — Local dashboard server")
-    parser.add_argument("--port", type=int, default=8000)
-    parser.add_argument("--host", default="localhost")
-    args = parser.parse_args()
-
-    job_store = JobStore(JOB_RUNS_DIR)
-    handler = lambda *a, **kw: RefreshHandler(*a, directory=str(PROJECT_ROOT), job_store=job_store, **kw)
-    server = ThreadingHTTPServer((args.host, args.port), handler)
-    print(f"Serving at http://{args.host}:{args.port} — Press Ctrl+C to stop")
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print("\nStopped.")
-
-
-if __name__ == "__main__":
-    main()
+                    "-

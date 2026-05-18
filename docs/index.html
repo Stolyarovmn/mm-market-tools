@@ -168,6 +168,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .ab-result-item .value{font-size:13px;font-weight:700;}
 .ab-result-item .value.positive{color:var(--color-green);}
 .ab-result-item .value.negative{color:#e05252;}
+.ingest-progress{display:flex;align-items:center;gap:8px;justify-content:center;padding:8px 0;}
+.ingest-progress .spinner{width:16px;height:16px;border:2px solid var(--color-border);border-top-color:var(--color-teal);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
 .ab-cli-block{background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);padding:10px 12px;margin:8px 0;}
 .ab-cli-cmd{font-family:monospace;font-size:10px;color:var(--color-text-secondary);word-break:break-all;display:block;margin-bottom:8px;line-height:1.5;}
 /* ROMI */
@@ -2718,13 +2721,13 @@ function renderSources(){
 
   <div class="drop-zone" id="drop-zone" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event)" onclick="document.getElementById('file-input-hidden').click()">
 
-    ⬆ Перетащите .json / .csv отчёт сюда или нажмите для выбора
+    ⬆ Перетащите sells-report.csv, left-out-report.csv или paid-storage.xlsx
 
-    <div class="text-xs text-muted mt-4">После загрузки: TASK-006 добавит автоматический ingestion pipeline</div>
+    <div class="text-xs text-muted mt-4">Файл автоматически распознаётся и добавляется в дашборд</div>
 
   </div>
 
-  <input type="file" id="file-input-hidden" accept=".json,.csv" style="display:none" onchange="handleFileSelect(this)">`;
+  <input type="file" id="file-input-hidden" accept=".json,.csv,.xlsx" style="display:none" onchange="handleFileSelect(this)">`;
 
 
 
@@ -2734,23 +2737,59 @@ function renderSources(){
 
 
 
-function handleFileDrop(e){
-
-  e.preventDefault();
-
-  document.getElementById('drop-zone').classList.remove('dragover');
-
-  const file=e.dataTransfer.files[0];
-
-  if(file)toast(`Файл "${file.name}" получен. Ingestion — TASK-006.`);
-
+/* ── Ingestion pipeline ─────────────────────────────────────── */
+async function runIngest(file){
+  if(!IS_LOCAL){
+    toast('Загрузка доступна только локально. Откройте http://localhost:8000');
+    return;
+  }
+  const dropZone=document.getElementById('drop-zone');
+  const origHTML=dropZone.innerHTML;
+  dropZone.innerHTML='<div class="ingest-progress"><div class="spinner"></div><span>Обрабатываю файл…</span></div>';
+  dropZone.style.pointerEvents='none';
+  try{
+    const b64=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=e=>resolve(e.target.result.split(',')[1]);
+      reader.onerror=reject;
+      reader.readAsDataURL(file);
+    });
+    const resp=await fetch('/api/ingest',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({filename:file.name,data_b64:b64,token:apiToken||''})
+    });
+    const data=await resp.json();
+    if(data.need_companion){
+      toast('✅ '+data.message,5000);
+    } else if(data.ok){
+      toast('✅ '+data.message);
+      await loadPayload();
+      renderAll();
+    } else {
+      const msg=data.message||data.error||'Ошибка ingestion';
+      toast('⚠ '+msg,5000);
+      console.error('ingest error',data);
+    }
+  } catch(err){
+    toast('⚠ Ошибка: '+err.message,5000);
+    console.error('ingest fetch error',err);
+  } finally {
+    dropZone.innerHTML=origHTML;
+    dropZone.style.pointerEvents='';
+  }
 }
-
+function handleFileDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('dragover');
+  const file=e.dataTransfer.files[0];
+  if(file) runIngest(file);
+}
 function handleFileSelect(inp){
-
   const file=inp.files[0];
-
-  if(file)toast(`Файл "${file.name}" выбран. Ingestion — TASK-006.`);
+  inp.value='';
+  if(file) runIngest(file);
+}" выбран. Ingestion — TASK-006.`);
 
 }
 
