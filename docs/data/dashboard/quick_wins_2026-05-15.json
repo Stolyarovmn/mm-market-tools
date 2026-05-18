@@ -1,0 +1,42 @@
+{
+  "schema_version": "v1",
+  "session_date": "2026-05-15",
+  "items": [
+    {
+      "id": "price_trap",
+      "kind": "price_trap",
+      "count": 33,
+      "label": "Подвинуть цены за пороги",
+      "action": "Открыть список",
+      "route": "price_trap",
+      "priority": 1
+    },
+    {
+      "id": "watchlist",
+      "kind": "watchlist",
+      "count": 3,
+      "label": "Проверить watchlist",
+      "action": "Открыть список",
+      "route": "action-center-panel",
+      "priority": 2
+    },
+    {
+      "id": "title_seo",
+      "kind": "title_seo",
+      "count": 27,
+      "label": "Поправить слабые title",
+      "action": "Открыть список",
+      "route": "title_seo",
+      "priority": 3
+    },
+    {
+      "id": "weekly",
+      "kind": "run_job",
+      "count": 1,
+      "label": "Запустить weekly_operational",
+      "action": "К runner",
+      "route": "refresh:weekly",
+      "priority": 4
+    }
+  ]
+}
