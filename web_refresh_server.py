@@ -192,10 +192,10 @@ class RefreshHandler(SimpleHTTPRequestHandler):
     def _rewrite_static_path(self):
         parsed = urlparse(self.path)
         if parsed.path in {"/", "/index.html"}:
-            self.path = "/ui/index.html"
+            self.path = "/docs/index.html"
             return True
         if parsed.path == "/refresh.html":
-            self.path = "/ui/refresh.html"
+            self.path = "/docs/index.html"
             return True
         if parsed.path in {
             "/styles.css",
@@ -206,7 +206,7 @@ class RefreshHandler(SimpleHTTPRequestHandler):
             "/refresh.js",
             "/state.js",
         }:
-            self.path = f"/ui{parsed.path}"
+            self.path = f"/docs{parsed.path}"
             return True
         return False
 

@@ -367,6 +367,41 @@ let AUX_REPORTS = {
 let apiToken = localStorage.getItem('mm_api_token') || '';
 const PENDING_QUICKWINS_KEY = 'mm_quickwins_pending_v1';
 const APPLIED_TRACKER_KEY = 'mm_report_explorer_applied_v1';
+const IS_LOCAL = window.location.hostname === 'localhost' ||
+                 window.location.hostname === '127.0.0.1';
+
+// Quick wins API only available locally
+async function apiCall(path, method='GET', body=null) {
+  if (!IS_LOCAL) return null;
+  try {
+    const opts = {method, headers: {'Content-Type': 'application/json'}};
+    if (body) opts.body = JSON.stringify(body);
+    const r = await fetch(path, opts);
+    return r.ok ? r.json() : null;
+  } catch { return null; }
+}
+
+async function fetchAbResult(entityKey, appliedAt) {
+  const productId = String(entityKey).replace(/^product_/, '');
+  const date = String(appliedAt).slice(0, 10);
+  try {
+    const res = await fetch(`data/reports/ab_result_${productId}_${date}.json`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+
+function exportAppliedIndex() {
+  const applied = JSON.parse(localStorage.getItem(APPLIED_TRACKER_KEY) || '[]');
+  const blob = new Blob([JSON.stringify(applied, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'applied_index.json';
+  // Only trigger download if running locally (for sync_to_pages)
+  if (IS_LOCAL) {
+    a.click();
+  }
+}
 let REPORT_INDEX = null;
 let REPORT_INDEX_ERROR = null;
 const REPORT_CACHE = {};
@@ -1269,6 +1304,7 @@ function onApplyClick(e){
     group: btn.dataset.group || '',
   };
   saveAppliedSnapshot(snapshot);
+  exportAppliedIndex();
   btn.classList.add('done');btn.textContent='Отмечено ✓';btn.disabled=true;
   toast('Записано! Через 7 дней появится в A/B журнале.');
   if(document.getElementById('tab-explorer')?.classList.contains('active') && EXPLORER_STATE.mode==='applied'){
@@ -1557,6 +1593,26 @@ function renderReports(){
   });
 
   box.innerHTML=html;
+}
+
+// ── Applied Tab ───────────────────────────────────────────────────────────────
+async function renderApplied(){
+  const box=document.getElementById('tab-applied');
+  if(!box) return;
+  box.innerHTML=`<div class="card" style="margin-bottom:12px">
+    <div class="section-label" style="margin-top:0">Применённые действия</div>
+    <div class="text-sm text-muted">Snapshot сохраняется в <code>localStorage</code> в момент нажатия «Применил», после чего сравнивается с последними строками из актуальных dashboard JSON. При работе локально (localhost) данные можно экспортировать через run_daily.bat для синхронизации в Gist.</div>
+  </div>${await renderAppliedTrackerView()}`;
+}
+
+// ── Ops Tab ────────────────────────────────────────────────────────────────────
+function renderOps(){
+  const box=document.getElementById('tab-ops');
+  if(!box) return;
+  box.innerHTML=`<div class="card">
+    <div class="section-label" style="margin-top:0">Операции</div>
+    <div class="text-sm text-muted">Раздел для операционных задач. В разработке.</div>
+  </div>`;
 }
 
 // ── ROMI Tab ──────────────────────────────────────────────────────────────────
