@@ -65,9 +65,16 @@ def upload_request(url, token, data_bytes, content_type="application/octet-strea
     req = urllib.request.Request(url, data=data_bytes, headers=headers, method="POST")
     try:
         with urllib.request.urlopen(req) as resp:
-            return resp.status, json.loads(resp.read().decode("utf-8"))
+            body = resp.read()
+            result = json.loads(body) if body.strip() else {"uploaded": True}
+            return resp.status, result
     except urllib.error.HTTPError as e:
-        return e.code, json.loads(e.read().decode("utf-8") or "{}")
+        body = e.read()
+        try:
+            result = json.loads(body) if body else {}
+        except Exception:
+            result = {"raw": body.decode("utf-8", errors="replace")[:200]}
+        return e.code, result
 
 
 # ── Step A — Trees API batch commit ──────────────────────────────────────────
@@ -301,16 +308,3 @@ def main():
 
     try:
         step_b(token, repo)
-    except Exception as e:
-        print(f"[B] EXCEPTION: {e}")
-
-    try:
-        step_c(token, gist_id)
-    except Exception as e:
-        print(f"[C] EXCEPTION: {e}")
-
-    print("Done.")
-
-
-if __name__ == "__main__":
-    main()
