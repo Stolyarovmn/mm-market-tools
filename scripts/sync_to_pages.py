@@ -14,7 +14,6 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-
 from core.logging_config import get_logger
 log = get_logger('scripts.sync_to_pages')
 
@@ -52,11 +51,9 @@ def gh_request(method, url, token, data=None, extra_headers=None):
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
         with urllib.request.urlopen(req) as resp:
-            raw = resp.read()
-            return resp.status, json.loads(raw.decode("utf-8")) if raw.strip() else {}
+            return resp.status, json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        raw = e.read()
-        return e.code, json.loads(raw.decode("utf-8")) if raw.strip() else {}
+        return e.code, json.loads(e.read().decode("utf-8") or "{}")
 
 
 def upload_request(url, token, data_bytes, content_type="application/octet-stream"):
@@ -70,16 +67,9 @@ def upload_request(url, token, data_bytes, content_type="application/octet-strea
     req = urllib.request.Request(url, data=data_bytes, headers=headers, method="POST")
     try:
         with urllib.request.urlopen(req) as resp:
-            body = resp.read()
-            result = json.loads(body) if body.strip() else {"uploaded": True}
-            return resp.status, result
+            return resp.status, json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        body = e.read()
-        try:
-            result = json.loads(body) if body else {}
-        except Exception:
-            result = {"raw": body.decode("utf-8", errors="replace")[:200]}
-        return e.code, result
+        return e.code, json.loads(e.read().decode("utf-8") or "{}")
 
 
 # ── Step A — Trees API batch commit ──────────────────────────────────────────
@@ -308,4 +298,21 @@ def main():
 
     try:
         step_a(token, repo)
-    except Exception as
+    except Exception as e:
+        print(f"[A] EXCEPTION: {e}")
+
+    try:
+        step_b(token, repo)
+    except Exception as e:
+        print(f"[B] EXCEPTION: {e}")
+
+    try:
+        step_c(token, gist_id)
+    except Exception as e:
+        print(f"[C] EXCEPTION: {e}")
+
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()

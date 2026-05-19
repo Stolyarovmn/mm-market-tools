@@ -113,8 +113,6 @@ def main():
     if args.fill_csv:
         from core.market_economics import load_fill_cogs_rows
 
-from core.logging_config import get_logger
-log = get_logger('scripts.run_cogs_backfill_cycle')
         fill_rows = load_fill_cogs_rows(args.fill_csv)
         merged_rows, created, updated = merge_rows(existing_rows, fill_rows)
         store_payload = {

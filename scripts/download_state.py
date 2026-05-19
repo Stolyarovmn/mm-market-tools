@@ -1,6 +1,3 @@
-
-from core.logging_config import get_logger
-log = get_logger('scripts.download_state')
 #!/usr/bin/env python3
 """Download state.db from Private Gist on first run / new PC."""
 import base64
@@ -9,6 +6,8 @@ import os
 import urllib.error
 import urllib.request
 from pathlib import Path
+from core.logging_config import get_logger
+log = get_logger('scripts.download_state')
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -75,22 +74,25 @@ def main():
         print("No raw_url for state.db in Gist, starting fresh")
         return
 
-    # Download raw content (it's base64-encoded binary)
+    # Download raw content (it's base64-encoded)
     req = urllib.request.Request(raw_url, headers={"User-Agent": "mm-market-tools/download_state"})
     try:
         with urllib.request.urlopen(req) as resp:
-            raw_bytes = resp.read()
-        b64_content = raw_bytes.decode("utf-8").strip()
+            b64_content = resp.read().decode("ascii").strip()
     except Exception as e:
         print(f"Failed to download state.db content: {e}")
-        return
-
-    # Skip if gist still contains the placeholder text
-    if b64_content.startswith("placeholder") or not b64_content:
-        print("Gist contains placeholder, starting fresh")
         return
 
     try:
         db_bytes = base64.b64decode(b64_content)
     except Exception as e:
-        print(f
+        print(f"Failed to decode state.db content: {e}")
+        return
+
+    db_path = ROOT / "state.db"
+    db_path.write_bytes(db_bytes)
+    print(f"state.db restored from Gist ({len(db_bytes):,} bytes)")
+
+
+if __name__ == "__main__":
+    main()

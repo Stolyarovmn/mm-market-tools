@@ -51,8 +51,6 @@ def test_idempotent(tmp_path):
     from core.io_utils import write_json
     from core.paths import DASHBOARD_DIR
 
-from core.logging_config import get_logger
-log = get_logger('scripts.smoke_test_quick_wins_pipeline')
     payload = build_quick_wins(session_date="2026-01-01")
     out = DASHBOARD_DIR / "quick_wins_2026-01-01.json"
     write_json(out, payload)

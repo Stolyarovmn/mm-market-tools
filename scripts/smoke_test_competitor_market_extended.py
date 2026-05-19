@@ -288,8 +288,6 @@ def main():
         print(f"\n✗ TEST FAILED: {e}")
         import traceback
 
-from core.logging_config import get_logger
-log = get_logger('scripts.smoke_test_competitor_market_extended')
         traceback.print_exc()
         return 1
 

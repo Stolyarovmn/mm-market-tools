@@ -103,8 +103,6 @@ def test_stale_reset():
     # Simulate stale by corrupting the stored backlog_mtime
     from core.io_utils import load_json, write_json
 
-from core.logging_config import get_logger
-log = get_logger('scripts.smoke_test_action_center_api')
     raw = load_json(QUICK_WINS_STATE_PATH)
     raw[SESSION]["backlog_mtime"] = "1970-01-01T00:00:00+00:00"
     write_json(QUICK_WINS_STATE_PATH, raw)
