@@ -13,60 +13,41 @@
 <title>Магнит Маркет · Командный Центр</title>
 <style>
 :root {
-  color-scheme: light;
-  /* ── Design system (mirrors ui/styles.css) ── */
-  --bg:#eef3f9;--bg-accent:#dbe8ff;
-  --surface:rgba(255,255,255,0.84);--surface-strong:#ffffff;--surface-muted:rgba(245,249,255,0.92);
-  --ink:#17212f;--muted:#617286;--line:rgba(23,33,47,0.1);
-  --accent:#0a84ff;--accent-soft:rgba(10,132,255,0.14);
-  --good:#14804a;--warn:#ad7a00;--bad:#c43d3d;
-  --shadow:0 18px 46px rgba(31,55,88,0.12);
-  --hero-bg:radial-gradient(circle at top right,rgba(10,132,255,0.18),transparent 32%),linear-gradient(145deg,rgba(255,255,255,0.92),rgba(240,247,255,0.88));
-  --card-bg:linear-gradient(180deg,rgba(255,255,255,0.92),rgba(246,250,255,0.78));
-  --font-ui:"Segoe UI","Noto Sans",sans-serif;
-  /* ── Bridge aliases (keep existing classes working) ── */
-  --color-bg:var(--bg);--color-surface:var(--surface-strong);--color-surface-secondary:var(--surface-muted);
-  --color-border:var(--line);--color-border-subtle:rgba(23,33,47,0.05);
-  --color-text-primary:var(--ink);--color-text-secondary:var(--muted);--color-text-tertiary:#8eaacc;
-  --color-accent:var(--accent);--color-accent-soft:var(--accent-soft);
-  --color-teal:var(--good);--color-teal-soft:rgba(20,128,74,0.1);
-  --color-amber:var(--warn);--color-amber-soft:rgba(173,122,0,0.1);
-  --color-coral:var(--bad);--color-coral-soft:rgba(196,61,61,0.1);
-  --color-green:var(--good);--color-green-soft:rgba(20,128,74,0.1);
-  --color-purple:#7c3aed;--color-purple-soft:rgba(124,58,237,0.1);
-  --radius-sm:8px;--radius-md:14px;--radius-lg:20px;--radius-pill:999px;
-  --shadow-sm:0 2px 8px rgba(31,55,88,0.07),0 1px 2px rgba(31,55,88,0.04);
-  --shadow-md:var(--shadow);
+  color-scheme: light dark;
+  --color-bg:#f6f7f9;--color-surface:#ffffff;--color-surface-secondary:#f0f2f5;
+  --color-border:rgba(0,0,0,0.08);--color-border-subtle:rgba(0,0,0,0.05);
+  --color-text-primary:#111827;--color-text-secondary:#6b7280;--color-text-tertiary:#9ca3af;
+  --color-accent:#2563eb;--color-accent-soft:#eff6ff;
+  --color-teal:#0d9488;--color-teal-soft:#f0fdfb;
+  --color-amber:#d97706;--color-amber-soft:#fffbeb;
+  --color-coral:#dc2626;--color-coral-soft:#fef2f2;
+  --color-green:#059669;--color-green-soft:#ecfdf5;
+  --color-purple:#7c3aed;--color-purple-soft:#f5f3ff;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-pill:999px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04);
 }
 @media(prefers-color-scheme:dark){:root{
-  color-scheme:dark;
-  --bg:#0b1220;--bg-accent:#13233d;
-  --surface:rgba(18,28,45,0.82);--surface-strong:rgba(19,31,51,0.98);--surface-muted:rgba(22,35,57,0.96);
-  --ink:#edf3ff;--muted:#9db1cc;--line:rgba(216,230,255,0.09);
-  --accent:#4aa3ff;--accent-soft:rgba(74,163,255,0.18);
-  --good:#4ecb83;--warn:#ffbf47;--bad:#ff6d6d;
-  --shadow:0 18px 46px rgba(0,0,0,0.35);
-  --hero-bg:radial-gradient(circle at top right,rgba(74,163,255,0.2),transparent 34%),linear-gradient(145deg,rgba(18,28,45,0.95),rgba(14,20,33,0.95));
-  --card-bg:linear-gradient(180deg,rgba(23,36,58,0.95),rgba(18,28,45,0.9));
-  --color-bg:var(--bg);--color-surface:var(--surface-strong);--color-surface-secondary:var(--surface-muted);
-  --color-border:var(--line);--color-border-subtle:rgba(216,230,255,0.04);
-  --color-text-primary:var(--ink);--color-text-secondary:var(--muted);--color-text-tertiary:#64748b;
-  --color-accent:var(--accent);--color-accent-soft:var(--accent-soft);
-  --color-teal:var(--good);--color-teal-soft:rgba(78,203,131,0.1);
-  --color-amber:var(--warn);--color-amber-soft:rgba(255,191,71,0.1);
-  --color-coral:var(--bad);--color-coral-soft:rgba(255,109,109,0.1);
-  --color-green:var(--good);--color-green-soft:rgba(78,203,131,0.1);
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow-md:var(--shadow);
+  --color-bg:#0f1117;--color-surface:#1a1d27;--color-surface-secondary:#222536;
+  --color-border:rgba(255,255,255,0.08);--color-border-subtle:rgba(255,255,255,0.04);
+  --color-text-primary:#f1f5f9;--color-text-secondary:#94a3b8;--color-text-tertiary:#64748b;
+  --color-accent:#3b82f6;--color-accent-soft:rgba(59,130,246,0.12);
+  --color-teal:#2dd4bf;--color-teal-soft:rgba(45,212,191,0.1);
+  --color-amber:#fbbf24;--color-amber-soft:rgba(251,191,36,0.1);
+  --color-coral:#f87171;--color-coral-soft:rgba(248,113,113,0.1);
+  --color-green:#34d399;--color-green-soft:rgba(52,211,153,0.1);
+  --color-purple:#a78bfa;--color-purple-soft:rgba(167,139,250,0.1);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);
 }}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--font-ui);background:radial-gradient(circle at top left,var(--bg-accent),transparent 28%),linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 92%,black 8%) 100%);color:var(--ink);font-size:13px;line-height:1.5;padding:16px;min-height:100vh;transition:background 180ms ease,color 180ms ease;}
-.header{margin-bottom:20px;padding:18px 22px;border-radius:var(--radius-lg);background:var(--hero-bg);border:1px solid var(--line);box-shadow:var(--shadow-md);backdrop-filter:blur(16px);}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--color-bg);color:var(--color-text-primary);font-size:13px;line-height:1.5;padding:16px;min-height:100vh;}
+.header{margin-bottom:16px;}
 .header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;}
 .header-title{font-size:17px;font-weight:700;letter-spacing:-0.02em;}
 .header-badge{background:var(--color-accent-soft);color:var(--color-accent);font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-pill);letter-spacing:0.04em;text-transform:uppercase;}
 .header-sub{font-size:11px;color:var(--color-text-secondary);}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:12px;}
-.kpi-card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius-md);padding:10px 12px;box-shadow:var(--shadow-sm);backdrop-filter:blur(8px);}
+.kpi-card{background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:10px 12px;box-shadow:var(--shadow-sm);}
 .kpi-value{font-size:20px;font-weight:700;line-height:1.1;}
 .kpi-label{font-size:10px;color:var(--color-text-secondary);margin-top:3px;}
 .kpi-card.ok .kpi-value{color:var(--color-teal);}
@@ -78,21 +59,13 @@ body{font-family:var(--font-ui);background:radial-gradient(circle at top left,va
 .insight.high{background:var(--color-coral-soft);border-color:var(--color-coral);color:var(--color-coral);}
 .insight.warn{background:var(--color-amber-soft);border-color:var(--color-amber);color:var(--color-amber);}
 .insight.ok{background:var(--color-green-soft);border-color:var(--color-green);color:var(--color-green);}
-
-
-
-
-.tab-content{display:block;}
-/* Mode toggle */
-.mode-toggle-wrapper{margin-bottom:12px;}
-.mode-toggle{display:inline-flex;padding:4px;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);box-shadow:var(--shadow-sm);}
-.mode-btn{padding:8px 20px;background:transparent;border:none;border-radius:var(--radius-pill);cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all 0.18s;font-family:var(--font-ui);white-space:nowrap;}
-.mode-btn.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(10,132,255,0.3);}
-.mode-btn:not(.active):hover{color:var(--ink);background:var(--accent-soft);}
-/* Deep-only sections */
-.section-deep{display:none;}
-body.mode-deep .section-deep{display:block;}
-.card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:8px;box-shadow:var(--shadow-sm);backdrop-filter:blur(8px);}
+.tabs-wrapper{margin-bottom:12px;}
+.tab-pills{display:flex;flex-wrap:wrap;gap:4px;padding:4px;background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);}
+.tab-btn{padding:6px 14px;background:transparent;border:none;border-radius:var(--radius-pill);cursor:pointer;font-size:12px;font-weight:500;color:var(--color-text-secondary);transition:all 0.15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--color-text-primary);background:var(--color-surface-secondary);}
+.tab-btn.active{background:var(--color-accent);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(37,99,235,0.3);}
+.tab-content{display:none;}.tab-content.active{display:block;}
+.card{background:var(--color-surface);border:0.5px solid var(--color-border);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:8px;box-shadow:var(--shadow-sm);}
 .action-card{position:relative;overflow:hidden;}
 .action-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--color-border);}
 .action-card.type-price_fix::before{background:var(--color-coral);}
@@ -184,22 +157,6 @@ body.mode-deep .section-deep{display:block;}
 .ab-line.done{background:var(--color-teal);}
 .ab-line.idle{background:var(--color-border);}
 .ab-step-label{font-size:9px;color:var(--color-text-tertiary);margin-top:4px;text-align:center;max-width:72px;line-height:1.3;}
-.ab-progress{margin:10px 0 4px;}
-.ab-progress-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:5px;}
-.ab-progress-bar{height:5px;background:var(--color-border);border-radius:3px;overflow:hidden;}
-.ab-progress-fill{height:100%;background:var(--color-teal);border-radius:3px;}
-.ab-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0;}
-@media(max-width:640px){.ab-result-grid{grid-template-columns:repeat(2,1fr);}}
-.ab-result-item{background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);padding:8px 10px;}
-.ab-result-item .label{font-size:10px;color:var(--color-text-tertiary);margin-bottom:3px;}
-.ab-result-item .value{font-size:13px;font-weight:700;}
-.ab-result-item .value.positive{color:var(--color-green);}
-.ab-result-item .value.negative{color:#e05252;}
-.ingest-progress{display:flex;align-items:center;gap:8px;justify-content:center;padding:8px 0;}
-.ingest-progress .spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ab-cli-block{background:var(--color-surface-secondary);border:0.5px solid var(--color-border);border-radius:var(--radius-sm);padding:10px 12px;margin:8px 0;}
-.ab-cli-cmd{font-family:monospace;font-size:10px;color:var(--color-text-secondary);word-break:break-all;display:block;margin-bottom:8px;line-height:1.5;}
 /* ROMI */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:720px){.two-col{grid-template-columns:1fr;}}
@@ -357,26 +314,35 @@ footer{margin-top:20px;padding-top:12px;border-top:0.5px solid var(--color-borde
 <div class="kpi-grid" id="kpi-grid"></div>
 <div class="insight-list" id="insights-box"></div>
 
-<div class="mode-toggle-wrapper">
-  <div class="mode-toggle">
-    <button class="mode-btn active" data-mode="quick" onclick="setMode('quick')">Сейчас</button>
-    <button class="mode-btn" data-mode="deep" onclick="setMode('deep')">Полный режим</button>
+<div class="tabs-wrapper">
+  <div class="tab-pills">
+    <button class="tab-btn active" data-tab="plan">План</button>
+    <button class="tab-btn" data-tab="explorer">Explorer</button>
+    <button class="tab-btn" data-tab="quickwins">Быстрые победы</button>
+    <button class="tab-btn" data-tab="ops">Операции</button>
+    <button class="tab-btn" data-tab="reports">Отчёты</button>
+    <button class="tab-btn" data-tab="reviews">Отзывы</button>
+    <button class="tab-btn" data-tab="applied">A/B</button>
+    <button class="tab-btn" data-tab="romi">ROMI</button>
+    <button class="tab-btn" data-tab="api">API</button>
+    <button class="tab-btn" data-tab="buyers">Покупатели</button>
+    <button class="tab-btn" data-tab="blockers">Блокеры</button>
+    <button class="tab-btn" data-tab="sources">Источники</button>
   </div>
 </div>
 
+<div id="tab-plan" class="tab-content active"></div>
+<div id="tab-explorer" class="tab-content"></div>
 <div id="tab-quickwins" class="tab-content"></div>
-<div id="tab-plan" class="tab-content"></div>
+<div id="tab-ops" class="tab-content"></div>
+<div id="tab-reports" class="tab-content"></div>
 <div id="tab-reviews" class="tab-content"></div>
+<div id="tab-applied" class="tab-content"></div>
+<div id="tab-romi" class="tab-content"></div>
+<div id="tab-api" class="tab-content"></div>
 <div id="tab-buyers" class="tab-content"></div>
-
-<div id="tab-explorer" class="tab-content section-deep"></div>
-<div id="tab-ops" class="tab-content section-deep"></div>
-<div id="tab-reports" class="tab-content section-deep"></div>
-<div id="tab-applied" class="tab-content section-deep"></div>
-<div id="tab-romi" class="tab-content section-deep"></div>
-<div id="tab-api" class="tab-content section-deep"></div>
-<div id="tab-blockers" class="tab-content section-deep"></div>
-<div id="tab-sources" class="tab-content section-deep"></div>
+<div id="tab-blockers" class="tab-content"></div>
+<div id="tab-sources" class="tab-content"></div>
 
 <footer>Итерация <span id="iter-num">—</span> · Обновлено <span id="iter-updated">—</span> · goal: WONDERS в ТОП-10</footer>
 <div id="toast" class="toast"></div>
@@ -401,41 +367,6 @@ let AUX_REPORTS = {
 let apiToken = localStorage.getItem('mm_api_token') || '';
 const PENDING_QUICKWINS_KEY = 'mm_quickwins_pending_v1';
 const APPLIED_TRACKER_KEY = 'mm_report_explorer_applied_v1';
-const IS_LOCAL = window.location.hostname === 'localhost' ||
-                 window.location.hostname === '127.0.0.1';
-
-// Quick wins API only available locally
-async function apiCall(path, method='GET', body=null) {
-  if (!IS_LOCAL) return null;
-  try {
-    const opts = {method, headers: {'Content-Type': 'application/json'}};
-    if (body) opts.body = JSON.stringify(body);
-    const r = await fetch(path, opts);
-    return r.ok ? r.json() : null;
-  } catch { return null; }
-}
-
-async function fetchAbResult(entityKey, appliedAt) {
-  const productId = String(entityKey).replace(/^product_/, '');
-  const date = String(appliedAt).slice(0, 10);
-  try {
-    const res = await fetch(`data/reports/ab_result_${productId}_${date}.json`);
-    if (!res.ok) return null;
-    return await res.json();
-  } catch { return null; }
-}
-
-function exportAppliedIndex() {
-  const applied = JSON.parse(localStorage.getItem(APPLIED_TRACKER_KEY) || '[]');
-  const blob = new Blob([JSON.stringify(applied, null, 2)], {type: 'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'applied_index.json';
-  // Only trigger download if running locally (for sync_to_pages)
-  if (IS_LOCAL) {
-    a.click();
-  }
-}
 let REPORT_INDEX = null;
 let REPORT_INDEX_ERROR = null;
 const REPORT_CACHE = {};
@@ -659,13 +590,7 @@ function latestExplorerReportItems(){
   return Object.values((REPORT_INDEX||{}).latest_by_kind||{}).sort((a,b)=>String(b.generated_at||'').localeCompare(String(a.generated_at||'')));
 }
 function reportRelativePath(filePath){
-  const p=String(filePath||'');
-  // Strip absolute Unix/Windows paths — take only filename
-  if(p.startsWith('/')||/^[A-Za-z]:[\\]/.test(p)){
-    const name=p.replace(/\\/g,'/').split('/').filter(Boolean).pop()||'';
-    return `./data/dashboard/${name}`;
-  }
-  return p.startsWith('data/')?`./${p}`:`./data/dashboard/${p}`;
+  return String(filePath||'').startsWith('data/') ? `./${filePath}` : `./data/dashboard/${filePath}`;
 }
 async function fetchJsonFallback(paths){
   let lastError=null;
@@ -830,99 +755,69 @@ function renderExplorerTable(rows, columns){
 async function buildAppliedCatalog(){
   if(EXPLORER_STATE.latestCatalog) return EXPLORER_STATE.latestCatalog;
   const catalog=[];
-  // Always use PAYLOAD (already loaded) as primary source — fast, no HTTP
-  for(const row of (PAYLOAD?.plan?.actions||[])){
-    const entityKey=explorerEntityKey(row);
-    if(entityKey) catalog.push({entityKey,row,dataset:{label:'plan',key:'actions',rows:[]},item:{file_name:'daily_action_plan',report_kind:'plan'}});
-  }
-  // On localhost also scan report files (explorer has full index)
-  if(IS_LOCAL && REPORT_INDEX && !REPORT_INDEX_ERROR){
-    for(const item of latestExplorerReportItems()){
-      try{
-        const payload=await loadExplorerReport(item.file_path);
-        reportDatasets(payload).forEach(dataset=>{
-          (dataset.rows||[]).forEach(row=>{
-            const entityKey=explorerEntityKey(row);
-            if(entityKey) catalog.push({entityKey,row,dataset,item});
-          });
+  for(const item of latestExplorerReportItems()){
+    try{
+      const payload=await loadExplorerReport(item.file_path);
+      reportDatasets(payload).forEach(dataset=>{
+        (dataset.rows||[]).forEach(row=>{
+          const entityKey=explorerEntityKey(row);
+          if(entityKey){
+            catalog.push({
+              item,
+              dataset,
+              row,
+              entityKey,
+              productId:String(row.product_id || row.sku || row.seller_sku_id || ''),
+              title:String(row.title || row.group || row.key || ''),
+            });
+          }
         });
-      }catch(_e){}
-    }
+      });
+    }catch(_err){}
   }
-  EXPLORER_STATE.latestCatalog=catalog;
+  EXPLORER_STATE.latestCatalog = catalog;
   return catalog;
 }
-
+function matchAppliedSnapshot(snapshot, catalog){
+  const productId=String(snapshot.product_id || '').trim();
+  const entityKey=String(snapshot.entity_key || '').trim();
+  const title=String(snapshot.title || '').trim().toLowerCase();
+  return catalog.find(entry=>
+    (productId && entry.productId===productId) ||
+    (entityKey && entry.entityKey===entityKey) ||
+    (title && entry.title.toLowerCase()===title)
+  ) || null;
+}
 async function renderAppliedTrackerView(){
   const snapshots=readAppliedTracker();
   if(!snapshots.length){
     return `<div class="explorer-empty-state">Пока нет сохранённых snapshot'ов. Они появятся после нажатия «Применил» в плане.</div>`;
   }
   const catalog=await buildAppliedCatalog();
-  const cards=await Promise.all(snapshots.map(async snapshot=>{
-    const days=daysSince(snapshot.timestamp)??0;
-    const productId=snapshot.product_id||String(snapshot.entity_key||'').replace(/^product_/,'');
-    const appliedDate=String(snapshot.timestamp).slice(0,10);
-    const match=matchAppliedSnapshot(snapshot,catalog);
-    const currentPrice=match?inferCurrentPrice(match.row):null;
-    const priceDelta=currentPrice!==null&&snapshot.price_before!==null?currentPrice-snapshot.price_before:null;
-    const fmtMoney=v=>v==null?'—':`${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(v)} ₽`;
-    const fmtDelta=(v,unit='')=>v==null?'—':`${v>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(v)}${unit}`;
-    let statusHtml='';
-    if(days<7){
-      const pct=Math.round((days/7)*100);
-      statusHtml=`<div class="ab-progress">
-        <div class="ab-progress-label">⏳ Идёт замер: ${days} из 7 дней</div>
-        <div class="ab-progress-bar"><div class="ab-progress-fill" style="width:${pct}%"></div></div>
-      </div>`;
-    } else {
-      const abResult=await fetchAbResult(snapshot.entity_key||productId,snapshot.timestamp);
-      if(abResult){
-        const d=abResult.comparison?.delta||{};
-        const cls=(v)=>v==null?'':(v>0?'positive':'negative');
-        statusHtml=`<div class="ab-result-grid">
-          <div class="ab-result-item"><div class="label">Выручка</div><div class="value ${cls(d.revenue?.absolute)}">${fmtDelta(d.revenue?.absolute,'₽')} <span style="font-weight:400;font-size:10px">(${fmtDelta(d.revenue?.pct)}%)</span></div></div>
-          <div class="ab-result-item"><div class="label">Заказы</div><div class="value ${cls(d.orders?.absolute)}">${fmtDelta(d.orders?.absolute)} <span style="font-weight:400;font-size:10px">(${fmtDelta(d.orders?.pct)}%)</span></div></div>
-          <div class="ab-result-item"><div class="label">Продажи, шт</div><div class="value ${cls(d.sold_qty?.absolute)}">${fmtDelta(d.sold_qty?.absolute)} <span style="font-weight:400;font-size:10px">(${fmtDelta(d.sold_qty?.pct)}%)</span></div></div>
-          <div class="ab-result-item"><div class="label">Ср. цена</div><div class="value ${cls(d.avg_price?.absolute)}">${fmtDelta(d.avg_price?.absolute,'₽')}</div></div>
-        </div>
-        <div class="text-xs text-muted">A = после (${esc(String(abResult.variants?.A?.date_range||''))}), B = до (${esc(String(abResult.variants?.B?.date_range||''))})</div>`;
-      } else if(IS_LOCAL){
-        const tokenHint=apiToken?'':`<div class="text-xs" style="color:#e05252;margin-bottom:6px">⚠️ Введите Bearer-токен в поле токена выше.</div>`;
-        statusHtml=`<div class="ab-cli-block">
-          <div class="text-xs text-muted" style="margin-bottom:6px">✅ 7 дней прошло — готово к замеру.</div>
-          ${tokenHint}
-          <button class="btn primary" data-ab-run="${esc(snapshot.timestamp)}" data-ab-pid="${esc(String(productId))}" data-ab-date="${esc(appliedDate)}">Запустить замер</button>
-          <span class="ab-run-status" id="ab-status-${esc(snapshot.timestamp)}" style="margin-left:8px;font-size:11px;"></span>
-        </div>`;
-      } else {
-        statusHtml=`<div class="ab-cli-block">
-          <div class="text-xs text-muted">✅ 7 дней прошло. Откройте дашборд локально (<code>py -3 web_refresh_server.py</code>) для запуска замера кнопкой.</div>
-        </div>`;
-      }
-    }
-    const statusPill=days<7
-      ?`<span class="status-pill pending">замер ${days}/7д</span>`
-      :`<span class="status-pill measured">готово</span>`;
+  return snapshots.map(snapshot=>{
+    const match=matchAppliedSnapshot(snapshot, catalog);
+    const currentPrice=match ? inferCurrentPrice(match.row) : null;
+    const recommendedNow=match ? inferRecommendedPrice(match.row) : null;
+    const delta=currentPrice!==null && snapshot.price_before!==null ? currentPrice - snapshot.price_before : null;
     return `<div class="card">
       <div class="action-header">
-        <span class="type-pill ${snapshot.action_type||'price_strategy'}">${esc(snapshot.action_type||'applied')}</span>
-        <span class="text-xs text-muted">${esc(snapshot.title||snapshot.entity_key||productId||'Карточка')} · ${days} дн назад</span>
-        ${statusPill}
+        <span class="type-pill ${snapshot.action_type || 'price_strategy'}">${esc(snapshot.action_type || 'applied')}</span>
+        <span class="text-xs text-muted">${esc(snapshot.title || snapshot.entity_key || snapshot.product_id || 'Карточка')} · ${daysSince(snapshot.timestamp) ?? '—'} дн назад</span>
       </div>
       <div class="explorer-detail-grid">
-        <div class="explorer-detail-item"><div class="label">Цена тогда</div><div class="value">${fmtMoney(snapshot.price_before)}</div></div>
-        <div class="explorer-detail-item"><div class="label">Рекомендация</div><div class="value">${fmtMoney(snapshot.price_recommended)}</div></div>
-        <div class="explorer-detail-item"><div class="label">Цена сейчас</div><div class="value">${fmtMoney(currentPrice)}</div></div>
-        <div class="explorer-detail-item"><div class="label">Δ цены</div><div class="value" style="color:${priceDelta==null?'inherit':priceDelta>0?'var(--color-green)':'#e05252'}">${fmtDelta(priceDelta,'₽')}</div></div>
+        <div class="explorer-detail-item"><div class="label">Цена тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_before))}</div></div>
+        <div class="explorer-detail-item"><div class="label">Рекомендация тогда</div><div class="value">${esc(formatMoneyMaybe(snapshot.price_recommended))}</div></div>
+        <div class="explorer-detail-item"><div class="label">Цена сейчас</div><div class="value">${esc(formatMoneyMaybe(currentPrice))}</div></div>
+        <div class="explorer-detail-item"><div class="label">Дельта</div><div class="value">${delta===null?'—':`${delta>0?'+':''}${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(delta)} ₽`}</div></div>
       </div>
-      ${statusHtml}
       <div class="explorer-detail-actions mt-8">
+        <span class="explorer-tag">${esc(match?.item?.report_kind || 'match not found')}</span>
+        ${recommendedNow!==null?`<span class="explorer-tag">Актуальная рекомендация: ${esc(formatMoneyMaybe(recommendedNow))}</span>`:''}
         <button class="btn" data-applied-clear="${esc(snapshot.timestamp)}">Убрать</button>
       </div>
+      <div class="text-xs text-muted mt-4">${match ? `Сопоставлено с ${esc(match.item.file_name)} / ${esc(match.dataset.label)}` : 'В последних JSON-отчётах совпадение не найдено.'}</div>
     </div>`;
-  }));
-  return cards.join('');
+  }).join('');
 }
 async function renderExplorer(){
   const box=document.getElementById('tab-explorer');
@@ -1049,7 +944,6 @@ function attachExplorerEvents(box){
     clearAppliedSnapshot(btn.dataset.appliedClear);
     void renderExplorer();
   }));
-  box.querySelectorAll('[data-ab-run]').forEach(btn=>btn.addEventListener('click',()=>runAbCompare(btn)));
 }
 
 // ── Tooltip system ────────────────────────────────────────────────────────────
@@ -1124,7 +1018,7 @@ function renderHeader(){
 
   const genAt=p.generated_at?p.generated_at.slice(0,16).replace('T',' '):'—';
 
-  document.getElementById('header-sub').textContent=`Сгенерировано: ${genAt} UTC`;
+  document.getElementById('header-sub').textContent=`????????? ????: ${genAt} UTC`;
 
   document.getElementById('iter-num').textContent=it.number||'—';
 
@@ -1188,7 +1082,7 @@ function typeLabel(t){return TYPE_LABELS[t]||t;}
 
 function shouldHideUnnamedAction(a){
   const title=(a&&a.title||'').trim().toLowerCase();
-  return title==='пункт без названия';
+  return title==='?????? ??? ????????';
 }
 
 function renderPlan(){
@@ -1361,33 +1255,6 @@ function renderActionCard(a){
 }
 
 
-async function runAbCompare(btn){
-  const productId=btn.dataset.abPid;
-  const appliedDate=btn.dataset.abDate;
-  const ts=btn.dataset.abRun;
-  const statusEl=document.getElementById(`ab-status-${ts}`);
-  if(!apiToken){
-    if(statusEl) statusEl.textContent='⚠️ Введите токен в поле токена выше';
-    return;
-  }
-  btn.disabled=true; btn.textContent='Запускаем…';
-  if(statusEl) statusEl.textContent='';
-  try{
-    const res=await fetch('/api/ab_compare',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({product_id:productId,applied_date:appliedDate,token:apiToken}),
-    });
-    const data=await res.json();
-    if(!res.ok||!data.ok) throw new Error(data.error||'Ошибка сервера');
-    toast('✅ Замер готов! Обновляю карточку…');
-    await renderApplied();
-  }catch(err){
-    btn.disabled=false; btn.textContent='Запустить замер';
-    if(statusEl) statusEl.textContent=`❌ ${err.message}`;
-  }
-}
-
 function onApplyClick(e){
   const btn=e.currentTarget;
   const snapshot={
@@ -1402,7 +1269,6 @@ function onApplyClick(e){
     group: btn.dataset.group || '',
   };
   saveAppliedSnapshot(snapshot);
-  exportAppliedIndex();
   btn.classList.add('done');btn.textContent='Отмечено ✓';btn.disabled=true;
   toast('Записано! Через 7 дней появится в A/B журнале.');
   if(document.getElementById('tab-explorer')?.classList.contains('active') && EXPLORER_STATE.mode==='applied'){
@@ -1572,11 +1438,11 @@ function renderReviews(){
     </div>`).join('');
     return;
   }
-  box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">Отзывы недоступны без подключения к локальному live runtime API. В автономном режиме payload для отправки ответов недоступен.</div>
+  box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">??????? ??? ???????????? ? ???????????? ??????? live runtime API. ? ?????????????? payload ??? ????????? ???????? ???????????.</div>
   <div class="comm-empty">
-    <div class="comm-empty-icon">📭</div>
-    <div>Ответы публикуются только в live-режиме через отдельный backend.</div>
-    <div class="text-xs text-muted mt-4">Запустите local runtime и добавьте токен выше, чтобы начать отвечать клиентам в реальном времени.</div>
+    <div class="comm-empty-icon">??</div>
+    <div>??????? ??????????? ???????? ?????? ? live-?????? ????? ????????? backend.</div>
+    <div class="text-xs text-muted mt-4">????????? local runtime ? ???????? ??????? ?????, ????? ??????? ???????? ??????? ? ??????.</div>
   </div>`;
 }
 
@@ -1691,30 +1557,6 @@ function renderReports(){
   });
 
   box.innerHTML=html;
-}
-
-// ── Applied Tab ───────────────────────────────────────────────────────────────
-async function renderApplied(){
-  const box=document.getElementById('tab-applied');
-  if(!box) return;
-  box.innerHTML=`<div class="card" style="margin-bottom:12px">
-    <div class="section-label" style="margin-top:0">Применённые действия</div>
-    <div class="text-sm text-muted">Snapshot сохраняется в <code>localStorage</code> в момент нажатия «Применил». Через 7 дней появится кнопка «Запустить замер» для A/B сравнения (только локально).</div>
-  </div>${await renderAppliedTrackerView()}`;
-  box.querySelectorAll('[data-applied-clear]').forEach(btn=>btn.addEventListener('click',()=>{
-    clearAppliedSnapshot(btn.dataset.appliedClear); void renderApplied();
-  }));
-  box.querySelectorAll('[data-ab-run]').forEach(btn=>btn.addEventListener('click',()=>runAbCompare(btn)));
-}
-
-// ── Ops Tab ────────────────────────────────────────────────────────────────────
-function renderOps(){
-  const box=document.getElementById('tab-ops');
-  if(!box) return;
-  box.innerHTML=`<div class="card">
-    <div class="section-label" style="margin-top:0">Операции</div>
-    <div class="text-sm text-muted">Раздел для операционных задач. В разработке.</div>
-  </div>`;
 }
 
 // ── ROMI Tab ──────────────────────────────────────────────────────────────────
@@ -2161,7 +2003,7 @@ function renderAPI(){
         const fid = `jf-${job.job_key}`;
         let fields = ``;
         (job.fields||[]).forEach(f => {
-          if (f.name === 'token') return; // token comes from the global token-input above
+          if (f.name === 'token') return;
           const val = esc(String(f.default||''));
           if (f.type === 'checkbox') {
             fields += `<label class="field" style="flex-direction:row;align-items:center;gap:6px;min-width:0">
@@ -2178,7 +2020,7 @@ function renderAPI(){
         html += `<div class="source-card" id="${fid}" style="flex-direction:column;align-items:flex-start;gap:8px">
           <div style="display:flex;align-items:center;gap:8px;width:100%">
             <strong style="flex:1">${esc(job.title)}</strong>
-            <button class="btn primary" style="flex-shrink:0" onclick="runJob('${esc(job.job_key)}','${fid}')">▶ Запустить</button>
+            <button class="btn primary" style="flex-shrink:0" onclick="runJob('${esc(job.job_key)}','${fid}')">&#9654; Запустить</button>
           </div>
           <div class="text-xs text-muted">${esc(job.description)}</div>
           ${fields ? `<div style="display:flex;flex-wrap:wrap;gap:8px;width:100%">${fields}</div>` : ''}
@@ -2188,7 +2030,7 @@ function renderAPI(){
     });
   } else if (!LIVE.enabled) {
     html += `<div class="section-label" style="margin-top:16px">Запуск jobs</div>
-    <div class="alert-banner info" style="margin-top:6px">Запуск jobs доступен только в локальном runtime. Запустите <code>py -3 web_refresh_server.py</code> и откройте http://localhost:7788.</div>`;
+    <div class="alert-banner info" style="margin-top:6px">Запуск jobs доступен только в локальном runtime. Запустите <code>py -3 web_refresh_server.py</code> и откройте http://localhost:8000.</div>`;
   }
 
   box.innerHTML=html;
@@ -2288,22 +2130,15 @@ async function runJob(jobKey, formId) {
   const card = document.getElementById(formId);
   const statusEl = document.getElementById(formId + '-status');
   if (!card || !statusEl) return;
-
-  // Collect form_data from card inputs
   const formData = {};
-  // Inject global token if job needs it
   if (apiToken) formData.token = apiToken;
   card.querySelectorAll('[data-field]').forEach(el => {
-    const name = el.dataset.field;
-    formData[name] = el.type === 'checkbox' ? (el.checked ? 'true' : 'false') : el.value;
+    formData[el.dataset.field] = el.type === 'checkbox' ? (el.checked ? 'true' : 'false') : el.value;
   });
-
-  // Disable button during run
   const btn = card.querySelector('button.primary');
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ Запускается…'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Запускается…'; }
   statusEl.style.display = 'block';
   statusEl.innerHTML = `<div class="alert-banner info" style="margin:0">Запускаю <strong>${esc(jobKey)}</strong>…</div>`;
-
   try {
     const resp = await fetch('/api/run', {
       method: 'POST',
@@ -2312,40 +2147,38 @@ async function runJob(jobKey, formId) {
     });
     const data = await resp.json();
     if (!resp.ok) throw new Error(data.error || resp.statusText);
-    const jobId = data.status?.job_id;
+    const jobId = data.status && data.status.job_id;
     statusEl.innerHTML = `<div class="alert-banner ok" style="margin:0">Job запущен (id: <code>${esc(jobId||'?')}</code>). Следите за терминалом сервера.</div>`;
-    // Poll status
     if (jobId) pollJobStatus(jobId, statusEl, btn, jobKey);
   } catch(e) {
     statusEl.innerHTML = `<div class="alert-banner danger" style="margin:0">Ошибка: ${esc(String(e))}</div>`;
-    if (btn) { btn.disabled = false; btn.textContent = '▶ Запустить'; }
+    if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
   }
 }
 
 async function pollJobStatus(jobId, statusEl, btn, jobKey) {
-  const maxAttempts = 120; // 10 min
-  for (let i = 0; i < maxAttempts; i++) {
+  for (let i = 0; i < 120; i++) {
     await new Promise(r => setTimeout(r, 5000));
     try {
       const r = await fetch(`/api/run?job_id=${encodeURIComponent(jobId)}`);
       if (!r.ok) break;
       const d = await r.json();
       const s = d.status;
-      const log = (d.log || []).slice(-8).join('\n');
-      if (s?.state === 'succeeded') {
-        statusEl.innerHTML = `<div class="alert-banner ok" style="margin:0">✓ Готово<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
-        if (btn) { btn.disabled = false; btn.textContent = '▶ Запустить'; }
+      const log = (d.log || []).slice(-6).join('\n');
+      if (s && s.state === 'succeeded') {
+        statusEl.innerHTML = `<div class="alert-banner ok" style="margin:0">&#10003; Готово<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
+        if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
         return;
       }
-      if (s?.state === 'failed') {
-        statusEl.innerHTML = `<div class="alert-banner danger" style="margin:0">✗ Ошибка<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
-        if (btn) { btn.disabled = false; btn.textContent = '▶ Запустить'; }
+      if (s && s.state === 'failed') {
+        statusEl.innerHTML = `<div class="alert-banner danger" style="margin:0">&#10007; Ошибка<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
+        if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
         return;
       }
-      statusEl.innerHTML = `<div class="alert-banner info" style="margin:0">⏳ ${esc(s?.state||'running')}…<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
+      statusEl.innerHTML = `<div class="alert-banner info" style="margin:0">&#8987; ${esc((s&&s.state)||'running')}…<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
     } catch(e) { break; }
   }
-  if (btn) { btn.disabled = false; btn.textContent = '▶ Запустить'; }
+  if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
 }
 
 function onTokenClear(){
@@ -2695,25 +2528,25 @@ function renderBlockers(){
   const blk=(PAYLOAD.blockers||[]).filter(b=>b && (b.title||b.body||b.id));
 
   if(!blk.length){
-    box.innerHTML='<div class="card"><div class="text-sm text-muted">Блокеры отсутствуют в текущем payload дня.</div></div>';
+    box.innerHTML='<div class="card"><div class="text-sm text-muted">???????? ???????? ? ??????? payload ???.</div></div>';
     return;
   }
 
   const order={critical:0,high:1,med:2,low:3,resolved:4};
-  const sevLabel={critical:'Критично',high:'Высокий',med:'Средний',low:'Низкий',resolved:'Решён'};
+  const sevLabel={critical:'????????',high:'???????',med:'???????',low:'??????',resolved:'??????'};
   const sorted=[...blk].sort((a,b)=>(order[a.sev]??9)-(order[b.sev]??9));
   const openCount=sorted.filter(b=>b.sev!=='resolved').length;
 
-  let html=`<div class="alert-banner info" style="margin-bottom:10px">В payload ${openCount} активных блокеров. Список отсортирован по severity.</div>`;
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">? payload ${openCount} ???????? ??????(??). ?????? ???? ???????????? ?? severity.</div>`;
 
   sorted.forEach(b=>{
     html+=`<div class="blocker ${b.sev||'low'}">
       <div class="blocker-header">
         <span class="sev-dot"></span>
         <span class="text-xs text-muted">${sevLabel[b.sev]||b.sev||'unknown'}</span>
-        <span class="blocker-title">${esc(b.id||'B-?')}: ${esc(b.title||'Без заголовка')}</span>
+        <span class="blocker-title">${esc(b.id||'B-?')}: ${esc(b.title||'??? ????????')}</span>
       </div>
-      <div class="blocker-body">${esc(b.body||'Описание отсутствует')}</div>
+      <div class="blocker-body">${esc(b.body||'???????? ???????????')}</div>
     </div>`;
   });
 
@@ -2844,13 +2677,13 @@ function renderSources(){
 
   <div class="drop-zone" id="drop-zone" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event)" onclick="document.getElementById('file-input-hidden').click()">
 
-    ⬆ Перетащите sells-report.csv, left-out-report.csv или paid-storage.xlsx
+    ⬆ Перетащите .json / .csv отчёт сюда или нажмите для выбора
 
-    <div class="text-xs text-muted mt-4">Файл автоматически распознаётся и добавляется в дашборд</div>
+    <div class="text-xs text-muted mt-4">После загрузки: TASK-006 добавит автоматический ingestion pipeline</div>
 
   </div>
 
-  <input type="file" id="file-input-hidden" accept=".json,.csv,.xlsx" style="display:none" onchange="handleFileSelect(this)">`;
+  <input type="file" id="file-input-hidden" accept=".json,.csv" style="display:none" onchange="handleFileSelect(this)">`;
 
 
 
@@ -2860,73 +2693,42 @@ function renderSources(){
 
 
 
-/* ── Ingestion pipeline ─────────────────────────────────────── */
-async function runIngest(file){
-  if(!IS_LOCAL){
-    toast('Загрузка доступна только локально. Откройте http://localhost:8000');
-    return;
-  }
-  const dropZone=document.getElementById('drop-zone');
-  const origHTML=dropZone.innerHTML;
-  dropZone.innerHTML='<div class="ingest-progress"><div class="spinner"></div><span>Обрабатываю файл…</span></div>';
-  dropZone.style.pointerEvents='none';
-  try{
-    const b64=await new Promise((resolve,reject)=>{
-      const reader=new FileReader();
-      reader.onload=e=>resolve(e.target.result.split(',')[1]);
-      reader.onerror=reject;
-      reader.readAsDataURL(file);
-    });
-    const resp=await fetch('/api/ingest',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({filename:file.name,data_b64:b64,token:apiToken||''})
-    });
-    const data=await resp.json();
-    if(data.need_companion){
-      toast('✅ '+data.message,5000);
-    } else if(data.ok){
-      toast('✅ '+data.message);
-      await loadPayload();
-      renderAll();
-    } else {
-      const msg=data.message||data.error||'Ошибка ingestion';
-      toast('⚠ '+msg,5000);
-      console.error('ingest error',data);
-    }
-  } catch(err){
-    toast('⚠ Ошибка: '+err.message,5000);
-    console.error('ingest fetch error',err);
-  } finally {
-    dropZone.innerHTML=origHTML;
-    dropZone.style.pointerEvents='';
-  }
-}
 function handleFileDrop(e){
+
   e.preventDefault();
+
   document.getElementById('drop-zone').classList.remove('dragover');
+
   const file=e.dataTransfer.files[0];
-  if(file) runIngest(file);
+
+  if(file)toast(`Файл "${file.name}" получен. Ingestion — TASK-006.`);
+
 }
+
 function handleFileSelect(inp){
+
   const file=inp.files[0];
-  inp.value='';
-  if(file) runIngest(file);
+
+  if(file)toast(`Файл "${file.name}" выбран. Ingestion — TASK-006.`);
+
 }
 
 
 
-// ── Mode toggle (Сейчас / Полный режим) ──────────────────────────────────────
+// ── Tabs ──────────────────────────────────────────────────────────────────────
 
-function setMode(mode){
-  const isDeep = mode === 'deep';
-  document.body.classList.toggle('mode-deep', isDeep);
-  document.querySelectorAll('.mode-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.mode === mode);
+function setupTabs(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+      if(btn.dataset.tab==='explorer'){
+        void renderExplorer();
+      }
+    });
   });
-  if(isDeep){
-    void renderExplorer();
-  }
 }
 
 
@@ -2965,4 +2767,217 @@ function buildPayload(db) {
 
   const insights= dbRows(db, 'SELECT * FROM insights');
 
-  const reviews = dbRows(
+  const reviews = dbRows(db, 'SELECT * FROM reviews');
+
+  const applied = dbRows(db, 'SELECT * FROM applied_actions');
+
+  const apiSt   = dbRow(db, 'SELECT * FROM api_status') || {};
+
+  const endpoints = dbRows(db, 'SELECT * FROM api_endpoints ORDER BY id');
+
+  const gaps    = dbRows(db, 'SELECT * FROM api_gaps ORDER BY id');
+
+  const blockers= dbRows(db, 'SELECT * FROM blockers');
+
+  const sources = dbRows(db, 'SELECT * FROM plan_sources');
+
+
+
+  return {
+
+    plan: {
+
+      generated_at: kpis.generated_at,
+
+      kpis: {
+
+        actions_in_plan: kpis.actions_in_plan,
+
+        quick_wins_count: kpis.quick_wins_count,
+
+        by_type_count: parseJ(kpis.by_type_count_json) || {},
+
+        potential_price_shift_rub: kpis.potential_price_shift_rub,
+
+        zero_stock_in_top: kpis.zero_stock_in_top,
+
+        stockout_risk_in_top: kpis.stockout_risk_in_top,
+
+        competitor_aware_in_top: kpis.competitor_aware_in_top,
+
+      },
+
+      metadata: {
+
+        sources_used: sources.map(s => s.label),
+
+        sources_skipped: parseJ(kpis.sources_skipped_json) || [],
+
+        stock_context_source: kpis.stock_context_source,
+
+        competitor_context_source: kpis.competitor_context_source,
+
+        stock_annotated: kpis.stock_annotated,
+
+        competitor_annotated: kpis.competitor_annotated,
+
+      },
+
+      insights: insights.filter(i => i.source === 'plan').map(i => ({severity: i.severity, message: i.message})),
+
+      actions: actions.map(a => ({
+
+        rank: a.rank, action_type: a.action_type, title: a.title, group: a.group_name,
+
+        headline: a.headline, detail: a.detail, current_value: a.current_value,
+
+        suggested_value: a.suggested_value, priority_score: a.priority_score,
+
+        compound_score: a.compound_score, quick_win: !!a.quick_win,
+
+        entity_key: a.entity_key, product_id: a.product_id,
+
+        meta: parseJ(a.meta_json) || {},
+
+      })),
+
+    },
+
+    review_booster: {
+
+      generated_at: kpis.rb_generated_at,
+
+      kpis: {
+
+        responses_suggested: kpis.rb_responses_suggested,
+
+        high_priority_responses: kpis.rb_high_priority_responses,
+
+        reason_coverage: kpis.rb_reason_coverage,
+
+      },
+
+      insights: insights.filter(i => i.source === 'review_booster').map(i => ({severity: i.severity, message: i.message})),
+
+      rows: reviews,
+
+    },
+
+    applied_actions: {
+
+      summary: {
+
+        total_entries: applied.length,
+
+        pending_count: applied.filter(a => a.status === 'pending').length,
+
+        measured_count: applied.filter(a => a.status === 'measured').length,
+
+      },
+
+      entries: applied.map(a => ({...a, baseline: parseJ(a.baseline_json) || {}})),
+
+    },
+
+    api_status: { ...apiSt, endpoints, gaps },
+
+    blockers,
+
+    iteration: iter,
+
+  };
+}
+
+async function loadPublishedPayload() {
+  const resp = await fetch('./data/daily_action_plan.json', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+  });
+  if (!resp.ok) {
+    throw new Error(`published daily_action_plan.json unavailable (${resp.status})`);
+  }
+  const payload = await resp.json();
+  if (!payload || !payload.plan || !payload.review_booster) {
+    throw new Error('published daily_action_plan.json has unexpected shape');
+  }
+  return payload;
+}
+
+async function initDashboard() {
+  const loadingEl = document.getElementById('db-loading');
+  const msgEl = document.getElementById('db-loading-msg');
+  try {
+    msgEl.textContent = 'Загружаю опубликованный payload...';
+    try {
+      PAYLOAD = await loadPublishedPayload();
+    } catch (_payloadErr) {
+      msgEl.textContent = 'Получаю список релизов...';
+      const releases = await fetch(
+        `https://api.github.com/repos/${REPO}/releases?per_page=20`,
+        { headers: { Accept: 'application/vnd.github+json' } }
+      ).then(r => r.json());
+
+      const rel = releases.find(r => r.assets && r.assets.some(a => a.name === DB_ASSET_NAME));
+      if (!rel) throw new Error('Релиз с data.db не найден. Запустите GitHub Actions для первого создания.');
+
+      const asset = rel.assets.find(a => a.name === DB_ASSET_NAME);
+      msgEl.textContent = `Загружаю data.db (${Math.round(asset.size/1024)}KB)...`;
+
+      const buf = await fetch(asset.browser_download_url).then(r => r.arrayBuffer());
+      msgEl.textContent = 'Инициализирую базу данных...';
+
+      const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+      const db = new SQL.Database(new Uint8Array(buf));
+
+      PAYLOAD = buildPayload(db);
+      db.close();
+    }
+    msgEl.textContent = 'Проверяю live runtime API...';
+    await initLiveMode();
+    msgEl.textContent = 'Подтягиваю quick wins по описаниям...';
+    await initAuxReports();
+    msgEl.textContent = 'Подтягиваю каталог отчётов...';
+    await initReportExplorer();
+  } catch (err) {
+    msgEl.textContent = '⚠ ' + err.message;
+    msgEl.style.color = 'var(--color-coral)';
+    document.getElementById('db-loading').style.background = 'rgba(0,0,0,0.7)';
+    await new Promise(r => setTimeout(r, 3000));
+  }
+
+
+
+  loadingEl.style.display = 'none';
+
+  // ── Init ──────────────────────────────────────────────────────────────────────────────
+  const _renders=[
+    ()=>renderHeader(),
+    ()=>renderKPIs(),
+    ()=>renderInsights(),
+    ()=>renderPlan(),
+    async ()=>{ try{ await renderExplorer(); }catch(e){ console.error('renderExplorer',e); } },
+    ()=>renderQuickWins(),
+    ()=>renderOps(),
+    ()=>renderReports(),
+    ()=>renderReviews(),
+    ()=>renderApplied(),
+    ()=>renderROMI(),
+    ()=>renderAPI(),
+    ()=>renderBuyers(),
+    ()=>renderBlockers(),
+    ()=>renderSources(),
+  ];
+  for(const _fn of _renders){
+    try{ await _fn(); }catch(e){ console.error('render error',e); }
+  }
+  setupTabs();
+
+}
+
+
+
+initDashboard();
+
+</script>
+</body>
+</html>
