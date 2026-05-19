@@ -35,14 +35,14 @@ if errorlevel 2 (
 
 REM === STEP 1-3: Data collection ===
 echo [1/5] Building daily action plan...
-py -3 build_daily_action_plan.py --offline-fallback
+py -3 scripts/build_daily_action_plan.py --offline-fallback
 
 echo [2/5] Building paid storage report...
 if not defined SKIP_API (
-    py -3 build_paid_storage_report.py --token %KE_TOKEN% || echo WARN: paid_storage_report failed
+    py -3 scripts/build_paid_storage_report.py --token %KE_TOKEN% || echo WARN: paid_storage_report failed
 ) else (
     echo SKIP: paid_storage_report ^(нет токена^)
 )
 
 REM ab_compare.py requires specific product args — runs on-demand, not daily
-REM Use: py -3 ab_compare.py --a-product-id ... --a-date-range ... --b-pro
+REM Use: py -3 scripts/ab_compare.py --a-product-id ... --
