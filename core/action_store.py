@@ -6,6 +6,9 @@ from core.dashboard_schema import ACTION_CENTER_SCHEMA_VERSION
 from core.io_utils import load_json, write_json
 from core.paths import ACTION_CENTER_PATH, ensure_dir
 
+from core.logging_config import get_logger
+log = get_logger('core.action_store')
+
 
 def _now_iso():
     return dt.datetime.now(dt.timezone.utc).isoformat()

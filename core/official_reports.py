@@ -7,6 +7,9 @@ import requests
 
 from core.product_identity import normalize_family_row, summarize_variant_families
 
+from core.logging_config import get_logger
+log = get_logger('core.official_reports')
+
 
 MIN_WINNER_UNITS = 3
 MIN_REORDER_AVG_DAILY = 0.2

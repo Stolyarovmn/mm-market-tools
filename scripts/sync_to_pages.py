@@ -15,6 +15,9 @@ import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.sync_to_pages')
+
 # ── Config ────────────────────────────────────────────────────────────────────
 
 ROOT = Path(__file__).resolve().parent.parent

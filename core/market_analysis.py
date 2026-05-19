@@ -3,6 +3,9 @@ import re
 import statistics
 from collections import Counter, defaultdict
 
+from core.logging_config import get_logger
+log = get_logger('core.market_analysis')
+
 
 GROUP_RULES = [
     ("Пазлы", ["пазл", "макси", "контурн", "половинки", "рамке", "джигсо"]),

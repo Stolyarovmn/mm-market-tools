@@ -2,6 +2,9 @@
 import datetime as dt
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('core.history_metrics')
+
 
 def parse_iso_datetime(value):
     if not value:

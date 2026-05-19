@@ -5,6 +5,9 @@ from pathlib import Path
 
 from core.dashboard_schema import INDEX_SCHEMA_VERSION
 
+from core.logging_config import get_logger
+log = get_logger('core.dashboard_index')
+
 
 COMPARABLE_KPI_KEYS = [
     "total_skus",

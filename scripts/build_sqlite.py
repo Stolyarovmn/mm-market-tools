@@ -13,6 +13,9 @@ import json
 import sqlite3
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_sqlite')
+
 ROOT = Path(__file__).parent.parent
 DEFAULT_DATA = ROOT / "data" / "dashboard" / "daily_action_plan.json"
 DEFAULT_OUT = ROOT / "data.db"

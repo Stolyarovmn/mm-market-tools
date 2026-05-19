@@ -11,6 +11,9 @@ from pathlib import Path
 from core.io_utils import load_json, write_json
 from core.paths import DASHBOARD_DIR, LOCAL_DATA_DIR, ensure_dir
 
+from core.logging_config import get_logger
+log = get_logger('core.quick_wins_state')
+
 QUICK_WINS_STATE_PATH = LOCAL_DATA_DIR / "quick_wins_state.json"
 
 

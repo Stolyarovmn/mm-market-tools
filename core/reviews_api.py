@@ -11,6 +11,9 @@ Endpoints (KazanExpress / Megamarket seller API):
 from core.auth import bearer_headers
 from core.http_client import request_json
 
+from core.logging_config import get_logger
+log = get_logger('core.reviews_api')
+
 DEFAULT_BASE_URL = "https://api.business.kazanexpress.ru/api/seller/product"
 
 

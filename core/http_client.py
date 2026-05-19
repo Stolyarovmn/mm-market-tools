@@ -5,6 +5,9 @@ import uuid
 import requests
 from requests import HTTPError
 
+from core.logging_config import get_logger
+log = get_logger('core.http_client')
+
 
 RETRYABLE_STATUS_CODES = {403, 408, 409, 425, 429, 500, 502, 503, 504}
 DEFAULT_TIMEOUT = 30

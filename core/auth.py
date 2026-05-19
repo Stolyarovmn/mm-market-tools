@@ -7,6 +7,9 @@ import warnings
 
 from zoneinfo import ZoneInfo
 
+from core.logging_config import get_logger
+log = get_logger('core.auth')
+
 
 DEFAULT_TOKEN_ENV = "KAZANEXPRESS_TOKEN"
 MOSCOW_TZ = ZoneInfo("Europe/Moscow")

@@ -20,6 +20,9 @@ import sys
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from core.logging_config import get_logger
+log = get_logger('scripts.token_wizard')
+
 ROOT = Path(__file__).resolve().parent.parent
 TOKEN_FILE = ROOT / ".token_session"
 MOSCOW_TZ = ZoneInfo("Europe/Moscow")

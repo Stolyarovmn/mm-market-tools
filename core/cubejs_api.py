@@ -4,6 +4,9 @@ import json
 from core.auth import bearer_headers
 from core.http_client import create_session, request_json
 
+from core.logging_config import get_logger
+log = get_logger('core.cubejs_api')
+
 
 DEFAULT_BASE_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/load"
 DEFAULT_META_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/meta"

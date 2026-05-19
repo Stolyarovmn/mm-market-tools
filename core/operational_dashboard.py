@@ -4,6 +4,9 @@ from collections import Counter, defaultdict
 
 from core.dashboard_schema import DASHBOARD_SCHEMA_VERSION
 
+from core.logging_config import get_logger
+log = get_logger('core.operational_dashboard')
+
 
 def _safe_round(value, digits=2):
     return round(float(value or 0.0), digits)

@@ -241,6 +241,9 @@ def _call_gemini(system_prompt, user_prompt, llm_cfg, api_key):
 def _call_openai_compat(system_prompt, user_prompt, llm_cfg, api_key,
                         default_endpoint, default_model):
     import urllib.request
+
+from core.logging_config import get_logger
+log = get_logger('core.reply_generator')
     endpoint = llm_cfg.get("endpoint") or default_endpoint
     model = llm_cfg.get("model") or default_model
     key = api_key or llm_cfg.get("api_key") or ""

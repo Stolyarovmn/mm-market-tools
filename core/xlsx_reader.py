@@ -6,6 +6,9 @@ from xml.etree import ElementTree as ET
 import re
 import zipfile
 
+from core.logging_config import get_logger
+log = get_logger('core.xlsx_reader')
+
 
 NS = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 REL_NS = {"r": "http://schemas.openxmlformats.org/package/2006/relationships"}

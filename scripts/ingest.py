@@ -29,6 +29,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from core.paths import (
+
+from core.logging_config import get_logger
+log = get_logger('scripts.ingest')
     DASHBOARD_DIR,
     NORMALIZED_DIR,
     RAW_REPORTS_DIR,

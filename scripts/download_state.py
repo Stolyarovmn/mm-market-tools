@@ -1,3 +1,6 @@
+
+from core.logging_config import get_logger
+log = get_logger('scripts.download_state')
 #!/usr/bin/env python3
 """Download state.db from Private Gist on first run / new PC."""
 import base64

@@ -13,6 +13,9 @@ import json
 import re
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.inject_dashboard_data')
+
 ROOT = Path(__file__).parent.parent
 DEFAULT_DATA = ROOT / "data" / "dashboard" / "index.json"
 DEFAULT_TEMPLATE = ROOT / "docs" / "index.html"

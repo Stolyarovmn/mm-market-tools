@@ -7,6 +7,9 @@ from pathlib import Path
 from core.http_client import build_mm_public_headers, request_json
 from core.io_utils import load_json, write_json
 
+from core.logging_config import get_logger
+log = get_logger('core.card_content')
+
 
 KE_PRODUCT_URL = "https://api.kazanexpress.ru/api/v2/product/{product_id}"
 

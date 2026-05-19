@@ -8,6 +8,9 @@ from pathlib import Path
 from core.io_utils import load_json
 from core.xlsx_reader import list_xlsx_sheets, read_xlsx_sheet_rows, read_xlsx_sheet_rows_by_name
 
+from core.logging_config import get_logger
+log = get_logger('core.waybill_costs')
+
 
 WAYBILL_SHEET_HINTS = [
     'товары на отправку',

@@ -4,6 +4,9 @@ import time
 from core.auth import bearer_headers
 from core.http_client import download_bytes, request_json
 
+from core.logging_config import get_logger
+log = get_logger('core.documents_api')
+
 DEFAULT_BASE_URL = "https://api.business.kazanexpress.ru/api/seller/documents"
 
 

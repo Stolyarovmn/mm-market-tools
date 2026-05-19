@@ -11,6 +11,9 @@ Extensions to analyze_competitor_market.py
 from collections import defaultdict
 import statistics
 
+from core.logging_config import get_logger
+log = get_logger('core.market_crosstab')
+
 
 def calculate_hhi_by_band(items_by_band):
     """

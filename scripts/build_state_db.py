@@ -11,6 +11,9 @@ import json
 import sqlite3
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_state_db')
+
 ROOT = Path(__file__).resolve().parent.parent
 
 DDL_APPLIED = """

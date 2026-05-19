@@ -459,6 +459,9 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                 b_start = (_dt.date.fromisoformat(applied_date) - _dt.timedelta(days=7)).isoformat()
                 prefix = f"ab_result_{product_id}_{applied_date}"
                 from core.paths import REPORTS_DIR
+
+from core.logging_config import get_logger
+log = get_logger('web_refresh_server')
                 cmd = [
-                    _sys.executable, "scripts/ab_compare.py",
+                    _sys.executable, "ab_compare.py",
                     "-

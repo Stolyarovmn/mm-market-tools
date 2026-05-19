@@ -2,6 +2,9 @@
 import csv
 import json
 
+from core.logging_config import get_logger
+log = get_logger('core.io_utils')
+
 
 def write_json(path, payload):
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")

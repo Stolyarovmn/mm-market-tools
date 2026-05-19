@@ -6,6 +6,9 @@ from pathlib import Path
 from core.io_utils import load_json
 from core.paths import DASHBOARD_DIR, ENTITY_HISTORY_INDEX_PATH
 
+from core.logging_config import get_logger
+log = get_logger('core.entity_history')
+
 
 def _safe_timestamp(value):
     if not value:

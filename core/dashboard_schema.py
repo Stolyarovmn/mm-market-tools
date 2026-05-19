@@ -1,3 +1,6 @@
+
+from core.logging_config import get_logger
+log = get_logger('core.dashboard_schema')
 #!/usr/bin/env python3
 
 

@@ -7,6 +7,9 @@ from pathlib import Path
 from core.market_analysis import classify_group, entry_window_profile, entry_window_strategy, market_margin_fit_profile
 from core.io_utils import load_json
 
+from core.logging_config import get_logger
+log = get_logger('core.market_economics')
+
 
 def load_my_group_economics(path):
     report_path = Path(path)

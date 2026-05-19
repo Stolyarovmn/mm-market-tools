@@ -2,6 +2,9 @@
 import re
 from collections import defaultdict
 
+from core.logging_config import get_logger
+log = get_logger('core.product_identity')
+
 
 def normalize_text(value):
     cleaned = re.sub(r"\s+", " ", (value or "").strip().lower())

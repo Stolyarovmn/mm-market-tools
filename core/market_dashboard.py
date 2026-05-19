@@ -3,6 +3,9 @@ import datetime as dt
 
 from core.dashboard_schema import DASHBOARD_SCHEMA_VERSION
 
+from core.logging_config import get_logger
+log = get_logger('core.market_dashboard')
+
 
 def _money(value):
     return round(float(value or 0.0), 2)
