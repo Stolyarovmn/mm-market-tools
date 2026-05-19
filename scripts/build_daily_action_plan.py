@@ -22,10 +22,10 @@ from core.logging_config import get_logger
 log = get_logger('scripts.build_daily_action_plan')
 
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).parent.parent  # project root (scripts/ → ..)
 DEFAULT_INDEX = ROOT / "data" / "dashboard" / "index.json"
-DEFAULT_OUTPUT = ROOT / "data" / "dashboard" / "daily_action_plan.json"
-REPORTS_DIR = ROOT / "reports"
+DEFAULT_OUTPUT = ROOT / "data" / "daily_action_plan.json"
+REPORTS_DIR = ROOT / "data" / "reports"
 
 REASON_LABELS = {
     "REGULAR": "Стандартный возврат",
@@ -335,7 +335,7 @@ def collect_api_status(shop_id: int, offline: bool, offline_fallback: bool) -> d
     with tempfile.TemporaryDirectory() as tmp:
         cmd = [
             "python3",
-            str(ROOT / "validate_token_integrations.py"),
+            str(ROOT / "scripts" / "validate_token_integrations.py"),
             "--token",
             token,
             "--shop-id",
@@ -570,8 +570,4 @@ def main() -> None:
         "daily_action_plan built:",
         f"{len(payload['plan']['actions'])} actions,",
         f"{len(payload['review_booster']['rows'])} review rows -> {args.output}",
-    )
-
-
-if __name__ == "__main__":
-    main()
+   
