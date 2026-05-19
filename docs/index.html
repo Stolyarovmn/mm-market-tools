@@ -1124,7 +1124,7 @@ function renderHeader(){
 
   const genAt=p.generated_at?p.generated_at.slice(0,16).replace('T',' '):'—';
 
-  document.getElementById('header-sub').textContent=`????????? ????: ${genAt} UTC`;
+  document.getElementById('header-sub').textContent=`Сгенерировано: ${genAt} UTC`;
 
   document.getElementById('iter-num').textContent=it.number||'—';
 
@@ -1188,7 +1188,7 @@ function typeLabel(t){return TYPE_LABELS[t]||t;}
 
 function shouldHideUnnamedAction(a){
   const title=(a&&a.title||'').trim().toLowerCase();
-  return title==='?????? ??? ????????';
+  return title==='пункт без названия';
 }
 
 function renderPlan(){
@@ -1572,11 +1572,11 @@ function renderReviews(){
     </div>`).join('');
     return;
   }
-  box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">??????? ??? ???????????? ? ???????????? ??????? live runtime API. ? ?????????????? payload ??? ????????? ???????? ???????????.</div>
+  box.innerHTML=`<div class="alert-banner info" style="margin-bottom:10px">Отзывы недоступны без подключения к локальному live runtime API. В автономном режиме payload для отправки ответов недоступен.</div>
   <div class="comm-empty">
-    <div class="comm-empty-icon">??</div>
-    <div>??????? ??????????? ???????? ?????? ? live-?????? ????? ????????? backend.</div>
-    <div class="text-xs text-muted mt-4">????????? local runtime ? ???????? ??????? ?????, ????? ??????? ???????? ??????? ? ??????.</div>
+    <div class="comm-empty-icon">📭</div>
+    <div>Ответы публикуются только в live-режиме через отдельный backend.</div>
+    <div class="text-xs text-muted mt-4">Запустите local runtime и добавьте токен выше, чтобы начать отвечать клиентам в реальном времени.</div>
   </div>`;
 }
 
@@ -2590,25 +2590,25 @@ function renderBlockers(){
   const blk=(PAYLOAD.blockers||[]).filter(b=>b && (b.title||b.body||b.id));
 
   if(!blk.length){
-    box.innerHTML='<div class="card"><div class="text-sm text-muted">???????? ???????? ? ??????? payload ???.</div></div>';
+    box.innerHTML='<div class="card"><div class="text-sm text-muted">Блокеры отсутствуют в текущем payload дня.</div></div>';
     return;
   }
 
   const order={critical:0,high:1,med:2,low:3,resolved:4};
-  const sevLabel={critical:'????????',high:'???????',med:'???????',low:'??????',resolved:'??????'};
+  const sevLabel={critical:'Критично',high:'Высокий',med:'Средний',low:'Низкий',resolved:'Решён'};
   const sorted=[...blk].sort((a,b)=>(order[a.sev]??9)-(order[b.sev]??9));
   const openCount=sorted.filter(b=>b.sev!=='resolved').length;
 
-  let html=`<div class="alert-banner info" style="margin-bottom:10px">? payload ${openCount} ???????? ??????(??). ?????? ???? ???????????? ?? severity.</div>`;
+  let html=`<div class="alert-banner info" style="margin-bottom:10px">В payload ${openCount} активных блокеров. Список отсортирован по severity.</div>`;
 
   sorted.forEach(b=>{
     html+=`<div class="blocker ${b.sev||'low'}">
       <div class="blocker-header">
         <span class="sev-dot"></span>
         <span class="text-xs text-muted">${sevLabel[b.sev]||b.sev||'unknown'}</span>
-        <span class="blocker-title">${esc(b.id||'B-?')}: ${esc(b.title||'??? ????????')}</span>
+        <span class="blocker-title">${esc(b.id||'B-?')}: ${esc(b.title||'Без заголовка')}</span>
       </div>
-      <div class="blocker-body">${esc(b.body||'???????? ???????????')}</div>
+      <div class="blocker-body">${esc(b.body||'Описание отсутствует')}</div>
     </div>`;
   });
 
@@ -3054,25 +3054,4 @@ async function initDashboard() {
     ()=>renderQuickWins(),
     ()=>renderOps(),
     ()=>renderReports(),
-    ()=>renderReviews(),
-    ()=>renderApplied(),
-    ()=>renderROMI(),
-    ()=>renderAPI(),
-    ()=>renderBuyers(),
-    ()=>renderBlockers(),
-    ()=>renderSources(),
-  ];
-  for(const _fn of _renders){
-    try{ await _fn(); }catch(e){ console.error('render error',e); }
-  }
-  setMode('quick');
-
-}
-
-
-
-initDashboard();
-
-</script>
-</body>
-</html>
+    ()=>renderRev
