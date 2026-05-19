@@ -10,6 +10,9 @@ from core.market_analysis import classify_group
 from core.market_economics import load_cogs_override_rows
 from core.paths import COGS_OVERRIDES_PATH, REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_zero_cogs_registry')
+
 
 DEFAULT_OFFICIAL_JSON = str(REPORTS_DIR / "official_period_analysis_2026-04-08.json")
 DEFAULT_BACKLOG_JSON = str(REPORTS_DIR / "cost_coverage_backlog_2026-04-09a.json")

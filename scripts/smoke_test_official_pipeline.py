@@ -6,6 +6,9 @@ from core.operational_dashboard import build_operational_dashboard, normalize_op
 from core.official_reports import load_left_out_report, load_sells_report, make_summary, merge_reports
 from core.paths import RAW_REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_official_pipeline')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke test for official reports operational pipeline.")

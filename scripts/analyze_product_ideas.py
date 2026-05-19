@@ -11,6 +11,9 @@ from core.http_client import build_mm_public_headers, create_session, request_js
 from core.market_analysis import classify_group, idea_fingerprint
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.analyze_product_ideas')
+
 
 SEARCH_URL = "https://web-api.mm.ru/v2/goods/search"
 PRODUCT_URL = "https://api.kazanexpress.ru/api/v2/product/{product_id}"

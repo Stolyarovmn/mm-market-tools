@@ -15,6 +15,9 @@ from core.auth import bearer_headers
 from core.http_client import build_mm_public_headers, create_session, request_json
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.compare_top_seller_overlaps')
+
 
 ROOT_CATEGORIES_URL = "https://api.kazanexpress.ru/api/category/v2/root-categories"
 SEARCH_URL = "https://web-api.mm.ru/v2/goods/search"

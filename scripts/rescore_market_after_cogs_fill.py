@@ -15,6 +15,9 @@ from core.market_economics import (
 )
 from core.paths import COGS_OVERRIDES_PATH, DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir
 
+from core.logging_config import get_logger
+log = get_logger('scripts.rescore_market_after_cogs_fill')
+
 
 DEFAULT_MARKET_JSON = str(NORMALIZED_DIR / "competitor_market_analysis_2026-04-09g.json")
 DEFAULT_OFFICIAL_JSON = str(REPORTS_DIR / "official_period_analysis_2026-04-08.json")

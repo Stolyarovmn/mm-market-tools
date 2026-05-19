@@ -14,6 +14,9 @@ from core.official_reports import (
 )
 from core.paths import DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.analyze_official_reports')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(

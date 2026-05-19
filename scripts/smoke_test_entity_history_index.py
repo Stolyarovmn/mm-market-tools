@@ -7,6 +7,9 @@ from pathlib import Path
 
 from core.io_utils import load_json
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_entity_history_index')
+
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 

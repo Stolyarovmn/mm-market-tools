@@ -8,6 +8,9 @@ from core.dashboard_schema import DASHBOARD_SCHEMA_VERSION
 from core.io_utils import write_csv_rows, write_json
 from core.paths import DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.cubejs_period_compare')
+
 
 PRIMARY_MEASURES = ["Sales.seller_revenue_without_delivery_measure"]
 SECONDARY_MEASURES = ["Sales.orders_number", "Sales.item_sold_number"]

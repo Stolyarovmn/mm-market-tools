@@ -7,6 +7,9 @@ from pathlib import Path
 from core.io_utils import load_json, write_json
 from core.paths import NORMALIZED_DIR, REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_cost_coverage_backlog')
+
 
 DEFAULT_INPUT_JSON = str(NORMALIZED_DIR / "competitor_market_analysis_2026-04-09g.json")
 DEFAULT_REPORT_DIR = str(REPORTS_DIR)

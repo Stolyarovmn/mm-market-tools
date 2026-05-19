@@ -10,6 +10,9 @@ from core.cubejs_api import flatten_results, run_cubejs_query
 from core.io_utils import write_json
 from core.paths import REPORTS_DIR, ensure_dir
 
+from core.logging_config import get_logger
+log = get_logger('scripts.ab_compare')
+
 
 DEFAULT_BASE_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/load"
 DEFAULT_MEASURES = [

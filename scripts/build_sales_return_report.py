@@ -9,6 +9,9 @@ from core.dates import market_window_bounds
 from core.io_utils import load_json, write_csv_rows, write_json
 from core.paths import DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_sales_return_report')
+
 
 CUBE_NAME = "SalesReturn"
 

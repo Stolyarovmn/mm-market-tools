@@ -5,6 +5,9 @@ from pathlib import Path
 
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_price_trap_report')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke test for price trap marketing report.")

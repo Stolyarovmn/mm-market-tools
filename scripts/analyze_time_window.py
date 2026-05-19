@@ -8,6 +8,9 @@ from pathlib import Path
 
 from core.paths import REPORTS_DIR, SNAPSHOTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.analyze_time_window')
+
 
 DEFAULT_SNAPSHOT_DIR = str(SNAPSHOTS_DIR)
 DEFAULT_REPORT_DIR = str(REPORTS_DIR)

@@ -8,6 +8,9 @@ from core.io_utils import write_csv_rows, write_json
 from core.paths import DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 from core.waybill_costs import build_historical_cogs_snapshot, load_waybill_source, normalize_waybill_rows
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_waybill_cost_layer')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Build waybill cost layer from Excel or synthetic JSON input.')

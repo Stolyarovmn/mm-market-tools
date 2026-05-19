@@ -12,6 +12,9 @@ import json
 import sys
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.validate_zero_cogs_registry')
+
 
 def validate_registry(json_path):
     """

@@ -63,6 +63,9 @@ def search_page(session, category_id, limit, offset):
 def load_seller_lookup(path):
     import json
 
+from core.logging_config import get_logger
+log = get_logger('scripts.analyze_competitor_market')
+
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     return {int(row["id"]): row for row in data.get("sellers", [])}
 

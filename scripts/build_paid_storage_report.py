@@ -12,6 +12,9 @@ from core.io_utils import write_json
 from core.paths import DASHBOARD_DIR, RAW_REPORTS_DIR, REPORTS_DIR, ensure_dir, today_tag
 from core.xlsx_reader import read_xlsx_sheet_rows
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_paid_storage_report')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Reuse latest completed PAID_STORAGE_REPORT and build a manager-facing dashboard bundle.")

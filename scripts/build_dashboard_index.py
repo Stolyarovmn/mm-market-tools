@@ -12,6 +12,9 @@ from core.entity_history import build_entity_history_index
 from core.io_utils import write_json
 from core.paths import DASHBOARD_DIR, ENTITY_HISTORY_INDEX_PATH, ensure_dir
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_dashboard_index')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Build dashboard index for browser UI.")

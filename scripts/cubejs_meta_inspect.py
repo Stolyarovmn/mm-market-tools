@@ -19,6 +19,9 @@ from pathlib import Path
 
 from core.cubejs_api import fetch_cubejs_meta, flatten_results, run_cubejs_query
 
+from core.logging_config import get_logger
+log = get_logger('scripts.cubejs_meta_inspect')
+
 BASE_META_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/meta"
 BASE_LOAD_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/load"
 REPORT_DIR = Path("reports")

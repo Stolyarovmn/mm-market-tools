@@ -7,6 +7,9 @@ from core.io_utils import write_json
 from core.market_economics import load_cogs_override_rows, load_fill_cogs_rows
 from core.paths import COGS_OVERRIDES_PATH, ensure_dir
 
+from core.logging_config import get_logger
+log = get_logger('scripts.ingest_cogs_fill')
+
 
 DEFAULT_DATE = dt.date.today().isoformat()
 

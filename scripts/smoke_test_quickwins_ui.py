@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_quickwins_ui')
+
 
 HTML = Path(__file__).with_name("docs").joinpath("index.html").read_text(encoding="utf-8")
 

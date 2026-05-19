@@ -8,6 +8,9 @@ from core.io_utils import write_json
 from core.official_reports import load_left_out_report, load_sells_report, make_summary, merge_reports
 from core.operational_dashboard import build_operational_dashboard, normalize_operational_rows
 
+from core.logging_config import get_logger
+log = get_logger('scripts.refresh_operational_dashboard')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(

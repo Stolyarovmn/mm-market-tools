@@ -12,6 +12,9 @@ from core.documents_api import create_request, fetch_requests
 from core.http_client import create_session, download_bytes
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.request_document_report')
+
 
 DEFAULT_BASE_URL = "https://api.business.kazanexpress.ru/api/seller/documents"
 DEFAULT_REPORT_DIR = str(REPORTS_DIR)

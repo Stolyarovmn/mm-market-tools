@@ -11,6 +11,9 @@ from core.operational_dashboard import build_operational_dashboard, normalize_op
 from core.official_reports import load_left_out_report, load_sells_report, make_summary, merge_reports, write_markdown
 from core.paths import DASHBOARD_DIR, NORMALIZED_DIR, RAW_REPORTS_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.weekly_operational_report')
+
 
 def build_documents_payload(job_type, shop_id, date_from=None, date_to=None, group=False, returns=False):
     payload = {

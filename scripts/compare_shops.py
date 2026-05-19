@@ -7,6 +7,9 @@ import time
 from core.auth import bearer_headers, require_access_token
 from core.http_client import create_session, request_json
 
+from core.logging_config import get_logger
+log = get_logger('scripts.compare_shops')
+
 
 DEFAULT_TIMEOUT = 20
 DEFAULT_PAGE_SIZE = 100

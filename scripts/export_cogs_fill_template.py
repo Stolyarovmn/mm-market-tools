@@ -7,6 +7,9 @@ from pathlib import Path
 from core.io_utils import load_json
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.export_cogs_fill_template')
+
 
 DEFAULT_REGISTRY_JSON = str(REPORTS_DIR / "zero_cogs_registry_2026-04-09a.json")
 DEFAULT_REPORT_DIR = str(REPORTS_DIR)

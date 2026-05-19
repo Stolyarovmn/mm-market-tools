@@ -12,6 +12,9 @@ from core.action_store import load_action_store
 from core.io_utils import load_json, write_json
 from core.paths import DASHBOARD_DIR, JOB_RUNS_DIR, LOCAL_DATA_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_quick_wins')
+
 
 # ---------------------------------------------------------------------------
 # Time estimates (calibrated against real WONDERS shop cycle observations).

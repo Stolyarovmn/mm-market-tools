@@ -6,6 +6,9 @@ from pathlib import Path
 from core.io_utils import load_json, write_json
 from core.paths import NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_title_seo_report')
+
 
 STOPWORDS = {
     "и", "с", "со", "для", "на", "по", "из", "под", "в", "во", "к", "ко", "от", "до",

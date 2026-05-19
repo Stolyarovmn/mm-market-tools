@@ -7,6 +7,9 @@ from core.io_utils import write_csv_rows, write_json
 from core.official_reports import load_left_out_report, load_sells_report, make_summary, merge_reports
 from core.paths import REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.analyze_variant_families')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(

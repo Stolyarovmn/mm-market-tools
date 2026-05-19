@@ -5,6 +5,9 @@ from pathlib import Path
 from core.io_utils import load_json
 from core.paths import DASHBOARD_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_marketing_card_audit')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke-test unified marketing card audit dashboard bundle.")

@@ -6,6 +6,9 @@ from pathlib import Path
 from core.dashboard_schema import DASHBOARD_SCHEMA_VERSION
 from core.paths import DASHBOARD_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.migrate_dashboard_schema')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Backfill schema_version into existing dashboard bundles.")

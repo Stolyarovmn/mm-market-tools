@@ -3,6 +3,9 @@ import math
 
 from ab_compare import aggregate_product_metrics, build_comparison_payload
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_ab_compare')
+
 
 def smoke_test():
     aggregated = aggregate_product_metrics(

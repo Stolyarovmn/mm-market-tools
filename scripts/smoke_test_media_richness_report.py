@@ -5,6 +5,9 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_media_richness_report')
+
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 

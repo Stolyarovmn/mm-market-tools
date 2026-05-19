@@ -20,6 +20,9 @@ from core.io_utils import write_json
 from core.paths import PROJECT_ROOT
 from core.reviews_api import fetch_all_questions, fetch_all_reviews
 
+from core.logging_config import get_logger
+log = get_logger('scripts.fetch_buyer_reviews')
+
 REVIEWS_DIR = PROJECT_ROOT / "data" / "reviews"
 REVIEWS_FILE = REVIEWS_DIR / "reviews.json"
 

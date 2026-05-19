@@ -10,6 +10,9 @@ from pathlib import Path
 from core.cubejs_api import flatten_results, run_cubejs_query
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.cubejs_query')
+
 
 DEFAULT_BASE_URL = "https://seller-analytics.mm.ru/cubejs-api/v1/load"
 DEFAULT_REPORT_DIR = str(REPORTS_DIR)

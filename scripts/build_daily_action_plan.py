@@ -18,6 +18,9 @@ from pathlib import Path
 
 from core.reply_generator import generate_template_reply, load_config
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_daily_action_plan')
+
 
 ROOT = Path(__file__).parent
 DEFAULT_INDEX = ROOT / "data" / "dashboard" / "index.json"

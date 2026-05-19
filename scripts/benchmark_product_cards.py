@@ -14,6 +14,9 @@ from core.auth import bearer_headers
 from core.http_client import build_mm_public_headers, create_session, request_json
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.benchmark_product_cards')
+
 
 MM_SEARCH_URL = "https://web-api.mm.ru/v2/goods/search"
 KE_PRODUCT_URL = "https://api.kazanexpress.ru/api/v2/product/{product_id}"

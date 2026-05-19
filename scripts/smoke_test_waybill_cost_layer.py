@@ -4,6 +4,9 @@ from pathlib import Path
 import subprocess
 import tempfile
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_waybill_cost_layer')
+
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 

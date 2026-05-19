@@ -6,6 +6,9 @@ import sys
 from core.auth import bearer_headers, require_access_token
 from core.http_client import create_session
 
+from core.logging_config import get_logger
+log = get_logger('scripts.collect_sellers')
+
 
 DEFAULT_CATEGORY_TREE_URL = "https://api.business.kazanexpress.ru/api/seller/category/tree"
 

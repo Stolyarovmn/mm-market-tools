@@ -12,6 +12,9 @@ from core.http_client import create_session
 from core.io_utils import write_json
 from core.paths import REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.validate_token_integrations')
+
 
 def build_simple_cubejs_query(shop_id):
     date_from, date_to = market_window_bounds(7)

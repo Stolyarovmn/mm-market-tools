@@ -5,6 +5,9 @@ from pathlib import Path
 from core.io_utils import load_json, write_json
 from core.paths import NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_price_trap_report')
+
 
 DEFAULT_THRESHOLDS = [99, 149, 199, 299, 399, 499, 799, 999, 1499, 1999]
 

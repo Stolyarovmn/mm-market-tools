@@ -9,6 +9,9 @@ from core.io_utils import load_json, write_json
 from core.market_analysis import classify_group, price_band_label
 from core.paths import DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_marketing_card_audit')
+
 
 def _latest_report_path(prefix):
     matches = sorted(REPORTS_DIR.glob(f"{prefix}_*.json"), key=lambda path: path.stat().st_mtime, reverse=True)

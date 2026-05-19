@@ -10,6 +10,9 @@ from core.http_client import create_session
 from core.io_utils import load_json, write_json
 from core.paths import DASHBOARD_DIR, PRODUCT_CONTENT_CACHE_PATH, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_description_seo_richness_report')
+
 
 def _latest_report_path(prefix):
     matches = sorted(REPORTS_DIR.glob(f"{prefix}_*.json"), key=lambda path: path.stat().st_mtime, reverse=True)

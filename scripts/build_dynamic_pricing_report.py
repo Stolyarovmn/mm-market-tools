@@ -7,6 +7,9 @@ from core.dashboard_schema import DASHBOARD_SCHEMA_VERSION
 from core.io_utils import load_json, write_json
 from core.paths import DASHBOARD_DIR, REPORTS_DIR, ensure_dir, today_tag
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_dynamic_pricing_report')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Build recommendation-first dynamic pricing report from market economics.")

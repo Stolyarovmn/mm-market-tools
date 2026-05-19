@@ -7,6 +7,9 @@ from pathlib import Path
 
 from core.paths import REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.build_growth_plan')
+
 
 DEFAULT_DATE = dt.date.today().isoformat()
 DEFAULT_REPORT_DIR = str(REPORTS_DIR)

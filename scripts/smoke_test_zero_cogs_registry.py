@@ -14,6 +14,9 @@ Tests:
 import sys
 from scripts.build_zero_cogs_registry import build_registry, _identity_key
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_zero_cogs_registry')
+
 
 def smoke_test():
     """Run a synthetic smoke test."""

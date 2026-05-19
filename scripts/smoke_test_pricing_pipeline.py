@@ -5,6 +5,9 @@ from pathlib import Path
 
 from core.paths import DASHBOARD_DIR
 
+from core.logging_config import get_logger
+log = get_logger('scripts.smoke_test_pricing_pipeline')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Smoke test for dynamic pricing dashboard bundle.")
