@@ -20,6 +20,8 @@ from core.quick_wins_state import load_state as qw_load_state, mark_done as qw_m
 from core.refresh_jobs import build_job_command, list_jobs, sanitize_payload
 from core.reply_generator import generate_draft, load_config as load_reply_config
 from core.reviews_api import post_question_answer, post_review_answer
+from core.logging_config import get_logger
+log = get_logger('web_refresh_server')
 
 
 def now_iso():
@@ -459,9 +461,60 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                 b_start = (_dt.date.fromisoformat(applied_date) - _dt.timedelta(days=7)).isoformat()
                 prefix = f"ab_result_{product_id}_{applied_date}"
                 from core.paths import REPORTS_DIR
-
-from core.logging_config import get_logger
-log = get_logger('web_refresh_server')
                 cmd = [
-                    _sys.executable, "ab_compare.py",
-                    "-
+                    _sys.executable, "scripts/ab_compare.py",
+                    "--token", token,
+                    "--a-product-id", product_id,
+                    "--a-date-range", f'["{a_start}","{a_end}"]',
+                    "--b-product-id", product_id,
+                    "--b-date-range", f'["{b_start}","{b_end}"]',
+                    "--report-prefix", prefix,
+                ]
+                try:
+                    proc = subprocess.run(
+                        cmd,
+                        cwd=str(PROJECT_ROOT),
+                        capture_output=True,
+                        text=True,
+                        timeout=90,
+                    )
+                    if proc.returncode != 0:
+                        self._send_json(
+                            {"error": (proc.stdout + proc.stderr).strip() or "ab_compare failed"},
+                            status=HTTPStatus.INTERNAL_SERVER_ERROR,
+                        )
+                        return
+                    result_path = REPORTS_DIR / f"{prefix}.json"
+                    if not result_path.exists():
+                        self._send_json({"error": "result file not found after run"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                        return
+                    data = json.loads(result_path.read_text(encoding="utf-8"))
+                    self._send_json({"ok": True, "result": data, "log": proc.stdout})
+                except subprocess.TimeoutExpired:
+                    self._send_json({"error": "ab_compare timed out (90s)"}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                except Exception as exc:
+                    self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+                return
+            self._send_json({"error": "unknown path"}, status=HTTPStatus.NOT_FOUND)
+        except Exception as exc:
+            self._send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="MM Market Tools — Local dashboard server")
+    parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--host", default="localhost")
+    args = parser.parse_args()
+
+    job_store = JobStore(JOB_RUNS_DIR)
+    handler = lambda *a, **kw: RefreshHandler(*a, directory=str(PROJECT_ROOT), job_store=job_store, **kw)
+    server = ThreadingHTTPServer((args.host, args.port), handler)
+    print(f"Serving at http://{args.host}:{args.port} — Press Ctrl+C to stop")
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\nStopped.")
+
+
+if __name__ == "__main__":
+    main()
