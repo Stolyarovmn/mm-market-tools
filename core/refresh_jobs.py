@@ -194,7 +194,7 @@ def build_job_command(job_key, form_data):
     if job_key == "validate_token":
         return [
             python,
-            str(PROJECT_ROOT / "validate_token_integrations.py"),
+            str(PROJECT_ROOT / "scripts" / "validate_token_integrations.py"),
             "--token",
             form_data["token"],
             "--shop-id",
@@ -203,7 +203,7 @@ def build_job_command(job_key, form_data):
     if job_key == "weekly_operational":
         command = [
             python,
-            str(PROJECT_ROOT / "weekly_operational_report.py"),
+            str(PROJECT_ROOT / "scripts" / "weekly_operational_report.py"),
             "--token",
             form_data["token"],
             "--shop-id",
@@ -217,7 +217,7 @@ def build_job_command(job_key, form_data):
     if job_key == "paid_storage_report":
         command = [
             python,
-            str(PROJECT_ROOT / "build_paid_storage_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_paid_storage_report.py"),
             "--token",
             form_data["token"],
         ]
@@ -229,7 +229,7 @@ def build_job_command(job_key, form_data):
     if job_key == "sales_return_report":
         command = [
             python,
-            str(PROJECT_ROOT / "build_sales_return_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_sales_return_report.py"),
             "--token",
             form_data["token"],
             "--shop-id",
@@ -243,7 +243,7 @@ def build_job_command(job_key, form_data):
     if job_key == "buyer_reviews":
         command = [
             python,
-            str(PROJECT_ROOT / "fetch_buyer_reviews.py"),
+            str(PROJECT_ROOT / "scripts" / "fetch_buyer_reviews.py"),
         ]
         token = form_data.get("token", "")
         if token:
@@ -258,7 +258,7 @@ def build_job_command(job_key, form_data):
     if job_key == "waybill_cost_layer":
         command = [
             python,
-            str(PROJECT_ROOT / "build_waybill_cost_layer.py"),
+            str(PROJECT_ROOT / "scripts" / "build_waybill_cost_layer.py"),
         ]
         if form_data.get("waybill_xlsx"):
             command.extend(["--waybill-xlsx", form_data["waybill_xlsx"]])
@@ -272,7 +272,7 @@ def build_job_command(job_key, form_data):
     if job_key == "market_scan":
         return [
             python,
-            str(PROJECT_ROOT / "analyze_competitor_market.py"),
+            str(PROJECT_ROOT / "scripts" / "analyze_competitor_market.py"),
             "--category-id",
             str(form_data.get("category_id") or 10162),
             "--pages",
@@ -285,7 +285,7 @@ def build_job_command(job_key, form_data):
     if job_key == "sellers_scan":
         command = [
             python,
-            str(PROJECT_ROOT / "get_sellers.py"),
+            str(PROJECT_ROOT / "scripts" / "get_sellers.py"),
             "--category-id",
             str(form_data.get("category_id") or 10162),
             "--page-size",
@@ -297,11 +297,11 @@ def build_job_command(job_key, form_data):
             command.append("--progress")
         return command
     if job_key == "dashboard_rebuild":
-        return [python, str(PROJECT_ROOT / "build_dashboard_index.py")]
+        return [python, str(PROJECT_ROOT / "scripts" / "build_dashboard_index.py")]
     if job_key == "cogs_backfill_cycle":
         command = [
             python,
-            str(PROJECT_ROOT / "run_cogs_backfill_cycle.py"),
+            str(PROJECT_ROOT / "scripts" / "run_cogs_backfill_cycle.py"),
             "--fill-csv",
             str(form_data.get("fill_csv") or ""),
         ]
@@ -311,7 +311,7 @@ def build_job_command(job_key, form_data):
     if job_key == "dynamic_pricing":
         command = [
             python,
-            str(PROJECT_ROOT / "build_dynamic_pricing_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_dynamic_pricing_report.py"),
             "--market-json",
             str(form_data.get("market_json") or PROJECT_ROOT / "data/dashboard/market_rescored_after_cogs_2026-04-09b.json"),
             "--target-margin-pct",
@@ -323,7 +323,7 @@ def build_job_command(job_key, form_data):
     if job_key == "price_trap_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_price_trap_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_price_trap_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "data/normalized/weekly_operational_report_2026-04-08.json"),
             "--max-overshoot",
@@ -335,7 +335,7 @@ def build_job_command(job_key, form_data):
     if job_key == "title_seo_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_title_seo_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_title_seo_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "data/normalized/weekly_operational_report_2026-04-08.json"),
             "--top-rows",
@@ -347,7 +347,7 @@ def build_job_command(job_key, form_data):
     if job_key == "marketing_card_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_marketing_card_audit.py"),
+            str(PROJECT_ROOT / "scripts" / "build_marketing_card_audit.py"),
             "--normalized-json",
             str(form_data.get("normalized_json") or PROJECT_ROOT / "data/normalized/weekly_operational_report_2026-04-08.json"),
             "--pricing-json",
@@ -363,7 +363,7 @@ def build_job_command(job_key, form_data):
     if job_key == "media_richness_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_media_richness_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_media_richness_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "reports/marketing_card_audit_2026-04-10.json"),
             "--cache-json",
@@ -379,7 +379,7 @@ def build_job_command(job_key, form_data):
     if job_key == "description_seo_richness_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_description_seo_richness_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_description_seo_richness_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "reports/marketing_card_audit_2026-04-10.json"),
             "--cache-json",

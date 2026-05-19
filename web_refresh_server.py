@@ -460,5 +460,5 @@ class RefreshHandler(SimpleHTTPRequestHandler):
                 prefix = f"ab_result_{product_id}_{applied_date}"
                 from core.paths import REPORTS_DIR
                 cmd = [
-                    _sys.executable, "ab_compare.py",
+                    _sys.executable, "scripts/ab_compare.py",
                     "-

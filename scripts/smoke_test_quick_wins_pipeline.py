@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+import sys as _s; from pathlib import Path as _P
+_r=_P(__file__).resolve().parent.parent
+if str(_r) not in _s.path: _s.path.insert(0,str(_r))
+
 """Smoke test for the Quick Wins pipeline.
 
 Runs build_quick_wins with fixture data and verifies the output shape.
@@ -12,7 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from build_quick_wins import build_quick_wins, LABELS, ROUTES, ACTIONS
+from scripts.build_quick_wins import build_quick_wins, LABELS, ROUTES, ACTIONS
 
 EXPECTED_KINDS = {"reorder", "markdown", "reviews", "questions", "run_job", "title_seo", "price_trap", "watchlist"}
 REQUIRED_ITEM_KEYS = {"id", "kind", "count", "label", "action", "route", "priority"}

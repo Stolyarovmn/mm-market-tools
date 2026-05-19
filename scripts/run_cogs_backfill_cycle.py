@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
+import sys as _s; from pathlib import Path as _P
+_r=_P(__file__).resolve().parent.parent
+if str(_r) not in _s.path: _s.path.insert(0,str(_r))
+
 import argparse
 import csv
 import datetime as dt
 from pathlib import Path
 
-from build_zero_cogs_registry import build_registry, write_markdown as write_registry_markdown
+from scripts.build_zero_cogs_registry import build_registry, write_markdown as write_registry_markdown
 from core.io_utils import load_json, write_json
 from core.market_economics import apply_market_margin_fit, load_cogs_override_rows, load_my_group_economics, merge_group_economics
 from core.market_dashboard import build_market_dashboard
 from core.paths import COGS_OVERRIDES_PATH, DASHBOARD_DIR, NORMALIZED_DIR, REPORTS_DIR, ensure_dir
-from ingest_cogs_fill import merge_rows
+from scripts.ingest_cogs_fill import merge_rows
 
 
 DEFAULT_DATE = dt.date.today().isoformat()
