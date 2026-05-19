@@ -1873,11 +1873,11 @@ function renderAPI(){
   function renderApiTab(tabId) {
     window._mmApiTab = tabId;
     _apiTab = tabId;
-    renderApi();
+    renderAPI();
   }
 
   const tabBar = API_TABS.map(t =>
-    `<button class="btn${_apiTab===t.id?' primary':''}" onclick="window._mmApiTab='${t.id}';renderApi()" style="font-size:12px">${t.label}</button>`
+    `<button class="btn${_apiTab===t.id?' primary':''}" onclick="window._mmApiTab='${t.id}';renderAPI()" style="font-size:12px">${t.label}</button>`
   ).join('');
 
   let html = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">${tabBar}</div>`;
