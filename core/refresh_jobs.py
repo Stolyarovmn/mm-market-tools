@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 from core.paths import PROJECT_ROOT, REPORTS_DIR
 
+from core.logging_config import get_logger
+log = get_logger('core.refresh_jobs')
+
 
 def _bool(value):
     return str(value).strip().lower() in {"1", "true", "yes", "on"}
@@ -172,6 +175,23 @@ JOB_DEFINITIONS = {
             {"name": "report_prefix", "label": "Префикс отчёта", "type": "text", "default": ""},
         ],
     },
+    "daily_run": {
+        "title": "⚡ Daily Run (все jobs одним токеном)",
+        "mode": "online",
+        "description": "Запускает все ежедневные jobs последовательно: валидация → данные из ЛК → офлайн-аудиты → action plan → dashboard.",
+        "fields": [
+            {"name": "token", "label": "Access token", "type": "password", "required": True},
+            {"name": "shop_id", "label": "Shop ID", "type": "number", "default": "98"},
+            {"name": "window_days", "label": "Окно данных, дней", "type": "number", "default": "7"},
+            {"name": "skip_validate", "label": "Пропустить validate_token", "type": "checkbox", "default": "false"},
+        ],
+    },
+    "build_daily_action_plan": {
+        "title": "Пересобрать daily action plan",
+        "mode": "offline",
+        "description": "Агрегирует свежие отчёты и пересобирает data/daily_action_plan.json без API-запросов.",
+        "fields": [],
+    },
 }
 
 
@@ -194,7 +214,7 @@ def build_job_command(job_key, form_data):
     if job_key == "validate_token":
         return [
             python,
-            str(PROJECT_ROOT / "validate_token_integrations.py"),
+            str(PROJECT_ROOT / "scripts" / "validate_token_integrations.py"),
             "--token",
             form_data["token"],
             "--shop-id",
@@ -203,7 +223,7 @@ def build_job_command(job_key, form_data):
     if job_key == "weekly_operational":
         command = [
             python,
-            str(PROJECT_ROOT / "weekly_operational_report.py"),
+            str(PROJECT_ROOT / "scripts" / "weekly_operational_report.py"),
             "--token",
             form_data["token"],
             "--shop-id",
@@ -217,7 +237,7 @@ def build_job_command(job_key, form_data):
     if job_key == "paid_storage_report":
         command = [
             python,
-            str(PROJECT_ROOT / "build_paid_storage_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_paid_storage_report.py"),
             "--token",
             form_data["token"],
         ]
@@ -229,7 +249,7 @@ def build_job_command(job_key, form_data):
     if job_key == "sales_return_report":
         command = [
             python,
-            str(PROJECT_ROOT / "build_sales_return_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_sales_return_report.py"),
             "--token",
             form_data["token"],
             "--shop-id",
@@ -243,7 +263,7 @@ def build_job_command(job_key, form_data):
     if job_key == "buyer_reviews":
         command = [
             python,
-            str(PROJECT_ROOT / "fetch_buyer_reviews.py"),
+            str(PROJECT_ROOT / "scripts" / "fetch_buyer_reviews.py"),
         ]
         token = form_data.get("token", "")
         if token:
@@ -258,7 +278,7 @@ def build_job_command(job_key, form_data):
     if job_key == "waybill_cost_layer":
         command = [
             python,
-            str(PROJECT_ROOT / "build_waybill_cost_layer.py"),
+            str(PROJECT_ROOT / "scripts" / "build_waybill_cost_layer.py"),
         ]
         if form_data.get("waybill_xlsx"):
             command.extend(["--waybill-xlsx", form_data["waybill_xlsx"]])
@@ -272,7 +292,7 @@ def build_job_command(job_key, form_data):
     if job_key == "market_scan":
         return [
             python,
-            str(PROJECT_ROOT / "analyze_competitor_market.py"),
+            str(PROJECT_ROOT / "scripts" / "analyze_competitor_market.py"),
             "--category-id",
             str(form_data.get("category_id") or 10162),
             "--pages",
@@ -285,7 +305,7 @@ def build_job_command(job_key, form_data):
     if job_key == "sellers_scan":
         command = [
             python,
-            str(PROJECT_ROOT / "get_sellers.py"),
+            str(PROJECT_ROOT / "scripts" / "get_sellers.py"),
             "--category-id",
             str(form_data.get("category_id") or 10162),
             "--page-size",
@@ -297,11 +317,11 @@ def build_job_command(job_key, form_data):
             command.append("--progress")
         return command
     if job_key == "dashboard_rebuild":
-        return [python, str(PROJECT_ROOT / "build_dashboard_index.py")]
+        return [python, str(PROJECT_ROOT / "scripts" / "build_dashboard_index.py")]
     if job_key == "cogs_backfill_cycle":
         command = [
             python,
-            str(PROJECT_ROOT / "run_cogs_backfill_cycle.py"),
+            str(PROJECT_ROOT / "scripts" / "run_cogs_backfill_cycle.py"),
             "--fill-csv",
             str(form_data.get("fill_csv") or ""),
         ]
@@ -311,7 +331,7 @@ def build_job_command(job_key, form_data):
     if job_key == "dynamic_pricing":
         command = [
             python,
-            str(PROJECT_ROOT / "build_dynamic_pricing_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_dynamic_pricing_report.py"),
             "--market-json",
             str(form_data.get("market_json") or PROJECT_ROOT / "data/dashboard/market_rescored_after_cogs_2026-04-09b.json"),
             "--target-margin-pct",
@@ -323,7 +343,7 @@ def build_job_command(job_key, form_data):
     if job_key == "price_trap_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_price_trap_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_price_trap_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "data/normalized/weekly_operational_report_2026-04-08.json"),
             "--max-overshoot",
@@ -335,7 +355,7 @@ def build_job_command(job_key, form_data):
     if job_key == "title_seo_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_title_seo_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_title_seo_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "data/normalized/weekly_operational_report_2026-04-08.json"),
             "--top-rows",
@@ -347,7 +367,7 @@ def build_job_command(job_key, form_data):
     if job_key == "marketing_card_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_marketing_card_audit.py"),
+            str(PROJECT_ROOT / "scripts" / "build_marketing_card_audit.py"),
             "--normalized-json",
             str(form_data.get("normalized_json") or PROJECT_ROOT / "data/normalized/weekly_operational_report_2026-04-08.json"),
             "--pricing-json",
@@ -363,7 +383,7 @@ def build_job_command(job_key, form_data):
     if job_key == "media_richness_audit":
         command = [
             python,
-            str(PROJECT_ROOT / "build_media_richness_report.py"),
+            str(PROJECT_ROOT / "scripts" / "build_media_richness_report.py"),
             "--input-json",
             str(form_data.get("input_json") or PROJECT_ROOT / "reports/marketing_card_audit_2026-04-10.json"),
             "--cache-json",
@@ -372,34 +392,4 @@ def build_job_command(job_key, form_data):
             str(form_data.get("top_rows") or 60),
         ]
         if _bool(form_data.get("cache_only", "false")):
-            command.append("--cache-only")
-        if form_data.get("report_prefix"):
-            command.extend(["--report-prefix", form_data["report_prefix"]])
-        return command
-    if job_key == "description_seo_richness_audit":
-        command = [
-            python,
-            str(PROJECT_ROOT / "build_description_seo_richness_report.py"),
-            "--input-json",
-            str(form_data.get("input_json") or PROJECT_ROOT / "reports/marketing_card_audit_2026-04-10.json"),
-            "--cache-json",
-            str(form_data.get("cache_json") or PROJECT_ROOT / "data/local/product_content_cache.json"),
-            "--top-rows",
-            str(form_data.get("top_rows") or 60),
-        ]
-        if _bool(form_data.get("cache_only", "false")):
-            command.append("--cache-only")
-        if form_data.get("report_prefix"):
-            command.extend(["--report-prefix", form_data["report_prefix"]])
-        return command
-    raise KeyError(f"Unknown job: {job_key}")
-
-
-def sanitize_payload(job_key, form_data):
-    safe = {}
-    for field in JOB_DEFINITIONS[job_key]["fields"]:
-        name = field["name"]
-        if name not in form_data:
-            continue
-        safe[name] = "***redacted***" if name == "token" else form_data[name]
-    return safe
+            co
