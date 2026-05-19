@@ -1860,167 +1860,70 @@ function renderROMI(){
 function renderAPI(){
   const box=document.getElementById('tab-api');
   const api=PAYLOAD.api_status||{};
-  const tokenBadge=api.token_status==='valid'
-    ?`<span style="color:var(--color-teal);font-weight:600">✓ Валиден до ${api.token_expires_moscow||'—'}</span>`
-    :`<span style="color:var(--color-coral);font-weight:600">⚠ Требует обновления</span>`;
 
-  let html=`${LIVE.enabled
-    ? `<div class="alert-banner ok" style="margin-bottom:10px">Локальный runtime API доступен. Токен можно проверять и использовать в live-режиме без перехода на отдельный экран.</div>`
-    : `<div class="alert-banner info" style="margin-bottom:10px">Сейчас открыт read-only Pages режим. Когда этот экран обслуживает локальный backend, здесь становится доступен live API-контур.</div>`
-  }<div class="token-section">
-    <div class="section-label" style="margin-top:0">API Токен ${tip('Токен хранится только в памяти страницы — не сохраняется нигде. При перезагрузке нужно ввести снова.')}</div>
-    <div class="token-row">
+  // ── sub-tab state ─────────────────────────────────────────────────────────
+  const API_TABS = [
+    {id:'jobs',   label:'Запуск jobs'},
+    {id:'token',  label:'Токен'},
+    {id:'settings', label:'Настройки'},
+    {id:'endpoints',label:'Endpoints'},
+  ];
+  let _apiTab = window._mmApiTab || 'jobs';
 
-      <div class="token-dot" id="token-dot"></div>
+  function renderApiTab(tabId) {
+    window._mmApiTab = tabId;
+    _apiTab = tabId;
+    renderApi();
+  }
 
-      <input type="password" id="token-input" placeholder="Вставьте Bearer-токен..." oninput="onTokenInput(this.value)">
+  const tabBar = API_TABS.map(t =>
+    `<button class="btn${_apiTab===t.id?' primary':''}" onclick="window._mmApiTab='${t.id}';renderApi()" style="font-size:12px">${t.label}</button>`
+  ).join('');
 
-      <button class="btn primary" onclick="onTokenSave()">Сохранить</button>
+  let html = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">${tabBar}</div>`;
 
-      <button class="btn" onclick="onTokenClear()">Очистить</button>
+  // ── TAB: JOBS ─────────────────────────────────────────────────────────────
+  if (_apiTab === 'jobs') {
+    if (LIVE.enabled) {
+      html += `<div class="alert-banner ok" style="margin-bottom:10px">Локальный runtime доступен. Вставьте токен на вкладке «Токен» и нажмите ▶ Запустить.</div>`;
+    } else {
+      html += `<div class="alert-banner info" style="margin-bottom:10px">Запустите <code>py -3 web_refresh_server.py</code> и откройте <strong>http://localhost:8000</strong> — тогда кнопки станут активными.</div>`;
+    }
 
-    </div>
+    const jobs = (LIVE.enabled && PAYLOAD.jobs && PAYLOAD.jobs.length)
+      ? PAYLOAD.jobs
+      : [
+          {job_key:'daily_run',   title:'⚡ Daily Run (все jobs одним токеном)', mode:'online',  description:'Запускает все ежедневные jobs последовательно: валидация → данные из ЛК → офлайн-аудиты → action plan → dashboard.', fields:[{name:'shop_id',label:'Shop ID',type:'number',default:'98'},{name:'window_days',label:'Окно данных, дней',type:'number',default:'7'},{name:'skip_validate',label:'Пропустить validate_token',type:'checkbox',default:'false'}]},
+          {job_key:'weekly_operational', title:'Weekly operational refresh', mode:'online', description:'Запрашивает official seller CSV и пересобирает weekly dashboard bundle.', fields:[]},
+          {job_key:'paid_storage_report',title:'Платное хранение и услуги',   mode:'online', description:'Берёт последний PAID_STORAGE_REPORT и строит экран затрат.', fields:[]},
+          {job_key:'buyer_reviews',      title:'Отзывы покупателей',           mode:'online', description:'Скачивает отзывы без ответа из Seller API.', fields:[]},
+          {job_key:'market_scan',        title:'Market scan по категории',      mode:'online', description:'Обходит публичный каталог и обновляет market bundle.', fields:[]},
+          {job_key:'build_daily_action_plan', title:'Пересобрать action plan', mode:'offline',description:'Агрегирует свежие отчёты без API-запросов.', fields:[]},
+          {job_key:'dashboard_rebuild',  title:'Пересобрать dashboard index',  mode:'offline',description:'Обновляет index для дашборда без сети.', fields:[]},
+        ];
 
-    <div class="text-xs text-muted mt-4">Из данных: ${tokenBadge} · shop_id: ${api.shop_id||'—'} · CubeJS: ${api.cubes||0} cubes</div>
+    const grouped = {online:[], offline:[]};
+    jobs.forEach(j => (grouped[j.mode]||grouped.offline).push(j));
 
-  </div>
-
-  <div class="section-label">Работающие endpoints</div>`;
-
-
-
-  (api.endpoints||[]).forEach((e,i)=>{
-
-    const statusCls=e.status==='ok'?'ok':(e.status==='fix'?'fix':'todo');
-
-    const statusTxt=e.status==='ok'?'✓ OK':(e.status==='fix'?'⚠ Fix':'— todo');
-
-    html+=`<div class="source-card" style="flex-direction:column;align-items:flex-start">
-
-      <div style="display:flex;align-items:center;gap:8px;width:100%">
-
-        <span class="method-pill ${e.method}">${esc(e.method)}</span>
-
-        <span class="api-url">${esc(e.url)}</span>
-
-        <span class="api-status-badge ${statusCls}" style="margin-left:auto">${statusTxt}</span>
-
-        <button class="btn" style="flex-shrink:0;font-size:10px;padding:3px 8px" onclick="testEndpoint(${i})">curl</button>
-
-      </div>
-
-      <div class="text-xs text-muted mt-4">${esc(e.note)}</div>
-
-      <div class="test-result" id="test-result-${i}"></div>
-
-    </div>`;
-
-  });
-
-
-
-  html+=`<div class="section-label" style="margin-top:12px">Пробелы API (план 005-006)</div>`;
-
-  (api.gaps||[]).forEach(g=>{
-
-    html+=`<div class="source-card">
-
-      <div style="display:flex;align-items:center;gap:8px;width:100%">
-
-        <span class="method-pill GAP">GAP</span>
-
-        <span class="api-url">${esc(g.name)}</span>
-
-        <span class="api-status-badge todo" style="margin-left:auto">todo</span>
-
-      </div>
-
-      <div class="text-xs text-muted mt-4">${esc(g.note)}</div>
-
-    </div>`;
-
-  });
-
-  html+=`<div class="alert-banner info" style="margin-top:10px">Полный отчёт: <code>deliverables/MAGNIT_API_NEEDS.md</code>. Refresh-token handler — задача 005.</div>`;
-
-
-
-  html+=`<div class="section-label" style="margin-top:16px">Настройка Gemini AI</div>
-  <div class="token-section">
-    <div class="text-xs text-muted" style="margin-bottom:8px">Gemini API ключ для AI-ответов и SEO. <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>. Хранится в localStorage.</div>
-    <div class="token-row" style="margin-bottom:6px">
-      <input type="password" id="gemini-key-input" placeholder="AIza..." style="flex:1;min-width:0">
-      <button class="btn primary" onclick="saveGeminiKey()">Сохранить</button>
-      <button class="btn" onclick="clearGeminiKey()">Очистить</button>
-    </div>
-    <div class="text-xs text-muted" id="gemini-key-status"></div>
-  </div>`;
-  html+=`<div class="section-label" style="margin-top:16px">Обновление данных</div>
-
-  <div class="token-section">
-
-    <div class="text-xs text-muted" style="margin-bottom:8px">
-
-      GitHub PAT нужен один раз — сохраняется в localStorage браузера. Нужны права: <code>repo</code> + <code>workflow</code>.
-
-    </div>
-
-    <div class="token-row" style="margin-bottom:6px">
-
-      <input type="password" id="gh-pat-input" placeholder="GitHub PAT (ghp_...)..." style="flex:1;min-width:0">
-
-      <button class="btn" onclick="saveGhPat()">Сохранить PAT</button>
-
-    </div>
-
-    <div class="text-xs text-muted" id="gh-pat-status" style="margin-bottom:10px"></div>
-
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-
-      <button class="btn primary" id="refresh-btn" onclick="triggerDataRefresh()">▶ Обновить данные</button>
-
-      <span class="text-xs" id="refresh-status" style="color:var(--color-text-secondary)"></span>
-
-    </div>
-
-    <div class="text-xs text-muted" style="margin-top:6px">
-
-      Запускает GitHub Actions с текущим MM токеном → скрипты генерируют данные → страница обновится через ~3 мин.
-
-    </div>
-
-  </div>`;
-
-  // ── Job Runner ────────────────────────────────────────────────────────────
-  if (LIVE.enabled && PAYLOAD.jobs && PAYLOAD.jobs.length) {
-    html += `<div class="section-label" style="margin-top:16px">Запуск jobs</div>`;
-    const grouped = { online: [], offline: [] };
-    PAYLOAD.jobs.forEach(j => (grouped[j.mode] || grouped.offline).push(j));
     ['online','offline'].forEach(mode => {
       if (!grouped[mode].length) return;
-      html += `<div class="section-label" style="font-size:10px;margin-top:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary)">${mode}</div>`;
+      html += `<div class="section-label" style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-top:10px">${mode}</div>`;
       grouped[mode].forEach(job => {
         const fid = `jf-${job.job_key}`;
         let fields = ``;
         (job.fields||[]).forEach(f => {
           if (f.name === 'token') return;
-          const val = esc(String(f.default||''));
           if (f.type === 'checkbox') {
-            fields += `<label class="field" style="flex-direction:row;align-items:center;gap:6px;min-width:0">
-              <input type="checkbox" data-field="${esc(f.name)}" ${f.default==='true'?'checked':''}>
-              <span style="font-size:11px">${esc(f.label)}</span>
-            </label>`;
+            fields += `<label class="field" style="flex-direction:row;align-items:center;gap:6px;min-width:0"><input type="checkbox" data-field="${esc(f.name)}" ${f.default==='true'?'checked':''}><span style="font-size:11px">${esc(f.label)}</span></label>`;
           } else {
-            fields += `<label class="field" style="min-width:0;flex:1">
-              <span>${esc(f.label)}</span>
-              <input class="inline-input" type="${f.type==='password'?'password':'text'}" data-field="${esc(f.name)}" placeholder="${esc(f.label)}" value="${val}">
-            </label>`;
+            fields += `<label class="field" style="min-width:0;flex:1"><span>${esc(f.label)}</span><input class="inline-input" type="text" data-field="${esc(f.name)}" value="${esc(String(f.default||''))}"></label>`;
           }
         });
+        const btnAttr = LIVE.enabled ? '' : ' disabled title="Запустите локальный сервер"';
         html += `<div class="source-card" id="${fid}" style="flex-direction:column;align-items:flex-start;gap:8px">
           <div style="display:flex;align-items:center;gap:8px;width:100%">
             <strong style="flex:1">${esc(job.title)}</strong>
-            <button class="btn primary" style="flex-shrink:0" onclick="runJob('${esc(job.job_key)}','${fid}')">&#9654; Запустить</button>
+            <button class="btn primary" style="flex-shrink:0"${btnAttr} onclick="runJob('${esc(job.job_key)}','${fid}')">&#9654; Запустить</button>
           </div>
           <div class="text-xs text-muted">${esc(job.description)}</div>
           ${fields ? `<div style="display:flex;flex-wrap:wrap;gap:8px;width:100%">${fields}</div>` : ''}
@@ -2028,12 +1931,90 @@ function renderAPI(){
         </div>`;
       });
     });
-  } else if (!LIVE.enabled) {
-    html += `<div class="section-label" style="margin-top:16px">Запуск jobs</div>
-    <div class="alert-banner info" style="margin-top:6px">Запуск jobs доступен только в локальном runtime. Запустите <code>py -3 web_refresh_server.py</code> и откройте http://localhost:8000.</div>`;
+  }
+
+  // ── TAB: TOKEN ────────────────────────────────────────────────────────────
+  if (_apiTab === 'token') {
+    const tokenBadge = api.token_status==='valid'
+      ? `<span style="color:var(--color-text-success);font-weight:600">✓ Валиден до ${api.token_expires_moscow||'—'}</span>`
+      : `<span style="color:var(--color-text-danger);font-weight:600">⚠ Требует обновления</span>`;
+    html += `<div class="token-section">
+      <div class="section-label" style="margin-top:0">API Токен ${tip('Токен хранится только в памяти страницы — не сохраняется нигде.')}</div>
+      <div class="token-row">
+        <div class="token-dot" id="token-dot"></div>
+        <input type="password" id="token-input" placeholder="Вставьте Bearer-токен..." oninput="onTokenInput(this.value)">
+        <button class="btn primary" onclick="onTokenSave()">Сохранить</button>
+        <button class="btn" onclick="onTokenClear()">Очистить</button>
+      </div>
+      <div class="text-xs text-muted mt-4">Из данных: ${tokenBadge} · shop_id: ${api.shop_id||'—'} · CubeJS: ${api.cubes||0} cubes</div>
+    </div>`;
+  }
+
+  // ── TAB: SETTINGS ─────────────────────────────────────────────────────────
+  if (_apiTab === 'settings') {
+    html += `<div class="section-label" style="margin-top:0">Настройка Gemini AI</div>
+    <div class="token-section">
+      <div class="text-xs text-muted" style="margin-bottom:8px">Gemini API ключ для AI-ответов и SEO. <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>. Хранится в localStorage.</div>
+      <div class="token-row" style="margin-bottom:6px">
+        <input type="password" id="gemini-key-input" placeholder="AIza..." style="flex:1;min-width:0">
+        <button class="btn primary" onclick="saveGeminiKey()">Сохранить</button>
+        <button class="btn" onclick="clearGeminiKey()">Очистить</button>
+      </div>
+      <div class="text-xs text-muted" id="gemini-key-status"></div>
+    </div>
+    <div class="section-label">Обновление данных через GitHub</div>
+    <div class="token-section">
+      <div class="text-xs text-muted" style="margin-bottom:8px">GitHub PAT нужен один раз — сохраняется в localStorage. Нужны права: <code>repo</code> + <code>workflow</code>.</div>
+      <div class="token-row" style="margin-bottom:6px">
+        <input type="password" id="gh-pat-input" placeholder="GitHub PAT (ghp_...)..." style="flex:1;min-width:0">
+        <button class="btn" onclick="saveGhPat()">Сохранить PAT</button>
+      </div>
+      <div class="text-xs text-muted" id="gh-pat-status" style="margin-bottom:10px"></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" id="refresh-btn" onclick="triggerDataRefresh()">&#9654; Обновить данные</button>
+        <span class="text-xs" id="refresh-status" style="color:var(--color-text-secondary)"></span>
+      </div>
+      <div class="text-xs text-muted" style="margin-top:6px">Запускает GitHub Actions с текущим MM токеном → скрипты генерируют данные → страница обновится через ~3 мин.</div>
+    </div>`;
+  }
+
+  // ── TAB: ENDPOINTS ────────────────────────────────────────────────────────
+  if (_apiTab === 'endpoints') {
+    html += `<div class="section-label" style="margin-top:0">Работающие endpoints</div>`;
+    (api.endpoints||[]).forEach((e,i) => {
+      const statusCls=e.status==='ok'?'ok':(e.status==='fix'?'fix':'todo');
+      const statusTxt=e.status==='ok'?'✓ OK':(e.status==='fix'?'⚠ Fix':'— todo');
+      html+=`<div class="source-card" style="flex-direction:column;align-items:flex-start">
+        <div style="display:flex;align-items:center;gap:8px;width:100%">
+          <span class="method-pill ${e.method}">${esc(e.method)}</span>
+          <span class="api-url">${esc(e.url)}</span>
+          <span class="api-status-badge ${statusCls}" style="margin-left:auto">${statusTxt}</span>
+          <button class="btn" style="flex-shrink:0;font-size:10px;padding:3px 8px" onclick="testEndpoint(${i})">curl</button>
+        </div>
+        <div class="text-xs text-muted mt-4">${esc(e.note)}</div>
+        <div class="test-result" id="test-result-${i}"></div>
+      </div>`;
+    });
+    if (!(api.endpoints||[]).length) html += `<div class="text-xs text-muted">Нет данных. Запустите validate_token для проверки эндпоинтов.</div>`;
+    html += `<div class="section-label" style="margin-top:12px">Пробелы API</div>`;
+    (api.gaps||[]).forEach(g => {
+      html+=`<div class="source-card"><div style="display:flex;align-items:center;gap:8px;width:100%">
+        <span class="method-pill GAP">GAP</span><span class="api-url">${esc(g.name)}</span>
+        <span class="api-status-badge todo" style="margin-left:auto">todo</span>
+      </div><div class="text-xs text-muted mt-4">${esc(g.note)}</div></div>`;
+    });
   }
 
   box.innerHTML=html;
+  // restore token input
+  if (_apiTab === 'token') {
+    const tokenInput=document.getElementById('token-input');
+    if(tokenInput && apiToken){ tokenInput.value=apiToken; onTokenInput(apiToken); }
+    updateGhPatStatus && updateGhPatStatus();
+  }
+  if (_apiTab === 'settings') {
+    updateGhPatStatus && updateGhPatStatus();
+  }
   const tokenInput=document.getElementById('token-input');
   if(tokenInput && apiToken){
     tokenInput.value=apiToken;
