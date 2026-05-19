@@ -145,6 +145,9 @@ def parse_dashboard_file(path):
     elif report_kind == "competitor_market_analysis":
         window = metadata.get("window") or {}
         kpis = payload.get("kpis") or {}
+    elif report_kind == "quick_wins":
+        window = {"session_date": payload.get("session_date")}
+        kpis = {"items_count": len(payload.get("items") or [])}
     else:
         window = metadata.get("window") or {}
         kpis = payload.get("kpis") or {}
@@ -187,6 +190,8 @@ def detect_report_kind(report_name):
         return "sales_return_report"
     if report_name.startswith("waybill_cost_layer_"):
         return "waybill_cost_layer"
+    if report_name.startswith("quick_wins_"):
+        return "quick_wins"
     return "unknown"
 
 
@@ -232,6 +237,9 @@ def detect_report_variant(report_name, report_kind):
         return suffix
     if report_kind == "weekly_operational":
         return "Weekly"
+    if report_kind == "quick_wins":
+        suffix = report_name.replace("quick_wins_", "")
+        return suffix
     return report_name
 
 
