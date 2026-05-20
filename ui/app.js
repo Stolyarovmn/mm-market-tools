@@ -7,6 +7,7 @@ import {
   loadActionCenter,
   loadDashboardIndex,
   loadLocalCogsStore,
+  loadProductStats,
   loadRunnerJobs,
   loadRunnerRun,
   loadRunnerRuns,
@@ -2863,6 +2864,60 @@ function initEntityKeyNav() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Product traffic panel
+// ---------------------------------------------------------------------------
+async function renderProductTrafficPanel() {
+  const highRoot = document.getElementById('product-traffic-high-views');
+  const zeroRoot = document.getElementById('product-traffic-zero-views');
+  if (!highRoot && !zeroRoot) return;
+  let data;
+  try { data = await loadProductStats(); } catch (_) {
+    if (highRoot) highRoot.innerHTML = '<p class="empty-state">'
+      + 'Данные не загружены. Запустите fetch_product_stats в runner.</p>';
+    return;
+  }
+  const products = data.products || [];
+  const VIEWS_MIN = 50;
+  const CONV_LOW = 1.5;
+  const highViews = products
+    .filter(p => (p.viewers || 0) >= VIEWS_MIN && p.conversion != null && p.conversion < CONV_LOW)
+    .sort((a, b) => (b.viewers || 0) - (a.viewers || 0));
+  const zeroViews = products
+    .filter(p => p.viewers === 0 && (p.qty_active || 0) > 0)
+    .sort((a, b) => (b.qty_active || 0) - (a.qty_active || 0));
+  if (highRoot) {
+    if (!highViews.length) {
+      highRoot.innerHTML = '<p class="empty-state">Нет товаров с высоким трафиком и низкой конверсией.</p>';
+    } else {
+      renderActionCard({
+        root: highRoot,
+        title: `Много просмотров — низкая конверсия (${highViews.length})`,
+        subtitle: `Просмотры >= ${VIEWS_MIN}, конверсия < ${CONV_LOW}%`,
+        rows: highViews.slice(0, 12),
+        formatter: (p) => `просм. ${p.viewers}, конв. ${p.conversion != null ? p.conversion.toFixed(1) + '%' : 'н/д'}, ROI ${p.roi != null ? p.roi.toFixed(0) + '%' : 'н/д'}`,
+        getDisplayTitle: (p) => p.title || p.product_id,
+        createEntityActionButtons: () => el('span', '', ''),
+      });
+    }
+  }
+  if (zeroRoot) {
+    if (!zeroViews.length) {
+      zeroRoot.innerHTML = '<p class="empty-state">Нет активных товаров без просмотров.</p>';
+    } else {
+      renderActionCard({
+        root: zeroRoot,
+        title: `Активные товары без просмотров (${zeroViews.length})`,
+        subtitle: 'Есть остаток, органического трафика нет',
+        rows: zeroViews.slice(0, 12),
+        formatter: (p) => `остаток ${p.qty_active || 0}, продано ${p.qty_sold || 0}, рейтинг ${p.rating != null ? p.rating : 'н/д'}`,
+        getDisplayTitle: (p) => p.title || p.product_id,
+        createEntityActionButtons: () => el('span', '', ''),
+      });
+    }
+  }
+}
+
 async function init() {
   initThemeToggle();
   initEntityKeyNav();
@@ -2899,6 +2954,7 @@ async function init() {
   });
   await renderDashboard(initial);
   renderEntityDetail();
+  renderProductTrafficPanel().catch(() => {});
   const onSelectChange = async (value) => {
     const item = items.find((entry) => entry.file_name === value);
     if (!item) return;

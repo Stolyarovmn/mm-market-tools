@@ -192,6 +192,16 @@ JOB_DEFINITIONS = {
         "description": "Агрегирует свежие отчёты и пересобирает data/daily_action_plan.json без API-запросов.",
         "fields": [],
     },
+    "fetch_product_stats": {
+        "title": "Просмотры и конверсия по товарам",
+        "mode": "online",
+        "description": "Скачивает viewers, clicks, conversion, ROI по всем товарам из ЛК (раздел Товары → карточки). Сохраняет в data/local/product_stats.json.",
+        "fields": [
+            {"name": "token", "label": "Access token", "type": "password", "required": True},
+            {"name": "shop_id", "label": "Shop ID", "type": "number", "default": "98"},
+            {"name": "max_pages", "label": "Макс. страниц", "type": "number", "default": "50"},
+        ],
+    },
 }
 
 
@@ -392,4 +402,88 @@ def build_job_command(job_key, form_data):
             str(form_data.get("top_rows") or 60),
         ]
         if _bool(form_data.get("cache_only", "false")):
-            co
+            command.append("--cache-only")
+        if form_data.get("report_prefix"):
+            command.extend(["--report-prefix", form_data["report_prefix"]])
+        return command
+    if job_key == "description_seo_richness_audit":
+        command = [
+            python,
+            str(PROJECT_ROOT / "scripts" / "build_description_seo_richness_report.py"),
+            "--input-json",
+            str(form_data.get("input_json") or PROJECT_ROOT / "reports/marketing_card_audit_2026-04-10.json"),
+            "--cache-json",
+            str(form_data.get("cache_json") or PROJECT_ROOT / "data/local/product_content_cache.json"),
+            "--top-rows",
+            str(form_data.get("top_rows") or 60),
+        ]
+        if _bool(form_data.get("cache_only", "false")):
+            command.append("--cache-only")
+        if form_data.get("report_prefix"):
+            command.extend(["--report-prefix", form_data["report_prefix"]])
+        return command
+    if job_key == "daily_run":
+        command = [
+            python,
+            str(PROJECT_ROOT / "scripts" / "daily_run.py"),
+            "--token", form_data["token"],
+            "--shop-id", str(form_data.get("shop_id") or 98),
+            "--window-days", str(form_data.get("window_days") or 7),
+        ]
+        if _bool(form_data.get("skip_validate", "false")):
+            command.append("--skip-validate")
+        return command
+    if job_key == "build_daily_action_plan":
+        return [
+            python,
+            str(PROJECT_ROOT / "scripts" / "build_daily_action_plan.py"),
+            "--offline-fallback",
+        ]
+    if job_key == "fetch_product_stats":
+        return [
+            python,
+            str(PROJECT_ROOT / "scripts" / "fetch_product_stats.py"),
+            "--token", form_data["token"],
+            "--shop-id", str(form_data.get("shop_id") or 98),
+            "--max-pages", str(form_data.get("max_pages") or 50),
+        ]
+    raise KeyError(f"Unknown job: {job_key}")
+
+
+def sanitize_payload(job_key, form_data):
+    safe = {}
+    for field in JOB_DEFINITIONS[job_key]["fields"]:
+        name = field["name"]
+        if name not in form_data:
+            continue
+        safe[name] = "***redacted***" if name == "token" else form_data[name]
+    return safe
+        ]
+        if _bool(form_data.get("skip_validate", "false")):
+            command.append("--skip-validate")
+        return command
+    if job_key == "build_daily_action_plan":
+        return [
+            python,
+            str(PROJECT_ROOT / "scripts" / "build_daily_action_plan.py"),
+            "--offline-fallback",
+        ]
+    if job_key == "fetch_product_stats":
+        return [
+            python,
+            str(PROJECT_ROOT / "scripts" / "fetch_product_stats.py"),
+            "--token", form_data["token"],
+            "--shop-id", str(form_data.get("shop_id") or 98),
+            "--max-pages", str(form_data.get("max_pages") or 50),
+        ]
+    raise KeyError(f"Unknown job: {job_key}")
+
+
+def sanitize_payload(job_key, form_data):
+    safe = {}
+    for field in JOB_DEFINITIONS[job_key]["fields"]:
+        name = field["name"]
+        if name not in form_data:
+            continue
+        safe[name] = "***redacted***" if name == "token" else form_data[name]
+    return safe

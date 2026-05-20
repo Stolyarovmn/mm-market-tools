@@ -53,6 +53,10 @@ export async function loadLocalCogsStore() {
   return fetchJson("../data/local/cogs_overrides.json");
 }
 
+export async function loadProductStats() {
+  return fetchJson("../data/local/product_stats.json");
+}
+
 export async function loadActionCenter() {
   return fetchJsonWithFallback(actionCenterUrl("/api/action-center"));
 }
@@ -126,9 +130,4 @@ export async function startRunnerJob(jobKey, formData = {}) {
 }
 
 export async function validateRunnerToken(token) {
-  return fetchJsonWithFallback(actionCenterUrl("/api/token-health"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token }),
-  });
-}
+  return fetchJsonWithFallback(actionCenterUrl("/api/t
