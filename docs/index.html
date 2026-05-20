@@ -1931,6 +1931,10 @@ function renderAPI(){
         </div>`;
       });
     });
+    // restore existing job states after re-render
+    setTimeout(() => {
+      Object.keys(window._jobState||{}).forEach(fid => _renderJobStatus(fid));
+    }, 0);
   }
 
   // ── TAB: TOKEN ────────────────────────────────────────────────────────────
@@ -2107,19 +2111,52 @@ function onTokenSave(){
 
 }
 
+// Global job state survives renderAPI() re-renders
+window._jobState = window._jobState || {};
+
+function _jobStatusEl(formId) { return document.getElementById(formId+'-status'); }
+function _jobBtn(formId)      { return document.querySelector(`#${formId} button.primary`); }
+
+function _renderJobStatus(formId) {
+  const st = window._jobState[formId];
+  if (!st) return;
+  const el = _jobStatusEl(formId);
+  const btn = _jobBtn(formId);
+  if (!el) return;
+  el.style.display = 'block';
+  const log = (st.log||[]).slice(-8).join('\n');
+  if (st.state === 'running' || st.state === 'queued') {
+    const spin = `<span style="display:inline-block;animation:spin 0.8s linear infinite;margin-right:6px">⏳</span>`;
+    el.innerHTML = `<div class="alert-banner info" style="margin:0;display:flex;flex-direction:column;gap:4px">
+      <div>${spin}<strong>${esc(st.jobKey)}</strong> выполняется… <span style="font-size:10px;color:var(--color-text-secondary)">${esc(st.jobId||'')}</span></div>
+      ${log ? `<pre style="margin:0;font-size:10px;white-space:pre-wrap;opacity:.85">${esc(log)}</pre>` : ''}
+    </div>`;
+    if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+  } else if (st.state === 'succeeded') {
+    el.innerHTML = `<div class="alert-banner ok" style="margin:0;display:flex;flex-direction:column;gap:4px">
+      <div>✓ <strong>${esc(st.jobKey)}</strong> завершён</div>
+      ${log ? `<pre style="margin:0;font-size:10px;white-space:pre-wrap;opacity:.85">${esc(log)}</pre>` : ''}
+    </div>`;
+    if (btn) { btn.disabled = false; btn.textContent = '▶ Запустить'; }
+  } else if (st.state === 'failed') {
+    el.innerHTML = `<div class="alert-banner danger" style="margin:0;display:flex;flex-direction:column;gap:4px">
+      <div>✗ <strong>${esc(st.jobKey)}</strong> ошибка</div>
+      ${log ? `<pre style="margin:0;font-size:10px;white-space:pre-wrap;opacity:.85">${esc(log)}</pre>` : ''}
+    </div>`;
+    if (btn) { btn.disabled = false; btn.textContent = '▶ Запустить'; }
+  }
+}
+
 async function runJob(jobKey, formId) {
   const card = document.getElementById(formId);
-  const statusEl = document.getElementById(formId + '-status');
-  if (!card || !statusEl) return;
+  if (!card) return;
   const formData = {};
   if (apiToken) formData.token = apiToken;
   card.querySelectorAll('[data-field]').forEach(el => {
     formData[el.dataset.field] = el.type === 'checkbox' ? (el.checked ? 'true' : 'false') : el.value;
   });
-  const btn = card.querySelector('button.primary');
-  if (btn) { btn.disabled = true; btn.textContent = 'Запускается…'; }
-  statusEl.style.display = 'block';
-  statusEl.innerHTML = `<div class="alert-banner info" style="margin:0">Запускаю <strong>${esc(jobKey)}</strong>…</div>`;
+  window._jobState[formId] = { state:'queued', jobKey, jobId:null, log:[] };
+  _renderJobStatus(formId);
   try {
     const resp = await fetch('/api/run', {
       method: 'POST',
@@ -2129,37 +2166,35 @@ async function runJob(jobKey, formId) {
     const data = await resp.json();
     if (!resp.ok) throw new Error(data.error || resp.statusText);
     const jobId = data.status && data.status.job_id;
-    statusEl.innerHTML = `<div class="alert-banner ok" style="margin:0">Job запущен (id: <code>${esc(jobId||'?')}</code>). Следите за терминалом сервера.</div>`;
-    if (jobId) pollJobStatus(jobId, statusEl, btn, jobKey);
+    window._jobState[formId] = { state:'running', jobKey, jobId, log:[] };
+    _renderJobStatus(formId);
+    if (jobId) pollJobStatus(jobId, formId);
   } catch(e) {
-    statusEl.innerHTML = `<div class="alert-banner danger" style="margin:0">Ошибка: ${esc(String(e))}</div>`;
-    if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
+    window._jobState[formId] = { state:'failed', jobKey, jobId:null, log:[String(e)] };
+    _renderJobStatus(formId);
   }
 }
 
-async function pollJobStatus(jobId, statusEl, btn, jobKey) {
-  for (let i = 0; i < 120; i++) {
-    await new Promise(r => setTimeout(r, 5000));
+async function pollJobStatus(jobId, formId) {
+  for (let i = 0; i < 180; i++) {
+    await new Promise(r => setTimeout(r, 2000));
     try {
       const r = await fetch(`/api/run?job_id=${encodeURIComponent(jobId)}`);
       if (!r.ok) break;
       const d = await r.json();
-      const s = d.status;
-      const log = (d.log || []).slice(-6).join('\n');
-      if (s && s.state === 'succeeded') {
-        statusEl.innerHTML = `<div class="alert-banner ok" style="margin:0">&#10003; Готово<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
-        if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
-        return;
-      }
-      if (s && s.state === 'failed') {
-        statusEl.innerHTML = `<div class="alert-banner danger" style="margin:0">&#10007; Ошибка<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
-        if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
-        return;
-      }
-      statusEl.innerHTML = `<div class="alert-banner info" style="margin:0">&#8987; ${esc((s&&s.state)||'running')}…<br><pre style="margin:4px 0 0;font-size:10px;white-space:pre-wrap">${esc(log)}</pre></div>`;
+      const s = d.status || {};
+      const log = d.log || [];
+      const st = window._jobState[formId] || {};
+      window._jobState[formId] = { ...st, state: s.state||'running', log };
+      _renderJobStatus(formId);
+      if (s.state === 'succeeded' || s.state === 'failed') return;
     } catch(e) { break; }
   }
-  if (btn) { btn.disabled = false; btn.textContent = '&#9654; Запустить'; }
+  const st = window._jobState[formId] || {};
+  if (st.state === 'running') {
+    window._jobState[formId] = { ...st, state:'failed', log:[...(st.log||[]), 'Timeout: нет ответа от сервера'] };
+    _renderJobStatus(formId);
+  }
 }
 
 function onTokenClear(){
@@ -2948,17 +2983,4 @@ async function initDashboard() {
     ()=>renderBlockers(),
     ()=>renderSources(),
   ];
-  for(const _fn of _renders){
-    try{ await _fn(); }catch(e){ console.error('render error',e); }
-  }
-  setupTabs();
-
-}
-
-
-
-initDashboard();
-
-</script>
-</body>
-</html>
+  f
